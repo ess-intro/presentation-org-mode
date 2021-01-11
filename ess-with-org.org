@@ -1,0 +1,9 @@
+* using ESS with emacs org mode
+
+** intro to org mode
+basics: document structuring, tables, math/latex, exporting
+
+** source blocks
+
+** tangling
+   
