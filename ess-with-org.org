@@ -1,5 +1,5 @@
 * using ESS with emacs org mode
-#+property: header-args  :noweb yes
+#+property: header-args :noweb yes
 
 ** intro to org mode
 basics: document structuring, tables, math/latex, exporting
@@ -63,7 +63,7 @@ hitting tab; for an example by typing =<e= and hitting tab; and for a
 quotation by typing =<q= and hitting tab.  this by no means exhausts
 the types of blocks available in org mode.
 
-blocks can optionally have names.  these names can be used as [[<<noweb>>][noweb]]
+blocks can optionally have names.  these names can be used as [[noweb][noweb]]
 references, or to use the value of a block (or, if a source block, of
 the block's results) as input (a variable) to another block in the
 file.[fn::i believe there are facilities for "naming" bits of
@@ -107,13 +107,18 @@ of the file system on which all these executions are running; that is,
 the *external* state may by influenced by what has previously been
 executed.] state from prior runs.
 
-finally, and of particular interest in these tutorials, is the fact that
-
+finally, and of particular interest in these tutorials, is the fact
+that org mode uses ESS to provide R language support.
 
    [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and org-mode.
-
 ** <<noweb>> noweb
-#+property: header-args  :noweb yes :exports code :eval never-export :mkdirp yes
+
+to enable noweb syntax, one can either enable it on the
+header line of each source code block, or, as in the following, enable
+it once at the beginning of a file:
+#+begin_src org
+  ,#+property: header-args  :noweb yes :exports code :eval never-export :mkdirp yes
+#+end_src
 ** tangling
    
 ** life in Org Src buffers
