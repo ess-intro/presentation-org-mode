@@ -1,9 +1,127 @@
 * using ESS with emacs org mode
+#+property: header-args  :noweb yes
 
 ** intro to org mode
 basics: document structuring, tables, math/latex, exporting
 
+[[https://www.gnu.org/software/emacs/][emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][org mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
+-- the proliferation of notation makes googling somewhat of a
+challenge.]  sometimes exhorts one to do something like "Organize Your
+Life In Plain Text!".  the philosophy of org-mode (indeed, of Emacs,
+and maybe, to some extent, of any of the *nix operating systems) is
+that using non-proprietary file formats and software provides the most
+"liberating" and "horizon-free" way of taking advantage of modern
+information technology.  and, to some extent, that a mostly-command
+line interface, rather than a graphical user interface, is also "the
+way to go".
+
+i think org mode started off as a way of simplifying the creation of
+formatted documents, with tables, etc., for taking notes, creating
+agendas (items with date elements), and evolved into a much larger
+system of utilities for, for example, converting ("exporting", in org
+mode parlance) between the org mode syntax to .html, .pdf, etc.,
+documents, with good support for doing mathematical (latex)
+formatting.
+
+Org mode markup allows the use of *asterisks*, =equal signs=,
+~tildes~, /[forward] slashes/, _underscores_ and (though, apparently,
+deprecated) +plus signs+, to achieve different font characteristics.
+(until writing this, i have always used equal signs for short bits of
+code, but now i will try to remember to try out tildes.)
+
+in addition to the source blocks mentioned above (and elaborated on
+below), org mode allows short bits of "verbatim" code to be introduced
+by a colon as the first non-blank column of a line
+#+begin_src org :exports both
+: this is verbatim
+#+end_src
+
+also, one can have longer runs of verbatim ("example") data (which is
+not word wrapped, etc.:
+#+begin_src org
+  ,#+begin_example
+  this is a block
+  that
+  holds more verbatim text
+  ,#+end_example
+#+end_src
+
+as well as longer bits of text that *will* be wrapped ("quote":
+#+begin_src org
+  ,#+begin_quote
+  this is a bit of
+  text that should
+  show up, eventually, strung out in a smaller
+  number
+  of
+  lines
+  ,#+end_quote
+#+end_src
+
+one can add the template for a source block by typing =<s= and
+hitting tab; for an example by typing =<e= and hitting tab; and for a
+quotation by typing =<q= and hitting tab.  this by no means exhausts
+the types of blocks available in org mode.
+
+blocks can optionally have names.  these names can be used as [[<<noweb>>][noweb]]
+references, or to use the value of a block (or, if a source block, of
+the block's results) as input (a variable) to another block in the
+file.[fn::i believe there are facilities for "naming" bits of
+information in other .org files, but i don't know the details.]  
+
+though i have used org mode for probably more than a decade, i know
+very little of most of its capabilities, as i mostly use it to
+centralize the source code for various projects, and produce the
+random document, especially documents with embedded code segments
+(known, in org mode, as "source blocks").  a good source for further
+information, in addition to the main [[https://orgmode.org/][org mode]] web page, is the org
+mode [[https://orgmode.org/worg/][worg]] site.  also, once installed on your system, the org mode
+info pages are available in emacs (or, using the info).
+
+(org mode is bundled into the main emacs distribution, but a
+more-than-casual user might like to use the more-than-likely
+up-to-date package available via [[https://melpa.org/][melpa]] (in emacs, use =M-x
+package-list-packages=, and regexp-search for /^..org /).
+
 ** source blocks
 
+Org mode source blocks can be edited, either inline in the org mode
+(".org") document buffer, or in a separate buffer (XXX what are these
+called?  i call them "Org Src..." buffers) that you can "pop up" from
+the .org buffer ("pop out of the .org buffer"?).  in the latter, there
+is better support for so-called "font locks", which do program
+language-specific source code highlighting, etc.
+
+once written, a source block can be executed, returning results,
+either the output of the code, or some terminating "value" of the
+code, as an element of the .org file.  and, the blocks can be executed
+manually, or -- and optionally, block by block -- while exporting a
+.org file to a different format.
+
+a source block can be executed in one of two sorts of contexts, within
+a "session", or outside of a "session".  a "session" here means some
+process that retains state between executions of (possibly different)
+source blocks.  on the other hand, a "non-session" starts up with no
+internal [fn::obviously, priror runs may have, e.g., changed the state
+of the file system on which all these executions are running; that is,
+the *external* state may by influenced by what has previously been
+executed.] state from prior runs.
+
+finally, and of particular interest in these tutorials, is the fact that
+
+
+   [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and org-mode.
+
+** <<noweb>> noweb
+#+property: header-args  :noweb yes :exports code :eval never-export :mkdirp yes
 ** tangling
    
+** life in Org Src buffers
+
+#+begin_src R :session R
+  cat("this is from ess-with-org.org!\n")
+#+end_src
+
+** org-mode community
+
+   mailing lists
