@@ -7,13 +7,14 @@ basics: document structuring, tables, math/latex, exporting
 [[https://www.gnu.org/software/emacs/][emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][org mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
 -- the proliferation of notation makes googling somewhat of a
 challenge.]  sometimes exhorts one to do something like "Organize Your
-Life In Plain Text!".  the philosophy of org-mode (indeed, of Emacs,
-and maybe, to some extent, of any of the *nix operating systems) is
-that using non-proprietary file formats and software provides the most
-"liberating" and "horizon-free" way of taking advantage of modern
-information technology.  and, to some extent, that a mostly-command
-line interface, rather than a graphical user interface, is also "the
-way to go".
+Life In Plain Text!"; the org mode manual, on the other hand, starts
+off by saying, "Org is an outliner".  the philosophy of org-mode
+(indeed, of Emacs, and maybe, to some extent, of any of the *nix
+operating systems) is that using non-proprietary file formats and
+software provides the most "liberating" and "horizon-free" way of
+taking advantage of modern information technology.  and, to some
+extent, that a mostly-command line interface, rather than a graphical
+user interface, is also "the way to go".
 
 i think org mode started off as a way of simplifying the creation of
 formatted documents, with tables, etc., for taking notes, creating
@@ -22,6 +23,23 @@ system of utilities for, for example, converting ("exporting", in org
 mode parlance) between the org mode syntax to .html, .pdf, etc.,
 documents, with good support for doing mathematical (latex)
 formatting.
+
+a .org file is divided into hierarchical bits created by using
+asterisks starting from the first column to define "headlines".  the
+more asterisks, the lower the level ("more indented", think) the
+following bits of the file are assumed to be.  (one restriction for
+me, afaik, is that if having descended to five asterisks, you can't
+pop back up to four asterisks without starting a new section at four
+asterisks, i.e., you can't continue the previous four asterisk at that
+point.)  bits of the .org file can be displayed and/or hidden by
+positioning the cursor on a headline and (possibly repeatedly) hitting
+=tab=.
+
+asterisk-defined headlines can include "tags" (=:essintro:=; i am
+ignorant of their use), and can optionally be (immediately) followed
+by a special "drawer" [fn::a structure starting with an more-or-less
+arbitrary name, surrouned by colons, and ending with =:END:=] named
+=PROPERTIES= holding, well, properties, i.e, (key,value) tuples.
 
 Org mode markup allows the use of *asterisks*, =equal signs=,
 ~tildes~, /[forward] slashes/, _underscores_ and (though, apparently,
@@ -90,7 +108,8 @@ Org mode source blocks can be edited, either inline in the org mode
 called?  i call them "Org Src..." buffers) that you can "pop up" from
 the .org buffer ("pop out of the .org buffer"?).  in the latter, there
 is better support for so-called "font locks", which do program
-language-specific source code highlighting, etc.
+language-specific source code highlighting, etc.  much of org mode's
+support of programming languages is with a sub-system known as [[https://orgmode.org/worg/org-contrib/babel/intro.html#meta-programming-language][Babel]].
 
 once written, a source block can be executed, returning results,
 either the output of the code, or some terminating "value" of the
@@ -102,7 +121,7 @@ a source block can be executed in one of two sorts of contexts, within
 a "session", or outside of a "session".  a "session" here means some
 process that retains state between executions of (possibly different)
 source blocks.  on the other hand, a "non-session" starts up with no
-internal [fn::obviously, priror runs may have, e.g., changed the state
+internal [fn::obviously, prior runs may have, e.g., changed the state
 of the file system on which all these executions are running; that is,
 the *external* state may by influenced by what has previously been
 executed.] state from prior runs.
@@ -111,15 +130,73 @@ finally, and of particular interest in these tutorials, is the fact
 that org mode uses ESS to provide R language support.
 
    [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and org-mode.
+
+** naming blocks
+
+there are two ways of naming blocks.  first, an individual block
+itself can be preceded by a =#+name:= line
+#+begin_src org
+  ,#+name: somecode
+  ,#+begin_src R :results output
+    cat("this is *some* code!\n")
+  ,#+end_src
+
+  ,#+name: someothercode
+  ,#+begin_src R :results value
+    whynot <- "this is some *other* code!"
+  ,#+end_src
+#+end_src
+
+<<properties>> second, a PROPERIES drawer, using the =header-args=
+attribute =noweb-ref= to name the (otherwise unnamed, i believe) code
+blocks in that branch.
+#+begin_src org
+  ,** this is somewhere in this file
+     :PROPERTIES:
+     :header-args+: :tangle very/important/code.R
+       :header-args+: :noweb-ref nowcode
+     :END:
+
+  now, code blocks will carry that name
+  ,#+begin_src R
+    x <- "we want some code, and we want it now!"
+  ,#+end_src
+
+  ,** somewhere else
+  ,#+begin_src R
+    <<nowcode>>
+    cat(x, "\n")
+  ,#+end_src
+#+end_src
+
+as you can see, the properties drawer can carry many of properties,
+including the name of a destination file for [[tangling][tangling]].
+
 ** <<noweb>> noweb
 
-to enable noweb syntax, one can either enable it on the
-header line of each source code block, or, as in the following, enable
-it once at the beginning of a file:
+[[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example][noweb]] is a literate programming syntax to allow referencing blocks of
+code within some larger (.org file, say) context.  it allows a
+programmer to re-use bits of code (sort of =#include= like) or to
+reference the results of a block of code to be used as an input to
+another block of code.
+
+noweb syntax is *disabled* by default.  to enable noweb syntax, one
+can either enable it on the header line of each source code block,
+enable it in a properties drawer,
+as in the following, enable it once at the beginning of a file:
 #+begin_src org
   ,#+property: header-args  :noweb yes :exports code :eval never-export :mkdirp yes
 #+end_src
-** tangling
+** <<tangling>> tangling
+
+in the world of [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]], /tangling/ is the process of
+extracting source code from a (theoretically primarily text) document.
+in org mode, one uses =C-c C-v t= to tangle the source code blocks in
+a file.  the file to which a source block will be tangled is specified
+in the =:tangle= attribute, placed on the =#+src_block= line or in a
+=:header-args= line (in a properties drawer, to apply to a subtree of
+the .org file, or stand-alone as above to apply to the entire .org
+file).
    
 ** life in Org Src buffers
 
