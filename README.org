@@ -24,24 +24,20 @@ mode parlance) between the org mode syntax to .html, .pdf, etc.,
 documents, with good support for doing mathematical (latex)
 formatting.
 
-a .org file is divided into hierarchical bits created by using
-asterisks starting from the first column to define "headlines".  the
-more asterisks, the lower the level ("more indented", think) the
-following bits of the file are assumed to be.  (one restriction for
-me, afaik, is that if having descended to five asterisks, you can't
-pop back up to four asterisks without starting a new section at four
-asterisks, i.e., you can't continue the previous four asterisk at that
-point.)  bits of the .org file can be displayed and/or hidden by
-positioning the cursor on a headline and (possibly repeatedly) hitting
-=tab=.
+a .org file is structured like an outline, with outline sections and
+levels indicated by lines starting with one or more asterisks in the
+first column; these define "headlines" for the outline.  between
+headlines one can include text, tables, bits of code, etc.  bits of
+the .org file can be displayed and/or hidden by positioning the cursor
+on a headline and (possibly repeatedly) hitting =tab=.
 
 asterisk-defined headlines can include "tags" (=:essintro:=; i am
 ignorant of their use), and can optionally be (immediately) followed
 by a special "drawer" [fn::a structure starting with an more-or-less
 arbitrary name, surrouned by colons, and ending with =:END:=] named
-=PROPERTIES= holding, well, properties, i.e, (key,value) tuples.
+=:PROPERTIES:= holding, well, properties, i.e, (key, value) tuples.
 
-Org mode markup allows the use of *asterisks*, =equal signs=,
+Org mode text markup allows the use of *asterisks*, =equal signs=,
 ~tildes~, /[forward] slashes/, _underscores_ and (though, apparently,
 deprecated) +plus signs+, to achieve different font characteristics.
 (until writing this, i have always used equal signs for short bits of
@@ -54,8 +50,8 @@ by a colon as the first non-blank column of a line
 : this is verbatim
 #+end_src
 
-also, one can have longer runs of verbatim ("example") data (which is
-not word wrapped, etc.:
+one can have longer runs of verbatim ("example") data (which is not
+word wrapped, etc.:
 #+begin_src org
   ,#+begin_example
   this is a block
@@ -76,10 +72,10 @@ as well as longer bits of text that *will* be wrapped ("quote":
   ,#+end_quote
 #+end_src
 
-one can add the template for a source block by typing =<s= and
-hitting tab; for an example by typing =<e= and hitting tab; and for a
-quotation by typing =<q= and hitting tab.  this by no means exhausts
-the types of blocks available in org mode.
+one can add the template for a source block by typing =<s= and hitting
+tab; for an example block by typing =<e= and hitting tab; and for a
+quotation block by typing =<q= and hitting tab.  this by no means
+exhausts the types of blocks available in org mode.
 
 blocks can optionally have names.  these names can be used as [[noweb][noweb]]
 references, or to use the value of a block (or, if a source block, of
@@ -96,11 +92,13 @@ information, in addition to the main [[https://orgmode.org/][org mode]] web page
 mode [[https://orgmode.org/worg/][worg]] site.  also, once installed on your system, the org mode
 info pages are available in emacs (or, using the info).
 
-(org mode is bundled into the main emacs distribution, but a
+org mode is bundled into the main emacs distribution, but a
 more-than-casual user might like to use the more-than-likely
 up-to-date package available via [[https://melpa.org/][melpa]] (in emacs, use =M-x
 package-list-packages=, and regexp-search for /^..org /).
 
+** babel
+*** literate programming, if you want
 ** source blocks
 
 Org mode source blocks can be edited, either inline in the org mode
@@ -198,6 +196,13 @@ in the =:tangle= attribute, placed on the =#+src_block= line or in a
 the .org file, or stand-alone as above to apply to the entire .org
 file).
    
+** exporting
+** executing
+*** C-C C-C on a source block
+*** C-C C-C on a #+call (?)
+** results
+** variables -- in and out
+*** :colnames
 ** life in Org Src buffers
 
 #+begin_src R :session R
@@ -207,3 +212,63 @@ file).
 ** org-mode community
 
    mailing lists
+
+** other tutorials, etc.
+
+[[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][tutorial on R and org-mode]]
+#+begin_example
+From: Erik Iverson <erikriverson@gmail.com>
+Date: Tue, 23 Feb 2021 12:30:03 -0800
+Subject: Re: org-in-org
+To: Greg Minshall <minshall@umich.edu>
+Cc: emacs-orgmode <emacs-orgmode@gnu.org>
+#+end_example
+
+https://raw.githubusercontent.com/vikasrawal/orgpaper/master/orgpapers.org
+or
+https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
+or, more recently:
+#+begin_example
+From: Jeremie Juste <jeremiejuste@gmail.com>
+To: Greg Minshall <minshall@umich.edu>
+Subject: Re: org-in-org
+Date: Tue, 23 Feb 2021 22:38:06 +0100
+Cc: emacs-orgmode@gnu.org
+#+end_example
+
+** experiments
+
+#+NAME: readdata-code
+#+BEGIN_SRC org
+
+  ,#+NAME: readdata-code
+  ,#+BEGIN_SRC R :results value silent
+
+  read.data("datafile1.csv",sep=",",header=T)->mydata1
+
+
+  ,#+END_SRC
+#+END_SRC
+
+#+begin_src org
+  ,#+begin_src R
+    print("abc")
+  ,#+end_src
+#+end_src
+
+
+#+begin_src org
+  ,#+begin_src R
+    print("def")
+  ,#+end_src
+#+end_src
+
+
+
+** meta : tools, etc :noexport:
+
+https://obsproject.com/wiki/OBS-Studio-Quickstart obs, on arch linux
+(part of the obs-studio package).
+
+https://github.com/ess-intro/ess-intro/issues is where most discussion
+happens.
