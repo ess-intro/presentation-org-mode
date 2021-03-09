@@ -97,9 +97,17 @@ more-than-casual user might like to use the more-than-likely
 up-to-date package available via [[https://melpa.org/][melpa]] (in emacs, use =M-x
 package-list-packages=, and regexp-search for /^..org /).
 
-** babel
+** babel -- programming language support in org files
+
+[[https://orgmode.org/features.html][Babel]] is one name for talking about programming language support in
+org mode.  you are able to embed source code inside of org mode
+buffers, edit these code blocks in a language-specific way, execute
+code blocks, pass the results of the execution of one code block to
+another code block, and include code blocks and/or the results of
+their execution in the document produced by exporting the org buffer.
+
 *** literate programming, if you want
-** source blocks
+** <<sourceblocks>> source blocks
 
 Org mode source blocks can be edited, either inline in the org mode
 (".org") document buffer, or in a separate buffer (XXX what are these
@@ -129,7 +137,7 @@ that org mode uses ESS to provide R language support.
 
    [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and org-mode.
 
-** naming blocks
+** <<naming>> naming blocks
 
 there are two ways of naming blocks.  first, an individual block
 itself can be preceded by a =#+name:= line
@@ -196,12 +204,13 @@ in the =:tangle= attribute, placed on the =#+src_block= line or in a
 the .org file, or stand-alone as above to apply to the entire .org
 file).
    
-** exporting
-** executing
+** <<exporting>> exporting
+entire document or a subtree of the document
+** <<executing>> executing
 *** C-C C-C on a source block
 *** C-C C-C on a #+call (?)
-** results
-** variables -- in and out
+** <<results>> results
+** <<variables>> variables -- in and out
 *** :colnames
 ** life in Org Src buffers
 
