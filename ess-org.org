@@ -318,9 +318,12 @@ to =C-c C-v t=.
 entire document or a subtree of the document
 ** life in Org Src buffers
 
-#+begin_src R :session R
-  cat("this is from ess-with-org.org!\n")
+#+begin_src R :session R :results output raw
+  cat("| this| is| from| ess-with-org.org!|")
 #+end_src
+
+#+RESULTS:
+| this | is | from | ess-with-org.org! |
 
 ** org-mode community
 
@@ -392,3 +395,44 @@ happens.
 
 to get little modifier key thing:
 : pip install git+https://github.com/scottkirkwood/key-mon
+but, it doesn't like my control key.
+
+to execute each code block in a buffer:
+:from:
+#+begin_example
+From: "Berry, Charles" <ccberry@health.ucsd.edu>
+To: Greg Minshall <minshall@umich.edu>
+CC: "emacs-orgmode@gnu.org" <emacs-orgmode@gnu.org>
+Subject: Re: org-in-org
+Date: Tue, 23 Feb 2021 19:46:32 +0000
+#+end_example
+:end:
+#+header: :results both
+#+begin_src emacs-lisp
+  (defun org-exe-org ()
+    (let ((org-confirm-babel-evaluate nil))
+      (org-edit-src-code)
+      (org-babel-execute-buffer)
+      (org-edit-src-exit)))
+#+end_src
+then, do this:
+: (org-babel-map-executables nil (org-exe-org))
+
+but, i'd rather query, e.g., =:exports= to see if it exports results.
+
+** code :noexport:
+
+*** for each block in the (whichever) buffer
+
+- if ":exports code/both", create a systematically-named file with the
+  code
+- if ":exports results/both", create a systematically-named file with
+  the results
+
+*** for each subtree in the buffer
+
+- if some property, export to html
+- if some property, export to latex
+- if some property, export to pdf
+(where "if some property" means at that level; ancestor level will
+be/was covered when walked gets there.)
