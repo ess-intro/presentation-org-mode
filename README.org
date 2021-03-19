@@ -1,5 +1,7 @@
 * using ESS with emacs org mode
 #+property: header-args :noweb yes
+#  ^:{}: disable super/subscripting: https://stackoverflow.com/a/698791/1527747
+#+options: ^:{}
 
 ** intro to org mode
 basics: document structuring, tables, math/latex, exporting
@@ -103,8 +105,8 @@ as well as longer bits of text that *will* be wrapped ("quote":
 #+end_src
 
 one can add the template for a source block by typing =<s= and hitting
-tab; for an example block by typing =<e= and hitting tab; and for a
-quotation block by typing =<q= and hitting tab.  this by no means
+tab; for an example block by typing =<e= and hitting =tab=; and for a
+quotation block by typing =<q= and hitting =tab=.  this by no means
 exhausts the types of blocks available in org mode.
 
 blocks can optionally have names.  these names can be used as [[noweb][noweb]]
@@ -142,12 +144,12 @@ their execution in the document produced by exporting the org buffer.
 Org mode source blocks look like this
 #+begin_src org
   ,#+begin_src R
-  "hello, world!"
+      "hello, world!"
   ,#+end_src
 #+end_src
 
 (as mentioned above, a source block skeleton can be created by
-typing, in column 1, =<s=, and hitting TAB.)
+typing, in column 1, =<s=, and hitting =tab=.)
 
 Org mode source blocks can be edited, either inline in the org mode
 (".org") document buffer, or in a separate buffer (i call these "Org
