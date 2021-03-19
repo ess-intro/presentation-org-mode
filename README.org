@@ -43,6 +43,37 @@ deprecated) +plus signs+, to achieve different font characteristics.
 (until writing this, i have always used equal signs for short bits of
 code, but now i will try to remember to try out tildes.)
 
+various sorts of "blocks" are supported in org mode files.  these
+typically start with =#begin_...=, and end with a corresponding
+=#end_...=, where the =...= are something like =src=, =example=,
+=quote=, and can be conveniently created by, in column 1 of an
+otherwise empty line, typing =<X[TAB]=, where =X= is one of
+- =s= for a source block
+- =q= for a quote block
+- =e= for an example block
+  
+verse, center, comment, export, justifyleft, justifyright
+
+lots for html5: aside, ...
+
+- latex: abstract, proof
+- texinfo: defun
+
+from org manual: structure templates
+- 'a'     ‘#+BEGIN_EXPORT ascii' ... ‘#+END_EXPORT'
+- 'c'     ‘#+BEGIN_CENTER' ... ‘#+END_CENTER'
+- 'C'     ‘#+BEGIN_COMMENT' ... ‘#+END_COMMENT'
+- 'e'     ‘#+BEGIN_EXAMPLE' ... ‘#+END_EXAMPLE'
+- 'E'     ‘#+BEGIN_EXPORT' ... ‘#+END_EXPORT'
+- 'h'     ‘#+BEGIN_EXPORT html' ... ‘#+END_EXPORT'
+- 'l'     ‘#+BEGIN_EXPORT latex' ... ‘#+END_EXPORT'
+- 'q'     ‘#+BEGIN_QUOTE' ... ‘#+END_QUOTE'
+- 's'     ‘#+BEGIN_SRC' ... ‘#+END_SRC'
+- 'v'     ‘#+BEGIN_VERSE' ... ‘#+END_VERSE'
+
+
+org mode does a good job exporting to latex, html
+
 in addition to the source blocks mentioned above (and elaborated on
 below), org mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
@@ -99,7 +130,7 @@ package-list-packages=, and regexp-search for /^..org /).
 
 ** babel -- programming language support in org files
 
-[[https://orgmode.org/features.html][Babel]] is one name for talking about programming language support in
+[[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]] is one name for talking about programming language support in
 org mode.  you are able to embed source code inside of org mode
 buffers, edit these code blocks in a language-specific way, execute
 code blocks, pass the results of the execution of one code block to
@@ -109,13 +140,23 @@ their execution in the document produced by exporting the org buffer.
 *** literate programming, if you want
 ** <<sourceblocks>> source blocks
 
+Org mode source blocks look like this
+#+begin_src org
+  ,#+begin_src R
+  "hello, world!"
+  ,#+end_src
+#+end_src
+
+(as mentioned above, a source block skeleton can be created by
+typing, in column 1, =<s=, and hitting TAB.)
+
 Org mode source blocks can be edited, either inline in the org mode
-(".org") document buffer, or in a separate buffer (XXX what are these
-called?  i call them "Org Src..." buffers) that you can "pop up" from
-the .org buffer ("pop out of the .org buffer"?).  in the latter, there
-is better support for so-called "font locks", which do program
-language-specific source code highlighting, etc.  much of org mode's
-support of programming languages is with a sub-system known as [[https://orgmode.org/worg/org-contrib/babel/intro.html#meta-programming-language][Babel]].
+(".org") document buffer, or in a separate buffer (i call these "Org
+Src..." buffers, but they might also be known as "sub-edit buffers" or
+"source edit buffers) that you can "pop up" from the .org buffer ("pop
+out of the .org buffer"?), normally with =C-c '=.  in the latter,
+there is better support for emacs so-called "font locks", which do
+program language-specific source code highlighting, etc.
 
 once written, a source block can be executed, returning results,
 either the output of the code, or some terminating "value" of the
@@ -160,7 +201,7 @@ blocks in that branch.
   ,** this is somewhere in this file
      :PROPERTIES:
      :header-args+: :tangle very/important/code.R
-       :header-args+: :noweb-ref nowcode
+     :header-args+: :noweb-ref nowcode
      :END:
 
   now, code blocks will carry that name
@@ -182,27 +223,25 @@ including the name of a destination file for [[tangling][tangling]].
 
 [[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example][noweb]] is a literate programming syntax to allow referencing blocks of
 code within some larger (.org file, say) context.  it allows a
-programmer to re-use bits of code (sort of =#include= like) or to
-reference the results of a block of code to be used as an input to
-another block of code.
+programmer to re-use bits of code (sort of =#include= like).
 
 noweb syntax is *disabled* by default.  to enable noweb syntax, one
 can either enable it on the header line of each source code block,
-enable it in a properties drawer,
-as in the following, enable it once at the beginning of a file:
+enable it in a properties drawer, as in the following, enable it once
+at the beginning of an org file:
 #+begin_src org
-  ,#+property: header-args  :noweb yes :exports code :eval never-export :mkdirp yes
+  ,#+property: header-args  :noweb yes
 #+end_src
 ** <<tangling>> tangling
 
 in the world of [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]], /tangling/ is the process of
 extracting source code from a (theoretically primarily text) document.
-in org mode, one uses =C-c C-v t= to tangle the source code blocks in
-a file.  the file to which a source block will be tangled is specified
-in the =:tangle= attribute, placed on the =#+src_block= line or in a
-=:header-args= line (in a properties drawer, to apply to a subtree of
-the .org file, or stand-alone as above to apply to the entire .org
-file).
+in org mode, one uses =org-babel-tangle= (normally bound to =C-c C-v
+t=) to tangle the source code blocks in a file.  the file to which a
+source block will be tangled is specified in the =:tangle= attribute,
+placed on the =#+src_block= line or in a =:header-args= line (in a
+properties drawer, to apply to a subtree of the .org file, or
+stand-alone as above to apply to the entire .org file).
    
 ** <<exporting>> exporting
 entire document or a subtree of the document
@@ -210,7 +249,33 @@ entire document or a subtree of the document
 *** C-C C-C on a source block
 *** C-C C-C on a #+call (?)
 ** <<results>> results
+
+#+begin_src org
+  ,#+name: somecode
+  ,#+begin_src R :results output
+    cat("this is *some* code!\n")
+  ,#+end_src
+
+  ,#+name: someothercode
+  ,#+begin_src R :results value
+    whynot <- "this is some *other* code!"
+  ,#+end_src
+#+end_src
+
 ** <<variables>> variables -- in and out
+** src_R
+
+from the info page, an inline source block as opposed to a non-inline
+("normal"?) source block:
+#+begin_example
+   An inline code block conforms to this structure:
+
+     src_<language>{<body>}
+
+or
+
+     src_<language>[<header arguments>]{<body>}
+#+end_example
 *** :colnames
 ** life in Org Src buffers
 
@@ -281,3 +346,5 @@ https://obsproject.com/wiki/OBS-Studio-Quickstart obs, on arch linux
 
 https://github.com/ess-intro/ess-intro/issues is where most discussion
 happens.
+
+[[https://emacsconf.org/2020/talks/30/][vterm]] is pretty fast.
