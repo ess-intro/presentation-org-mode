@@ -426,7 +426,10 @@ then, do this:
 
 but, i'd rather query, e.g., =:exports= to see if it exports results.
 
-** code :noexport:
+** elisp code                                                      :noexport:
+       :PROPERTIES:
+       :header-args+: :tangle el-org.el
+       :END:
 
 #+name: org-filter-by-results
 #+begin_src elisp :results none
@@ -461,6 +464,8 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 #+name: org-walk-and-execute
 #+begin_src elisp :results none
+  (require 'ob-core)
+
   (defun org-walk-and-execute (&rest dir)
     "visit each code block in the current buffer.  if the block
   should export code, build a separate file with that code.  if the
@@ -475,8 +480,11 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
           (infos nil))
       (save-window-excursion
         (org-babel-map-executables nil
-          (setq blocks (cons (point) blocks))
-          (setq infos (cons (list (org-babel-get-src-block-info t)) infos))))
+            (if (org-filter-by-argument-value
+                 (list (point))
+                 ':exports
+                 (list "results" "both"))
+                (setq blocks (cons (point) blocks)))))
       (setq blocks (reverse blocks))
       (setq infos (reverse infos))
       blocks))
@@ -504,8 +512,8 @@ call_find-orgs()
   block in the current buffer"
     (let ((blocks nil))
       (org-babel-map-executables nil
-        (let ((context (org-element-context)))
-          (if (equal (plist-get (nth 1 context) ':language) "org")
+        (let ((info (org-babel-get-src-block-info t)))
+          (if (equal (car info) "org")
               (setq blocks (cons (point) blocks)))))
       (reverse blocks)))
 #+end_src
@@ -513,22 +521,29 @@ call_find-orgs()
 #+RESULTS: org-get-org-blocks
 : org-get-org-blocks
 
+for each org-in-org block that :exports either "results" or "both",
+open up an edit buffer, and execute all internal code that :exports
+either "results" or "both".
+#+name: main-loop
 #+begin_src elisp :results verbatim
-  (let ((pt (point)))
-    (unwind-protect
-        (save-window-excursion
-          (mapcar
-           (lambda (l)
-             (goto-char l)
-             (message "%s" l)
-             (org-babel-do-in-edit-buffer (org-walk-and-execute)))
-           (org-filter-by-argument-value
-            (org-get-org-blocks) ':exports (list "results" "both"))))
-      (goto-char pt)))
+  (defun main-loop ()
+    (let ((pt (point)))
+      (unwind-protect
+          (save-window-excursion
+            (mapcar
+             (lambda (l)
+               (goto-char l)
+               (message "%s" l)
+               (org-babel-do-in-edit-buffer (org-walk-and-execute))
+               l)
+             (org-filter-by-argument-value
+              (org-get-org-blocks) ':exports (list "results" "both"))))
+        (goto-char pt))))
 #+end_src
 
 #+RESULTS:
-: (t t)
+: (3792 6436)
+
 
 #+name: plist-keys
 #+begin_src elisp :results none
