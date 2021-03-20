@@ -428,6 +428,30 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 ** code :noexport:
 
+#+name: org-filter-by-results
+#+begin_src elisp :results none
+  (require 'ob-core)
+
+  (defun org-filter-by-argument-value (locs arg values)
+    "Return the subset of LOCS that correspond to executable
+  locations in the current buffer whose
+  \"info\" (org-babel-get-src-block-info) argument parameter
+  contains an argument ARG with a value in VALUES."
+    (let ((pt (point))
+          (rval nil))
+      (mapcar
+       (lambda (l)
+         (progn
+           (goto-char l)
+           (let* ((info (org-babel-get-src-block-info))
+                  (value (cdr (assoc arg (nth 2 info)))))
+             (if (member value values)
+                 (setq rval (cons l rval))))))
+       locs)
+      (goto-char pt)
+      (reverse rval)))
+#+end_src
+
 *** for each block in the (whichever) buffer
 
 - if ":exports code/both", create a systematically-named file with the
@@ -450,9 +474,8 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
     (let ((blocks nil)
           (infos nil))
       (save-window-excursion
-        (org-babel-map-src-blocks nil
-          (goto-char beg-block)
-          (setq blocks (cons beg-block blocks))
+        (org-babel-map-executables nil
+          (setq blocks (cons (point) blocks))
           (setq infos (cons (list (org-babel-get-src-block-info t)) infos))))
       (setq blocks (reverse blocks))
       (setq infos (reverse infos))
@@ -489,30 +512,6 @@ call_find-orgs()
 
 #+RESULTS: org-get-org-blocks
 : org-get-org-blocks
-
-#+name: org-filter-by-results
-#+begin_src elisp :results none
-  (require 'ob-core)
-
-  (defun org-filter-by-argument-value (locs arg values)
-    "Return the subset of LOCS that correspond to executable
-  locations in the current buffer whose
-  \"info\" (org-babel-get-src-block-info) argument parameter
-  contains an argument ARG with a value in VALUES."
-    (let ((pt (point))
-          (rval nil))
-      (mapcar
-       (lambda (l)
-         (progn
-           (goto-char l)
-           (let* ((info (org-babel-get-src-block-info))
-                  (value (cdr (assoc arg (nth 2 info)))))
-             (if (member value values)
-                 (setq rval (cons l rval))))))
-       locs)
-      (goto-char pt)
-      (reverse rval)))
-#+end_src
 
 #+begin_src elisp :results verbatim
   (let ((pt (point)))
