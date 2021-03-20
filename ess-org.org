@@ -71,7 +71,7 @@ in addition to the source blocks mentioned above (and elaborated on
 below), org mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
 #+begin_src org :exports both
-: this is verbatim
+  : this is verbatim
 #+end_src
 
 one can have longer runs of verbatim ("example") data (which is not
@@ -331,7 +331,7 @@ entire document or a subtree of the document
 
 ** other tutorials, etc.
 
-[[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Rainer's screencasts about Org mode]] ([[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][a course on Udemy]])
+[[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Rainer's screencasts about Org mode]] (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]])
 
 [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][tutorial on R and org-mode]]
 #+begin_example
@@ -429,6 +429,46 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 - if ":exports results/both", create a systematically-named file with
   the results
 
+#+name: this is a name
+#+begin_src elisp :results output
+(org-babel-map-src-blocks nil (print beg-block)(print beg-body))
+#+end_src
+
+
+#+begin_src elisp :results none
+  (defun org-study (&rest dir)
+    "visit each code block in the current buffer.  if the block
+  should export code, build a separate file with that code.  if the
+  block should export results, evaluate the code block and place
+  the results in a separate file.  the separate files names are
+  derived from the name of the source code block, with either
+  \"code\" or \"results\" appended, and is added to directory
+  DIR (default: \"./EXPORTS\").  if a source block is unnamed, its
+  [zero-based] ordinal position in the file is use (prefixed by the
+  string \"N-\")."
+    (let ((index 0)
+          (blocks nil)
+          (infos nil))
+      (save-window-excursion
+        (org-babel-map-src-blocks nil
+          (goto-char beg-block)
+          (setq blocks (cons beg-block blocks))
+          (setq infos (cons (list (org-babel-get-src-block-info t)) infos))))
+      (setq blocks (reverse blocks))
+      (setq infos (reverse infos))
+      (message "%s" blocks)
+      (message "%s" infos)
+      infos))
+#+end_src
+
+#+begin_src elisp :results raw
+(org-study)
+#+end_src
+
+
+: (org-babel-map-src-blocks nil (org-study))
+do we need to do this separately?
+: (org-babel-map-inline-src-blocks (org-study)
 *** for each subtree in the buffer
 
 - if some property, export to html
@@ -436,3 +476,14 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 - if some property, export to pdf
 (where "if some property" means at that level; ancestor level will
 be/was covered when walked gets there.)
+
+#+begin_src elisp
+(defun fuu() (message x))
+(defun fu() (fuu))
+(defun bar() (let ((x "1")) (fu)))
+(bar)
+#+end_src
+
+#+RESULTS:
+: 1
+
