@@ -142,7 +142,7 @@ their execution in the document produced by exporting the org buffer.
 ** <<sourceblocks>> source blocks
 
 Org mode source blocks look like this
-#+begin_src org
+#+begin_src org :exports both
   ,#+begin_src R
       "hello, world!"
   ,#+end_src
@@ -381,6 +381,9 @@ Cc: emacs-orgmode@gnu.org
   ,#+end_src
 #+end_src
 
+#+RESULTS:
+: (3792 6436)
+
 
 
 ** meta : tools, etc :noexport:
@@ -429,6 +432,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 - if ":exports results/both", create a systematically-named file with
   the results
 
+#+name: org-walk-and-execute
 #+begin_src elisp :results none
   (defun org-walk-and-execute (&rest dir)
     "visit each code block in the current buffer.  if the block
@@ -462,31 +466,58 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 - if :exports "results" or "both", execute all blocks in the org block
 
-#+name: this is a name
-#+begin_src elisp :results output
-(org-babel-map-src-blocks nil (print beg-block)(print beg-body))
-#+end_src
-
-
-#+begin_src elisp :results value verbatim
-(org-study)
-#+end_src
-
 src_R{1}
 
 call_find-orgs()
 
 #+name: org-get-org-blocks
 #+begin_src elisp :results value verbatim :exports both
+  (require 'ob-core)
+  (require 'org-element)
+
   (defun org-get-org-blocks ()
-      (let ((blocks nil))
-        (org-babel-map-executables nil
-          (let ((context (org-element-context)))
-            (if (equal (plist-get (nth 1 context) ':language) "org")
-                (setq blocks (cons (point) blocks)))))
-          (setq blocks (reverse blocks))
-        blocks))
+    "return the starting location of each org (language) source
+  block in the current buffer"
+    (let ((blocks nil))
+      (org-babel-map-executables nil
+        (let ((context (org-element-context)))
+          (if (equal (plist-get (nth 1 context) ':language) "org")
+              (setq blocks (cons (point) blocks)))))
+      (setq blocks (reverse blocks))
+      blocks))
 #+end_src
+
+#+name: org-filter-by-results
+#+begin_src elisp :results none
+  (defun org-filter-by-argument-value (locs arg values)
+    "Return the subset of LOCS that correspond to executable
+  locations in the current buffer whose
+  \"info\" (org-babel-get-src-block-info) argument parameter
+  contains an argument ARG with a value in VALUES."
+    (let ((pt (point))
+          (rval nil))
+      (mapcar
+       (lambda (l)
+         (progn
+           (goto-char l)
+           (let* ((info (org-babel-get-src-block-info))
+                  (value (cdr (assoc arg (nth 2 info)))))
+             (message "%s" value)
+             (if (member value values)
+                 (setq rval (cons l rval))))))
+       locs)
+      (goto-char pt)
+      (reverse rval)))
+#+end_src
+
+#+begin_src elisp :results verbatim
+  (save-window-excursion
+    (org-filter-by-argument-value
+     (org-get-org-blocks) ':exports (list "results" "both"))
+#+end_src
+
+#+RESULTS:
+: nil
 
 #+name: plist-keys
 #+begin_src elisp :results none
