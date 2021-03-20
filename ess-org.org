@@ -148,6 +148,9 @@ Org mode source blocks look like this
   ,#+end_src
 #+end_src
 
+#+RESULTS:
+: (t t)
+
 (as mentioned above, a source block skeleton can be created by
 typing, in column 1, =<s=, and hitting =tab=.)
 
@@ -453,8 +456,6 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
           (setq infos (cons (list (org-babel-get-src-block-info t)) infos))))
       (setq blocks (reverse blocks))
       (setq infos (reverse infos))
-      (message "%s" blocks)
-      (message "%s" infos)
       blocks))
 #+end_src
 
@@ -483,12 +484,16 @@ call_find-orgs()
         (let ((context (org-element-context)))
           (if (equal (plist-get (nth 1 context) ':language) "org")
               (setq blocks (cons (point) blocks)))))
-      (setq blocks (reverse blocks))
-      blocks))
+      (reverse blocks)))
 #+end_src
+
+#+RESULTS: org-get-org-blocks
+: org-get-org-blocks
 
 #+name: org-filter-by-results
 #+begin_src elisp :results none
+  (require 'ob-core)
+
   (defun org-filter-by-argument-value (locs arg values)
     "Return the subset of LOCS that correspond to executable
   locations in the current buffer whose
@@ -502,7 +507,6 @@ call_find-orgs()
            (goto-char l)
            (let* ((info (org-babel-get-src-block-info))
                   (value (cdr (assoc arg (nth 2 info)))))
-             (message "%s" value)
              (if (member value values)
                  (setq rval (cons l rval))))))
        locs)
@@ -511,13 +515,21 @@ call_find-orgs()
 #+end_src
 
 #+begin_src elisp :results verbatim
-  (save-window-excursion
-    (org-filter-by-argument-value
-     (org-get-org-blocks) ':exports (list "results" "both"))
+  (let ((pt (point)))
+    (unwind-protect
+        (save-window-excursion
+          (mapcar
+           (lambda (l)
+             (goto-char l)
+             (message "%s" l)
+             (org-babel-do-in-edit-buffer (org-walk-and-execute)))
+           (org-filter-by-argument-value
+            (org-get-org-blocks) ':exports (list "results" "both"))))
+      (goto-char pt)))
 #+end_src
 
 #+RESULTS:
-: nil
+: (t t)
 
 #+name: plist-keys
 #+begin_src elisp :results none
