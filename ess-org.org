@@ -429,14 +429,8 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 - if ":exports results/both", create a systematically-named file with
   the results
 
-#+name: this is a name
-#+begin_src elisp :results output
-(org-babel-map-src-blocks nil (print beg-block)(print beg-body))
-#+end_src
-
-
 #+begin_src elisp :results none
-  (defun org-study (&rest dir)
+  (defun org-walk-and-execute (&rest dir)
     "visit each code block in the current buffer.  if the block
   should export code, build a separate file with that code.  if the
   block should export results, evaluate the code block and place
@@ -446,8 +440,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
   DIR (default: \"./EXPORTS\").  if a source block is unnamed, its
   [zero-based] ordinal position in the file is use (prefixed by the
   string \"N-\")."
-    (let ((index 0)
-          (blocks nil)
+    (let ((blocks nil)
           (infos nil))
       (save-window-excursion
         (org-babel-map-src-blocks nil
@@ -458,32 +451,49 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
       (setq infos (reverse infos))
       (message "%s" blocks)
       (message "%s" infos)
-      infos))
+      blocks))
 #+end_src
 
-#+begin_src elisp :results raw
+*** for each block in the (whichever) buffer
+
+- if :results not "none", execute it
+
+*** for each org block in the (whichever) buffer
+
+- if :exports "results" or "both", execute all blocks in the org block
+
+#+name: this is a name
+#+begin_src elisp :results output
+(org-babel-map-src-blocks nil (print beg-block)(print beg-body))
+#+end_src
+
+
+#+begin_src elisp :results value verbatim
 (org-study)
 #+end_src
 
+src_R{1}
 
-: (org-babel-map-src-blocks nil (org-study))
-do we need to do this separately?
-: (org-babel-map-inline-src-blocks (org-study)
-*** for each subtree in the buffer
+call_find-orgs()
 
-- if some property, export to html
-- if some property, export to latex
-- if some property, export to pdf
-(where "if some property" means at that level; ancestor level will
-be/was covered when walked gets there.)
-
-#+begin_src elisp
-(defun fuu() (message x))
-(defun fu() (fuu))
-(defun bar() (let ((x "1")) (fu)))
-(bar)
+#+name: org-get-org-blocks
+#+begin_src elisp :results value verbatim :exports both
+  (defun org-get-org-blocks ()
+      (let ((blocks nil))
+        (org-babel-map-executables nil
+          (let ((context (org-element-context)))
+            (if (equal (plist-get (nth 1 context) ':language) "org")
+                (setq blocks (cons (point) blocks)))))
+          (setq blocks (reverse blocks))
+        blocks))
 #+end_src
 
-#+RESULTS:
-: 1
-
+#+name: plist-keys
+#+begin_src elisp :results none
+  (defun plist-keys (pl)
+    "print out the keys in the provided plist PL"
+    (if (not pl)
+        ()
+      (print (format "%s" (car pl)))
+      (plist-keys (cddr pl))))
+#+end_src
