@@ -369,7 +369,7 @@ Date: Tue, 23 Feb 2021 22:38:06 +0100
 Cc: emacs-orgmode@gnu.org
 #+end_example
 
-** experiments
+** experiments :noexport:
 
 #+NAME: readdata-code
 #+BEGIN_SRC org
