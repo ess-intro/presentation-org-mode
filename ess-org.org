@@ -1,5 +1,6 @@
 * using ESS with emacs org mode
 #+property: header-args :noweb yes
+#+property: header-args:org :exports both
 #  ^:{}: disable super/subscripting: https://stackoverflow.com/a/698791/1527747
 #+options: ^:{}
 #+property: header-args :noweb yes :exports code :eval never-export
@@ -71,12 +72,12 @@ in addition to the source blocks mentioned above (and elaborated on
 below), org mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
 #+BEGIN_SRC org
-: this is verbatim
+	: this is verbatim
 #+END_SRC
 
 one can have longer runs of verbatim ("example") data (which is not
 word wrapped, etc.:
-#+BEGIN_SRC org :exports both
+#+BEGIN_SRC org
 	,#+name: ex
 	,#+begin_example
 	this is a block
@@ -88,34 +89,23 @@ word wrapped, etc.:
 	foo
 	,#+end_src
 
-	,#+RESULTS:
-	| this is a block          |
-	| that                     |
-	| holds more verbatim text |
-	|                          |
-
 	,#+begin_src R :var foo=ex :exports code
 	foo
 	,#+end_src
 
-	,#+RESULTS:
-	| this is a block          |
-	| that                     |
-	| holds more verbatim text |
-	|                          |
 #+END_SRC
 
 as well as longer bits of text that *will* be wrapped ("quote":
 #+BEGIN_SRC org
-,#+begin_quote
-this is a bit of
-text that should
-show up, eventually, strung out in a smaller
-number
-of
-lines when "filled"
-(e.g., =M-x org-fill-paragraph=, =M-q=)
-,#+end_quote
+	,#+begin_quote
+	this is a bit of
+	text that should
+	show up, eventually, strung out in a smaller
+	number
+	of
+	lines when "filled"
+	(e.g., =M-x org-fill-paragraph=, =M-q=)
+	,#+end_quote
 #+END_SRC
 
 blocks can optionally have [[naming][names]].  these names can be used as [[noweb][noweb]]
@@ -153,9 +143,10 @@ their execution in the document produced by exporting the org buffer.
 
 Org mode source blocks look like this
 #+BEGIN_SRC org
-,#+begin_src R
-    "hello, world!"
-,#+end_src
+	,#+begin_src R
+			"hello, world!"
+	,#+end_src
+
 #+END_SRC
 
 (as mentioned above, a source block skeleton can be created by
@@ -188,12 +179,12 @@ source blocks can also be expressed using a =src_LANG= construct; a
 =#+name:= line can be used to name the =src_LANG= block.
 
 #+BEGIN_SRC org
-,#+name: whyo
-src_R{"42"}
+	,#+name: whyo
+	src_R{"42"} {{{results(=42=)}}}
 
-,#+begin_src R :var x=whyo :exports results
-x
-,#+end_src
+	,#+begin_src R :var x=whyo :exports results
+	x
+	,#+end_src
 
 #+END_SRC
 
@@ -207,15 +198,16 @@ that org mode uses ESS to provide R language support.
 there are two ways of naming blocks.  first, an individual block
 itself can be preceded by a =#+name:= line
 #+BEGIN_SRC org
-,#+name: somecode
-,#+begin_src R :results output
-  cat("this is *some* code!\n")
-,#+end_src
+	,#+name: somecode
+	,#+begin_src R :results output
+		cat("this is *some* code!\n")
+	,#+end_src
 
-,#+name: someothercode
-,#+begin_src R :results value
-  whynot <- "this is some *other* code!"
-,#+end_src
+	,#+name: someothercode
+	,#+begin_src R :results value
+		whynot <- "this is some *other* code!"
+	,#+end_src
+
 #+END_SRC
 
 <<properties>> second, a PROPERIES drawer, using the =header-args=
@@ -240,9 +232,6 @@ blocks in that branch.
 		<<nowcode>>
 		cat(x, "\n")
 	,#+end_src
-
-	,#+RESULTS:
-	: we want some code, and we want it now! 
 #+END_SRC
 
 as you can see, the properties drawer can carry many of properties,
@@ -260,7 +249,7 @@ can either enable it on the header line of each source code block,
 enable it in a properties drawer, or, as in the following, enable it
 once at the beginning of an org file:
 #+BEGIN_SRC org
-,#+property: header-args  :noweb yes
+	,#+property: header-args  :noweb yes
 #+END_SRC
 
 once enabled, references of the kind =<<NAME>>= will incorporate the
@@ -277,6 +266,7 @@ contents of a previous source code block.
 	,#+begin_src R
 	<<fubar>>
 	,#+end_src
+
 #+END_SRC
 
 ** <<tangling>> tangling
@@ -310,6 +300,7 @@ to =C-c C-v t=.
 	1
 	,#+end_src
 
+	call_find-orgs()
 
 	,#+call: find-orgs()
 
@@ -325,20 +316,22 @@ to =C-c C-v t=.
 	,#+begin_src R :colnames yes :rownames yes
 	mtcars[1:3,]
 	,#+end_src
+
 #+end_src
 
 ** <<results>> results
 
 #+BEGIN_SRC org
-,#+name: somecode
-,#+begin_src R :results output
-  cat("this is *some* code!\n")
-,#+end_src
+	,#+name: somecode
+	,#+begin_src R :results output
+		cat("this is *some* code!\n")
+	,#+end_src
 
-,#+name: someothercode
-,#+begin_src R :results value
-  whynot <- "this is some *other* code!"
-,#+end_src
+	,#+name: someothercode
+	,#+begin_src R :results value
+		whynot <- "this is some *other* code!"
+	,#+end_src
+
 #+END_SRC
 
 ** <<variables>> variables
@@ -381,26 +374,27 @@ Cc: emacs-orgmode@gnu.org
 #+NAME: readdata-code
 #+BEGIN_SRC org
 
-,#+NAME: readdata-code
-,#+BEGIN_SRC R :results value silent
+	,#+NAME: readdata-code
+	,#+BEGIN_SRC R :results value silent
 
-read.data("datafile1.csv",sep=",",header=T)->mydata1
+	read.data("datafile1.csv",sep=",",header=T)->mydata1
 
 
-,#+END_SRC
+	,#+END_SRC
 #+END_SRC
 
 #+BEGIN_SRC org
-,#+begin_src R
-  print("abc")
-,#+end_src
+	,#+begin_src R
+		print("abc")
+	,#+end_src
+
 #+END_SRC
 
 
 #+BEGIN_SRC org
-,#+begin_src R
-  print("def")
-,#+end_src
+	,#+begin_src R
+		print("def")
+	,#+end_src
 #+END_SRC
 
 
@@ -479,15 +473,6 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 - if ":exports results/both", create a systematically-named file with
   the results
 
-*** for each block in the (whichever) buffer
-
-- if :eval is not (some form of) "no", offer it up for evaluation
-
-#+name: org-walk-and-execute
-#+BEGIN_SRC elisp :results none
-	(require 'ob-core)
-
-	(defun org-walk-and-execute (&rest dir)
 		"visit each code block in the current buffer.  if the block
 	should export code, build a separate file with that code.  if the
 	block should export results, evaluate the code block and place
@@ -497,6 +482,19 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 	DIR (default: \"./EXPORTS\").  if a source block is unnamed, its
 	[zero-based] ordinal position in the file is use (prefixed by the
 	string \"N-\")."
+
+*** for each block in the (whichever) buffer
+
+- if :eval is not (some form of) "no", offer it up for evaluation
+
+#+name: org-walk-and-execute
+#+BEGIN_SRC elisp :results none
+	(require 'ob-core)
+
+	(defun org-walk-and-execute (&optional arg)
+		"Based on org-babel-execute-buffer, with the main difference
+	that we return the locations of the blocks we executed.  Probably
+	should just use o-b-e-b."
 		(message "org-walk-and-execute %s" (current-buffer))
 		(message "%s" (buffer-base-buffer))
 		(message "before: modified? %s" (buffer-modified-p))
@@ -512,7 +510,11 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 								(message "early o-w-a-e point %s" (point))
 								;; fine, this is horrible.
 								(setq result (append result (list (point))))
-								(org-babel-execute-src-block)
+								;; flat-out copied from (org-babel-execute-buffer)
+								(if (memq (org-element-type (org-element-context))
+													'(babel-call inline-babel-call))
+										(org-babel-lob-execute-maybe)
+									(org-babel-execute-src-block arg))
 								(message "after: modified? %s" (buffer-modified-p))
 								(message "later o-w-a-e point %s" (point))
 								(point)))))
@@ -525,7 +527,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 - if :exports "results" or "both", execute all blocks in the org block
 
 #+name: org-get-org-blocks
-#+begin_src elisp :results value verbatim :exports both
+#+begin_src elisp :results none
   (require 'ob-core)
   (require 'org-element)
 
@@ -540,9 +542,6 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
       (reverse blocks)))
 #+end_src
 
-#+RESULTS: org-get-org-blocks
-: org-get-org-blocks
-
 for each org-in-org block that :exports either "results" or "both",
 open up an edit buffer, and execute all internal code that :exports
 either "results" or "both".
@@ -551,6 +550,7 @@ either "results" or "both".
 	(defun do-org-blocks ()
 		(let (results
 					(pt (point)))
+			(org-babel-eval-wipe-error-buffer)
 			(unwind-protect
 					(save-window-excursion
 						(mapc
