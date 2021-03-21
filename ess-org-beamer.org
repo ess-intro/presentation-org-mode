@@ -8,9 +8,9 @@
 "If Emacs is the distribution, Org Mode is the entire desktop
 environment one runs on top of it."
 
-an outline-structured file format and backing software that allows you
-to
-- text markup via, e.g., *asteriskizing*, =equalizing=, ~tildeizing~,
+Emacs Org Mode is an outline-structured file format and backing
+software that allows you to
+- markup text via, e.g., *asteriskizing*, =equalizing=, ~tildeizing~,
   /slashing/, +plusing+, _underscoring_.
 - export the file, or a subtree of it, as, e.g., an .html or .pdf file
 - take notes
@@ -47,10 +47,12 @@ In particular, one can have a source block with R code
 	,#+end_src
 #+end_src
 
-To evaluate a source block in an Org buffer, =C-c C-c= or =C-c C-v e=.
+To evaluate an entire source block in an Org buffer, type =C-c C-c= or
+=C-c C-v e=.
 
-To edit this source block in an Org Src buffer, =C-c '=.  To close
-the Org Source buffer and return to the Org buffer, again, =C-c '=.
+To edit this source block in an Org Src buffer, type =C-c '=.  To
+close the Org Source buffer and return to the Org buffer, again type
+=C-c '=.
 
 
 
@@ -64,18 +66,49 @@ An Org Src buffer for R is an ESS mode buffer.
 	"here, the last value executed is the result"
 #+end_src
 
-Evaluating code is still initiated with =C-c C-c=, tends to send just
-the function at the current location to be evaluated, and moves the
-cursor ("point") to the start of the next function.
+Evaluating code is still initiated with =C-c C-c=, but tends to send
+just the function at the current location to be evaluated (rather than
+the whole Org Src buffer), and moves the cursor ("point") to the start
+of the next function.
 
 * :results -- an entire slide?
 
 
 * :session for R
 
-Normally, evaluating a 
+Normally, evaluating a source block takes place in a fairly pristine
+environment which is thrown away after that specific evaluation.  The
+next evaluation will have no access to state from the previous
+evaluation, other than its emitted results (if used as the source of a
+=:var= header argument).
 
-* Other resources
+Sometimes, it is useful to establish a long term session in which to
+evaluate successive source blocks.  This is accomplished with the
+=:session NAME= header argument:
+
+#+begin_src org
+	,#+begin_src R :session R
+			if (!exists("a")) {
+				a <- rnorm(1)
+			} else {
+				a
+			}
+	,#+end_src
+#+end_src
+
+This can be convenient, as it allows you to build up a series of
+functions and variables, ease debugging, etc.
+
+In general, depending on the language of the source block you are
+using, evaluation with or without sessions may exhibit different
+behavior.  (I think I've noticed this with python.)
+
+* End, other resources
+
+Thank you for "attending" this tutorial.  I hope it has given you a
+sense of Org Mode.  But, this has been more of a teaser than an
+information dump that would allow you to start using Org Mode with no
+other resources.  
 
 For Emacs: 
 
@@ -93,3 +126,9 @@ For Org mode with R:
 - Erik Riverson many years ago produced [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][_a tutorial_]] that, while dated
   in some places, is still very useful.
 - XXX A copy of a longer exposition of this tutorial XXX
+
+For everything:
+
+- the Emacs, etc., "info pages" (=C-h i=), which include information
+  on Emacs, Org Mode, etc. (even R, depending on your installation),
+  provide very detailed information.
