@@ -1,10 +1,8 @@
-* ESS in Emacs Org Mode Buffers
-
-** part of the ESS intro series
-
-src_R[:results raw :exports results]{Sys.Date()}
-
-Greg Minshall
+#+title: ESS in Emacs Org Mode Buffers
+#+subtitle: part of the ESS intro series
+#+beamer_theme: Rochester [height=20pt]
+#+description: src_R[:results raw :exports results]{Sys.Date()}
+#+description: Greg Minshall
 
 * Org Mode
 
@@ -60,7 +58,7 @@ Again, =C-c '= to enter and to exit.
 An Org Src buffer for R is an ESS mode buffer.
 
 #+begin_src R
-	"this is the result of running this code -- last value executed"
+	"here, the last value executed is the result"
 #+end_src
 
 Evaluating code is still initiated with =C-c C-c=, tends to send just
@@ -69,107 +67,4 @@ cursor ("point") to the start of the next function.
 
 * :results -- an entire slide?
 
-
-* code blocks
-
-there are a few pieces of information org-mode needs to define a
-block of code
-- (optionally) a =name= for the block (to use to include the block's
-  code in another block with [[file:ess-org.org::*<<noweb>> noweb][noweb]], or to use the block's results as
-  input to another block with [[file:ess-org.org::*<<variables>> variables][:var]].
-- the language of the code in the block
-- various arguments (=header arguments= and =switches=) that define
-  how the code interacts with its environment
-- the source code itself
-
-there are at least two ways of encoding the needed information:
-
-* a source block
-
-the most "normal" way of defining source code is with a /source
-block/.
-
-#+begin_src org
-  ,#+begin_src R
-    "hello, world"
-  ,#+end_src
-#+end_src
-
-we use this form below in discussing the structure of a code block.
-
-* an /inline/ code block
-
-in a second form, known as an /inline code block/, the entire block
-can fit on one line (though multiple lines are possible).
-
-#+begin_src org
-  src_R{"hello, world"}
-#+end_src
-
-i don't use this form.  for this tutorial i looked at it briefly.  it
-appears its semantics are different from that of source blocks.  other
-than that, i will not discuss it further.
-
-* the anatomy of a source block
-
-#+begin_src org
-  ,#+name: refid
-  ,#+begin_example
-  this is a test
-  ,#+end_example
-
-  ,#+name: anatomy
-  ,#+begin_src R :var varname=refid :results output
-  cat(varname)
-  ,#+end_src
-
-  ,#+RESULTS: anatomy
-  : this is a test
-
-  ,#+header: :var anothername=anatomy
-  ,#+header: :exports results
-  ,#+header: :results value
-  ,#+name: second
-  ,#+begin_src R
-  anothername
-  ,#+end_src
-
-  ,#+RESULTS: second
-  | this is a test |
-  |                |
-#+end_src
-
-the block named /refid/ is not a code block, but shows how the
-contents of another block (verbatim, in this case) can be used as
-input to a code block.
-
-we set /anatomy/ as the name of the first code block, using the
-=#+name= line.
-
-then, we declare /anatomy's/ source block with the =#+begin_src= line,
-which has
-- the language (=R=, of course)
-- a header argument specifying an input variable named /varname/,
-  using the value of /refid/ block
-- another header argument specifying that the result of this block
-  will be taken from whatever it prints on stdout
-
-the code for /anatomy/ just consists of printing the (input) variable
-/varname/ to stdout.
-
-we continue by defining yet another source block, which we name
-/second/.  it shows a different way of specifying the header
-arguments, via =#+header= lines, each of which can define one or more
-header arguments.  one can put some header arguments on the
-=#+begin_src= line, some on one or or more =#+header= lines.
-
-- :exports code
-- :results table
-- :colnames yes
-- :exports none
-- :tangle no
-- :results none
-- :var csvsedtable=csvsedtable
-- :results output verbatim
-- :cache
 
