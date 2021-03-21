@@ -94,7 +94,6 @@ word wrapped, etc.:
 	| holds more verbatim text |
 	|                          |
 
-
 	,#+begin_src R :var foo=ex :exports code
 	foo
 	,#+end_src
