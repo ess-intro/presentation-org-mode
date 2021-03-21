@@ -176,17 +176,14 @@ executed.] state from prior runs.
 source blocks can also be expressed using a =src_LANG= construct; a
 =#+name:= line can be used to name the =src_LANG= block.
 
-#+BEGIN_SRC org
+#+BEGIN_SRC org :results latex
 ,#+name: whyo
-src_R{"23"} {{{results(=23=)}}}
+src_R{"42"}
 
 ,#+begin_src R :var x=whyo :exports results
 x
 ,#+end_src
 
-,#+RESULTS:
-| 23 |
-|    |
 #+END_SRC
 
 finally, and of particular interest in these tutorials, is the fact
@@ -214,32 +211,32 @@ itself can be preceded by a =#+name:= line
 attribute =noweb-ref= to name the (otherwise unnamed, i believe) code
 blocks in that branch.
 #+BEGIN_SRC org
-,#+property: header-args :noweb yes
+	,#+property: header-args :noweb yes
 
-,** this is somewhere in this file
-   :PROPERTIES:
-   :header-args+: :tangle very/important/code.R
-   :header-args+: :noweb-ref nowcode
-   :END:
+	,** this is somewhere in this file
+		 :PROPERTIES:
+		 :header-args+: :tangle very/important/code.R
+		 :header-args+: :noweb-ref nowcode
+		 :END:
 
-now, code blocks will carry that name
-,#+begin_src R
-  x <- "we want some code, and we want it now!"
-,#+end_src
+	now, code blocks will carry that name
+	,#+begin_src R
+		x <- "we want some code, and we want it now!"
+	,#+end_src
 
-,** somewhere else
-,#+begin_src R :results output
+	,** somewhere else
+	,#+begin_src R :results output
+		<<nowcode>>
+		cat(x, "\n")
+	,#+end_src
 
-  cat(x, "\n")
-,#+end_src
-
-,#+RESULTS:
-: we want some code, and we want it now! 
+	,#+RESULTS:
+	: we want some code, and we want it now! 
 #+END_SRC
 
 as you can see, the properties drawer can carry many of properties,
 including the name of a destination file for [[tangling][tangling]].  the very odd
-"<<nowcode>>" is our next topic, [[noweb][noweb]].
+=<<nowcode>>= is our next topic: [[noweb][noweb]].
 
 ** <<noweb>> noweb
 
@@ -526,10 +523,13 @@ either "results" or "both".
     (let ((pt (point)))
       (unwind-protect
           (save-window-excursion
-            (mapcar
+            (mapc
              (lambda (l)
                (goto-char l)
-               (org-babel-do-in-edit-buffer (org-walk-and-execute)))
+               (org-babel-do-in-edit-buffer 
+                (progn
+                  (org-walk-and-execute)
+                  (org-edit-src-save))))
              (org-filter-by-argument-value
               ':exports (list "results" "both") (org-get-org-blocks))))
         (goto-char pt))))
