@@ -76,22 +76,34 @@ by a colon as the first non-blank column of a line
 
 one can have longer runs of verbatim ("example") data (which is not
 word wrapped, etc.:
-#+BEGIN_SRC org
-,#+name: ex
-,#+begin_example
-this is a block
-that
-holds more verbatim text
-,#+end_example
+#+BEGIN_SRC org :exports both
+	,#+name: ex
+	,#+begin_example
+	this is a block
+	that
+	holds more verbatim text
+	,#+end_example
 
-,#+begin_src R :var foo=ex :exports both
-foo
-,#+end_src
+	,#+begin_src R :var foo=ex :exports both
+	foo
+	,#+end_src
+
+	,#+RESULTS:
+	| this is a block          |
+	| that                     |
+	| holds more verbatim text |
+	|                          |
 
 
-,#+begin_src R :var foo=ex :exports code
-foo
-,#+end_src
+	,#+begin_src R :var foo=ex :exports code
+	foo
+	,#+end_src
+
+	,#+RESULTS:
+	| this is a block          |
+	| that                     |
+	| holds more verbatim text |
+	|                          |
 #+END_SRC
 
 as well as longer bits of text that *will* be wrapped ("quote":
@@ -439,26 +451,26 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 #+name: org-filter-by-results
 #+begin_src elisp :results none
 	(require 'ob-core)
+	(require 'dash)
 
-	(defun org-filter-by-argument-value (arg values locs &optional negate)
-		"Return the subset of LOCS that correspond to executable
-	locations in the current buffer whose
+	(defun org-filter-by-argument-value (arg values &optional locs negate)
+		"Return the subset of LOCS (default: (point)) that correspond
+	to executable locations in the current buffer whose
 	\"info\" (org-babel-get-src-block-info) argument parameter
 	contains an argument ARG with a value in VALUES."
 		(let ((pt (point))
-					(rval nil))
-			(mapc
-			 (lambda (l)
-				 (progn
-					 (goto-char l)
-					 (let* ((info (org-babel-get-src-block-info))
-									(value (cdr (assoc arg (nth 2 info)))))
-						 (if (or (and negate (not (member value values)))
-									 (and (not negate) (member value values)))
-								 (setq rval (cons l rval))))))
-			 locs)
-			(goto-char pt)
-			(reverse rval)))
+					(results (mapcar (lambda (l)
+										 (progn
+											 (goto-char l)
+											 (let* ((info (org-babel-get-src-block-info))
+															(value (cdr (assoc arg (nth 2 info)))))
+												 (if (or (and negate (not (member value values)))
+																 (and (not negate) (member value values)))
+														 l
+													 nil))))
+									 (if locs locs (list (point))))))
+		(goto-char pt)
+		(reverse (--filter it results))))
 #+end_src
 
 *** for each block in the (whichever) buffer
@@ -473,31 +485,40 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 - if :eval is not (some form of) "no", offer it up for evaluation
 
 #+name: org-walk-and-execute
-#+BEGIN_SRC elisp
-(require 'ob-core)
+#+BEGIN_SRC elisp :results none
+	(require 'ob-core)
 
-(defun org-walk-and-execute (&rest dir)
-  "visit each code block in the current buffer.  if the block
-should export code, build a separate file with that code.  if the
-block should export results, evaluate the code block and place
-the results in a separate file.  the separate files names are
-derived from the name of the source code block, with either
-\"code\" or \"results\" appended, and is added to directory
-DIR (default: \"./EXPORTS\").  if a source block is unnamed, its
-[zero-based] ordinal position in the file is use (prefixed by the
-string \"N-\")."
-  (message "org-walk-and-execute %s" (current-buffer))
-  (message "%s" (buffer-base-buffer))
-  (message "before: modified? %s" (buffer-modified-p))
-  (save-window-excursion
-    (org-babel-map-executables nil
-      (if (org-filter-by-argument-value
-           ':eval
-           (list "never" "never-export" "no" "no-export"))
-          (progn
-            (message "o-w-a-e point %s" (point))
-            (org-babel-execute-src-block)))
-      (message "before: modified? %s" (buffer-modified-p)))))
+	(defun org-walk-and-execute (&rest dir)
+		"visit each code block in the current buffer.  if the block
+	should export code, build a separate file with that code.  if the
+	block should export results, evaluate the code block and place
+	the results in a separate file.  the separate files names are
+	derived from the name of the source code block, with either
+	\"code\" or \"results\" appended, and is added to directory
+	DIR (default: \"./EXPORTS\").  if a source block is unnamed, its
+	[zero-based] ordinal position in the file is use (prefixed by the
+	string \"N-\")."
+		(message "org-walk-and-execute %s" (current-buffer))
+		(message "%s" (buffer-base-buffer))
+		(message "before: modified? %s" (buffer-modified-p))
+		(let ((result nil))
+			(save-window-excursion
+				(org-babel-map-executables nil
+					(if (org-filter-by-argument-value
+							 ':eval
+							 (list "never" "never-export" "no" "no-export")
+							 nil
+							 t)
+							(progn
+								(message "early o-w-a-e point %s" (point))
+								;; fine, this is horrible.
+								(setq result (append result (list (point))))
+								(org-babel-execute-src-block)
+								(message "after: modified? %s" (buffer-modified-p))
+								(message "later o-w-a-e point %s" (point))
+								(point)))))
+			(message "result: %s" result)
+			result))
 #+END_SRC
 
 *** for each org block in the (whichever) buffer
@@ -528,22 +549,22 @@ open up an edit buffer, and execute all internal code that :exports
 either "results" or "both".
 #+name: main-loop
 #+begin_src elisp :results verbatim
-  (defun do-org-blocks ()
-    (let ((pt (point)))
-      (unwind-protect
-          (save-window-excursion
-            (mapc
-             (lambda (l)
-               (goto-char l)
-               (org-babel-do-in-edit-buffer 
-                (progn
-                  (org-walk-and-execute)
-                  (org-edit-src-save))))
-             (org-filter-by-argument-value
-              ':exports (list "results" "both") (org-get-org-blocks))))
-        (goto-char pt))))
+	(defun do-org-blocks ()
+		(let ((pt (point)))
+			(unwind-protect
+					(save-window-excursion
+						(let ((results (mapcar
+						 (lambda (l)
+							 (goto-char l)
+							 (org-babel-do-in-edit-buffer
+								(let ((result (org-walk-and-execute)))
+									(org-edit-src-save)
+									(list l result))))
+						 (org-filter-by-argument-value
+							':exports (list "results" "both") (org-get-org-blocks)))))))
+				(goto-char pt))))
 #+end_src
 
 #+RESULTS: main-loop
-: main-loop
+: do-org-blocks
 
