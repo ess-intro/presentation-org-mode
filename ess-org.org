@@ -176,7 +176,7 @@ executed.] state from prior runs.
 source blocks can also be expressed using a =src_LANG= construct; a
 =#+name:= line can be used to name the =src_LANG= block.
 
-#+BEGIN_SRC org :results latex
+#+BEGIN_SRC org
 ,#+name: whyo
 src_R{"42"}
 
@@ -256,17 +256,16 @@ once enabled, references of the kind =<<NAME>>= will incorporate the
 contents of a previous source code block.
 
 #+BEGIN_SRC org
-,#+name: fubar
-,#+begin_src R
-"this is an example"
-,#+end_src
+	,#+property: header-args :noweb yes
 
-,#+begin_src R
+	,#+name: fubar
+	,#+begin_src R
+	"this is an example"
+	,#+end_src
 
-,#+end_src
-
-,#+RESULTS:
-: this is an example
+	,#+begin_src R
+	<<fubar>>
+	,#+end_src
 #+END_SRC
 
 ** <<tangling>> tangling
@@ -290,9 +289,33 @@ to actually /tangle/ a file, use =M-x org-babel-tangle=, often bound
 to =C-c C-v t=.
    
 ** <<executing>> executing
-*** C-C C-C on a source block
-*** C-C C-C on a #+call (?)
-*** :colnames
+*** =C-c C-c= on a source block
+*** =C-c C-c= on an inline source block
+*** =C-c C-c= on a #+call
+*** =C-c C-c= on an inline-call
+#+begin_src org
+	,#+name: find-orgs
+	,#+begin_src R
+	1
+	,#+end_src
+
+
+	,#+call: find-orgs()
+
+	call_find-orgs()
+
+#+end_src
+*** :colnames and :rownames
+#+begin_src org
+	,#+BEGIN_SRC R
+	mtcars[1:3,]
+	,#+END_SRC
+
+	,#+begin_src R :colnames yes :rownames yes
+	mtcars[1:3,]
+	,#+end_src
+#+end_src
+
 ** <<results>> results
 
 #+BEGIN_SRC org
@@ -312,10 +335,6 @@ to =C-c C-v t=.
 ** <<exporting>> exporting
 entire document or a subtree of the document
 ** life in Org Src buffers
-
-#+BEGIN_SRC R
-cat("| this| is| from| ess-with-org.org!|")
-#+END_SRC
 
 ** org-mode community
 
@@ -414,7 +433,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 ** elisp code                                                      :noexport:
        :PROPERTIES:
-       :header-args+: :tangle el-org.el
+       :header-args+: :tangle ./built/el-org.el
        :END:
 
 #+name: org-filter-by-results
@@ -484,16 +503,6 @@ string \"N-\")."
 
 - if :exports "results" or "both", execute all blocks in the org block
 
-#+name: find-orgs
-#+begin_src R
-1
-#+end_src
-
-src_R[]{1}
-
-#+call: find-orgs()
-
-call_find-orgs()
 
 #+name: org-get-org-blocks
 #+begin_src elisp :results value verbatim :exports both
