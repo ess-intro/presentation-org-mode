@@ -1,8 +1,7 @@
 #+title: ESS in Emacs Org Mode Buffers
+#+options: toc:nil
 #+subtitle: part of the ESS intro series
-#+beamer_theme: Rochester [height=20pt]
-#+description: src_R[:results raw :exports results]{Sys.Date()}
-#+description: Greg Minshall
+#+subtitle: Greg Minshall
 
 * Org Mode
 
@@ -11,8 +10,8 @@ environment one runs on top of it."
 
 an outline-structured file format and backing software that allows you
 to
-- text *asteriskizing*, =equalizing=, ~tildeizing~, /slashing/,
-  +plusing+.
+- text markup via, e.g., *asteriskizing*, =equalizing=, ~tildeizing~,
+  /slashing/, +plusing+, _underscoring_.
 - export the file, or a subtree of it, as, e.g., an .html or .pdf file
 - take notes
 - create agendas (items with date elements)
@@ -27,7 +26,9 @@ One can write source code in "source blocks", and then that code can
 be
 - evaluated to produce results, which, in turn, may be used as input
   to another source block.  [note there are security issues here: you
-  will be prompted before a code block is evaluated.]
+  will need to set a value to the Emacs variable
+  =org-babel-load-languages=, and you will be prompted each time
+  before a code block is evaluated.]
 - exported (either the code, its results, or both) into a .html, .pdf,
   or other format file
 - /tangled/, that is, exported into a separate file, that might be
@@ -51,6 +52,8 @@ To evaluate a source block in an Org buffer, =C-c C-c= or =C-c C-v e=.
 To edit this source block in an Org Src buffer, =C-c '=.  To close
 the Org Source buffer and return to the Org buffer, again, =C-c '=.
 
+
+
 * Org Src buffers for R
 
 Again, =C-c '= to enter and to exit.
@@ -68,3 +71,25 @@ cursor ("point") to the start of the next function.
 * :results -- an entire slide?
 
 
+* :session for R
+
+Normally, evaluating a 
+
+* Other resources
+
+For Emacs: 
+
+- SystemCrafters' [[https://www.youtube.com/c/SystemCrafters/playlists][_playlists_]] include various introductory videos.
+
+For Org Mode:
+
+- The Org Mode [[https://orgmode.org/][_web site_]].
+- Rainer König has a [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][_series of videos_]] (now also available as a
+  [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][_course on Udemy_]]).
+- The Org Mode community site ("worg") has a [[https://orgmode.org/worg/org-contrib/babel/][_section_]] about Babel.
+
+For Org mode with R:
+
+- Erik Riverson many years ago produced [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][_a tutorial_]] that, while dated
+  in some places, is still very useful.
+- XXX A copy of a longer exposition of this tutorial XXX
