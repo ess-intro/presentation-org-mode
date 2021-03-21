@@ -1,5 +1,6 @@
 #+title: ESS in Emacs Org Mode Buffers
 #+options: toc:nil
+ #+options: toc:nil
 #+subtitle: part of the ESS intro series
 #+subtitle: Greg Minshall
 
@@ -10,9 +11,9 @@ environment one runs on top of it."
 
 Emacs Org Mode is an outline-structured file format and backing
 software that allows you to
-- markup text via, e.g., *asteriskizing*, =equalizing=, ~tildeizing~,
-  /slashing/, +plusing+, _underscoring_.
-- export the file, or a subtree of it, as, e.g., an .html or .pdf file
+- markup text via *asteriskizing*, =equalizing=, ~tildeizing~,
+  /slashizing/, +plusizing+, _underscorizing_, etc.
+- export a file, or a subtree of it, as, e.g., an .html or .pdf file
 - take notes
 - create agendas (items with date elements)
 - organize your LIFE!
@@ -76,39 +77,27 @@ of the next function.
 
 * :session for R
 
-Normally, evaluating a source block takes place in a fairly pristine
-environment which is thrown away after that specific evaluation.  The
-next evaluation will have no access to state from the previous
-evaluation, other than its emitted results (if used as the source of a
-=:var= header argument).
+Normally, successive evaluations of source blocks do not have access to
+any state instantiated by previous evaluations (other than emitted
+results).
 
-Sometimes, it is useful to establish a long term session in which to
-evaluate successive source blocks.  This is accomplished with the
-=:session NAME= header argument:
+However, the =:session NAME= header argument causes all evaluation of
+a block to occur in a single R process (in an Emacs buffer, under
+ESS).
 
 #+begin_src org
-	,#+begin_src R :session R
-			if (!exists("a")) {
-				a <- rnorm(1)
-			} else {
-				a
-			}
+	,#+begin_src R :session aRbitRaRyname
+		a <- rnorm(1)
 	,#+end_src
 #+end_src
 
-This can be convenient, as it allows you to build up a series of
-functions and variables, ease debugging, etc.
+This can be convenient, as it allows you to build up, and examine, a
+series of functions and variables, ease debugging, etc. [fn::In
+general, depending on the language of the source block you are using,
+evaluation with or without sessions may exhibit different behavior.
+(I think I've noticed this with python.)]
 
-In general, depending on the language of the source block you are
-using, evaluation with or without sessions may exhibit different
-behavior.  (I think I've noticed this with python.)
-
-* End, other resources
-
-Thank you for "attending" this tutorial.  I hope it has given you a
-sense of Org Mode.  But, this has been more of a teaser than an
-information dump that would allow you to start using Org Mode with no
-other resources.  
+* Other resources (I)
 
 For Emacs: 
 
@@ -127,8 +116,20 @@ For Org mode with R:
   in some places, is still very useful.
 - XXX A copy of a longer exposition of this tutorial XXX
 
+* Other resources (II)
+
 For everything:
 
 - the Emacs, etc., "info pages" (=C-h i=), which include information
   on Emacs, Org Mode, etc. (even R, depending on your installation),
   provide very detailed information.
+
+There are various ways to connect with other Org Mode users listed
+[[https://orgmode.org/community.html][here]].  Similar information for ESS is [[https://ess.r-project.org/index.php?Section=getting%20help][here]].
+
+* Farewell
+
+Thank you for "attending" this tutorial.  I hope it has given you a
+sense of Org Mode.  This has been more of a teaser than an exhaustive
+introduction, but the resources we listed above should be enough to
+ease you into using R with Org Mode.
