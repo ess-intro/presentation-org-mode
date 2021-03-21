@@ -1,4 +1,74 @@
-* slides for the talk
+* ESS in Emacs Org Mode Buffers
+
+** part of the ESS intro series
+
+src_R[:results raw :exports results]{Sys.Date()}
+
+Greg Minshall
+
+* Org Mode
+
+"If Emacs is the distribution, Org Mode is the entire desktop
+environment one runs on top of it."
+
+an outline-structured file format and backing software that allows you
+to
+- text *asteriskizing*, =equalizing=, ~tildeizing~, /slashing/,
+  +plusing+.
+- export the file, or a subtree of it, as, e.g., an .html or .pdf file
+- take notes
+- create agendas (items with date elements)
+- organize your LIFE!
+- do calculations -- good support for math, LaTeX, etc.
+- table support for storing information (including support for
+  formulae)
+
+* Babel -- Org Mode support for programming
+
+One can write source code in "source blocks", and then that code can
+be
+- evaluated to produce results, which, in turn, may be used as input
+  to another source block.  [note there are security issues here: you
+  will be prompted before a code block is evaluated.]
+- exported (either the code, its results, or both) into a .html, .pdf,
+  or other format file
+- /tangled/, that is, exported into a separate file, that might be
+  used as input to a compilation or some other packaging step, or be a
+  stand alone script (=Rscript=, say).
+- edited, either in place in the Org buffer, or "stand alone" in an
+  Org Source buffer, with the possibility of real-time syntax
+  checking/linting, etc.
+
+* R source blocks
+
+In particular, one can have a source block with R code
+#+begin_src org :exports code
+	,#+begin_src R :results value
+		"here, the last value executed is the result"
+	,#+end_src
+#+end_src
+
+To evaluate a source block in an Org buffer, =C-c C-c= or =C-c C-v e=.
+
+To edit this source block in an Org Src buffer, =C-c '=.  To close
+the Org Source buffer and return to the Org buffer, again, =C-c '=.
+
+* Org Src buffers for R
+
+Again, =C-c '= to enter and to exit.
+
+An Org Src buffer for R is an ESS mode buffer.
+
+#+begin_src R
+	"this is the result of running this code -- last value executed"
+#+end_src
+
+Evaluating code is still initiated with =C-c C-c=, tends to send just
+the function at the current location to be evaluated, and moves the
+cursor ("point") to the start of the next function.
+
+* :results -- an entire slide?
+
 
 * code blocks
 
