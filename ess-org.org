@@ -438,26 +438,27 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 #+name: org-filter-by-results
 #+begin_src elisp :results none
-  (require 'ob-core)
+	(require 'ob-core)
 
-  (defun org-filter-by-argument-value (arg values locs)
-    "Return the subset of LOCS that correspond to executable
-  locations in the current buffer whose
-  \"info\" (org-babel-get-src-block-info) argument parameter
-  contains an argument ARG with a value in VALUES."
-    (let ((pt (point))
-          (rval nil))
-      (mapc
-       (lambda (l)
-         (progn
-           (goto-char l)
-           (let* ((info (org-babel-get-src-block-info))
-                  (value (cdr (assoc arg (nth 2 info)))))
-             (if (member value values)
-                 (setq rval (cons l rval))))))
-       locs)
-      (goto-char pt)
-      (reverse rval)))
+	(defun org-filter-by-argument-value (arg values locs &optional negate)
+		"Return the subset of LOCS that correspond to executable
+	locations in the current buffer whose
+	\"info\" (org-babel-get-src-block-info) argument parameter
+	contains an argument ARG with a value in VALUES."
+		(let ((pt (point))
+					(rval nil))
+			(mapc
+			 (lambda (l)
+				 (progn
+					 (goto-char l)
+					 (let* ((info (org-babel-get-src-block-info))
+									(value (cdr (assoc arg (nth 2 info)))))
+						 (if (or (and negate (not (member value values)))
+									 (and (not negate) (member value values)))
+								 (setq rval (cons l rval))))))
+			 locs)
+			(goto-char pt)
+			(reverse rval)))
 #+end_src
 
 *** for each block in the (whichever) buffer
@@ -466,6 +467,10 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
   code
 - if ":exports results/both", create a systematically-named file with
   the results
+
+*** for each block in the (whichever) buffer
+
+- if :eval is not (some form of) "no", offer it up for evaluation
 
 #+name: org-walk-and-execute
 #+BEGIN_SRC elisp
@@ -487,22 +492,17 @@ string \"N-\")."
   (save-window-excursion
     (org-babel-map-executables nil
       (if (org-filter-by-argument-value
-           ':exports
-           (list "results" "both"))
+           ':eval
+           (list "never" "never-export" "no" "no-export"))
           (progn
             (message "o-w-a-e point %s" (point))
             (org-babel-execute-src-block)))
       (message "before: modified? %s" (buffer-modified-p)))))
 #+END_SRC
 
-*** for each block in the (whichever) buffer
-
-- if :results not "none", execute it
-
 *** for each org block in the (whichever) buffer
 
 - if :exports "results" or "both", execute all blocks in the org block
-
 
 #+name: org-get-org-blocks
 #+begin_src elisp :results value verbatim :exports both
@@ -528,7 +528,7 @@ open up an edit buffer, and execute all internal code that :exports
 either "results" or "both".
 #+name: main-loop
 #+begin_src elisp :results verbatim
-  (defun main-loop ()
+  (defun do-org-blocks ()
     (let ((pt (point)))
       (unwind-protect
           (save-window-excursion
