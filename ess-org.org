@@ -548,23 +548,24 @@ for each org-in-org block that :exports either "results" or "both",
 open up an edit buffer, and execute all internal code that :exports
 either "results" or "both".
 #+name: main-loop
-#+begin_src elisp :results verbatim
+#+begin_src elisp :results none
 	(defun do-org-blocks ()
-		(let ((pt (point)))
+		(let (results
+					(pt (point)))
 			(unwind-protect
 					(save-window-excursion
-						(let ((results (mapcar
+						(mapc
 						 (lambda (l)
 							 (goto-char l)
 							 (org-babel-do-in-edit-buffer
 								(let ((result (org-walk-and-execute)))
+									(message "dob l, result: %s, %s" l result)
 									(org-edit-src-save)
-									(list l result))))
+									(setq results (append results (list (list l result)))))))
 						 (org-filter-by-argument-value
-							':exports (list "results" "both") (org-get-org-blocks)))))))
-				(goto-char pt))))
+							':exports (list "results" "both") (org-get-org-blocks))))
+				(goto-char pt))
+			(message "results: %s" results)
+			results))
 #+end_src
-
-#+RESULTS: main-loop
-: do-org-blocks
 
