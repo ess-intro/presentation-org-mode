@@ -1,5 +1,9 @@
-built
-ess-org-beamer.html
+artefacts/el-org.el
+ess-org-beamer.html*
 ess-org-beamer.pdf
-ess-org-beamer.tex
-ess-org.html
+ess-org-beamer.tex*
+ess-org.html*
+ess-org.pdf
+ess-org.tex*
+.tex~
+.html~

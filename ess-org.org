@@ -610,7 +610,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 ** elisp code                                                      :noexport:
        :PROPERTIES:
-       :header-args+: :tangle ./built/el-org.el
+       :header-args+: :tangle ./artefacts/el-org.el
        :END:
 
 #+name: org-filter-by-results
@@ -745,19 +745,19 @@ either "results" or "both".
   (setq org-publish-project-alist
         '(("html"
            :base-directory "./"
-           :publishing-directory "./built"
+           :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-html-publish-to-html)
           ("latexpdf"
            :base-directory "./"
-           :publishing-directory "./built"
+           :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-latex-publish-to-pdf)
           ("beamerpdf"
            :base-directory "./"
-           :publishing-directory "./built"
+           :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org-beamer.org")
            :publishing-function org-beamer-publish-to-pdf)
@@ -766,7 +766,7 @@ either "results" or "both".
 
 ** css :noexport:
 
-#+begin_src css :tangle built/floattoc.css
+#+begin_src css :tangle ./artefacts/floattoc.css
   #toc {
 	position: fixed;
 	right: 0;
