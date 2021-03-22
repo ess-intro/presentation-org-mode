@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-03-22 Mon 18:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org528f8a9">1. using ESS with emacs org mode</a>
+<ul>
+<li><a href="#org6ff290d">1.1. intro to org mode</a></li>
+<li><a href="#org16150e5">1.2. babel &#x2013; programming language support in org files</a>
+<ul>
+<li><a href="#org9b4384e">1.2.1. literate programming, if you want</a></li>
+</ul>
+</li>
+<li><a href="#orgc018daf">1.3. source blocks</a></li>
+<li><a href="#org800d80d">1.4. naming blocks</a></li>
+<li><a href="#org74df782">1.5. noweb</a></li>
+<li><a href="#org297f5b8">1.6. tangling</a></li>
+<li><a href="#orgd18d605">1.7. executing</a>
+<ul>
+<li><a href="#orga743ff9">1.7.1. <code>C-c C-c</code> on a source block</a></li>
+<li><a href="#orgfe22bc9">1.7.2. <code>C-c C-c</code> on an inline source block</a></li>
+<li><a href="#orgd3470cd">1.7.3. <code>C-c C-c</code> on a #+call</a></li>
+<li><a href="#org849bd7d">1.7.4. <code>C-c C-c</code> on an inline-call</a></li>
+<li><a href="#orgab58b0f">1.7.5. :colnames and :rownames</a></li>
+</ul>
+</li>
+<li><a href="#org00b1c89">1.8. results</a></li>
+<li><a href="#orgf4b522c">1.9. variables</a></li>
+<li><a href="#org9407a4e">1.10. exporting</a></li>
+<li><a href="#orga0c4a92">1.11. life in Org Src buffers</a></li>
+<li><a href="#orgcf9fd76">1.12. org-mode community</a></li>
+<li><a href="#orge82c50f">1.13. other tutorials, etc.</a></li>
+<li><a href="#orgfb80aa3">1.14. code blocks</a>
+<ul>
+<li><a href="#orgb6364d9">1.14.1. a source block</a></li>
+<li><a href="#orgf85210b">1.14.2. an <i>inline</i> code block</a></li>
+<li><a href="#org30d4218">1.14.3. the anatomy of a source block</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org528f8a9" class="outline-2">
+<h2 id="org528f8a9"><span class="section-number-2">1</span> using ESS with emacs org mode</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org6ff290d" class="outline-3">
+<h3 id="org6ff290d"><span class="section-number-3">1.1</span> intro to org mode</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+basics: document structuring, tables, math/LaTeX, exporting
+</p>
+
+<p>
+<a href="https://www.gnu.org/software/emacs/">emacs</a> (<a href="https://en.wikipedia.org/wiki/Emacs">wikipedia</a>) <a href="https://orgmode.org/">org mode</a> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>  sometimes exhorts one to do something like "Organize Your
+Life In Plain Text!"; the org mode manual, on the other hand, starts
+off by saying, "Org is an outliner".  the philosophy of org-mode
+(indeed, of Emacs, and maybe, to some extent, of any of the *nix
+operating systems) is that using non-proprietary file formats and
+software provides the most "liberating" and "horizon-free" way of
+taking advantage of modern information technology.  and, to some
+extent, that a mostly-command line interface, rather than a graphical
+user interface, is also "the way to go".
+</p>
+
+<p>
+i think org mode started off as a way of simplifying the creation of
+formatted documents, with tables, etc., for taking notes, creating
+agendas (items with date elements), and evolved into a much larger
+system of utilities for, for example, converting ("exporting", in org
+mode parlance) between the org mode syntax to .html, .pdf, etc.,
+documents, with good support for doing mathematical (LaTeX)
+formatting.
+</p>
+
+<p>
+a .org file is structured like an outline, with outline sections and
+levels indicated by lines starting with one or more asterisks in the
+first column; these define "headlines" for the outline.  between
+headlines one can include text, tables, bits of code, etc.  bits of
+the .org file can be displayed and/or hidden by positioning the cursor
+on a headline and (possibly repeatedly) hitting <code>tab</code>.
+</p>
+
+<p>
+asterisk-defined headlines can include "tags" (<code>:essintro:</code>; i am
+ignorant of their use), and can optionally be (immediately) followed
+by a special "drawer" <sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> named
+<code>:PROPERTIES:</code> holding, well, properties, i.e, (key, value) tuples.
+</p>
+
+<p>
+Org mode text markup allows the use of <b>asterisks</b>, <code>equal signs</code>,
+<code>tildes</code>, <i>[forward] slashes</i>, <span class="underline">underscores</span> and (though, apparently,
+deprecated) <del>plus signs</del>, to achieve different font characteristics.
+(until writing this, i have always used equal signs for short bits of
+code, but now i will try to remember to try out tildes.)  in-line math
+formatting <code>\(x = cos(y)\)</code> is supported; Org mode also allows super-
+(10<sup>9</sup>) and subscripts (I<sub>e</sub>) (though these <a href="https://stackoverflow.com/a/698791/1527747">can be disabled</a>, if
+desired).
+</p>
+
+<p>
+various sorts of "blocks" are supported in org mode files.  these
+typically start with <code>#begin_...</code>, and end with a corresponding
+<code>#end_...</code>, where the <code>...</code> are something like <code>src</code>, <code>example</code>,
+<code>quote</code>.  a skeleton for one of these can conveniently be created by,
+in column 1 of an otherwise empty line, typing <code>&lt;X</code> followed by <code>tab</code>,
+where <code>X</code> is one of
+</p>
+<ul class="org-ul">
+<li><code>s</code> for a source block</li>
+<li><code>q</code> for a quote block (line wrapping applies)</li>
+<li><code>e</code> for an example block (line wrapping does not apply)</li>
+</ul>
+
+<p>
+there are various other blocks; you can experiment by typing (in
+column one, of an otherwise empty line) <code>&lt;</code> and then one of the
+following, and hitting <code>tab</code>:
+</p>
+<pre class="example">
+a, c, C, E, h, l, v
+</pre>
+
+<p>
+seeing what you get, looking in the manual.  (of course, one can
+always search the manual for <code>#[+]begin_</code>.)
+</p>
+
+<p>
+org mode does a good job exporting to LaTeX, html.  (some people
+primarily use org mode as a more "user friendly" interface to LaTeX,
+though for serious documents, in the final analysis they probably
+spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
+</p>
+
+<p>
+in addition to the source blocks mentioned above (and elaborated on
+below), org mode allows short bits of "verbatim" code to be introduced
+by a colon as the first non-blank column of a line
+</p>
+<div class="org-src-container">
+<pre class="src src-org">: this is verbatim
+</pre>
+</div>
+
+<p>
+one can have longer runs of verbatim ("example") data (which is not
+word wrapped, etc.:
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+name: ex
+#+begin_example
+this is a block
+that
+holds more verbatim text
+#+end_example
+
+#+begin_src R :var foo=ex :exports both
+foo
+#+end_src
+
+#+RESULTS:
+| this is a block          |
+| that                     |
+| holds more verbatim text |
+
+#+begin_src R :var foo=ex :exports code
+foo
+#+end_src
+
+#+RESULTS:
+| this is a block          |
+| that                     |
+| holds more verbatim text |
+
+</pre>
+</div>
+
+<p>
+as well as longer bits of text that <b>will</b> be wrapped ("quote":
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+begin_quote
+this is a bit of
+text that should
+show up, eventually, strung out in a smaller
+number
+of
+lines when "filled"
+(e.g., =M-x org-fill-paragraph=, =M-q=)
+#+end_quote
+</pre>
+</div>
+
+<p>
+blocks can optionally have <a href="#orgf35ad60">names</a>.  these names can be used as <a href="#org8a10d4b">noweb</a>
+references, or to use the value of a block (or, if a source block, of
+the block's results) as input (a <a href="#org2f78d22">variable</a>) to another block in the
+file.<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
+</p>
+
+<p>
+though i have used org mode for more than a decade, i know very little
+of most of its capabilities, as i mostly use it to centralize the
+source code within a project, as well as to produce the random
+document, especially documents with embedded code segments (known, in
+org mode, as "source blocks").  a good source for further information,
+in addition to the main <a href="https://orgmode.org/">org mode</a> web page, is the org mode <a href="https://orgmode.org/worg/">worg</a> site.
+also, once installed on your system, the org mode info pages are
+available in emacs (or, using the info).
+</p>
+
+<p>
+org mode is bundled into the main emacs distribution, but a
+more-than-casual user might like to use the more-than-likely
+up-to-date package available via <a href="https://melpa.org/">melpa</a> (in emacs, use <code>M-x
+package-list-packages</code>, and regexp-search for /<sup>..org</sup> /).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org16150e5" class="outline-3">
+<h3 id="org16150e5"><span class="section-number-3">1.2</span> babel &#x2013; programming language support in org files</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<a href="https://orgmode.org/worg/org-contrib/babel/intro.html">Babel</a> is one name for talking about programming language support in
+org mode.  you are able to embed source code inside of org mode
+buffers, edit these code blocks in a language-specific way, execute
+code blocks, pass the results of the execution of one code block to
+another code block, and include code blocks and/or the results of
+their execution in the document produced by exporting the org buffer.
+</p>
+</div>
+
+<div id="outline-container-org9b4384e" class="outline-4">
+<h4 id="org9b4384e"><span class="section-number-4">1.2.1</span> literate programming, if you want</h4>
+</div>
+</div>
+<div id="outline-container-orgc018daf" class="outline-3">
+<h3 id="orgc018daf"><span class="section-number-3">1.3</span> <a id="org2c02213"></a> source blocks</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Org mode source blocks look like this
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+begin_src R
+		"hello, world!"
+#+end_src
+
+#+RESULTS:
+: hello, world!
+
+</pre>
+</div>
+
+<p>
+(as mentioned above, a source block skeleton can be created by
+typing, in column 1, <code>&lt;s</code>, and hitting <code>tab</code>.)
+</p>
+
+<p>
+Org mode source blocks can be edited, either inline in the org mode
+(".org") document buffer, or in a separate buffer (i call these "Org
+Src&#x2026;" buffers, but they might also be known as "sub-edit buffers" or
+"source edit buffers) that you can "pop up" from the .org buffer ("pop
+out of the .org buffer"?), normally with <code>C-c '</code>.  in the latter,
+there is better support for emacs so-called "font locks", which do
+program language-specific source code highlighting, etc.
+</p>
+
+<p>
+once written, a source block can be executed, returning <a href="#org539d5fe">results</a>,
+either the output of the code, or some terminating "value" of the
+code, as an element of the .org file.  and, the blocks can be executed
+manually, or &#x2013; and optionally, block by block &#x2013; while exporting a
+.org file to a different format.
+</p>
+
+<p>
+a source block can be executed in one of two sorts of contexts, within
+a "session", or outside of a "session".  a "session" here means some
+process that retains state between executions of (possibly different)
+source blocks.  on the other hand, a "non-session" starts up with no
+internal <sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> state from prior runs.
+</p>
+
+<p>
+source blocks can also be expressed using a <code>src_LANG</code> construct; a
+<code>#+name:</code> line can be used to name the <code>src_LANG</code> block.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org">#+name: whyo
+src_R{"42"} {{{results(=42=)}}}
+
+#+begin_src R :var x=whyo :exports results
+x
+#+end_src
+
+#+RESULTS:
+: 42
+
+</pre>
+</div>
+
+<p>
+finally, and of particular interest in these tutorials, is the fact
+that org mode uses ESS to provide R language support.
+</p>
+
+<p>
+<a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html">worg page</a> on R and org-mode.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org800d80d" class="outline-3">
+<h3 id="org800d80d"><span class="section-number-3">1.4</span> <a id="orgf35ad60"></a> naming blocks</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+there are two ways of naming blocks.  first, an individual block
+itself can be preceded by a <code>#+name:</code> line
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+name: somecode
+#+begin_src R :results output
+	cat("this is *some* code!\n")
+#+end_src
+
+#+RESULTS: somecode
+: this is *some* code!
+
+#+name: someothercode
+#+begin_src R :results value
+	whynot &lt;- "this is some *other* code!"
+#+end_src
+
+#+RESULTS: someothercode
+: this is some *other* code!
+
+</pre>
+</div>
+
+<p>
+<a id="org0988783"></a> second, a PROPERIES drawer, using the <code>header-args</code>
+attribute <code>noweb-ref</code> to name the (otherwise unnamed, i believe) code
+blocks in that branch.
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+property: header-args :noweb yes
+
+** this is somewhere in this file
+	 :PROPERTIES:
+	 :header-args+: :tangle very/important/code.R
+	 :header-args+: :noweb-ref nowcode
+	 :END:
+
+now, code blocks will carry that name
+#+begin_src R
+	x &lt;- "we want some code, and we want it now!"
+#+end_src
+
+#+RESULTS:
+: we want some code, and we want it now!
+
+** somewhere else
+#+begin_src R :results output
+
+	cat(x, "\n")
+#+end_src
+
+#+RESULTS:
+: we want some code, and we want it now! 
+</pre>
+</div>
+
+<p>
+as you can see, the properties drawer can carry many of properties,
+including the name of a destination file for <a href="#org915c58a">tangling</a>.  the very odd
+<code>&lt;&lt;nowcode&gt;&gt;</code> is our next topic: <a href="#org8a10d4b">noweb</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org74df782" class="outline-3">
+<h3 id="org74df782"><span class="section-number-3">1.5</span> <a id="org8a10d4b"></a> noweb</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+<a href="https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example">noweb</a> is a literate programming syntax to allow referencing blocks of
+code within some larger (.org file, say) context.  it allows a
+programmer to re-use bits of code (sort of <code>#include</code> like).
+</p>
+
+<p>
+noweb syntax is <b>disabled</b> by default.  to enable noweb syntax, one
+can either enable it on the header line of each source code block,
+enable it in a properties drawer, or, as in the following, enable it
+once at the beginning of an org file:
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+property: header-args  :noweb yes
+</pre>
+</div>
+
+<p>
+once enabled, references of the kind <code>&lt;&lt;NAME&gt;&gt;</code> will incorporate the
+contents of a previous source code block.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org">#+property: header-args :noweb yes
+
+#+name: fubar
+#+begin_src R
+"this is an example"
+#+end_src
+
+#+RESULTS: fubar
+: this is an example
+
+#+begin_src R
+
+#+end_src
+
+#+RESULTS:
+: this is an example
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org297f5b8" class="outline-3">
+<h3 id="org297f5b8"><span class="section-number-3">1.6</span> <a id="org915c58a"></a> tangling</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+while often we are content to execute code blocks inside the .org
+file, equally often we might want to export some or all of the code
+blocks for execution (or inspection) outside of the .org file.  for
+example, we might want to use some of the code in the .org file to
+create an R package.
+</p>
+
+<p>
+in the world of <a href="https://orgmode.org/worg/org-contrib/babel/index.html">literate programming</a>, <i>tangling</i> is the process of
+extracting source code from a (theoretically primarily text) document.
+in org mode, one uses <code>org-babel-tangle</code> (normally bound to <code>C-c C-v
+t</code>) to tangle the source code blocks in a file.  the file to which a
+source block will be tangled is specified in the <code>:tangle</code> attribute,
+placed on the <code>#+src_block</code> line or in a <code>:header-args</code> line (in a
+properties drawer, to apply to a subtree of the .org file, or
+stand-alone as above to apply to the entire .org file).
+</p>
+
+<p>
+to actually <i>tangle</i> a file, use <code>M-x org-babel-tangle</code>, often bound
+to <code>C-c C-v t</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd18d605" class="outline-3">
+<h3 id="orgd18d605"><span class="section-number-3">1.7</span> <a id="org5222c6a"></a> executing</h3>
+<div class="outline-text-3" id="text-1-7">
+</div>
+<div id="outline-container-orga743ff9" class="outline-4">
+<h4 id="orga743ff9"><span class="section-number-4">1.7.1</span> <code>C-c C-c</code> on a source block</h4>
+</div>
+<div id="outline-container-orgfe22bc9" class="outline-4">
+<h4 id="orgfe22bc9"><span class="section-number-4">1.7.2</span> <code>C-c C-c</code> on an inline source block</h4>
+</div>
+<div id="outline-container-orgd3470cd" class="outline-4">
+<h4 id="orgd3470cd"><span class="section-number-4">1.7.3</span> <code>C-c C-c</code> on a #+call</h4>
+</div>
+<div id="outline-container-org849bd7d" class="outline-4">
+<h4 id="org849bd7d"><span class="section-number-4">1.7.4</span> <code>C-c C-c</code> on an inline-call</h4>
+<div class="outline-text-4" id="text-1-7-4">
+<div class="org-src-container">
+<pre class="src src-org">#+name: find-orgs
+#+begin_src R
+1
+#+end_src
+
+#+RESULTS: find-orgs
+: 1
+
+call_find-orgs() {{{results(=1=)}}}
+
+#+call: find-orgs()
+
+#+RESULTS:
+: 1
+
+call_find-orgs() {{{results(=1=)}}}
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgab58b0f" class="outline-4">
+<h4 id="orgab58b0f"><span class="section-number-4">1.7.5</span> :colnames and :rownames</h4>
+<div class="outline-text-4" id="text-1-7-5">
+<div class="org-src-container">
+<pre class="src src-org">#+BEGIN_SRC R
+mtcars[1:3,]
+#+END_SRC
+
+#+RESULTS:
+|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |
+|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |
+| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |
+
+#+begin_src R :colnames yes :rownames yes
+mtcars[1:3,]
+#+end_src
+
+#+RESULTS:
+|               |  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |
+|---------------+------+-----+------+-----+------+-------+-------+----+----+------+------|
+| Mazda RX4     |   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |
+| Mazda RX4 Wag |   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |
+| Datsun 710    | 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org00b1c89" class="outline-3">
+<h3 id="org00b1c89"><span class="section-number-3">1.8</span> <a id="org539d5fe"></a> results</h3>
+<div class="outline-text-3" id="text-1-8">
+<div class="org-src-container">
+<pre class="src src-org">#+name: somecode
+#+begin_src R :results output
+	cat("this is *some* code!\n")
+#+end_src
+
+#+RESULTS: somecode
+: this is *some* code!
+
+#+name: someothercode
+#+begin_src R :results value
+	whynot &lt;- "this is some *other* code!"
+#+end_src
+
+#+RESULTS: someothercode
+: this is some *other* code!
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf4b522c" class="outline-3">
+<h3 id="orgf4b522c"><span class="section-number-3">1.9</span> <a id="org2f78d22"></a> variables</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+&#x2013; in and out
+</p>
+</div>
+</div>
+<div id="outline-container-org9407a4e" class="outline-3">
+<h3 id="org9407a4e"><span class="section-number-3">1.10</span> <a id="org5e8c821"></a> exporting</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+entire document or a subtree of the document
+</p>
+</div>
+</div>
+<div id="outline-container-orga0c4a92" class="outline-3">
+<h3 id="orga0c4a92"><span class="section-number-3">1.11</span> life in Org Src buffers</h3>
+</div>
+
+<div id="outline-container-orgcf9fd76" class="outline-3">
+<h3 id="orgcf9fd76"><span class="section-number-3">1.12</span> org-mode community</h3>
+<div class="outline-text-3" id="text-1-12">
+<p>
+mailing lists
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge82c50f" class="outline-3">
+<h3 id="orge82c50f"><span class="section-number-3">1.13</span> other tutorials, etc.</h3>
+<div class="outline-text-3" id="text-1-13">
+<p>
+<a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE">Rainer's screencasts about Org mode</a> (now a <a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7">course on Udemy</a>)
+</p>
+
+<p>
+<a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org">tutorial on R and org-mode</a>
+</p>
+<pre class="example">
+From: Erik Iverson &lt;erikriverson@gmail.com&gt;
+Date: Tue, 23 Feb 2021 12:30:03 -0800
+Subject: Re: org-in-org
+To: Greg Minshall &lt;minshall@umich.edu&gt;
+Cc: emacs-orgmode &lt;emacs-orgmode@gnu.org&gt;
+</pre>
+
+<p>
+<a href="https://raw.githubusercontent.com/vikasrawal/orgpaper/master/orgpapers.org">https://raw.githubusercontent.com/vikasrawal/orgpaper/master/orgpapers.org</a>
+or
+<a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org">https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org</a>
+or, more recently:
+</p>
+<pre class="example">
+From: Jeremie Juste &lt;jeremiejuste@gmail.com&gt;
+To: Greg Minshall &lt;minshall@umich.edu&gt;
+Subject: Re: org-in-org
+Date: Tue, 23 Feb 2021 22:38:06 +0100
+Cc: emacs-orgmode@gnu.org
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgfb80aa3" class="outline-3">
+<h3 id="orgfb80aa3"><span class="section-number-3">1.14</span> code blocks</h3>
+<div class="outline-text-3" id="text-1-14">
+<p>
+there are a few pieces of information org-mode needs to define a
+block of code
+</p>
+<ul class="org-ul">
+<li>(optionally) a <code>name</code> for the block (to use to include the block's
+code in another block with <a href="ess-org.html#org74df782">noweb</a>, or to use the block's results as
+input to another block with <a href="ess-org.html#orgf4b522c">:var</a>.</li>
+<li>the language of the code in the block</li>
+<li>various arguments (<code>header arguments</code> and <code>switches</code>) that define
+how the code interacts with its environment</li>
+<li>the source code itself</li>
+</ul>
+
+<p>
+there are at least two ways of encoding the needed information:
+</p>
+</div>
+
+<div id="outline-container-orgb6364d9" class="outline-4">
+<h4 id="orgb6364d9"><span class="section-number-4">1.14.1</span> a source block</h4>
+<div class="outline-text-4" id="text-1-14-1">
+<p>
+the most "normal" way of defining source code is with a <i>source
+block</i>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org">#+begin_src R
+  "hello, world"
+#+end_src
+
+#+RESULTS:
+: hello, world
+</pre>
+</div>
+
+<p>
+we use this form below in discussing the structure of a code block.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf85210b" class="outline-4">
+<h4 id="orgf85210b"><span class="section-number-4">1.14.2</span> an <i>inline</i> code block</h4>
+<div class="outline-text-4" id="text-1-14-2">
+<p>
+in a second form, known as an <i>inline code block</i>, the entire block
+can fit on one line (though multiple lines are possible).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org">src_R{"hello, world"} {{{results(=hello\, world=)}}}
+</pre>
+</div>
+
+<p>
+i don't use this form.  for this tutorial i looked at it briefly.  it
+appears its semantics are different from that of source blocks.  other
+than that, i will not discuss it further.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org30d4218" class="outline-4">
+<h4 id="org30d4218"><span class="section-number-4">1.14.3</span> the anatomy of a source block</h4>
+<div class="outline-text-4" id="text-1-14-3">
+<div class="org-src-container">
+<pre class="src src-org">#+name: refid
+#+begin_example
+this is a test
+#+end_example
+
+#+name: anatomy
+#+begin_src R :var varname=refid :results output
+cat(varname)
+#+end_src
+
+#+RESULTS: anatomy
+: this is a test
+
+#+header: :var anothername=anatomy
+#+header: :exports results
+#+header: :results value
+#+name: second
+#+begin_src R
+anothername
+#+end_src
+
+#+RESULTS: second
+: this is a test
+</pre>
+</div>
+
+<p>
+the block named <i>refid</i> is not a code block, but shows how the
+contents of another block (verbatim, in this case) can be used as
+input to a code block.
+</p>
+
+<p>
+we set <i>anatomy</i> as the name of the first code block, using the
+<code>#+name</code> line.
+</p>
+
+<p>
+then, we declare <i>anatomy's</i> source block with the <code>#+begin_src</code> line,
+which has
+</p>
+<ul class="org-ul">
+<li>the language (<code>R</code>, of course)</li>
+<li>a header argument specifying an input variable named <i>varname</i>,
+using the value of <i>refid</i> block</li>
+<li>another header argument specifying that the result of this block
+will be taken from whatever it prints on stdout</li>
+</ul>
+
+<p>
+the code for <i>anatomy</i> just consists of printing the (input) variable
+<i>varname</i> to stdout.
+</p>
+
+<p>
+we continue by defining yet another source block, which we name
+<i>second</i>.  it shows a different way of specifying the header
+arguments, via <code>#+header</code> lines, each of which can define one or more
+header arguments.  one can put some header arguments on the
+<code>#+begin_src</code> line, some on one or or more <code>#+header</code> lines.
+</p>
+
+<ul class="org-ul">
+<li>:exports code</li>
+<li>:results table</li>
+<li>:colnames yes</li>
+<li>:exports none</li>
+<li>:tangle no</li>
+<li>:results none</li>
+<li>:var csvsedtable=csvsedtable</li>
+<li>:results output verbatim</li>
+<li>:cache</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">a.k.a., "org-mode", Org Mode, orgmode
+&#x2013; the proliferation of notation makes googling somewhat of a
+challenge.</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">a structure starting with an more-or-less
+arbitrary name, surrouned by colons, and ending with <code>:END:</code></p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">i believe there are facilities for "naming" bits of
+information in other .org files, but i don't know the details and i
+don't know if it works with source code blocks.</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">obviously, prior runs may have, e.g., changed the state
+of the file system on which all these executions are running; that is,
+the <b>external</b> state may by influenced by what has previously been
+executed.</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="date">Created: 2021-03-22 Mon 18:24</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
