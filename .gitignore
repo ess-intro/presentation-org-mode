@@ -5,5 +5,7 @@ ess-org-beamer.tex*
 ess-org.html*
 ess-org.pdf
 ess-org.tex*
-.tex~
 .html~
+tangled/
+touched/
+.tex~
