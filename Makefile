@@ -1,25 +1,36 @@
 # a little error checking
 GNUMAKEFLAGS += --warn-undefined-variables
 
-ARTEFACTS = ./artefacts
+# where the bits we produce go
+ARTEFACTSDIR = ./artefacts
+# org file tangles here on the way to artefacts; we only copy over if
+# there is a difference
+TANGLEDDIR = ./tangled
+# to keep make from making over and over again, we touch(1) some
+# otherwise unused files in this directory
+TOUCHEDDIR = ./touched
 
+# our main .org file
 MAINORG = ess-org.org
+# well, this is the beamer presentation, and might arguably be
+# considered our main work product
 BEAMERORG = ess-org-beamer.org
 
+# script to tangle org files
 DOTANGLE = ./dotangle.el
 
-CSS = ${ARTEFACTS}/floattoc.css
-ELORGEL = ${ARTEFACTS}/el-org.el
-TANGLED = ${ELORGEL} ${CSS}
+CSS = ${ARTEFACTSDIR}/floattoc.css
+ELORGEL = ${ARTEFACTSDIR}/el-org.el
+TANGLEDFILES = ${ELORGEL} ${CSS}
 
-PUBLISHED = ${ARTEFACTS}/ess-org.html \
-				${ARTEFACTS}/ess-org.pdf \
-				${ARTEFACTS}/ess-org-beamer.pdf
+PUBLISHEDFILES = ${ARTEFACTSDIR}/ess-org.html \
+				${ARTEFACTSDIR}/ess-org.pdf \
+				${ARTEFACTSDIR}/ess-org-beamer.pdf
 
 
 # these are the files we want on github (other than our normal
 # "source" files)
-ARTEFACTSFILES = ${PUBLISHED} ${CSS}
+ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS}
 
 # set up to allow evaluating R source blocks
 EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (R . t)))
@@ -31,21 +42,37 @@ EMACSSETUP = (progn (package-initialize) (load-file \"${ELORGEL}\") ${EMACSLL} $
 EMACSORGBLOCKS = (do-org-blocks)
 
 
-all: tangled published
+all: tangle publish
 
-${TANGLED}: ${MAINORG}
+# tangle to ./tangled
+${TANGLEDFILES}: tangle
+
+tangle: ${TOUCHEDDIR}/tangle
+
+${TOUCHEDDIR}/tangle: ${MAINORG}
 	${DOTANGLE} $<
+	for longname in ${TANGLEDFILES}; do \
+		i=`basename $${longname}`; \
+		cmp -s ${TANGLEDDIR}/$$i ${ARTEFACTSDIR}/$$i || \
+			cp -p ${TANGLEDDIR}/$$i ${ARTEFACTSDIR}/$$i; \
+	done
+	touch $@
 
-tangled: ${TANGLED}
+${ARTEFACTSDIR}/ess-org.html: publish
 
-${PUBLISHED}: published
+${ARTEFACTSDIR}/ess-org.pdf: publish
 
-published: ${MAINORG} ${TANGLED}
+${ARTEFACTSDIR}/ess-org-beamer.pdf: publish
+
+publish: ${TOUCHEDDIR}/publish
+
+${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES}
 	emacs --file ${MAINORG} \
 		--eval "${EMACSSETUP}" \
 		--eval "${EMACSORGBLOCKS}" \
 		--eval "(org-publish-project \"ess-org\")" \
 		--batch
+	touch $@
 
 gitci: ${ARTEFACTSFILES}
 	for af in ${ARTEFACTSFILES}; do \

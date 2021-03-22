@@ -610,7 +610,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 ** elisp code                                                      :noexport:
        :PROPERTIES:
-       :header-args+: :tangle ./artefacts/el-org.el
+       :header-args+: :tangle ./tangled/el-org.el
        :END:
 
 #+name: org-filter-by-results
@@ -743,30 +743,30 @@ either "results" or "both".
 #+name: publishing
 #+begin_src elisp :results none
   (setq org-publish-project-alist
-        '(("html"
+        '(("ess-org-html"
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-html-publish-to-html)
-          ("latexpdf"
+          ("ess-org-pdf"
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-latex-publish-to-pdf)
-          ("beamerpdf"
+          ("ess-org-beamer-pdf"
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org-beamer.org")
            :publishing-function org-beamer-publish-to-pdf)
-          ("ess-org" :components ("html" "latexpdf" "beamerpdf"))))
+          ("ess-org" :components ("ess-org-html" "ess-org-pdf" "ess-org-beamer-pdf"))))
 #+end_src
 
 ** css :noexport:
 
-#+begin_src css :tangle ./artefacts/floattoc.css
+#+begin_src css :tangle ./tangled/floattoc.css
   #toc {
 	position: fixed;
 	right: 0;
