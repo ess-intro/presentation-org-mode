@@ -1,0 +1,9 @@
+* introduction to introduction to using ESS and Emacs org mode
+
+this is where the source and some of the finished products
+
+~make~ is run on the source files on a developer's machine, and the
+resulting .html and .pdf files, in =./artefacts/= are added to the
+repository and (when =git push= is executed) uploaded to the github
+repository for access.
+
