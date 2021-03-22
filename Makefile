@@ -30,11 +30,11 @@ ${TANGLED}: ${MAINORG}
 
 tangled: ${TANGLED}
 
-${PUBLISHED}: ${MAINORG} ${TANGLED}
+${PUBLISHED}: published
+
+published: ${MAINORG} ${TANGLED}
 	emacs --file ${MAINORG} \
 		--eval "${EMACSSETUP}" \
 		--eval "${EMACSORGBLOCKS}" \
 		--eval "(org-publish-all)" \
 		--batch
-
-published: ${PUBLISHED}

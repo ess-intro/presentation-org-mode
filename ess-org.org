@@ -740,14 +740,27 @@ either "results" or "both".
 			results))
 #+end_src
 
-
-
-*** driver code
-
-#+name: emacs-driver
-#+begin_src elisp
-	(defun do-it-all ()
-		(do-org-blocks))
+#+name: publishing
+#+begin_src elisp :results none
+  (setq org-publish-project-alist
+        '(("html"
+           :base-directory "./"
+           :publishing-directory "./built"
+           :exclude ".*"
+           :include ("ess-org.org")
+           :publishing-function org-html-publish-to-html)
+          ("latexpdf"
+           :base-directory "./"
+           :publishing-directory "./built"
+           :exclude ".*"
+           :include ("ess-org.org")
+           :publishing-function org-latex-publish-to-pdf)
+          ("beamerpdf"
+           :base-directory "./"
+           :publishing-directory "./built"
+           :exclude ".*"
+           :include ("ess-org-beamer.org")
+           :publishing-function org-beamer-publish-to-pdf)))
 #+end_src
 
 ** css :noexport:
