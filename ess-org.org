@@ -760,7 +760,8 @@ either "results" or "both".
            :publishing-directory "./built"
            :exclude ".*"
            :include ("ess-org-beamer.org")
-           :publishing-function org-beamer-publish-to-pdf)))
+           :publishing-function org-beamer-publish-to-pdf)
+          ("ess-org" :components ("html" "latexpdf" "beamerpdf"))))
 #+end_src
 
 ** css :noexport:
