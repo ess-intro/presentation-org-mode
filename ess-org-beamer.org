@@ -27,7 +27,7 @@ One can write source code in "source blocks", and then that code can
 be
 - evaluated to produce results, which, in turn, may be used as input
   to another source block.  [note there are security issues here: you
-  will need to set a value to the Emacs variable
+  will need to customize the Emacs variable
   =org-babel-load-languages=, and you will be prompted each time
   before a code block is evaluated.]
 - exported (either the code, its results, or both) into a .html, .pdf,
