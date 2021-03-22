@@ -11,11 +11,7 @@ DOTANGLE = ./dotangle.el
 ELORGEL = ${BUILT}/el-org.el
 TANGLED = ${ELORGEL}
 
-ESSORGHTML = ${BUILT}/ess-org.html
-ESSORGPDF = ${BUILT}/ess-org.pdf
-ESSORGBEAMERPDF = ${BUILT}/ess-org-beamer.pdf
-
-EXPORTED = ${ESSORGHTML} ${ESSORGPDF} ${ESSORGBEAMERPDF}
+PUBLISHED = ${BUILT}/ess-org.html ${BUILT}/ess-org.pdf ${BUILT}/ess-org-beamer.pdf
 
 # set up to allow evaluating R source blocks
 EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (R . t)))
@@ -27,30 +23,18 @@ EMACSSETUP = (progn (package-initialize) (load-file \"${ELORGEL}\") ${EMACSLL} $
 EMACSORGBLOCKS = (do-org-blocks)
 
 
-all: ${TANGLED} ${EXPORTED}
+all: tangled published
 
 ${TANGLED}: ${MAINORG}
 	${DOTANGLE} $<
 
 tangled: ${TANGLED}
 
-${ESSORGHTML}: ${MAINORG}
+${PUBLISHED}: ${MAINORG} ${TANGLED}
 	emacs --file ${MAINORG} \
 		--eval "${EMACSSETUP}" \
 		--eval "${EMACSORGBLOCKS}" \
-		--eval "(org-html-export-to-html)" \
+		--eval "(org-publish-all)" \
 		--batch
 
-${ESSORGPDF}: ${MAINORG}
-	emacs --file ${MAINORG} \
-		--eval "${EMACSSETUP}" \
-		--eval "${EMACSORGBLOCKS}" \
-		--eval "(org-latex-export-to-pdf)" \
-		--batch
-
-${ESSORGBEAMERPDF}: ${BEAMERORG}
-	emacs --file ${BEAMERORG} \
-		--eval "${EMACSSETUP}" \
-		--eval "${EMACSORGBLOCKS}" \
-		--eval "(org-beamer-export-to-pdf)" \
-		--batch
+published: ${PUBLISHED}
