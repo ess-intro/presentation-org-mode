@@ -666,9 +666,6 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 	  "Based on org-babel-execute-buffer, with the main difference
   that we return the locations of the blocks we executed.  Probably
   should just use o-b-e-b."
-	  (message "org-walk-and-execute %s" (current-buffer))
-	  (message "%s" (buffer-base-buffer))
-	  (message "before: modified? %s" (buffer-modified-p))
 	  (let ((result nil))
 		  (save-window-excursion
 			  (org-babel-map-executables nil
@@ -678,8 +675,6 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 						   nil
 						   t)
 						  (progn
-							  (message "early o-w-a-e point %s" (point))
-							  (message "o-b-l-l: %s" org-babel-load-languages)
 							  ;; fine, this is horrible.
 							  (setq result (append result (list (point))))
 							  ;; flat-out copied from (org-babel-execute-buffer)
@@ -687,10 +682,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 												  '(babel-call inline-babel-call))
 									  (org-babel-lob-execute-maybe)
 								  (org-babel-execute-src-block arg))
-							  (message "after: modified? %s" (buffer-modified-p))
-							  (message "later o-w-a-e point %s" (point))
 							  (point)))))
-		  (message "result: %s" result)
 		  result))
 #+END_SRC
 
@@ -730,13 +722,11 @@ either "results" or "both".
 							 (goto-char l)
 							 (org-babel-do-in-edit-buffer
 								(let ((result (org-walk-and-execute)))
-									(message "dob l, result: %s, %s" l result)
 									(org-edit-src-save)
 									(setq results (append results (list (list l result)))))))
 						 (org-filter-by-argument-value
 							':exports (list "results" "both") (org-get-org-blocks))))
 				(goto-char pt))
-			(message "results: %s" results)
 			results))
 #+end_src
 
@@ -767,17 +757,21 @@ either "results" or "both".
 ** css :noexport:
 
 #+begin_src css :tangle ./tangled/floattoc.css
-  #toc {
-	position: fixed;
-	right: 0;
-	top: 0;
-	background-color:#FFF;
+  #table-of-contents {
+        position: fixed;
+        right: 0;
+        top: 0;
+        background-color:#FFF;
+        padding: 1px 1%;
+        border: 1px solid rgb(201,44,44);
+        z-index: 2; /**/
   }
 
-  #toc #full { display: none; } /* Hide the full TOC by default */
+  /* Hide the full TOC by default */
+  #table-of-contents #text-table-of-contents { display: none; }
 
-  #toc:hover #full{
-	display: block; /* Show it on hover */
+  #table-of-contents:hover #text-table-of-contents {
+        display: block; /* Show it on hover */
   }
 #+end_src
 
