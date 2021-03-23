@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-03-23 Tue 06:09 -->
+<!-- 2021-03-23 Tue 15:53 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -192,7 +192,22 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
-<link rel="stylesheet" type="text/css" href="floattoc.css" />
+<style type="text/css">
+#table-of-contents {
+position: fixed;
+right: 0;
+top: 0;
+background-color:#FFF;
+padding: 1px 1%;
+border: 1px solid rgb(201,44,44);
+z-index: 2; /**/
+}
+/* Hide the full TOC by default */
+#table-of-contents #text-table-of-contents { display: none; }
+#table-of-contents:hover #text-table-of-contents {
+display: block; /* Show it on hover */
+}
+</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -246,53 +261,35 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org676aed7">1. using ESS with emacs org mode</a>
+<li><a href="#org79599c8">using ESS with emacs org mode</a>
 <ul>
-<li><a href="#orga269a8c">1.1. intro to org mode</a></li>
-<li><a href="#org2fea3b5">1.2. babel &#x2013; programming language support in org files</a>
-<ul>
-<li><a href="#org8e370e5">1.2.1. literate programming, if you want</a></li>
-</ul>
-</li>
-<li><a href="#org09d211e">1.3. source blocks</a></li>
-<li><a href="#orgba70736">1.4. naming blocks</a></li>
-<li><a href="#org5606764">1.5. noweb</a></li>
-<li><a href="#org18a7ff4">1.6. tangling</a></li>
-<li><a href="#org4e5e11d">1.7. executing</a>
-<ul>
-<li><a href="#org511a342">1.7.1. <code>C-c C-c</code> on a source block</a></li>
-<li><a href="#org627f49d">1.7.2. <code>C-c C-c</code> on an inline source block</a></li>
-<li><a href="#org664633a">1.7.3. <code>C-c C-c</code> on a #+call</a></li>
-<li><a href="#org434da2f">1.7.4. <code>C-c C-c</code> on an inline-call</a></li>
-<li><a href="#org3fc2826">1.7.5. :colnames and :rownames</a></li>
-</ul>
-</li>
-<li><a href="#orgf6d3b76">1.8. results</a></li>
-<li><a href="#orga083e9a">1.9. variables</a></li>
-<li><a href="#org6600c32">1.10. exporting</a></li>
-<li><a href="#org3ef7309">1.11. life in Org Src buffers</a></li>
-<li><a href="#org560723f">1.12. org-mode community</a></li>
-<li><a href="#org97036df">1.13. other tutorials, etc.</a></li>
-<li><a href="#org73f18f2">1.14. code blocks</a>
-<ul>
-<li><a href="#orged10981">1.14.1. a source block</a></li>
-<li><a href="#org8f5f9e5">1.14.2. an <i>inline</i> code block</a></li>
-<li><a href="#org5ac5edf">1.14.3. the anatomy of a source block</a></li>
-</ul>
-</li>
+<li><a href="#orga269a8c">intro to org mode</a></li>
+<li><a href="#org2fea3b5">babel &#x2013; programming language support in org files</a></li>
+<li><a href="#org09d211e">source blocks</a></li>
+<li><a href="#orgba70736">naming blocks</a></li>
+<li><a href="#org5606764">noweb</a></li>
+<li><a href="#org18a7ff4">tangling</a></li>
+<li><a href="#org4e5e11d">executing</a></li>
+<li><a href="#orgf6d3b76">results</a></li>
+<li><a href="#orga083e9a">variables</a></li>
+<li><a href="#org6600c32">exporting</a></li>
+<li><a href="#org3ef7309">life in Org Src buffers</a></li>
+<li><a href="#org560723f">org-mode community</a></li>
+<li><a href="#org97036df">other tutorials, etc.</a></li>
+<li><a href="#org73f18f2">code blocks</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org676aed7" class="outline-2">
-<h2 id="org676aed7"><span class="section-number-2">1</span> using ESS with emacs org mode</h2>
-<div class="outline-text-2" id="text-1">
+<div id="outline-container-org79599c8" class="outline-2">
+<h2 id="org79599c8">using ESS with emacs org mode</h2>
+<div class="outline-text-2" id="text-org79599c8">
 </div>
 
 <div id="outline-container-orga269a8c" class="outline-3">
-<h3 id="orga269a8c"><span class="section-number-3">1.1</span> intro to org mode</h3>
-<div class="outline-text-3" id="text-1-1">
+<h3 id="orga269a8c">intro to org mode</h3>
+<div class="outline-text-3" id="text-orga269a8c">
 <p>
 basics: document structuring, tables, math/LaTeX, exporting
 </p>
@@ -468,8 +465,8 @@ package-list-packages</code>, and regexp-search for /<sup>..org</sup> /).
 </div>
 
 <div id="outline-container-org2fea3b5" class="outline-3">
-<h3 id="org2fea3b5"><span class="section-number-3">1.2</span> babel &#x2013; programming language support in org files</h3>
-<div class="outline-text-3" id="text-1-2">
+<h3 id="org2fea3b5">babel &#x2013; programming language support in org files</h3>
+<div class="outline-text-3" id="text-org2fea3b5">
 <p>
 <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">Babel</a> is one name for talking about programming language support in
 org mode.  you are able to embed source code inside of org mode
@@ -481,12 +478,12 @@ their execution in the document produced by exporting the org buffer.
 </div>
 
 <div id="outline-container-org8e370e5" class="outline-4">
-<h4 id="org8e370e5"><span class="section-number-4">1.2.1</span> literate programming, if you want</h4>
+<h4 id="org8e370e5">literate programming, if you want</h4>
 </div>
 </div>
 <div id="outline-container-org09d211e" class="outline-3">
-<h3 id="org09d211e"><span class="section-number-3">1.3</span> <a id="org19d99cc"></a> source blocks</h3>
-<div class="outline-text-3" id="text-1-3">
+<h3 id="org09d211e"><a id="org19d99cc"></a> source blocks</h3>
+<div class="outline-text-3" id="text-org09d211e">
 <p>
 Org mode source blocks look like this
 </p>
@@ -563,8 +560,8 @@ that org mode uses ESS to provide R language support.
 </div>
 
 <div id="outline-container-orgba70736" class="outline-3">
-<h3 id="orgba70736"><span class="section-number-3">1.4</span> <a id="org038ad62"></a> naming blocks</h3>
-<div class="outline-text-3" id="text-1-4">
+<h3 id="orgba70736"><a id="org038ad62"></a> naming blocks</h3>
+<div class="outline-text-3" id="text-orgba70736">
 <p>
 there are two ways of naming blocks.  first, an individual block
 itself can be preceded by a <code>#+name:</code> line
@@ -631,8 +628,8 @@ including the name of a destination file for <a href="#org92aa496">tangling</a>.
 </div>
 
 <div id="outline-container-org5606764" class="outline-3">
-<h3 id="org5606764"><span class="section-number-3">1.5</span> <a id="org5bb0595"></a> noweb</h3>
-<div class="outline-text-3" id="text-1-5">
+<h3 id="org5606764"><a id="org5bb0595"></a> noweb</h3>
+<div class="outline-text-3" id="text-org5606764">
 <p>
 <a href="https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example">noweb</a> is a literate programming syntax to allow referencing blocks of
 code within some larger (.org file, say) context.  it allows a
@@ -679,8 +676,8 @@ contents of a previous source code block.
 </div>
 
 <div id="outline-container-org18a7ff4" class="outline-3">
-<h3 id="org18a7ff4"><span class="section-number-3">1.6</span> <a id="org92aa496"></a> tangling</h3>
-<div class="outline-text-3" id="text-1-6">
+<h3 id="org18a7ff4"><a id="org92aa496"></a> tangling</h3>
+<div class="outline-text-3" id="text-org18a7ff4">
 <p>
 while often we are content to execute code blocks inside the .org
 file, equally often we might want to export some or all of the code
@@ -708,21 +705,21 @@ to <code>C-c C-v t</code>.
 </div>
 
 <div id="outline-container-org4e5e11d" class="outline-3">
-<h3 id="org4e5e11d"><span class="section-number-3">1.7</span> <a id="org95ae03a"></a> executing</h3>
-<div class="outline-text-3" id="text-1-7">
+<h3 id="org4e5e11d"><a id="org95ae03a"></a> executing</h3>
+<div class="outline-text-3" id="text-org4e5e11d">
 </div>
 <div id="outline-container-org511a342" class="outline-4">
-<h4 id="org511a342"><span class="section-number-4">1.7.1</span> <code>C-c C-c</code> on a source block</h4>
+<h4 id="org511a342"><code>C-c C-c</code> on a source block</h4>
 </div>
 <div id="outline-container-org627f49d" class="outline-4">
-<h4 id="org627f49d"><span class="section-number-4">1.7.2</span> <code>C-c C-c</code> on an inline source block</h4>
+<h4 id="org627f49d"><code>C-c C-c</code> on an inline source block</h4>
 </div>
 <div id="outline-container-org664633a" class="outline-4">
-<h4 id="org664633a"><span class="section-number-4">1.7.3</span> <code>C-c C-c</code> on a #+call</h4>
+<h4 id="org664633a"><code>C-c C-c</code> on a #+call</h4>
 </div>
 <div id="outline-container-org434da2f" class="outline-4">
-<h4 id="org434da2f"><span class="section-number-4">1.7.4</span> <code>C-c C-c</code> on an inline-call</h4>
-<div class="outline-text-4" id="text-1-7-4">
+<h4 id="org434da2f"><code>C-c C-c</code> on an inline-call</h4>
+<div class="outline-text-4" id="text-org434da2f">
 <div class="org-src-container">
 <pre class="src src-org">#+name: find-orgs
 #+begin_src R
@@ -746,8 +743,8 @@ call_find-orgs() {{{results(=1=)}}}
 </div>
 </div>
 <div id="outline-container-org3fc2826" class="outline-4">
-<h4 id="org3fc2826"><span class="section-number-4">1.7.5</span> :colnames and :rownames</h4>
-<div class="outline-text-4" id="text-1-7-5">
+<h4 id="org3fc2826">:colnames and :rownames</h4>
+<div class="outline-text-4" id="text-org3fc2826">
 <div class="org-src-container">
 <pre class="src src-org">#+BEGIN_SRC R
 mtcars[1:3,]
@@ -776,8 +773,8 @@ mtcars[1:3,]
 </div>
 
 <div id="outline-container-orgf6d3b76" class="outline-3">
-<h3 id="orgf6d3b76"><span class="section-number-3">1.8</span> <a id="org74f2034"></a> results</h3>
-<div class="outline-text-3" id="text-1-8">
+<h3 id="orgf6d3b76"><a id="org74f2034"></a> results</h3>
+<div class="outline-text-3" id="text-orgf6d3b76">
 <div class="org-src-container">
 <pre class="src src-org">#+name: somecode
 #+begin_src R :results output
@@ -801,28 +798,28 @@ mtcars[1:3,]
 </div>
 
 <div id="outline-container-orga083e9a" class="outline-3">
-<h3 id="orga083e9a"><span class="section-number-3">1.9</span> <a id="orgbbab0e0"></a> variables</h3>
-<div class="outline-text-3" id="text-1-9">
+<h3 id="orga083e9a"><a id="orgbbab0e0"></a> variables</h3>
+<div class="outline-text-3" id="text-orga083e9a">
 <p>
 &#x2013; in and out
 </p>
 </div>
 </div>
 <div id="outline-container-org6600c32" class="outline-3">
-<h3 id="org6600c32"><span class="section-number-3">1.10</span> <a id="org00a8ec7"></a> exporting</h3>
-<div class="outline-text-3" id="text-1-10">
+<h3 id="org6600c32"><a id="org00a8ec7"></a> exporting</h3>
+<div class="outline-text-3" id="text-org6600c32">
 <p>
 entire document or a subtree of the document
 </p>
 </div>
 </div>
 <div id="outline-container-org3ef7309" class="outline-3">
-<h3 id="org3ef7309"><span class="section-number-3">1.11</span> life in Org Src buffers</h3>
+<h3 id="org3ef7309">life in Org Src buffers</h3>
 </div>
 
 <div id="outline-container-org560723f" class="outline-3">
-<h3 id="org560723f"><span class="section-number-3">1.12</span> org-mode community</h3>
-<div class="outline-text-3" id="text-1-12">
+<h3 id="org560723f">org-mode community</h3>
+<div class="outline-text-3" id="text-org560723f">
 <p>
 mailing lists
 </p>
@@ -830,8 +827,8 @@ mailing lists
 </div>
 
 <div id="outline-container-org97036df" class="outline-3">
-<h3 id="org97036df"><span class="section-number-3">1.13</span> other tutorials, etc.</h3>
-<div class="outline-text-3" id="text-1-13">
+<h3 id="org97036df">other tutorials, etc.</h3>
+<div class="outline-text-3" id="text-org97036df">
 <p>
 <a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE">Rainer's screencasts about Org mode</a> (now a <a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7">course on Udemy</a>)
 </p>
@@ -864,8 +861,8 @@ Cc: emacs-orgmode@gnu.org
 </div>
 
 <div id="outline-container-org73f18f2" class="outline-3">
-<h3 id="org73f18f2"><span class="section-number-3">1.14</span> code blocks</h3>
-<div class="outline-text-3" id="text-1-14">
+<h3 id="org73f18f2">code blocks</h3>
+<div class="outline-text-3" id="text-org73f18f2">
 <p>
 there are a few pieces of information org-mode needs to define a
 block of code
@@ -886,8 +883,8 @@ there are at least two ways of encoding the needed information:
 </div>
 
 <div id="outline-container-orged10981" class="outline-4">
-<h4 id="orged10981"><span class="section-number-4">1.14.1</span> a source block</h4>
-<div class="outline-text-4" id="text-1-14-1">
+<h4 id="orged10981">a source block</h4>
+<div class="outline-text-4" id="text-orged10981">
 <p>
 the most "normal" way of defining source code is with a <i>source
 block</i>.
@@ -910,8 +907,8 @@ we use this form below in discussing the structure of a code block.
 </div>
 
 <div id="outline-container-org8f5f9e5" class="outline-4">
-<h4 id="org8f5f9e5"><span class="section-number-4">1.14.2</span> an <i>inline</i> code block</h4>
-<div class="outline-text-4" id="text-1-14-2">
+<h4 id="org8f5f9e5">an <i>inline</i> code block</h4>
+<div class="outline-text-4" id="text-org8f5f9e5">
 <p>
 in a second form, known as an <i>inline code block</i>, the entire block
 can fit on one line (though multiple lines are possible).
@@ -931,8 +928,8 @@ than that, i will not discuss it further.
 </div>
 
 <div id="outline-container-org5ac5edf" class="outline-4">
-<h4 id="org5ac5edf"><span class="section-number-4">1.14.3</span> the anatomy of a source block</h4>
-<div class="outline-text-4" id="text-1-14-3">
+<h4 id="org5ac5edf">the anatomy of a source block</h4>
+<div class="outline-text-4" id="text-org5ac5edf">
 <div class="org-src-container">
 <pre class="src src-org">#+name: refid
 #+begin_example
@@ -1035,7 +1032,7 @@ executed.</p></div></div>
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Created: 2021-03-23 Tue 06:09</p>
+<p class="date">Created: 2021-03-23 Tue 15:53</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
