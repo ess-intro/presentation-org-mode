@@ -41,6 +41,11 @@ EMACSSETUP = (progn (package-initialize) (load-file \"${ELORGEL}\") ${EMACSLL} $
 # now, evaluate all org source blocks in the file
 EMACSORGBLOCKS = (do-org-blocks)
 
+# ess-org-startup.org: built during make process, and converts the
+# contents of our .css file into a #+HTML_HEAD for inclusiong in the
+# .html file https://stackoverflow.com/a/56407596/1527747
+ESSORGSTARTUPORG = ${ARTEFACTSDIR}/ess-org-startup.org
+
 
 all: tangle publish
 
@@ -66,13 +71,24 @@ ${ARTEFACTSDIR}/ess-org-beamer.pdf: publish
 
 publish: ${TOUCHEDDIR}/publish
 
-${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES}
+${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} essorgstartuporg
 	emacs --file ${MAINORG} \
 		--eval "${EMACSSETUP}" \
 		--eval "${EMACSORGBLOCKS}" \
 		--eval "(org-publish-project \"ess-org\")" \
 		--batch
 	touch $@
+
+HEADERTXT = \#+HTML_HEAD: 
+HEADER = echo -n "${HEADERTXT} "
+${ESSORGSTARTUPORG}: ${CSS}
+	( \
+		${HEADER}; echo '<style type="text/css">'; \
+		(cat $< | sed 's/^/${HEADERTXT} /;s/  */ /g'); \
+		${HEADER}; echo ' </style>' \
+	) > $@
+
+essorgstartuporg: ${ESSORGSTARTUPORG}
 
 gitci: ${ARTEFACTSFILES}
 	for af in ${ARTEFACTSFILES}; do \

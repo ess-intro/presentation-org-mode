@@ -1,11 +1,12 @@
 * using ESS with emacs org mode
 #+property: header-args :noweb yes
 #+property: header-args:org :exports both
-#  ^:{}: disable super/subscripting: https://stackoverflow.com/a/698791/1527747
-#+options: x^:{}
+#+options: num:0 toc:2
 #+property: header-args :noweb yes :exports code :eval never-export
-# floating TOC: https://stackoverflow.com/questions/12232675/how-to-make-table-of-contents-floating
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="floattoc.css" />
+# floating TOC:
+# https://stackoverflow.com/questions/12232675/how-to-make-table-of-contents-floating
+# trick of setupfile trick: https://stackoverflow.com/a/56407596/1527747
+#+SETUPFILE: ./artefacts/ess-org-startup.org
 
 ** intro to org mode
 basics: document structuring, tables, math/LaTeX, exporting
