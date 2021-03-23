@@ -1,12 +1,16 @@
-#toc {
+#table-of-contents {
       position: fixed;
       right: 0;
       top: 0;
       background-color:#FFF;
+      padding: 1px 1%;
+      border: 1px solid rgb(201,44,44);
+      z-index: 2; /**/
 }
 
-#toc #full { display: none; } /* Hide the full TOC by default */
+/* Hide the full TOC by default */
+#table-of-contents #text-table-of-contents { display: none; }
 
-#toc:hover #full{
+#table-of-contents:hover #text-table-of-contents {
       display: block; /* Show it on hover */
 }
