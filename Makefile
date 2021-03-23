@@ -94,3 +94,11 @@ gitci: ${ARTEFACTSFILES}
 	for af in ${ARTEFACTSFILES}; do \
 		git diff --exit-code --quiet $${af} || git commit -m "Built by makefile" $${af}; \
 	done
+
+release: gitci gitcleanp
+	git push
+
+gitcleanp:
+	@git status --short | awk '$$1 !~ /[?][?]/ { x++ } END {exit x}' || \
+			(echo "ERROR: git working tree not clean" > /dev/stderr; exit 1)
+
