@@ -5,6 +5,8 @@
 #+options: x^:{}
 #+property: header-args :noweb yes :exports code :eval never-export
 # floating TOC: https://stackoverflow.com/questions/12232675/how-to-make-table-of-contents-floating
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="floattoc.css" />
+
 ** intro to org mode
 basics: document structuring, tables, math/LaTeX, exporting
 
