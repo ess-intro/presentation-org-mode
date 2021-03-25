@@ -1,8 +1,31 @@
 #+title: ESS in Emacs Org Mode Buffers
-#+options: toc:nil
- #+options: toc:nil
+#+options: toc:nil ':nil
 #+subtitle: part of the ESS intro series
-#+subtitle: Greg Minshall
+#+author: Greg Minshall
+# the following from [C-c C-e #], then [beamer] (as suggested by below tutorial)
+#+options: H:1
+#+latex_class: beamer
+#+columns: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+#+beamer_theme: default
+#+beamer_color_theme:
+#+beamer_font_theme:
+#+beamer_inner_theme:
+#+beamer_outer_theme:
+#+beamer_header:
+# then, some more settings suggested by the tutorial
+#+BEAMER_FRAME_LEVEL: 2
+
+
+
+
+
+* meta, comments                                                   :noexport:
+
+an (older?) [[https://orgmode.org/worg/exporters/beamer/tutorial.html][tutorial]] on using beamer in org mode.  a (newer?)
+tutorial, using the [[https://orgmode.org/worg/exporters/beamer/ox-beamer.html][new export engine]].
+
+it adding beamer themes are an issue, [[https://dev.to/viglioni/installing-latex-themes-on-your-machine-emacs-org-mode-1k9e][this page]] might helps.  for
+choosing themes, [[https://deic-web.uab.cat/~iblanes/beamer_gallery/][this page]] works.  i find =default= to be just fine.
 
 * Org Mode
 
@@ -10,7 +33,7 @@
 environment one runs on top of it."
 
 Emacs Org Mode is an outline-structured file format and backing
-software that allows you to
+software that allows you to (among many other things)
 - markup text via *asteriskizing*, =equalizing=, ~tildeizing~,
   /slashizing/, +plusizing+, _underscorizing_, etc.
 - export a file, or a subtree of it, as, e.g., an .html or .pdf file
@@ -108,6 +131,7 @@ For Org Mode:
 - The Org Mode [[https://orgmode.org/][_web site_]].
 - Rainer König has a [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][_series of videos_]] (now also available as a
   [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][_course on Udemy_]]).
+- DT ("Distro Tube"?) has yet another [[https://www.youtube.com/watch?v=Ea_-TaEGa7Y][introductory video]].
 - The Org Mode community site ("worg") has a [[https://orgmode.org/worg/org-contrib/babel/][_section_]] about Babel.
 
 For Org mode with R:
