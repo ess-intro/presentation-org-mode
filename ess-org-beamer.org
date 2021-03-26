@@ -46,19 +46,27 @@ software that allows you to (among many other things)
 
 * Babel -- Org Mode support for programming
 
-One can write source code in "source blocks", and then that code can
-be
-- evaluated to produce results, which, in turn, may be used as input
+One can write source code in "source blocks".  Each source block has
+the following "attributes":
+
+- a (optional) name
+- source code (in one language per source block)
+- header arguments, which define how a source block interacts with its
+  environment
+
+* "To a source block", you can
+
+- evaluate it to produce results, which, in turn, may be used as input
   to another source block.  [note there are security issues here: you
   will need to customize the Emacs variable
   =org-babel-load-languages=, and you will be prompted each time
   before a code block is evaluated.]
-- exported (either the code, its results, or both) into a .html, .pdf,
-  or other format file
-- /tangled/, that is, exported into a separate file, that might be
-  used as input to a compilation or some other packaging step, or be a
-  stand alone script (=Rscript=, say).
-- edited, either in place in the Org buffer, or "stand alone" in an
+- export it (either the code, its results, or both) into a .html,
+  .pdf, or other format file
+- /tangle/ it, that is, export the source code itself into a separate
+  file, that might be used as input to a compilation or some other
+  packaging step, or be a stand alone script (=Rscript=, say).
+- edit it, either in place in the Org buffer, or "stand alone" in an
   Org Source buffer, with the possibility of real-time syntax
   checking/linting, etc.
 
@@ -84,7 +92,7 @@ close the Org Source buffer and return to the Org buffer, again type
 
 Again, =C-c '= to enter and to exit.
 
-An Org Src buffer for R is an ESS mode buffer.
+An Org Src buffer for R is an =ESS[R]= mode buffer.
 
 #+begin_src R
 	"here, the last value executed is the result"
@@ -94,6 +102,13 @@ Evaluating code is still initiated with =C-c C-c=, but tends to send
 just the function at the current location to be evaluated (rather than
 the whole Org Src buffer), and moves the cursor ("point") to the start
 of the next function.
+
+* Header arguments
+
+- :var
+- :results
+- :tangle
+- :session
 
 * :results -- an entire slide?
 
