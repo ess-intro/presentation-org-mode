@@ -27,15 +27,15 @@ basics: document structuring, tables, math/LaTeX, exporting
 -- the proliferation of notation makes googling somewhat of a
 challenge.]  sometimes exhorts one to do something like "Organize Your
 Life In Plain Text!"; the Org Mode manual, on the other hand, starts
-off by saying, "Org is an outliner".  the philosophy of Org Mode
+off by saying, "Org is an outliner".  The philosophy of Org Mode
 (indeed, of Emacs, and maybe, to some extent, of any of the *nix
 operating systems) is that using non-proprietary file formats and
 software provides the most "liberating" and "horizon-free" way of
-taking advantage of modern information technology.  and, to some
+taking advantage of modern information technology.  And, to some
 extent, that a mostly-command line interface, rather than a graphical
 user interface, is also "the way to go".
 
-i think Org Mode started off as a way of simplifying the creation of
+I think Org Mode started off as a way of simplifying the creation of
 formatted documents, with tables, etc., for taking notes, creating
 agendas (items with date elements), and evolved into a much larger
 system of utilities for, for example, converting ("exporting", in org
@@ -43,14 +43,14 @@ mode parlance) between the Org Mode syntax to .html, .pdf, etc.,
 documents, with good support for doing mathematical (LaTeX)
 formatting.
 
-a .org file is structured like an outline, with outline sections and
+A .org file is structured like an outline, with outline sections and
 levels indicated by lines starting with one or more asterisks in the
-first column; these define "headlines" for the outline.  between
-headlines one can include text, tables, bits of code, etc.  bits of
+first column; these define "headlines" for the outline.  Between
+headlines one can include text, tables, bits of code, etc.  Bits of
 the .org file can be displayed and/or hidden by positioning the cursor
 on a headline and (possibly repeatedly) hitting =tab=.
 
-asterisk-defined headlines can include "tags" (=:essintro:=; i am
+Asterisk-defined headlines can include "tags" (=:essintro:=; i am
 ignorant of their use), and can optionally be (immediately) followed
 by a special "drawer" [fn::a structure starting with an more-or-less
 arbitrary name, surrouned by colons, and ending with =:END:=] named
@@ -59,16 +59,16 @@ arbitrary name, surrouned by colons, and ending with =:END:=] named
 Org Mode text markup allows the use of *asterisks*, =equal signs=,
 ~tildes~, /[forward] slashes/, _underscores_ and (though, apparently,
 deprecated) +plus signs+, to achieve different font characteristics.
-(until writing this, i have always used equal signs for short bits of
-code, but now i will try to remember to try out tildes.)  in-line math
+(Until writing this, i have always used equal signs for short bits of
+code, but now i will try to remember to try out tildes.)  In-line math
 formatting =\(x = cos(y)\)= is supported; Org Mode also allows super-
 (10^{9}) and subscripts (I_{e}) (though these [[https://stackoverflow.com/a/698791/1527747][can be disabled]], if
 desired).
 
-various sorts of "blocks" are supported in Org Mode files.  these
+Various sorts of "blocks" are supported in Org Mode files.  These
 typically start with =#begin_...=, and end with a corresponding
 =#end_...=, where the =...= are something like =src=, =example=,
-=quote=.  a skeleton for one of these can conveniently be created by,
+=quote=.  A skeleton for one of these can conveniently be created by,
 in column 1 of an otherwise empty line, typing =<X= followed by =tab=,
 where =X= is one of
 - =s= for a source block
@@ -79,22 +79,22 @@ there are various other blocks; you can experiment by typing (in
 column one, of an otherwise empty line) =<= and then one of the
 following, and hitting =tab=:
 : a, c, C, E, h, l, v
-seeing what you get, looking in the manual.  (of course, one can
+seeing what you get, looking in the manual.  (Of course, one can
 always search the manual for =#[+]begin_=.)
   
-Org Mode does a good job exporting to LaTeX, html.  (some people
+Org Mode does a good job exporting to LaTeX, html.  (Some people
 primarily use Org Mode as a more "user friendly" interface to LaTeX,
 though for serious documents, in the final analysis they probably
 spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
 
-in addition to the source blocks mentioned above (and elaborated on
+In addition to the source blocks mentioned above (and elaborated on
 below), Org Mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
 #+BEGIN_SRC org
   : this is verbatim
 #+END_SRC
 
-one can have longer runs of verbatim ("example") data (which is not
+One can have longer runs of verbatim ("example") data (which is not
 word wrapped, etc.:
 #+BEGIN_SRC org
   ,#+name: ex
@@ -126,7 +126,7 @@ word wrapped, etc.:
 
 #+END_SRC
 
-as well as longer bits of text that *will* be wrapped ("quote"):
+As well as longer bits of text that *will* be wrapped ("quote"):
 #+BEGIN_SRC org
   ,#+begin_quote
   this is a bit of
@@ -139,20 +139,20 @@ as well as longer bits of text that *will* be wrapped ("quote"):
   ,#+end_quote
 #+END_SRC
 
-blocks can optionally have [[naming][names]].  these names can be used as [[noweb][noweb]]
+Blocks can optionally have [[naming][names]].  These names can be used as [[noweb][noweb]]
 references, or to use the value of a block (or, if a source block, of
 the block's results) as input (a [[variables][variable]]) to another block in the
 file.[fn::i believe there are facilities for "naming" bits of
 information in other .org files, but i don't know the details and i
 don't know if it works with source code blocks.]
 
-though i have used Org Mode for more than a decade, i know very little
+Though i have used Org Mode for more than a decade, i know very little
 of most of its capabilities, as i mostly use it to centralize the
 source code within a project, as well as to produce the random
 document, especially documents with embedded code segments (known, in
-Org Mode, as "source blocks").  a good source for further information,
+Org Mode, as "source blocks").  A good source for further information,
 in addition to the main [[https://orgmode.org/][Org Mode]] web page, is the Org Mode [[https://orgmode.org/worg/][worg]] site.
-also, once installed on your system, the Org Mode info pages are
+Also, once installed on your system, the Org Mode info pages are
 available in Emacs (or, using the info).
 
 Org Mode is bundled into the main Emacs distribution, but a
@@ -160,16 +160,16 @@ more-than-casual user might like to use the more-than-likely
 up-to-date package available via [[https://melpa.org/][melpa]] (in Emacs, use =[M-x
 package-list-packages]=, and regexp-search for /^..org /).
 
-** babel -- programming language support in org files
+** Babel -- programming language support in org files
 
 [[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]] is one name for talking about programming language support in
-Org Mode.  you are able to embed source code inside of Org Mode
+Org Mode.  You are able to embed source code inside of Org Mode
 buffers, edit these code blocks in a language-specific way, evaluate
 code blocks, pass the results of the evaulation of one code block to
 another code block, and include code blocks and/or the results of
 their evaulation in the document produced by exporting the org buffer.
 
-*** <<sourceblocks>> source blocks
+*** <<sourceblocks>> Source blocks
 
 Org Mode source blocks look like this
 #+BEGIN_SRC org
@@ -181,37 +181,37 @@ Org Mode source blocks look like this
   : hello, world!
 #+END_SRC
 
-(as mentioned above, a source block skeleton can be created by
+(As mentioned above, a source block skeleton can be created by
 typing, in column 1, =<s=, and hitting =tab=.)
 
 Org Mode source blocks can be edited, either inline in the Org Mode
 (".org") document buffer, or in a separate buffer (i call these "Org
 Src..." buffers, but they might also be known as "sub-edit buffers" or
 "source edit buffers) that you can "pop up" from the .org buffer ("pop
-out of the .org buffer"?), normally with =[C-c ']=.  in the latter,
+out of the .org buffer"?), normally with =[C-c ']=.  In the latter,
 there is better support for Emacs so-called "font locks", which do
 program language-specific source code highlighting, etc.
 
-once written, a source block can be evaulated[fn:: for security
+Once written, a source block can be evaulated[fn:: for security
   reasons, you will need to set or customize the Emacs variable
   =org-babel-load-languages= , via =org-babel-do-load-languages= if
   you are doing this to in a current Emacs session, and you will be
   prompted each time before a code block is evaluated.], returning
   [[results][results]], either the output of the code, or some terminating "value"
-  of the code, as an element of the .org file.  and, the blocks can be
+  of the code, as an element of the .org file.  And, the blocks can be
   evaulated manually, or -- and optionally, block by block -- while
   exporting a .org file to a different format.
 
-a source block can be evaulated in one of two sorts of contexts, within
-a "session", or outside of a "session".  a "session" here means some
+A source block can be evaulated in one of two sorts of contexts, within
+a "session", or outside of a "session".  A "session" here means some
 process that retains state between evaulations of (possibly different)
-source blocks.  on the other hand, a "non-session" starts up with no
+source blocks.  On the other hand, a "non-session" starts up with no
 internal [fn::obviously, prior runs may have, e.g., changed the state
 of the file system on which all these evaulations are running; that is,
 the *external* state may by influenced by what has previously been
 evaulated.] state from prior runs.
 
-source blocks can also be expressed using a =src_LANG= construct; a
+Source blocks can also be expressed using a =src_LANG= construct; a
 =#+name:= line can be used to name the =src_LANG= block.
 
 #+BEGIN_SRC org
@@ -228,14 +228,14 @@ source blocks can also be expressed using a =src_LANG= construct; a
 
 #+END_SRC
 
-finally, and of particular interest in these tutorials, is the fact
+Finally, and of particular interest in these tutorials, is the fact
 that Org Mode uses ESS to provide R language support.
 
    [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and Org Mode.
 
-*** <<naming>> naming blocks
+*** <<naming>> Naming blocks
 
-there are two ways of naming blocks.  first, an individual block
+There are two ways of naming blocks.  First, an individual block
 itself can be preceded by a =#+name:= line
 #+BEGIN_SRC org
   ,#+name: somecode
@@ -256,7 +256,7 @@ itself can be preceded by a =#+name:= line
 
 #+END_SRC
 
-<<properties>> second, a PROPERIES drawer, using the =header-args=
+<<properties>> Second, a PROPERIES drawer, using the =header-args=
 attribute =noweb-ref= to name the (otherwise unnamed, i believe) code
 blocks in that branch.
 #+BEGIN_SRC org
@@ -286,17 +286,17 @@ blocks in that branch.
   : we want some code, and we want it now! 
 #+END_SRC
 
-as you can see, the properties drawer can carry many of properties,
-including the name of a destination file for [[tangling][tangling]].  the very odd
+As you can see, the properties drawer can carry many of properties,
+including the name of a destination file for [[tangling][tangling]].  The very odd
 =<<nowcode>>= is our next topic: [[noweb][noweb]].
 
 *** <<noweb>> noweb
 
 [[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example][noweb]] is a literate programming syntax to allow referencing blocks of
-code within some larger (.org file, say) context.  it allows a
+code within some larger (.org file, say) context.  It allows a
 programmer to re-use bits of code (sort of =#include= like).
 
-noweb syntax is *disabled* by default.  to enable noweb syntax, one
+noweb syntax is *disabled* by default.  To enable noweb syntax, one
 can either enable it on the header line of each source code block,
 enable it in a properties drawer, or, as in the following, enable it
 once at the beginning of an org file:
@@ -304,7 +304,7 @@ once at the beginning of an org file:
   ,#+property: header-args  :noweb yes
 #+END_SRC
 
-once enabled, references of the kind =<<NAME>>= will incorporate the
+Once enabled, references of the kind =<<NAME>>= will incorporate the
 contents of a previous source code block.
 
 #+BEGIN_SRC org
@@ -327,27 +327,27 @@ contents of a previous source code block.
 
 #+END_SRC
 
-*** <<tangling>> tangling
+*** <<tangling>> Tangling
 
-while often we are content to evaulate code blocks inside the .org
+While often we are content to evaulate code blocks inside the .org
 file, equally often we might want to export some or all of the code
-blocks for evaulation (or inspection) outside of the .org file.  for
+blocks for evaulation (or inspection) outside of the .org file.  For
 example, we might want to use some of the code in the .org file to
 create an R package.
 
-in the world of [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]], /tangling/ is the process of
+In the world of [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]], /tangling/ is the process of
 extracting source code from a (theoretically primarily text) document.
-in Org Mode, one uses =org-babel-tangle= (normally bound to =[C-c C-v
-t]=) to tangle the source code blocks in a file.  the file to which a
+In Org Mode, one uses =org-babel-tangle= (normally bound to =[C-c C-v
+t]=) to tangle the source code blocks in a file.  The file to which a
 source block will be tangled is specified in the =:tangle= attribute,
 placed on the =#+src_block= line or in a =:header-args= line (in a
 properties drawer, to apply to a subtree of the .org file, or
 stand-alone as above to apply to the entire .org file).
 
-to actually /tangle/ a file, use =]M-x org-babel-tangle]=, often bound
+To actually /tangle/ a file, use =]M-x org-babel-tangle]=, often bound
 to =[C-c C-v t]=.
    
-*** <<evaulating>> evaulating
+*** <<evaulating>> Evaulating
 **** =[C-c C-c]= on a source block
 **** =[C-c C-c]= on an inline source block
 **** =[C-c C-c]= on a #+call
@@ -395,7 +395,7 @@ to =[C-c C-v t]=.
 
 #+end_src
 
-*** <<results>> results
+*** <<results>> Results
 
 #+BEGIN_SRC org
   ,#+name: somecode
@@ -416,17 +416,17 @@ to =[C-c C-v t]=.
 
 #+END_SRC
 
-*** <<variables>> variables
+*** <<variables>> Variables
 -- in and out
 entire document or a subtree of the document
-*** life in Org Src buffers
-*** <<exporting>> exporting
+*** Life in Org Src buffers
+*** <<exporting>> Exporting
 
 ** Org Mode community
 
    mailing lists
 
-** other tutorials, etc.
+** Other tutorials, etc.
 
 [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Rainer's screencasts about Org Mode]] (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]])
 
