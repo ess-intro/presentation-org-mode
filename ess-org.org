@@ -1,7 +1,12 @@
+* using ESS with Emacs Org mode
+** meta : setupt                                                   :noexport:
 #+property: header-args :noweb yes
 #+property: header-args:org :exports both
-#+options: num:0 toc:1
-#+property: header-args :noweb yes :exports code :eval never-export
+#+options: num:0 toc:2
+# in this document, i sometimes need sub-, super-scripts, sometimes
+# just a caret
+#+options: ^:{}
+#+property: header-args :noweb yes :exports code :eval never-export :unnumbered non-nil
 #+author: Greg Minshall
 #+title: using ESS with Emacs Org mode
 # floating TOC:
@@ -15,10 +20,10 @@
 # "showframe" option is nice for debugging.
 #+LATEX_HEADER: \usepackage[a4paper, width=.7\paperwidth, height=.8\paperheight]{geometry}
 
-* intro to org mode
+** intro to org mode
 basics: document structuring, tables, math/LaTeX, exporting
 
-[[https://www.gnu.org/software/emacs/][emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][org mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
+[[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][org mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
 -- the proliferation of notation makes googling somewhat of a
 challenge.]  sometimes exhorts one to do something like "Organize Your
 Life In Plain Text!"; the org mode manual, on the other hand, starts
@@ -57,7 +62,7 @@ deprecated) +plus signs+, to achieve different font characteristics.
 (until writing this, i have always used equal signs for short bits of
 code, but now i will try to remember to try out tildes.)  in-line math
 formatting =\(x = cos(y)\)= is supported; Org mode also allows super-
-(10^9) and subscripts (I_e) (though these [[https://stackoverflow.com/a/698791/1527747][can be disabled]], if
+(10^{9}) and subscripts (I_{e}) (though these [[https://stackoverflow.com/a/698791/1527747][can be disabled]], if
 desired).
 
 various sorts of "blocks" are supported in org mode files.  these
@@ -107,6 +112,7 @@ word wrapped, etc.:
   | this is a block          |
   | that                     |
   | holds more verbatim text |
+  |                          |
 
   ,#+begin_src R :var foo=ex :exports code
   foo
@@ -116,10 +122,11 @@ word wrapped, etc.:
   | this is a block          |
   | that                     |
   | holds more verbatim text |
+  |                          |
 
 #+END_SRC
 
-as well as longer bits of text that *will* be wrapped ("quote":
+as well as longer bits of text that *will* be wrapped ("quote"):
 #+BEGIN_SRC org
   ,#+begin_quote
   this is a bit of
@@ -128,7 +135,7 @@ as well as longer bits of text that *will* be wrapped ("quote":
   number
   of
   lines when "filled"
-  (e.g., =M-x org-fill-paragraph=, =M-q=)
+  (e.g., [M-x org-fill-paragraph], [M-q])
   ,#+end_quote
 #+END_SRC
 
@@ -150,30 +157,28 @@ available in emacs (or, using the info).
 
 org mode is bundled into the main emacs distribution, but a
 more-than-casual user might like to use the more-than-likely
-up-to-date package available via [[https://melpa.org/][melpa]] (in emacs, use =M-x
-package-list-packages=, and regexp-search for /^..org /).
+up-to-date package available via [[https://melpa.org/][melpa]] (in emacs, use =[M-x
+package-list-packages]=, and regexp-search for /^..org /).
 
-* babel -- programming language support in org files
+** babel -- programming language support in org files
 
 [[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]] is one name for talking about programming language support in
 org mode.  you are able to embed source code inside of org mode
-buffers, edit these code blocks in a language-specific way, execute
-code blocks, pass the results of the execution of one code block to
+buffers, edit these code blocks in a language-specific way, evaluate
+code blocks, pass the results of the evaulation of one code block to
 another code block, and include code blocks and/or the results of
-their execution in the document produced by exporting the org buffer.
+their evaulation in the document produced by exporting the org buffer.
 
-** literate programming, if you want
-* <<sourceblocks>> source blocks
+*** <<sourceblocks>> source blocks
 
 Org mode source blocks look like this
 #+BEGIN_SRC org
   ,#+begin_src R
-		  "hello, world!"
+	  "hello, world!"
   ,#+end_src
 
   ,#+RESULTS:
   : hello, world!
-
 #+END_SRC
 
 (as mentioned above, a source block skeleton can be created by
@@ -183,24 +188,28 @@ Org mode source blocks can be edited, either inline in the org mode
 (".org") document buffer, or in a separate buffer (i call these "Org
 Src..." buffers, but they might also be known as "sub-edit buffers" or
 "source edit buffers) that you can "pop up" from the .org buffer ("pop
-out of the .org buffer"?), normally with =C-c '=.  in the latter,
+out of the .org buffer"?), normally with =[C-c ']=.  in the latter,
 there is better support for emacs so-called "font locks", which do
 program language-specific source code highlighting, etc.
 
-once written, a source block can be executed, returning [[results][results]],
-either the output of the code, or some terminating "value" of the
-code, as an element of the .org file.  and, the blocks can be executed
-manually, or -- and optionally, block by block -- while exporting a
-.org file to a different format.
+once written, a source block can be evaulated[fn:: for security
+  reasons, you will need to set or customize the Emacs variable
+  =org-babel-load-languages= , via =org-babel-do-load-languages= if
+  you are doing this to in a current emacs session, and you will be
+  prompted each time before a code block is evaluated.], returning
+  [[results][results]], either the output of the code, or some terminating "value"
+  of the code, as an element of the .org file.  and, the blocks can be
+  evaulated manually, or -- and optionally, block by block -- while
+  exporting a .org file to a different format.
 
-a source block can be executed in one of two sorts of contexts, within
+a source block can be evaulated in one of two sorts of contexts, within
 a "session", or outside of a "session".  a "session" here means some
-process that retains state between executions of (possibly different)
+process that retains state between evaulations of (possibly different)
 source blocks.  on the other hand, a "non-session" starts up with no
 internal [fn::obviously, prior runs may have, e.g., changed the state
-of the file system on which all these executions are running; that is,
+of the file system on which all these evaulations are running; that is,
 the *external* state may by influenced by what has previously been
-executed.] state from prior runs.
+evaulated.] state from prior runs.
 
 source blocks can also be expressed using a =src_LANG= construct; a
 =#+name:= line can be used to name the =src_LANG= block.
@@ -214,7 +223,8 @@ source blocks can also be expressed using a =src_LANG= construct; a
   ,#+end_src
 
   ,#+RESULTS:
-  : 42
+  | 42 |
+  |    |
 
 #+END_SRC
 
@@ -223,7 +233,7 @@ that org mode uses ESS to provide R language support.
 
    [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and org-mode.
 
-* <<naming>> naming blocks
+*** <<naming>> naming blocks
 
 there are two ways of naming blocks.  first, an individual block
 itself can be preceded by a =#+name:= line
@@ -280,7 +290,7 @@ as you can see, the properties drawer can carry many of properties,
 including the name of a destination file for [[tangling][tangling]].  the very odd
 =<<nowcode>>= is our next topic: [[noweb][noweb]].
 
-* <<noweb>> noweb
+*** <<noweb>> noweb
 
 [[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example][noweb]] is a literate programming syntax to allow referencing blocks of
 code within some larger (.org file, say) context.  it allows a
@@ -317,31 +327,31 @@ contents of a previous source code block.
 
 #+END_SRC
 
-* <<tangling>> tangling
+*** <<tangling>> tangling
 
-while often we are content to execute code blocks inside the .org
+while often we are content to evaulate code blocks inside the .org
 file, equally often we might want to export some or all of the code
-blocks for execution (or inspection) outside of the .org file.  for
+blocks for evaulation (or inspection) outside of the .org file.  for
 example, we might want to use some of the code in the .org file to
 create an R package.
 
 in the world of [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]], /tangling/ is the process of
 extracting source code from a (theoretically primarily text) document.
-in org mode, one uses =org-babel-tangle= (normally bound to =C-c C-v
-t=) to tangle the source code blocks in a file.  the file to which a
+in org mode, one uses =org-babel-tangle= (normally bound to =[C-c C-v
+t]=) to tangle the source code blocks in a file.  the file to which a
 source block will be tangled is specified in the =:tangle= attribute,
 placed on the =#+src_block= line or in a =:header-args= line (in a
 properties drawer, to apply to a subtree of the .org file, or
 stand-alone as above to apply to the entire .org file).
 
-to actually /tangle/ a file, use =M-x org-babel-tangle=, often bound
-to =C-c C-v t=.
+to actually /tangle/ a file, use =]M-x org-babel-tangle]=, often bound
+to =[C-c C-v t]=.
    
-* <<executing>> executing
-** =C-c C-c= on a source block
-** =C-c C-c= on an inline source block
-** =C-c C-c= on a #+call
-** =C-c C-c= on an inline-call
+*** <<evaulating>> evaulating
+**** =[C-c C-c]= on a source block
+**** =[C-c C-c]= on an inline source block
+**** =[C-c C-c]= on a #+call
+**** =[C-c C-c]= on an inline-call
 #+begin_src org
   ,#+name: find-orgs
   ,#+begin_src R
@@ -361,7 +371,7 @@ to =C-c C-v t=.
   call_find-orgs() {{{results(=1=)}}}
 
 #+end_src
-** :colnames and :rownames
+**** :colnames and :rownames
 #+begin_src org
   ,#+BEGIN_SRC R
   mtcars[1:3,]
@@ -385,7 +395,7 @@ to =C-c C-v t=.
 
 #+end_src
 
-* <<results>> results
+*** <<results>> results
 
 #+BEGIN_SRC org
   ,#+name: somecode
@@ -406,17 +416,17 @@ to =C-c C-v t=.
 
 #+END_SRC
 
-* <<variables>> variables
+*** <<variables>> variables
 -- in and out
-* <<exporting>> exporting
 entire document or a subtree of the document
-* life in Org Src buffers
+*** life in Org Src buffers
+*** <<exporting>> exporting
 
-* org-mode community
+** org-mode community
 
    mailing lists
 
-* other tutorials, etc.
+** other tutorials, etc.
 
 [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Rainer's screencasts about Org mode]] (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]])
 
@@ -441,8 +451,27 @@ Date: Tue, 23 Feb 2021 22:38:06 +0100
 Cc: emacs-orgmode@gnu.org
 #+end_example
 
-* experiments                                                      :noexport:
+** experiments                                                      :noexport:
 
+*** audio problems
+trying to get microphone to work.  used [[https://wiki.archlinux.org/index.php/PulseAudio/Troubleshooting#Microphone_not_detected_by_PulseAudio][arch pulseaudio
+troubleshooting]] page.  "PulseAudio uses wrong microphone" seemed to do
+it, with alsamixer:
+- F6
+- choose actual hardware
+- F5 (i used F4)
+- select "Capture" ("input source" i didn't see)
+then seemed to work, but was overmodulating.  used alsamixer, lowered
+level.  (took a couple of times to take effect?)
+
+also
+: pactl list sources short
+: arecord -l
+: pavucontrol
+(click on "Input Devices", see that the other microphones -- Front,
+Headset -- are unplugged, only Internal is plugged in.
+
+*** more
 #+NAME: readdata-code
 #+BEGIN_SRC org
 
@@ -475,7 +504,7 @@ Cc: emacs-orgmode@gnu.org
   : def
 #+END_SRC
 
-* code blocks
+** code blocks
 
 there are a few pieces of information org-mode needs to define a
 block of code
@@ -489,7 +518,7 @@ block of code
 
 there are at least two ways of encoding the needed information:
 
-** a source block
+*** a source block
 
 the most "normal" way of defining source code is with a /source
 block/.
@@ -505,7 +534,7 @@ block/.
 
 we use this form below in discussing the structure of a code block.
 
-** an /inline/ code block
+*** an /inline/ code block
 
 in a second form, known as an /inline code block/, the entire block
 can fit on one line (though multiple lines are possible).
@@ -518,7 +547,7 @@ i don't use this form.  for this tutorial i looked at it briefly.  it
 appears its semantics are different from that of source blocks.  other
 than that, i will not discuss it further.
 
-** the anatomy of a source block
+*** the anatomy of a source block
 
 #+begin_src org
   ,#+name: refid
@@ -543,7 +572,8 @@ than that, i will not discuss it further.
   ,#+end_src
 
   ,#+RESULTS: second
-  : this is a test
+  | this is a test |
+  |                |
 #+end_src
 
 the block named /refid/ is not a code block, but shows how the
@@ -580,8 +610,7 @@ header arguments.  one can put some header arguments on the
 - :results output verbatim
 - :cache
 
-
-* meta : tools, etc                                                :noexport:
+** meta : tools, etc                                                :noexport:
 
 https://obsproject.com/wiki/OBS-Studio-Quickstart obs, on arch linux
 (part of the obs-studio package).
@@ -595,7 +624,7 @@ to get little modifier key thing:
 : pip install git+https://github.com/scottkirkwood/key-mon
 but, it doesn't like my control key.
 
-to execute each code block in a buffer:
+to evaluate each code block in a buffer:
 :from:
 #+begin_example
 From: "Berry, Charles" <ccberry@health.ucsd.edu>
@@ -618,7 +647,7 @@ then, do this:
 
 but, i'd rather query, e.g., =:exports= to see if it exports results.
 
-* elisp code                                                       :noexport:
+** elisp code                                                       :noexport:
        :PROPERTIES:
        :header-args+: :tangle ./tangled/el-org.el
        :END:
@@ -629,7 +658,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
   (defun org-filter-by-argument-value (arg values &optional locs negate)
 	  "Return the subset of LOCS (default: (point)) that correspond
-  to executable locations in the current buffer whose
+  to evaulatable locations in the current buffer whose
   \"info\" (org-babel-get-src-block-info) argument parameter
   contains an argument ARG with a value in VALUES."
 	  (let ((pt (point))
@@ -647,7 +676,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 		(reverse (seq-filter (lambda(x) x) results))))
 #+end_src
 
-** for each block in the (whichever) buffer
+*** for each block in the (whichever) buffer
 
 - if ":exports code/both", create a systematically-named file with the
   code
@@ -664,17 +693,17 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 	[zero-based] ordinal position in the file is use (prefixed by the
 	string \"N-\")."
 
-** for each block in the (whichever) buffer
+*** for each block in the (whichever) buffer
 
 - if :eval is not (some form of) "no", offer it up for evaluation
 
-#+name: org-walk-and-execute
+#+name: org-walk-and-evaulate
 #+BEGIN_SRC elisp :results none
   (require 'ob-core)
 
-  (defun org-walk-and-execute (&optional arg)
+  (defun org-walk-and-evaulate (&optional arg)
 	  "Based on org-babel-execute-buffer, with the main difference
-  that we return the locations of the blocks we executed.  Probably
+  that we return the locations of the blocks we evaulated.  Probably
   should just use o-b-e-b."
 	  (let ((result nil))
 		  (save-window-excursion
@@ -696,9 +725,9 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 		  result))
 #+END_SRC
 
-** for each org block in the (whichever) buffer
+*** for each org block in the (whichever) buffer
 
-- if :exports "results" or "both", execute all blocks in the org block
+- if :exports "results" or "both", evaulate all blocks in the org block
 
 #+name: org-get-org-blocks
 #+begin_src elisp :results none
@@ -717,7 +746,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 #+end_src
 
 for each org-in-org block that :exports either "results" or "both",
-open up an edit buffer, and execute all internal code that :exports
+open up an edit buffer, and evaulate all internal code that :exports
 either "results" or "both".
 #+name: main-loop
 #+begin_src elisp :results none
@@ -731,7 +760,7 @@ either "results" or "both".
 						 (lambda (l)
 							 (goto-char l)
 							 (org-babel-do-in-edit-buffer
-								(let ((result (org-walk-and-execute)))
+								(let ((result (org-walk-and-evaulate)))
 									(org-edit-src-save)
 									(setq results (append results (list (list l result)))))))
 						 (org-filter-by-argument-value
@@ -744,18 +773,21 @@ either "results" or "both".
 #+begin_src elisp :results none
   (setq org-publish-project-alist
         '(("ess-org-html"
+           :with-toc nil
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-html-publish-to-html)
           ("ess-org-pdf"
+           :with-toc nil
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-latex-publish-to-pdf)
           ("ess-org-beamer-pdf"
+           :with-toc nil
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
@@ -764,7 +796,7 @@ either "results" or "both".
           ("ess-org" :components ("ess-org-html" "ess-org-pdf" "ess-org-beamer-pdf"))))
 #+end_src
 
-* css                                                              :noexport:
+** css                                                              :noexport:
 
 #+begin_src css :tangle ./tangled/floattoc.css
   #table-of-contents {
