@@ -1,4 +1,4 @@
-* using ESS with Emacs Org mode
+* using ESS with Emacs Org Mode
 ** meta : setupt                                                   :noexport:
 #+property: header-args :noweb yes
 #+property: header-args:org :exports both
@@ -8,7 +8,7 @@
 #+options: ^:{}
 #+property: header-args :noweb yes :exports code :eval never-export :unnumbered non-nil
 #+author: Greg Minshall
-#+title: using ESS with Emacs Org mode
+#+title: using ESS with Emacs Org Mode
 # floating TOC:
 # https://stackoverflow.com/questions/12232675/how-to-make-table-of-contents-floating
 # trick of setupfile trick: https://stackoverflow.com/a/56407596/1527747
@@ -20,14 +20,14 @@
 # "showframe" option is nice for debugging.
 #+LATEX_HEADER: \usepackage[a4paper, width=.7\paperwidth, height=.8\paperheight]{geometry}
 
-** intro to org mode
+** intro to Org Mode
 basics: document structuring, tables, math/LaTeX, exporting
 
-[[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][org mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
+[[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[Https://orgmode.org/][Org Mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
 -- the proliferation of notation makes googling somewhat of a
 challenge.]  sometimes exhorts one to do something like "Organize Your
-Life In Plain Text!"; the org mode manual, on the other hand, starts
-off by saying, "Org is an outliner".  the philosophy of org-mode
+Life In Plain Text!"; the Org Mode manual, on the other hand, starts
+off by saying, "Org is an outliner".  the philosophy of Org Mode
 (indeed, of Emacs, and maybe, to some extent, of any of the *nix
 operating systems) is that using non-proprietary file formats and
 software provides the most "liberating" and "horizon-free" way of
@@ -35,11 +35,11 @@ taking advantage of modern information technology.  and, to some
 extent, that a mostly-command line interface, rather than a graphical
 user interface, is also "the way to go".
 
-i think org mode started off as a way of simplifying the creation of
+i think Org Mode started off as a way of simplifying the creation of
 formatted documents, with tables, etc., for taking notes, creating
 agendas (items with date elements), and evolved into a much larger
 system of utilities for, for example, converting ("exporting", in org
-mode parlance) between the org mode syntax to .html, .pdf, etc.,
+mode parlance) between the Org Mode syntax to .html, .pdf, etc.,
 documents, with good support for doing mathematical (LaTeX)
 formatting.
 
@@ -56,16 +56,16 @@ by a special "drawer" [fn::a structure starting with an more-or-less
 arbitrary name, surrouned by colons, and ending with =:END:=] named
 =:PROPERTIES:= holding, well, properties, i.e, (key, value) tuples.
 
-Org mode text markup allows the use of *asterisks*, =equal signs=,
+Org Mode text markup allows the use of *asterisks*, =equal signs=,
 ~tildes~, /[forward] slashes/, _underscores_ and (though, apparently,
 deprecated) +plus signs+, to achieve different font characteristics.
 (until writing this, i have always used equal signs for short bits of
 code, but now i will try to remember to try out tildes.)  in-line math
-formatting =\(x = cos(y)\)= is supported; Org mode also allows super-
+formatting =\(x = cos(y)\)= is supported; Org Mode also allows super-
 (10^{9}) and subscripts (I_{e}) (though these [[https://stackoverflow.com/a/698791/1527747][can be disabled]], if
 desired).
 
-various sorts of "blocks" are supported in org mode files.  these
+various sorts of "blocks" are supported in Org Mode files.  these
 typically start with =#begin_...=, and end with a corresponding
 =#end_...=, where the =...= are something like =src=, =example=,
 =quote=.  a skeleton for one of these can conveniently be created by,
@@ -82,13 +82,13 @@ following, and hitting =tab=:
 seeing what you get, looking in the manual.  (of course, one can
 always search the manual for =#[+]begin_=.)
   
-org mode does a good job exporting to LaTeX, html.  (some people
-primarily use org mode as a more "user friendly" interface to LaTeX,
+Org Mode does a good job exporting to LaTeX, html.  (some people
+primarily use Org Mode as a more "user friendly" interface to LaTeX,
 though for serious documents, in the final analysis they probably
 spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
 
 in addition to the source blocks mentioned above (and elaborated on
-below), org mode allows short bits of "verbatim" code to be introduced
+below), Org Mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
 #+BEGIN_SRC org
   : this is verbatim
@@ -146,24 +146,24 @@ file.[fn::i believe there are facilities for "naming" bits of
 information in other .org files, but i don't know the details and i
 don't know if it works with source code blocks.]
 
-though i have used org mode for more than a decade, i know very little
+though i have used Org Mode for more than a decade, i know very little
 of most of its capabilities, as i mostly use it to centralize the
 source code within a project, as well as to produce the random
 document, especially documents with embedded code segments (known, in
-org mode, as "source blocks").  a good source for further information,
-in addition to the main [[https://orgmode.org/][org mode]] web page, is the org mode [[https://orgmode.org/worg/][worg]] site.
-also, once installed on your system, the org mode info pages are
-available in emacs (or, using the info).
+Org Mode, as "source blocks").  a good source for further information,
+in addition to the main [[https://orgmode.org/][Org Mode]] web page, is the Org Mode [[https://orgmode.org/worg/][worg]] site.
+also, once installed on your system, the Org Mode info pages are
+available in Emacs (or, using the info).
 
-org mode is bundled into the main emacs distribution, but a
+Org Mode is bundled into the main Emacs distribution, but a
 more-than-casual user might like to use the more-than-likely
-up-to-date package available via [[https://melpa.org/][melpa]] (in emacs, use =[M-x
+up-to-date package available via [[https://melpa.org/][melpa]] (in Emacs, use =[M-x
 package-list-packages]=, and regexp-search for /^..org /).
 
 ** babel -- programming language support in org files
 
 [[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]] is one name for talking about programming language support in
-org mode.  you are able to embed source code inside of org mode
+Org Mode.  you are able to embed source code inside of Org Mode
 buffers, edit these code blocks in a language-specific way, evaluate
 code blocks, pass the results of the evaulation of one code block to
 another code block, and include code blocks and/or the results of
@@ -171,7 +171,7 @@ their evaulation in the document produced by exporting the org buffer.
 
 *** <<sourceblocks>> source blocks
 
-Org mode source blocks look like this
+Org Mode source blocks look like this
 #+BEGIN_SRC org
   ,#+begin_src R
 	  "hello, world!"
@@ -184,18 +184,18 @@ Org mode source blocks look like this
 (as mentioned above, a source block skeleton can be created by
 typing, in column 1, =<s=, and hitting =tab=.)
 
-Org mode source blocks can be edited, either inline in the org mode
+Org Mode source blocks can be edited, either inline in the Org Mode
 (".org") document buffer, or in a separate buffer (i call these "Org
 Src..." buffers, but they might also be known as "sub-edit buffers" or
 "source edit buffers) that you can "pop up" from the .org buffer ("pop
 out of the .org buffer"?), normally with =[C-c ']=.  in the latter,
-there is better support for emacs so-called "font locks", which do
+there is better support for Emacs so-called "font locks", which do
 program language-specific source code highlighting, etc.
 
 once written, a source block can be evaulated[fn:: for security
   reasons, you will need to set or customize the Emacs variable
   =org-babel-load-languages= , via =org-babel-do-load-languages= if
-  you are doing this to in a current emacs session, and you will be
+  you are doing this to in a current Emacs session, and you will be
   prompted each time before a code block is evaluated.], returning
   [[results][results]], either the output of the code, or some terminating "value"
   of the code, as an element of the .org file.  and, the blocks can be
@@ -229,9 +229,9 @@ source blocks can also be expressed using a =src_LANG= construct; a
 #+END_SRC
 
 finally, and of particular interest in these tutorials, is the fact
-that org mode uses ESS to provide R language support.
+that Org Mode uses ESS to provide R language support.
 
-   [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and org-mode.
+   [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and Org Mode.
 
 *** <<naming>> naming blocks
 
@@ -337,7 +337,7 @@ create an R package.
 
 in the world of [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]], /tangling/ is the process of
 extracting source code from a (theoretically primarily text) document.
-in org mode, one uses =org-babel-tangle= (normally bound to =[C-c C-v
+in Org Mode, one uses =org-babel-tangle= (normally bound to =[C-c C-v
 t]=) to tangle the source code blocks in a file.  the file to which a
 source block will be tangled is specified in the =:tangle= attribute,
 placed on the =#+src_block= line or in a =:header-args= line (in a
@@ -422,15 +422,15 @@ entire document or a subtree of the document
 *** life in Org Src buffers
 *** <<exporting>> exporting
 
-** org-mode community
+** Org Mode community
 
    mailing lists
 
 ** other tutorials, etc.
 
-[[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Rainer's screencasts about Org mode]] (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]])
+[[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Rainer's screencasts about Org Mode]] (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]])
 
-[[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][tutorial on R and org-mode]]
+[[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][tutorial on R and Org Mode]]
 #+begin_example
 From: Erik Iverson <erikriverson@gmail.com>
 Date: Tue, 23 Feb 2021 12:30:03 -0800
@@ -506,7 +506,7 @@ Headset -- are unplugged, only Internal is plugged in.
 
 ** code blocks
 
-there are a few pieces of information org-mode needs to define a
+there are a few pieces of information Org Mode needs to define a
 block of code
 - (optionally) a =name= for the block (to use to include the block's
   code in another block with [[file:ess-org.org::*<<noweb>> noweb][noweb]], or to use the block's results as
