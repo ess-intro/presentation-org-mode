@@ -36,6 +36,8 @@ to the list of header args.
   ,#+end_src
 #+END_SRC
 
+*** Inline source blocks
+
 There are also "inline" source blocks: src_R{"hello, world"}.
 
 They have their own syntax for header arguments: src_R[:results
@@ -76,6 +78,8 @@ strokes, [C-c C-c]:
 #+begin_src R :results output
   cat("this block has been evaluated\n")
 #+end_src
+
+*** Evaluation via a =call= statement
 
 Source blocks can also be evaluated by =call= statements in the .org
 file.  Call statements have two forms, somewhat similar to the two
@@ -371,4 +375,32 @@ value be considered to consist.  The results can be interpreted to be
 an Org Mode table, list, or verbatim text.  Or, the results can be
 output to a file.
 
+#+name: results-noweb
+#+begin_src R
+mtcars[c(1,12,13, 19),]
+#+end_src
+
+If no result type is listed, Org Mode makes its pretty-good guess.
+
+#+begin_src R :results value
+<<results-noweb>>
+#+end_src
+
+But, to be sure, you can specify the type you would like.  (Note the
+reapearance of =:colnames=.)
+#+begin_src R :results value table :colnames yes
+<<results-noweb>>
+#+end_src
+
+=scalar= and =verbatim= are synonyms.  They cause the value to be
+taken, well, at face value:
+#+begin_src R :results scalar
+<<results-noweb>>
+#+end_src
+
+And, =list= converts the source block result into an Org Mode list.
+
+#+begin_src R :results list
+<<results-noweb>>
+#+end_src
 ** :session
