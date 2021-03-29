@@ -1,0 +1,58 @@
+* A file showing off some Org Mode and ESS features
+
+** Source blocks
+
+Source blocks are lines of text, surrounded by a =#+begin_src= line
+before the beginning and a =#+end= line after the end of the code.
+
+Source blocks can be named, and can have various /header arguments/.
+The name is on a =#+name= line.  The header arguments can be on the
+- on a =#+property: header-args= line, to apply as defaults for all
+  source blocks in a file
+- inside a =/:PROPERTIES:/= drawer of a headline (node in the tree
+  defined by the .org file), to apply as defaults for all source
+  blocks in that subtree
+- one the =#+begin_src= line that precedes the source block
+- or, on separate =#+header= line, immediately preceding the
+  =#+begin_src= line.
+
+Here is an example .org file that shows those ways of defining various
+header arguments.  The =#+header-args+= construct adds these arguments
+to the list of header args.
+
+#+BEGIN_SRC org
+  ,#+property: header-args :tangle ./nosuchdirectory/bigfile
+
+  ,** this is somewhere in this file
+       :PROPERTIES:
+       :header-args+: :tangle very/important/code.R
+       :END:
+
+  now, code blocks will carry that name
+
+  ,#+header: :exports results
+  ,#+begin_src R :results value
+      x <- "we want some code, and we want it now!"
+  ,#+end_src
+#+END_SRC
+
+** Evaluating source blocks
+
+In order to enable evaluation of source blocks of R code, you will
+need to evaluate the following source block.  (Emacs lisp is the only
+language whose evaluation is enabled by default.)  To do this,
+position your cursor inside the source block (or on the =#+begin_src=
+or =#+end= line), and type [C-c C-c] (not the square brackets; just
+what is inside).  Evaluating code in a file can be a security risk, so
+you will be prompted to make sure you want to execute the code.
+#+name: set-allowed-languages
+#+begin_src elisp :results none
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t) (R . t)))
+#+end_src
+
+(Here, I named the source block mainly so that the confirmation
+message can provide you the name of the block for which it is asking
+permission to evaluate.)
+
