@@ -25,6 +25,7 @@ TANGLEDFILES = ${ELORGEL} ${CSS}
 
 PUBLISHEDFILES = ${ARTEFACTSDIR}/ess-org.html \
 				${ARTEFACTSDIR}/ess-org.pdf \
+				${ARTEFACTSDIR}/ess-org-beamer.html \
 				${ARTEFACTSDIR}/ess-org-beamer.pdf
 
 
