@@ -222,4 +222,111 @@ you are evaluating.
 cat("you were", pitoo/pi, "close!\n")
 #+end_src
 
+The language of the source block providing the value of the variable
+does same as the language of the source block receiving the value.  In
+general, though, there may be some adaptation required to mould the
+shape of the input value to that needed by the source code.
+
+#+begin_src python
+
+#+end_src
+
+#+RESULTS:
+
+The name on the right hand side, instead of naming another source
+block in the file, can also name, e.g., an Org Mode table.
+
+#+name: a-table
+| student | first exam | second exam | final |
+|---------+------------+-------------+-------|
+| Greg    |          1 |           3 |     2 |
+| George  |          2 |           2 |     2 |
+| Linda   |          3 |           1 |     2 |
+| Georgia |          4 |           4 |     4 |
+
+In the following code block, the =:colnames= header argument is set to
+=yes= so that the first row is considered a row of column names.
+
+#+begin_src R :var tbl=a-table :colnames yes :session R
+summary(tbl)
+#+end_src
+
+#+RESULTS:
+| student          | first.exam   | second.exam  | final       |
+|------------------+--------------+--------------+-------------|
+| Length:4         | Min.   :1.00 | Min.   :1.00 | Min.   :2.0 |
+| Class :character | 1st Qu.:1.75 | 1st Qu.:1.75 | 1st Qu.:2.0 |
+| Mode  :character | Median :2.50 | Median :2.50 | Median :2.0 |
+|                  | Mean   :2.50 | Mean   :2.50 | Mean   :2.5 |
+|                  | 3rd Qu.:3.25 | 3rd Qu.:3.25 | 3rd Qu.:2.5 |
+|                  | Max.   :4.00 | Max.   :4.00 | Max.   :4.0 |
+
+For R code, a second effect of setting =:colnames= to =yes= is that if
+the *result* is an R data frame, its column names (=colnames()=) will
+be preserved in the resulting Org Mode table
+
+#+begin_src R :colnames yes
+mtcars[1:4,]
+#+end_src
+
+#+RESULTS:
+|  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |
+|------+-----+------+-----+------+-------+-------+----+----+------+------|
+|   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |
+|   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |
+| 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |
+| 21.4 |   6 |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |  0 |    3 |    1 |
+
+#+begin_src R :colnames no
+mtcars[1:4,]
+#+end_src
+
+#+RESULTS:
+|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |
+|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |
+| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |
+| 21.4 | 6 | 258 | 110 | 3.08 | 3.215 | 19.44 | 1 | 0 | 3 | 1 |
+
+*** :results
+	:PROPERTIES:
+    :header-args+: :noweb yes
+    :END:
+
+The =:results= header argument specifies many things.  First, it
+specifies whether the results of an evaluation consist in the value
+"returned" by the evaluated source block, or by the output (to
+standard output) produced by the source block.  The "value returned"
+means, in many programming languages (include R), the value of the
+last statement executed in the source block.  You may have noticed
+examples of this use of =:results= in some of the previous source
+blocks.  The values here are =value= and =output=.
+
+#+name: usenowebhere
+#+begin_src R :results none
+  truepi <- pi
+  cat(truepi, "\n", sep="")
+  invisible(truepi*2)
+#+end_src
+
+#+begin_src R :results output
+<<usenowebhere>>
+#+end_src
+
+#+RESULTS:
+: 3.141593
+
+#+begin_src R :results value
+<<usenowebhere>>
+#+end_src
+
+#+RESULTS:
+: 6.28318530717959
+
+**** Type of result
+
+Here, the question is what sort of Org structure should the returned
+value be considered to consist.  The results can be interpreted to be
+an Org Mode table, list, or verbatim text.  Or, the results can be
+output to a file.
+
 *** :session
