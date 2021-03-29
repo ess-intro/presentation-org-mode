@@ -36,6 +36,11 @@ to the list of header args.
   ,#+end_src
 #+END_SRC
 
+There are also "inline" source blocks: src_R{"hello, world"}.
+
+They have their own syntax for header arguments: src_R[:results
+output]{cat("hello, again")}.
+
 *** Evaluating source blocks
 
 In order to enable evaluation of source blocks of R code, you will
@@ -63,6 +68,31 @@ However, if you wish to add a language during execution, you will
 again need to call =(org-babel--do-load-languages)=.  Note that doing
 so will *not disable* any previously loaded language in this Emacs
 process.
+
+An R source block, for example, can be evaluated using the same key
+strokes, [C-c C-c]:
+
+#+name: first-r-block
+#+begin_src R :results output
+  cat("this block has been evaluated\n")
+#+end_src
+
+Source blocks can also be evaluated by =call= statements in the .org
+file.  Call statements have two forms, somewhat similar to the two
+forms of source blocks.
+
+First, a =#+call= line can trigger evaluation of a source block.  To
+trigger the triggering, you will need to type [C-c C-c] with point
+positioned on the call line.
+
+#+call: first-r-block()
+
+Similarly, there is an inline call statement form which can trigger
+evaluation of a source block.  here it is, inline!
+call_first-r-block().
+
+inline call statements have a syntax for block-specific header
+arguments similar to that of inline source blocks.
 
 *** How source blocks are exported
 
@@ -235,8 +265,14 @@ does same as the language of the source block receiving the value.  In
 general, though, there may be some adaptation required to mould the
 shape of the input value to that needed by the source code.
 
+#+name: from-python
 #+begin_src python :results value
-  return 23
+  return 21
+#+end_src
+
+#+name: to-r
+#+begin_src R :var howmany=from-python
+2*howmany
 #+end_src
 
 The name on the right hand side, instead of naming another source
