@@ -1,5 +1,4 @@
 * A file showing off some Org Mode and ESS features
-#+property: :noweb-ref whole-file
 
 ** Source blocks
 
@@ -194,15 +193,33 @@ to "no" and then evaluate it, you will get an error.)
 Note that, like the =:noweb= header argument, the =:noweb-ref= header
 argument can be set on a subtree basis.  (I dread to think of what
 would happen were it to be set on a file basis.  Okay, I have to try.
-Be right back...)
-
-
+Be right back...  Not much happened.  I suppose this is
+special-cased.)
 
 *** :var
 
 In Org Mode, the evaluation of source blocks can include initializing
 variables, using the =:var= header argument.
 
-#+begin_src R :var pi=3.14 :results output
-  cat(pi, "\n")
+#+name: gives-pi
+#+begin_src R :var pi=3.14
+  pi
 #+end_src
+
+The left hand side of the argument to =:var= is the name of the
+variable as seen by the code inside the source block.  The right hand
+side can be a constant (as above), or can designate the output of
+another source block in the .org file.  In that case, the right hand
+side is the name (=#+name:=) of the source block providing the desired
+result.
+
+If you evaluate the following source block, you will be asked to allow
+evaluation *twice*: once to produce the result from the *above* source
+block, and a second time to produce the result from the source block
+you are evaluating.
+
+#+begin_src R :var pitoo=gives-pi :session R :results output
+cat("you were", pitoo/pi, "close!\n")
+#+end_src
+
+*** :session
