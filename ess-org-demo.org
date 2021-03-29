@@ -1,9 +1,10 @@
 * A file showing off some Org Mode and ESS features
+#+property: :noweb-ref whole-file
 
 ** Source blocks
 
 Source blocks are lines of text, surrounded by a =#+begin_src= line
-before the beginning and a =#+end= line after the end of the code.
+before the beginning and a =#+end_src= line after the end of the code.
 
 Source blocks can be named, and can have various /header arguments/.
 The name is on a =#+name= line.  The header arguments can be on the
@@ -42,7 +43,7 @@ In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
 language whose evaluation is enabled by default.)  To do this,
 position your cursor inside the source block (or on the =#+begin_src=
-or =#+end= line), and type [C-c C-c] (not the square brackets; just
+or =#+end_src= line), and type [C-c C-c] (not the square brackets; just
 what is inside).  Evaluating code in a file can be a security risk, so
 you will be prompted to make sure you want to execute the code.
 #+name: set-allowed-languages
@@ -153,5 +154,55 @@ its result?  Is there a peak?  A valley?
 
 ** (Some) source block header arguments
 
+*** :noweb
+
+Many (most?) programming languages have a way of "including" the
+contents of one source file in the compilation or execution phase of
+another source file.  I think of =#include <stdio.h=, for example, in
+=C=.  Literate programming defines a way of doing this known as
+[[https://www.cs.tufts.edu/~nr/noweb/]["noweb"]].
+
+In Org Mode, a _reference_ to a previous block of code named =NAME= is
+denoted by =<<NAME>>=.  The double angle brackets signal that this is
+a noweb reference.  However, by default, noweb processing is
+*disabled* in an Org Mode buffer.  The =:noweb= header argument
+defaults to =no=, but can be set to =yes= to enable noweb processing.
+Again, as with all header arguments, this can be done on a per-file,
+per-subtree, or per-(referring-)source block basis.
+
+The noweb reference =<<NAME>>= can refer to either the name of another
+source block in the .org file:
+#+name: a-noweb-name
+#+begin_src R :noweb no
+  cm <- "copy me!"
+#+end_src
+
+or with the =:noweb-ref= header argument:
+#+begin_src R :noweb-ref another-noweb-name :noweb no
+  cmt <- "copy me, too!"
+#+end_src
+
+#+begin_src R :noweb yes :results output
+  <<a-noweb-name>>
+  <<another-noweb-name>>
+  cat(cm, "\n", cmt, "\n", sep="")
+#+end_src
+
+(If you edit the header of the previous source block by changing "yes"
+to "no" and then evaluate it, you will get an error.)
+
+Note that, like the =:noweb= header argument, the =:noweb-ref= header
+argument can be set on a subtree basis.  (I dread to think of what
+would happen were it to be set on a file basis.  Okay, I have to try.
+Be right back...)
+
+
+
 *** :var
 
+In Org Mode, the evaluation of source blocks can include initializing
+variables, using the =:var= header argument.
+
+#+begin_src R :var pi=3.14 :results output
+  cat(pi, "\n")
+#+end_src
