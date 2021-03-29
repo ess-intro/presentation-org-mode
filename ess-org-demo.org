@@ -36,7 +36,7 @@ to the list of header args.
   ,#+end_src
 #+END_SRC
 
-** Evaluating source blocks
+*** Evaluating source blocks
 
 In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
@@ -55,4 +55,103 @@ you will be prompted to make sure you want to execute the code.
 (Here, I named the source block mainly so that the confirmation
 message can provide you the name of the block for which it is asking
 permission to evaluate.)
+
+*** How source blocks are exported
+
+Source blocks are, optionally, exported -- to a .html or .pdf file,
+say -- along with some of the rest of a .org file.
+
+To start the export process, one types executes the command =M-x
+org-export-dispatch= (=[C-c C-e]=).  Org mode then pops up a window
+that allows you to customize your export.  At the top of this window
+are mostly options for defining the scope of the export.  For example,
+if you then type =[C-s]=, only the subtree in which the export is
+initialized will be exported.
+
+Then, one can choose the type of export: Org, Html, Latex (including
+PDF), Markdown, or Plain Text.
+
+(The top and the lower parts talk about /publishing/, which
+accomplishes exporting in a slightly heavier way, requiring the
+parameters to be pre-set in the =org-publish-project-alist= variable.
+We won't discuss publishing here -- you can read about it in the Org
+Mode manual -- but it is, in fact, the way the .html and .pdf files
+associated with this tutorial have been produced.)
+
+This code is based on a question to the R-help e-mail list.  The goal
+was a simple way to find the peaks and valleys (highest and lowest
+values) in a vector of numbers.
+#+name: peaks-and-valleys
+#+begin_src R :exports both
+  x <- c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)
+  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)>=0)<0)+1]
+  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)>0)>0)+1]
+#+end_src
+
+If you type [C-c C-e], then [C-s] (for "subtree"), then [h] (for
+"html"), and [o] (for "open"), then, assuming your Emacs is configured
+to know how to open a .html file in a browser (90% likely, I'd guess),
+you'll see the text in this subtree, the above code, and the indices
+of the valleys (the last result).
+
+The =:exports both= is a header argument that tells Org Mode to export
+both the source code itself, as well as the results of its evaluation
+(you will be prompted to authorize the evaluation).  One could also
+say one of: =:exports none=, =:exports code=, or =:exports results=.
+
+*** /Tangling/ code
+
+Tangling is a term the literate programming world uses to mean
+extracting the source code from a "literate" document in a way that
+the code can then be compiled and/or executed.  In Org Mode files, the
+=:tangle= header argument defines the filename to which a source block
+should be written.  Like all header arguments, the =:tangle= header
+argument can be specified at the file, subtree, or individual source
+block level.  All source blocks that have (or inherit) the same
+=:tangle= header argument will be tangled to the same file, in the
+order in which they appear in the .org file.
+
+Repeating a source block had above,
+
+#+name: peaks-and-valleys-tangling
+#+begin_src R :exports both :tangle peaks-and-valleys.el
+  x <- c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)
+  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)>=0)<0)+1]
+  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)>0)>0)+1]
+#+end_src
+
+Now, you could, if you chose, enter =[M-x org-babel-tangle]= (=[C-c
+C-v t]=).  But, be warned!  This will tangle all the source blocks in
+the current (this) .org file that have a =:tangle= header argument
+(specified or inherited).  One can restrict the tangle operation to
+the source block at point (see =[M-x describe-function]= for
+=org-babel-tangle= for details), but even so, I would suggest being
+careful.
+
+*** Editing a source block
+
+The source block is just a number of text lines in text file.  So, it
+is very normal to do minor edits in line, in the .org file.
+
+On the other hand, by positioning the cursor on the source block and
+executing =[M-x org-edit-src-code]= (=[C-c ']=), one can "pop out" the
+source block and edit it in a buffer with the major mode set
+appropriately for the language of the source block.  In the case of an
+R source block, the major mode will (the R-flavor of) ESS.
+
+Feel free to experiment with the following code.  On the R-help list,
+a new value for the vector =x= was proposed.
+: x <- c(1,1,1,2,2,3,4,4,4,5,6,6,6)
+If you like, edit the source, change =x=, and evaluate it.  What is
+its result?  Is there a peak?  A valley?
+
+#+begin_src R
+  x <- c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)
+  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)>=0)<0)+1]
+  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)>0)>0)+1]
+#+end_src
+
+** (Some) source block header arguments
+
+*** :var
 
