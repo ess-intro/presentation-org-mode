@@ -1,11 +1,7 @@
 artefacts/el-org.el
 artefacts/ess-org-startup.org
 artefacts/floattoc.css
-ess-org-beamer.html*
-ess-org-beamer.pdf
 ess-org-beamer.tex*
-ess-org.html*
-ess-org.pdf
 ess-org.tex*
 .html~
 tangled/
