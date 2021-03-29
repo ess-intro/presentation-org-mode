@@ -403,4 +403,39 @@ And, =list= converts the source block result into an Org Mode list.
 #+begin_src R :results list
 <<results-noweb>>
 #+end_src
+
+**** How the results are formatted
+
+There are various ways Org Mode might decide to embed the results, of,
+more or less, whatever type, inside the .org buffer.
+
+For example, to want the results to be wrapped in a source block, one
+can specify =code=:
+
+#+begin_src R :results value code
+"<<results-noweb>>"
+#+end_src
+
+#+RESULTS:
+:results:
+mtcars[c(1,12,13, 19),]
+:end:
+
+This also shows that =noweb= syntax isn't defeated by, e.g., being
+embedded inside quotation marks.  One can also specify that the
+results be embedded in an Org Mode "drawer" (which can be "closed", so
+the results don't show), or embedded in a source block of type "org",
+in blocks whose content will only be used when exporting to HTML, or
+to LaTeX (including PDF), etc.
+
+There is (apparently -- writing this tutorial is a learning
+experience!) also a =:wrap= header argument, separate from the
+=:results= header argument, which specifies a value =X=, and the
+results are summarily wrapped in a =#+begin_X...#+end_X= block.
+
+#+begin_src R :wrap foo
+3
+#+end_src
+
 ** :session
+
