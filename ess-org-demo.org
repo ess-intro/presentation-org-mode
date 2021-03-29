@@ -45,6 +45,7 @@ position your cursor inside the source block (or on the =#+begin_src=
 or =#+end_src= line), and type [C-c C-c] (not the square brackets; just
 what is inside).  Evaluating code in a file can be a security risk, so
 you will be prompted to make sure you want to execute the code.
+
 #+name: set-allowed-languages
 #+begin_src elisp :results none
   (org-babel-do-load-languages
@@ -55,6 +56,13 @@ you will be prompted to make sure you want to execute the code.
 (Here, I named the source block mainly so that the confirmation
 message can provide you the name of the block for which it is asking
 permission to evaluate.)
+
+If you customize the variable =org-babel-load-languages=, then those
+languages will be set to evaluate source blocks when you start Emacs.
+However, if you wish to add a language during execution, you will
+again need to call =(org-babel--do-load-languages)=.  Note that doing
+so will *not disable* any previously loaded language in this Emacs
+process.
 
 *** How source blocks are exported
 
@@ -227,11 +235,9 @@ does same as the language of the source block receiving the value.  In
 general, though, there may be some adaptation required to mould the
 shape of the input value to that needed by the source code.
 
-#+begin_src python
-
+#+begin_src python :results value
+  return 23
 #+end_src
-
-#+RESULTS:
 
 The name on the right hand side, instead of naming another source
 block in the file, can also name, e.g., an Org Mode table.
