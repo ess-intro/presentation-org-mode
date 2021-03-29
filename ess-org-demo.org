@@ -41,7 +41,7 @@ There are also "inline" source blocks: src_R{"hello, world"}.
 They have their own syntax for header arguments: src_R[:results
 output]{cat("hello, again")}.
 
-*** Evaluating source blocks
+** Evaluating source blocks
 
 In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
@@ -94,7 +94,7 @@ call_first-r-block().
 inline call statements have a syntax for block-specific header
 arguments similar to that of inline source blocks.
 
-*** How source blocks are exported
+** How source blocks are exported
 
 Source blocks are, optionally, exported -- to a .html or .pdf file,
 say -- along with some of the rest of a .org file.
@@ -137,7 +137,7 @@ both the source code itself, as well as the results of its evaluation
 (you will be prompted to authorize the evaluation).  One could also
 say one of: =:exports none=, =:exports code=, or =:exports results=.
 
-*** /Tangling/ code
+** /Tangling/ code
 
 Tangling is a term the literate programming world uses to mean
 extracting the source code from a "literate" document in a way that
@@ -166,7 +166,7 @@ the source block at point (see =[M-x describe-function]= for
 =org-babel-tangle= for details), but even so, I would suggest being
 careful.
 
-*** Editing a source block
+** Editing a source block
 
 The source block is just a number of text lines in text file.  So, it
 is very normal to do minor edits in line, in the .org file.
@@ -371,4 +371,4 @@ value be considered to consist.  The results can be interpreted to be
 an Org Mode table, list, or verbatim text.  Or, the results can be
 output to a file.
 
-*** :session
+** :session
