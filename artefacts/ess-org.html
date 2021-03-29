@@ -3,11 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-03-23 Tue 15:54 -->
+<!-- 2021-03-29 Mon 08:36 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>&lrm;</title>
+<title>using ESS with Emacs Org Mode</title>
 <meta name="generator" content="Org mode" />
+<meta name="author" content="Greg Minshall" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -39,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
+    overflow: auto;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -51,7 +52,7 @@
     padding: 3px;
     border: 1px solid black;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
@@ -202,185 +203,229 @@ padding: 1px 1%;
 border: 1px solid rgb(201,44,44);
 z-index: 2; /**/
 }
+
 /* Hide the full TOC by default */
 #table-of-contents #text-table-of-contents { display: none; }
+
 #table-of-contents:hover #text-table-of-contents {
 display: block; /* Show it on hover */
 }
 </style>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 </head>
 <body>
 <div id="content">
+<h1 class="title">using ESS with Emacs Org Mode
+<br />
+<span class="subtitle">part of the ESS intro series</span>
+</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org79599c8">using ESS with emacs org mode</a>
+<li><a href="#org3a6662e">using ESS with Emacs Org Mode</a>
 <ul>
-<li><a href="#orga269a8c">intro to org mode</a></li>
-<li><a href="#org2fea3b5">babel &#x2013; programming language support in org files</a></li>
-<li><a href="#org09d211e">source blocks</a></li>
-<li><a href="#orgba70736">naming blocks</a></li>
-<li><a href="#org5606764">noweb</a></li>
-<li><a href="#org18a7ff4">tangling</a></li>
-<li><a href="#org4e5e11d">executing</a></li>
-<li><a href="#orgf6d3b76">results</a></li>
-<li><a href="#orga083e9a">variables</a></li>
-<li><a href="#org6600c32">exporting</a></li>
-<li><a href="#org3ef7309">life in Org Src buffers</a></li>
-<li><a href="#org560723f">org-mode community</a></li>
-<li><a href="#org97036df">other tutorials, etc.</a></li>
+<li><a href="#org4453ebf">Introduction to Org Mode</a></li>
+<li><a href="#org9cb15bd">Babel &#x2013; programming language support in org files</a></li>
+<li><a href="#orge4c3781">Org Mode community</a></li>
+<li><a href="#org7a4626f">Other tutorials, etc.</a></li>
 <li><a href="#org73f18f2">code blocks</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org79599c8" class="outline-2">
-<h2 id="org79599c8">using ESS with emacs org mode</h2>
-<div class="outline-text-2" id="text-org79599c8">
+<div id="outline-container-org3a6662e" class="outline-2">
+<h2 id="org3a6662e">using ESS with Emacs Org Mode</h2>
+<div class="outline-text-2" id="text-org3a6662e">
 </div>
-
-<div id="outline-container-orga269a8c" class="outline-3">
-<h3 id="orga269a8c">intro to org mode</h3>
-<div class="outline-text-3" id="text-orga269a8c">
+<div id="outline-container-org4453ebf" class="outline-3">
+<h3 id="org4453ebf">Introduction to Org Mode</h3>
+<div class="outline-text-3" id="text-org4453ebf">
 <p>
 basics: document structuring, tables, math/LaTeX, exporting
 </p>
 
 <p>
-<a href="https://www.gnu.org/software/emacs/">emacs</a> (<a href="https://en.wikipedia.org/wiki/Emacs">wikipedia</a>) <a href="https://orgmode.org/">org mode</a> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>  sometimes exhorts one to do something like "Organize Your
-Life In Plain Text!"; the org mode manual, on the other hand, starts
-off by saying, "Org is an outliner".  the philosophy of org-mode
+<a href="https://www.gnu.org/software/emacs/">Emacs</a> (<a href="https://en.wikipedia.org/wiki/Emacs">wikipedia</a>) <a href="//orgmode.org/">Org Mode</a> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>  sometimes exhorts one to do something like "Organize Your
+Life In Plain Text!"; the Org Mode manual, on the other hand, starts
+off by saying, "Org is an outliner".  The philosophy of Org Mode
 (indeed, of Emacs, and maybe, to some extent, of any of the *nix
 operating systems) is that using non-proprietary file formats and
 software provides the most "liberating" and "horizon-free" way of
-taking advantage of modern information technology.  and, to some
+taking advantage of modern information technology.  And, to some
 extent, that a mostly-command line interface, rather than a graphical
 user interface, is also "the way to go".
 </p>
 
 <p>
-i think org mode started off as a way of simplifying the creation of
+I think Org Mode started off as a way of simplifying the creation of
 formatted documents, with tables, etc., for taking notes, creating
 agendas (items with date elements), and evolved into a much larger
 system of utilities for, for example, converting ("exporting", in org
-mode parlance) between the org mode syntax to .html, .pdf, etc.,
+mode parlance) between the Org Mode syntax to .html, .pdf, etc.,
 documents, with good support for doing mathematical (LaTeX)
 formatting.
 </p>
+</div>
 
+<div id="outline-container-org335dd33" class="outline-4">
+<h4 id="org335dd33">Document structuring</h4>
+<div class="outline-text-4" id="text-org335dd33">
 <p>
-a .org file is structured like an outline, with outline sections and
+A .org file is structured like an outline, with outline sections and
 levels indicated by lines starting with one or more asterisks in the
-first column; these define "headlines" for the outline.  between
-headlines one can include text, tables, bits of code, etc.  bits of
+first column; these define "headlines" for the outline.  Between
+headlines one can include text, tables, bits of code, etc.  Bits of
 the .org file can be displayed and/or hidden by positioning the cursor
 on a headline and (possibly repeatedly) hitting <code>tab</code>.
 </p>
 
 <p>
-asterisk-defined headlines can include "tags" (<code>:essintro:</code>; i am
+Asterisk-defined headlines can include "tags" (<code>:essintro:</code>; I am
 ignorant of their use), and can optionally be (immediately) followed
 by a special "drawer" <sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> named
-<code>:PROPERTIES:</code> holding, well, properties, i.e, (key, value) tuples.
+<code>[[properties][:PROPERTIES:]]</code> holding, well, properties, i.e, (key,
+value) tuples.
 </p>
+</div>
+</div>
 
+<div id="outline-container-org36dbe5e" class="outline-4">
+<h4 id="org36dbe5e">Markup</h4>
+<div class="outline-text-4" id="text-org36dbe5e">
 <p>
-Org mode text markup allows the use of <b>asterisks</b>, <code>equal signs</code>,
+Org Mode text markup allows the use of <b>asterisks</b>, <code>equal signs</code>,
 <code>tildes</code>, <i>[forward] slashes</i>, <span class="underline">underscores</span> and (though, apparently,
 deprecated) <del>plus signs</del>, to achieve different font characteristics.
-(until writing this, i have always used equal signs for short bits of
-code, but now i will try to remember to try out tildes.)  in-line math
-formatting <code>\(x = cos(y)\)</code> is supported; Org mode also allows super-
+(Until writing this, I have always used equal signs for short bits of
+code, but now I will try to remember to try out tildes.)  In-line math
+formatting <code>\(x = cos(y)\)</code> is supported; Org Mode also allows super-
 (10<sup>9</sup>) and subscripts (I<sub>e</sub>) (though these <a href="https://stackoverflow.com/a/698791/1527747">can be disabled</a>, if
 desired).
 </p>
+</div>
+</div>
+
+<div id="outline-container-org5bdcec6" class="outline-4">
+<h4 id="org5bdcec6"><a id="orgab6c8a9"></a> Tables</h4>
+<div class="outline-text-4" id="text-org5bdcec6">
+<p>
+Org Mode has nice support for tables, e.g.,
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">contains</th>
+<th scope="col" class="org-left">contained in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">as</td>
+<td class="org-left">a</td>
+<td class="org-left">asterisk</td>
+</tr>
+
+<tr>
+<td class="org-left">y</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">why</td>
+</tr>
+</tbody>
+</table>
 
 <p>
-various sorts of "blocks" are supported in org mode files.  these
+created by
+</p>
+<div class="org-src-container">
+<pre class="src src-org">|    | contains | contained in |
+|----+----------+--------------|
+| as | a        | asterisk     |
+| y  |          | why          |
+</pre>
+</div>
+
+<p>
+Org Mode provides facilities for defining equations to calculate cell
+values, etc.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org31a85ef" class="outline-4">
+<h4 id="org31a85ef">Blocks of various sizes, shapes, colors</h4>
+<div class="outline-text-4" id="text-org31a85ef">
+<p>
+Various sorts of "blocks" are supported in Org Mode files.  These
 typically start with <code>#begin_...</code>, and end with a corresponding
 <code>#end_...</code>, where the <code>...</code> are something like <code>src</code>, <code>example</code>,
-<code>quote</code>.  a skeleton for one of these can conveniently be created by,
-in column 1 of an otherwise empty line, typing <code>&lt;X</code> followed by <code>tab</code>,
+<code>quote</code>.  A skeleton for one of these can conveniently be created by,
+in column 1 of an otherwise empty line, typing <code>[&lt;X]</code> followed by <code>[tab]</code>,
 where <code>X</code> is one of
 </p>
 <ul class="org-ul">
-<li><code>s</code> for a source block</li>
-<li><code>q</code> for a quote block (line wrapping applies)</li>
-<li><code>e</code> for an example block (line wrapping does not apply)</li>
+<li><code>e</code> for an example block (line wrapping does not apply) (<code>#+begin_example</code>)</li>
+<li><code>q</code> for a quote block (line wrapping applies) (<code>#+begin_quote</code>)</li>
+<li><code>s</code> for a source block (<code>#+begin_src</code>)</li>
 </ul>
 
 <p>
 there are various other blocks; you can experiment by typing (in
-column one, of an otherwise empty line) <code>&lt;</code> and then one of the
-following, and hitting <code>tab</code>:
+column one, of an otherwise empty line) <code>[&lt;]</code> and then one of the
+following, and hitting <code>[tab]</code>:
 </p>
 <pre class="example">
 a, c, C, E, h, l, v
 </pre>
 
 <p>
-seeing what you get, looking in the manual.  (of course, one can
+seeing what you get, looking in the manual.  (Of course, one can
 always search the manual for <code>#[+]begin_</code>.)
 </p>
 
 <p>
-org mode does a good job exporting to LaTeX, html.  (some people
-primarily use org mode as a more "user friendly" interface to LaTeX,
+Org Mode does a good job exporting to LaTeX, html.  (Some people
+primarily use Org Mode as a more "user friendly" interface to LaTeX,
 though for serious documents, in the final analysis they probably
 spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
 </p>
 
 <p>
-in addition to the source blocks mentioned above (and elaborated on
-below), org mode allows short bits of "verbatim" code to be introduced
+In addition to the source blocks mentioned above (and elaborated on
+below), Org Mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
 </p>
 <div class="org-src-container">
@@ -389,8 +434,100 @@ by a colon as the first non-blank column of a line
 </div>
 
 <p>
-one can have longer runs of verbatim ("example") data (which is not
+One can have longer runs of verbatim ("example") data (which is not
 word wrapped, etc.:
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+name: ex
+#+begin_example
+this is a block
+that
+holds more verbatim text
+#+end_example
+</pre>
+</div>
+
+<p>
+As well as longer bits of text that <b>will</b> be wrapped ("quote"):
+</p>
+<div class="org-src-container">
+<pre class="src src-org">#+begin_quote
+this is a bit of
+text that should
+show up, eventually, strung out in a smaller
+number
+of
+lines when "filled"
+(e.g., [M-x org-fill-paragraph], [M-q])
+#+end_quote
+</pre>
+</div>
+
+<p>
+Blocks can optionally have <a href="#org038ad62">names</a>.  These names can be used as <a href="#org5bb0595">noweb</a>
+references, or to use the value of a block (or, if a source block, of
+the block's results) as input (a <a href="#orgbbab0e0">variable</a>) to another block in the
+file.<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4763a25" class="outline-4">
+<h4 id="org4763a25">Exporting</h4>
+<div class="outline-text-4" id="text-org4763a25">
+<p>
+Org Mode buffers can be exported to HTML, PDF, and many other formats.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org362f712" class="outline-4">
+<h4 id="org362f712">&#x2026; and much else</h4>
+<div class="outline-text-4" id="text-org362f712">
+<p>
+Though I have used Org Mode for more than a decade, I know very little
+of most of its capabilities, as I mostly use it to centralize the
+source code within a project, as well as to produce the random
+document, especially documents with embedded code segments (known, in
+Org Mode, as "source blocks").  A good source for further information,
+in addition to the main <a href="https://orgmode.org/">Org Mode</a> web page, is the Org Mode <a href="https://orgmode.org/worg/">worg</a> site.
+Also, once installed on your system, the Org Mode info pages are
+available in Emacs (or, using <code>info(1)</code>).
+</p>
+
+<p>
+Org Mode is bundled into the main Emacs distribution, but a
+more-than-casual user might like to use the more-than-likely
+up-to-date package available via <a href="https://melpa.org/">melpa</a> (<code>[M-x package-list-packages]</code>,
+and regexp-search for /^..org /).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9cb15bd" class="outline-3">
+<h3 id="org9cb15bd">Babel &#x2013; programming language support in org files</h3>
+<div class="outline-text-3" id="text-org9cb15bd">
+<p>
+<a href="https://orgmode.org/worg/org-contrib/babel/intro.html">Babel</a> is one name for talking about programming language support in
+Org Mode.  You are able to embed source code inside of Org Mode
+buffers, edit these code blocks in a language-specific way, evaluate
+code blocks, pass the results of the evaulation of one code block to
+another code block, and include code blocks and/or the results of
+their evaulation in the document produced by exporting the org buffer.
+</p>
+</div>
+
+<div id="outline-container-org92bdf40" class="outline-4">
+<h4 id="org92bdf40"><a id="org19d99cc"></a> Source blocks</h4>
+<div class="outline-text-4" id="text-org92bdf40">
+<p>
+An Org Mode source block includes source code (in one language, per
+source block), an optional <a href="#org038ad62">name</a>, and optional <i><a href="#org6254a44">header arguments</a></i>.
+</p>
+
+<p>
+Org Mode source blocks look like this
 </p>
 <div class="org-src-container">
 <pre class="src src-org">#+name: ex
@@ -408,6 +545,7 @@ foo
 | this is a block          |
 | that                     |
 | holds more verbatim text |
+|                          |
 
 #+begin_src R :var foo=ex :exports code
 foo
@@ -417,120 +555,28 @@ foo
 | this is a block          |
 | that                     |
 | holds more verbatim text |
+|                          |
 
 </pre>
 </div>
 
 <p>
-as well as longer bits of text that <b>will</b> be wrapped ("quote":
-</p>
-<div class="org-src-container">
-<pre class="src src-org">#+begin_quote
-this is a bit of
-text that should
-show up, eventually, strung out in a smaller
-number
-of
-lines when "filled"
-(e.g., =M-x org-fill-paragraph=, =M-q=)
-#+end_quote
-</pre>
-</div>
-
-<p>
-blocks can optionally have <a href="#org038ad62">names</a>.  these names can be used as <a href="#org5bb0595">noweb</a>
-references, or to use the value of a block (or, if a source block, of
-the block's results) as input (a <a href="#orgbbab0e0">variable</a>) to another block in the
-file.<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
-</p>
-
-<p>
-though i have used org mode for more than a decade, i know very little
-of most of its capabilities, as i mostly use it to centralize the
-source code within a project, as well as to produce the random
-document, especially documents with embedded code segments (known, in
-org mode, as "source blocks").  a good source for further information,
-in addition to the main <a href="https://orgmode.org/">org mode</a> web page, is the org mode <a href="https://orgmode.org/worg/">worg</a> site.
-also, once installed on your system, the org mode info pages are
-available in emacs (or, using the info).
-</p>
-
-<p>
-org mode is bundled into the main emacs distribution, but a
-more-than-casual user might like to use the more-than-likely
-up-to-date package available via <a href="https://melpa.org/">melpa</a> (in emacs, use <code>M-x
-package-list-packages</code>, and regexp-search for /<sup>..org</sup> /).
-</p>
-</div>
-</div>
-
-<div id="outline-container-org2fea3b5" class="outline-3">
-<h3 id="org2fea3b5">babel &#x2013; programming language support in org files</h3>
-<div class="outline-text-3" id="text-org2fea3b5">
-<p>
-<a href="https://orgmode.org/worg/org-contrib/babel/intro.html">Babel</a> is one name for talking about programming language support in
-org mode.  you are able to embed source code inside of org mode
-buffers, edit these code blocks in a language-specific way, execute
-code blocks, pass the results of the execution of one code block to
-another code block, and include code blocks and/or the results of
-their execution in the document produced by exporting the org buffer.
-</p>
-</div>
-
-<div id="outline-container-org8e370e5" class="outline-4">
-<h4 id="org8e370e5">literate programming, if you want</h4>
-</div>
-</div>
-<div id="outline-container-org09d211e" class="outline-3">
-<h3 id="org09d211e"><a id="org19d99cc"></a> source blocks</h3>
-<div class="outline-text-3" id="text-org09d211e">
-<p>
-Org mode source blocks look like this
-</p>
-<div class="org-src-container">
-<pre class="src src-org">#+begin_src R
-		"hello, world!"
-#+end_src
-
-#+RESULTS:
-: hello, world!
-
-</pre>
-</div>
-
-<p>
-(as mentioned above, a source block skeleton can be created by
+(As mentioned above, a source block skeleton can be created by
 typing, in column 1, <code>&lt;s</code>, and hitting <code>tab</code>.)
 </p>
 
 <p>
-Org mode source blocks can be edited, either inline in the org mode
-(".org") document buffer, or in a separate buffer (i call these "Org
+Org Mode source blocks can be edited, either inline in the Org Mode
+(".org") document buffer, or in a separate buffer (I call these "Org
 Src&#x2026;" buffers, but they might also be known as "sub-edit buffers" or
 "source edit buffers) that you can "pop up" from the .org buffer ("pop
-out of the .org buffer"?), normally with <code>C-c '</code>.  in the latter,
-there is better support for emacs so-called "font locks", which do
-program language-specific source code highlighting, etc.
+out of the .org buffer"?), normally with <code>[C-c ']</code>.  The Org Src
+blocks typically have better support for Emacs so-called "font locks",
+which do program language-specific source code highlighting, etc.
 </p>
 
 <p>
-once written, a source block can be executed, returning <a href="#org74f2034">results</a>,
-either the output of the code, or some terminating "value" of the
-code, as an element of the .org file.  and, the blocks can be executed
-manually, or &#x2013; and optionally, block by block &#x2013; while exporting a
-.org file to a different format.
-</p>
-
-<p>
-a source block can be executed in one of two sorts of contexts, within
-a "session", or outside of a "session".  a "session" here means some
-process that retains state between executions of (possibly different)
-source blocks.  on the other hand, a "non-session" starts up with no
-internal <sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> state from prior runs.
-</p>
-
-<p>
-source blocks can also be expressed using a <code>src_LANG</code> construct; a
+Source blocks can also be expressed using a <code>src_LANG</code> construct; a
 <code>#+name:</code> line can be used to name the <code>src_LANG</code> block.
 </p>
 
@@ -543,28 +589,62 @@ x
 #+end_src
 
 #+RESULTS:
-: 42
+| 42 |
+|    |
 
 </pre>
 </div>
 
 <p>
-finally, and of particular interest in these tutorials, is the fact
-that org mode uses ESS to provide R language support.
-</p>
-
-<p>
-<a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html">worg page</a> on R and org-mode.
+<code>src_LANG</code> constructs also have a syntax for defining <a href="#org6254a44"><code>header arguments</code></a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgba70736" class="outline-3">
-<h3 id="orgba70736"><a id="org038ad62"></a> naming blocks</h3>
-<div class="outline-text-3" id="text-orgba70736">
+<div id="outline-container-orgda92e1c" class="outline-4">
+<h4 id="orgda92e1c">Evaluating source blocks</h4>
+<div class="outline-text-4" id="text-orgda92e1c">
 <p>
-there are two ways of naming blocks.  first, an individual block
-itself can be preceded by a <code>#+name:</code> line
+Once written, a source block can be evaulated<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>, returning <a href="#org74f2034">results</a>,
+either the output of the code, or some terminating "value" of the
+code, as an element of the .org file.  And, the blocks can be
+evaulated manually, or &#x2013; and optionally, block by block &#x2013; while
+exporting a .org file to a different format.
+</p>
+
+<p>
+A source block can be evaulated in one of two sorts of contexts,
+within a "session", or outside of a "session".  A "session" here means
+some process that retains state between evaulations of (possibly
+different, but using the same programming language) source blocks.  On
+the other hand, a "non-session" starts up with no internal state from
+prior runs <sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>.
+</p>
+
+
+<p>
+Finally, and of particular interest in these tutorials, is the fact
+that Org Mode uses ESS to provide R language support.
+</p>
+
+<p>
+<a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html">worg page</a> on R and Org Mode.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org621922b" class="outline-4">
+<h4 id="org621922b"><a id="org038ad62"></a> Naming blocks</h4>
+<div class="outline-text-4" id="text-org621922b">
+<p>
+Org Mode source blocks can be named.  The name can be used to include
+the <b>source</b> of one block in another block via <a href="#org5bb0595">noweb</a>, or to include
+the <b>results</b> of the evaluation of one block as an input <a href="#orgbbab0e0">variable</a> to
+another block.
+</p>
+
+<p>
+Org Mode source blocks are named with a <code>#+name:</code> line:
 </p>
 <div class="org-src-container">
 <pre class="src src-org">#+name: somecode
@@ -585,24 +665,92 @@ itself can be preceded by a <code>#+name:</code> line
 
 </pre>
 </div>
+</div>
+</div>
+
+<div id="outline-container-org3b36288" class="outline-4">
+<h4 id="org3b36288"><a id="org6254a44"></a> Header arguments</h4>
+</div>
+<div id="outline-container-org878e7ad" class="outline-4">
+<h4 id="org878e7ad"><a id="org92aa496"></a> Tangling</h4>
+<div class="outline-text-4" id="text-org878e7ad">
+<p>
+While often we are content to evaulate code blocks inside the .org
+file, equally often we might want to export some or all of the code
+blocks for evaulation (or inspection) outside of the .org file.  For
+example, we might want to use some of the code in the .org file to
+create an R package.
+</p>
 
 <p>
-<a id="org2e55ceb"></a> second, a PROPERIES drawer, using the <code>header-args</code>
-attribute <code>noweb-ref</code> to name the (otherwise unnamed, i believe) code
-blocks in that branch.
+In the world of <a href="https://orgmode.org/worg/org-contrib/babel/index.html">literate programming</a>, <i>tangling</i> is the process of
+extracting source code from a (theoretically primarily text) document.
+In Org Mode, one uses <code>org-babel-tangle</code> (normally bound to <code>[C-c C-v
+t]</code>) to tangle the source code blocks in a file.  The file to which a
+source block will be tangled is specified in the <code>:tangle</code> attribute,
+placed on the <code>#+src_block</code> line or in a <code>:header-args</code> line (in a
+<a href="#org2e55ceb">properties drawer</a>, to apply to a subtree of the .org file, or
+stand-alone as above to apply to the entire .org file).
 </p>
+
+<p>
+To actually <i>tangle</i> a file, use <code>]M-x org-babel-tangle]</code>, often bound
+to <code>[C-c C-v t]</code>.
+</p>
+
+<p>
+The name of the file to which a given source block is tangled is given
+by the <code>:tangle</code> <a href="#org6254a44">header argument</a>.  Like other header arguments, the
+<code>:tangle</code> header argument can be specified by one of several ways.
+The first way is by specifying it adjoining the source block, either
+on the <code>#+begin_src</code> line, or on an immediately preceding <code>#+header</code>
+line (basically, an overflow of the <code>#+begin_src</code> line):
+</p>
+
 <div class="org-src-container">
-<pre class="src src-org">#+property: header-args :noweb yes
+<pre class="src src-org">#+begin_src R :tangle ./nosuchdirectory/foofile
+"this is some R code"
+#+end_src
+
+#+RESULTS:
+: this is some R code
+
+#+header: :tangle ./nosuchdirectory/anotherfile
+#+begin_src R
+"this is some more R code"
+#+end_src
+
+#+RESULTS:
+: this is some more R code
+</pre>
+</div>
+
+<p>
+<a id="org2e55ceb"></a> Second, the destination file to tangle a subtree's
+worth of source blocks can be specified in a PROPERIES drawer on the
+headline for that tree using the <code>header-args</code> property's <code>tangle</code>
+attribute to name the code blocks in that branch that don't have a
+"more local" <code>:tangle</code> specification.
+</p>
+
+<p>
+Alternatively, using a <code>#+property</code> tag at the top of a file, you can
+define a default tangle destination for all the code blocks in the
+file that don't have a "more local" <code>:tangle</code> specification.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org">#+property: header-args :tangle ./nosuchdirectory/bigfile
 
 ** this is somewhere in this file
-	 :PROPERTIES:
-	 :header-args+: :tangle very/important/code.R
-	 :header-args+: :noweb-ref nowcode
-	 :END:
+     :PROPERTIES:
+     :header-args+: :tangle very/important/code.R
+     :header-args+: :noweb-ref nowcode
+     :END:
 
 now, code blocks will carry that name
 #+begin_src R
-	x &lt;- "we want some code, and we want it now!"
+    x &lt;- "we want some code, and we want it now!"
 #+end_src
 
 #+RESULTS:
@@ -611,35 +759,34 @@ now, code blocks will carry that name
 ** somewhere else
 #+begin_src R :results output
 
-	cat(x, "\n")
+    cat(x, "\n")
 #+end_src
 
 #+RESULTS:
-: we want some code, and we want it now! 
 </pre>
 </div>
 
 <p>
-as you can see, the properties drawer can carry many of properties,
-including the name of a destination file for <a href="#org92aa496">tangling</a>.  the very odd
+As you can see, the properties drawer can carry many of properties,
+including the name of a destination file for <a href="#org92aa496">tangling</a>.  The very odd
 <code>&lt;&lt;nowcode&gt;&gt;</code> is our next topic: <a href="#org5bb0595">noweb</a>.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org5606764" class="outline-3">
-<h3 id="org5606764"><a id="org5bb0595"></a> noweb</h3>
-<div class="outline-text-3" id="text-org5606764">
+<div id="outline-container-org5606764" class="outline-4">
+<h4 id="org5606764"><a id="org5bb0595"></a> noweb</h4>
+<div class="outline-text-4" id="text-org5606764">
 <p>
 <a href="https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example">noweb</a> is a literate programming syntax to allow referencing blocks of
-code within some larger (.org file, say) context.  it allows a
+code within some larger (.org file, say) context.  It allows a
 programmer to re-use bits of code (sort of <code>#include</code> like).
 </p>
 
 <p>
-noweb syntax is <b>disabled</b> by default.  to enable noweb syntax, one
+noweb syntax is <b>disabled</b> by default.  To enable noweb syntax, one
 can either enable it on the header line of each source code block,
-enable it in a properties drawer, or, as in the following, enable it
+enable it in a <a href="#org2e55ceb">properties drawer</a>, or, as in the following, enable it
 once at the beginning of an org file:
 </p>
 <div class="org-src-container">
@@ -648,7 +795,7 @@ once at the beginning of an org file:
 </div>
 
 <p>
-once enabled, references of the kind <code>&lt;&lt;NAME&gt;&gt;</code> will incorporate the
+Once enabled, references of the kind <code>&lt;&lt;NAME&gt;&gt;</code> will incorporate the
 contents of a previous source code block.
 </p>
 
@@ -675,51 +822,16 @@ contents of a previous source code block.
 </div>
 </div>
 
-<div id="outline-container-org18a7ff4" class="outline-3">
-<h3 id="org18a7ff4"><a id="org92aa496"></a> tangling</h3>
-<div class="outline-text-3" id="text-org18a7ff4">
-<p>
-while often we are content to execute code blocks inside the .org
-file, equally often we might want to export some or all of the code
-blocks for execution (or inspection) outside of the .org file.  for
-example, we might want to use some of the code in the .org file to
-create an R package.
-</p>
-
-<p>
-in the world of <a href="https://orgmode.org/worg/org-contrib/babel/index.html">literate programming</a>, <i>tangling</i> is the process of
-extracting source code from a (theoretically primarily text) document.
-in org mode, one uses <code>org-babel-tangle</code> (normally bound to <code>C-c C-v
-t</code>) to tangle the source code blocks in a file.  the file to which a
-source block will be tangled is specified in the <code>:tangle</code> attribute,
-placed on the <code>#+src_block</code> line or in a <code>:header-args</code> line (in a
-properties drawer, to apply to a subtree of the .org file, or
-stand-alone as above to apply to the entire .org file).
-</p>
-
-<p>
-to actually <i>tangle</i> a file, use <code>M-x org-babel-tangle</code>, often bound
-to <code>C-c C-v t</code>.
-</p>
+<div id="outline-container-orgb180605" class="outline-4">
+<h4 id="orgb180605"><a id="org27ad091"></a> Evaulating</h4>
+<div class="outline-text-4" id="text-orgb180605">
 </div>
-</div>
-
-<div id="outline-container-org4e5e11d" class="outline-3">
-<h3 id="org4e5e11d"><a id="org95ae03a"></a> executing</h3>
-<div class="outline-text-3" id="text-org4e5e11d">
-</div>
-<div id="outline-container-org511a342" class="outline-4">
-<h4 id="org511a342"><code>C-c C-c</code> on a source block</h4>
-</div>
-<div id="outline-container-org627f49d" class="outline-4">
-<h4 id="org627f49d"><code>C-c C-c</code> on an inline source block</h4>
-</div>
-<div id="outline-container-org664633a" class="outline-4">
-<h4 id="org664633a"><code>C-c C-c</code> on a #+call</h4>
-</div>
-<div id="outline-container-org434da2f" class="outline-4">
-<h4 id="org434da2f"><code>C-c C-c</code> on an inline-call</h4>
-<div class="outline-text-4" id="text-org434da2f">
+<ul class="org-ul">
+<li><a id="orga538535"></a><code>[C-c C-c]</code> on a source block<br /></li>
+<li><a id="org15ce35a"></a><code>[C-c C-c]</code> on an inline source block<br /></li>
+<li><a id="orgbf2bafb"></a><code>[C-c C-c]</code> on a #+call<br /></li>
+<li><a id="org90d516b"></a><code>[C-c C-c]</code> on an inline-call<br />
+<div class="outline-text-5" id="text-org90d516b">
 <div class="org-src-container">
 <pre class="src src-org">#+name: find-orgs
 #+begin_src R
@@ -741,10 +853,60 @@ call_find-orgs() {{{results(=1=)}}}
 </pre>
 </div>
 </div>
+</li>
+</ul>
 </div>
-<div id="outline-container-org3fc2826" class="outline-4">
-<h4 id="org3fc2826">:colnames and :rownames</h4>
-<div class="outline-text-4" id="text-org3fc2826">
+<div id="outline-container-orgb8c24f7" class="outline-4">
+<h4 id="orgb8c24f7"><a id="org74f2034"></a> Results</h4>
+<div class="outline-text-4" id="text-orgb8c24f7">
+<div class="org-src-container">
+<pre class="src src-org">#+name: somecode
+#+begin_src R :results output
+	cat("this is *some* code!\n")
+#+end_src
+
+#+RESULTS: somecode
+: this is *some* code!
+
+#+name: someothercode
+#+begin_src R :results value
+	whynot &lt;- "this is some *other* code!"
+#+end_src
+
+#+RESULTS: someothercode
+: this is some *other* code!
+
+</pre>
+</div>
+</div>
+
+<ul class="org-ul">
+<li><a id="org3fc2826"></a>:colnames and :rownames<br />
+<div class="outline-text-5" id="text-org3fc2826">
+<p>
+When processing a <a href="#orgab6c8a9">table</a> result of a previous source block to be used as
+an input <a href="#orgbbab0e0">variable</a> to another code block, the <code>:colnames</code> header
+argument instructs Org Mode how to interpret the first row: should it
+be assumed to be a row of column names, a row of data, or should Org
+Mode use a heuristic to make that determination.
+</p>
+
+<p>
+Similarly, Org Mode uses <code>:rownames</code> to determine whether the first
+column of each row should be considered as a name for that row, or
+simply as the data of the first column of that row.
+</p>
+
+<p>
+Also, when processing the <b>results</b> of a code block, these header
+arguments tell some Org Mode language support routines how to deal
+with column and row names of the returned result.  If left off, the
+Org Mode result of evaluation will drop any language-specific column
+and row names.  However, if these header arguments are set to <code>yes</code>,
+language-specific column and row names will be included in the results
+placed in the Org Mode buffer.
+</p>
+
 <div class="org-src-container">
 <pre class="src src-org">#+BEGIN_SRC R
 mtcars[1:3,]
@@ -769,74 +931,51 @@ mtcars[1:3,]
 </pre>
 </div>
 </div>
-</div>
-</div>
-
-<div id="outline-container-orgf6d3b76" class="outline-3">
-<h3 id="orgf6d3b76"><a id="org74f2034"></a> results</h3>
-<div class="outline-text-3" id="text-orgf6d3b76">
-<div class="org-src-container">
-<pre class="src src-org">#+name: somecode
-#+begin_src R :results output
-	cat("this is *some* code!\n")
-#+end_src
-
-#+RESULTS: somecode
-: this is *some* code!
-
-#+name: someothercode
-#+begin_src R :results value
-	whynot &lt;- "this is some *other* code!"
-#+end_src
-
-#+RESULTS: someothercode
-: this is some *other* code!
-
-</pre>
-</div>
-</div>
+</li>
+</ul>
 </div>
 
-<div id="outline-container-orga083e9a" class="outline-3">
-<h3 id="orga083e9a"><a id="orgbbab0e0"></a> variables</h3>
-<div class="outline-text-3" id="text-orga083e9a">
+<div id="outline-container-org59c81fe" class="outline-4">
+<h4 id="org59c81fe"><a id="orgbbab0e0"></a> Variables</h4>
+<div class="outline-text-4" id="text-org59c81fe">
 <p>
 &#x2013; in and out
-</p>
-</div>
-</div>
-<div id="outline-container-org6600c32" class="outline-3">
-<h3 id="org6600c32"><a id="org00a8ec7"></a> exporting</h3>
-<div class="outline-text-3" id="text-org6600c32">
-<p>
 entire document or a subtree of the document
 </p>
 </div>
 </div>
-<div id="outline-container-org3ef7309" class="outline-3">
-<h3 id="org3ef7309">life in Org Src buffers</h3>
+<div id="outline-container-org5a0b30d" class="outline-4">
+<h4 id="org5a0b30d">Life in Org Src buffers</h4>
+</div>
+<div id="outline-container-org83e2cc5" class="outline-4">
+<h4 id="org83e2cc5"><a id="org00a8ec7"></a> Exporting</h4>
+</div>
 </div>
 
-<div id="outline-container-org560723f" class="outline-3">
-<h3 id="org560723f">org-mode community</h3>
-<div class="outline-text-3" id="text-org560723f">
+<div id="outline-container-orge4c3781" class="outline-3">
+<h3 id="orge4c3781">Org Mode community</h3>
+<div class="outline-text-3" id="text-orge4c3781">
 <p>
 mailing lists
 </p>
 </div>
 </div>
 
-<div id="outline-container-org97036df" class="outline-3">
-<h3 id="org97036df">other tutorials, etc.</h3>
-<div class="outline-text-3" id="text-org97036df">
+<div id="outline-container-org7a4626f" class="outline-3">
+<h3 id="org7a4626f">Other tutorials, etc.</h3>
+<div class="outline-text-3" id="text-org7a4626f">
 <p>
-<a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE">Rainer's screencasts about Org mode</a> (now a <a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7">course on Udemy</a>)
+The Org Mode <a href="https://orgmode.org/quickstart.html">quickstart</a> is a nice way to start with Org Mode.
 </p>
 
 <p>
-<a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org">tutorial on R and org-mode</a>
+<a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE">Rainer's screencasts about Org Mode</a> (now a <a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7">course on Udemy</a>)
 </p>
-<pre class="example">
+
+<p>
+<a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org">tutorial on R and Org Mode</a>
+</p>
+<pre class="example" id="orgc2df298">
 From: Erik Iverson &lt;erikriverson@gmail.com&gt;
 Date: Tue, 23 Feb 2021 12:30:03 -0800
 Subject: Re: org-in-org
@@ -850,7 +989,7 @@ or
 <a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org">https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org</a>
 or, more recently:
 </p>
-<pre class="example">
+<pre class="example" id="orge47c0cf">
 From: Jeremie Juste &lt;jeremiejuste@gmail.com&gt;
 To: Greg Minshall &lt;minshall@umich.edu&gt;
 Subject: Re: org-in-org
@@ -864,13 +1003,13 @@ Cc: emacs-orgmode@gnu.org
 <h3 id="org73f18f2">code blocks</h3>
 <div class="outline-text-3" id="text-org73f18f2">
 <p>
-there are a few pieces of information org-mode needs to define a
+there are a few pieces of information Org Mode needs to define a
 block of code
 </p>
 <ul class="org-ul">
 <li>(optionally) a <code>name</code> for the block (to use to include the block's
 code in another block with <a href="ess-org.html#org5606764">noweb</a>, or to use the block's results as
-input to another block with <a href="ess-org.html#orga083e9a">:var</a>.</li>
+input to another block with <a href="#orgbbab0e0">:var</a>.</li>
 <li>the language of the code in the block</li>
 <li>various arguments (<code>header arguments</code> and <code>switches</code>) that define
 how the code interacts with its environment</li>
@@ -953,7 +1092,8 @@ anothername
 #+end_src
 
 #+RESULTS: second
-: this is a test
+| this is a test |
+|                |
 </pre>
 </div>
 
@@ -1019,21 +1159,28 @@ challenge.</p></div></div>
 <div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">a structure starting with an more-or-less
 arbitrary name, surrouned by colons, and ending with <code>:END:</code></p></div></div>
 
-<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">i believe there are facilities for "naming" bits of
-information in other .org files, but i don't know the details and i
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">I believe there are facilities for "naming" bits of
+information in other .org files, but I don't know the details and I
 don't know if it works with source code blocks.</p></div></div>
 
-<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">obviously, prior runs may have, e.g., changed the state
-of the file system on which all these executions are running; that is,
-the <b>external</b> state may by influenced by what has previously been
-executed.</p></div></div>
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">for security
+reasons, you will need to set or customize the Emacs variable
+<code>org-babel-load-languages</code> , via <code>org-babel-do-load-languages</code> if you
+are doing this to in a current Emacs session, and you will be prompted
+each time before a code block is evaluated.</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">obviously, prior runs may have, e.g., changed the
+state of the file system on which all these evaulations are running;
+that is, the <b>external</b> state may by influenced by what has previously
+been evaulated.</p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<p class="date">Created: 2021-03-23 Tue 15:54</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="author">Author: Greg Minshall</p>
+<p class="date">Created: 2021-03-29 Mon 08:36</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
