@@ -70,8 +70,8 @@ following attributes:
   there are security issues here: you will need to customize the Emacs
   variable =org-babel-load-languages= , and you will be prompted each
   time before a code block is evaluated.
-- *export* it (=[C-c e]=), either the code, its results, or both, into
-  a .html, .pdf, or other format file
+- *export* it (=[C-c C-e]=), either the code, its results, or both,
+  into a .html, .pdf, or other format file
 - *tangle* it (=[C-c C-v t]=), that is, write the source code itself
   into a separate file, that might be used as input to a compilation
   or some other packaging step, or be a stand alone script (=Rscript=,
@@ -102,6 +102,9 @@ close the Org Source buffer and return to the Org buffer, type
 
 * Header arguments
 
+- :noweb :: allows code from another place in the org file to be
+  inserted at a point in the current org file when evaluating or
+  exporting.
 - :var :: allows results of other computations in an org file to be
   used as input to this source block
 - :results :: defines how results are collected after evaluation of
@@ -112,9 +115,6 @@ close the Org Source buffer and return to the Org buffer, type
 - :session :: normally, source blocks are evaluated in a "pristine"
   environment (a new R process, say); with this option, successive
   evaluations of source blocks can occur within a single process.
-- :noweb :: allows code from another place in the org file to be
-  inserted at a point in the current org file when evaluating or
-  exporting.
 
 * Org Src buffers for R
 
