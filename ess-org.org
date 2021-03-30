@@ -44,61 +44,38 @@ mode parlance) between the Org Mode syntax to .html, .pdf, etc.,
 documents, with good support for doing mathematical (LaTeX)
 formatting.
 
-*** Document structuring
+Org Mode does a good job exporting to LaTeX, html.  (Some people
+primarily use Org Mode as a more "user friendly" interface to LaTeX,
+though for serious documents, in the final analysis they probably
+spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
 
-A .org file is structured like an outline, with outline sections and
-levels indicated by lines starting with one or more asterisks in the
-first column; these define "headlines" for the outline.  Between
-headlines one can include text, tables, bits of code, etc.  Bits of
-the .org file can be displayed and/or hidden by positioning the cursor
-on a headline and (possibly repeatedly) hitting =tab=.
+Though I have used Org Mode for more than a decade, I know very little
+of most of its capabilities, as I mostly use it to centralize the
+source code within a project, as well as to produce the random
+document, especially documents with embedded code segments (known, in
+Org Mode, as "source blocks").
 
-Asterisk-defined headlines can include "tags" (=:essintro:=; I am
-ignorant of their use), and can optionally be (immediately) followed
-by a special "drawer" [fn::a structure starting with an more-or-less
-arbitrary name, surrouned by colons, and ending with =:END:=] named
-=[[properties][:PROPERTIES:]]= holding, well, properties, i.e, (key,
-value) tuples.
+Org Mode is bundled into the main Emacs distribution, but a
+more-than-casual user might like to use the more-than-likely
+up-to-date package available via [[https://melpa.org/][melpa]] (=[M-x package-list-packages]=,
+and regexp-search for /^..org /).
 
-*** Markup
+The official [[https://orgmode.org/quickstart.html][Quick Start]] guide provides a very good introduction to
+Org Mode.  The main [[https://orgmode.org/][Org Mode]] web page is another good source for
+further information, as is the Org Mode [[https://orgmode.org/worg/][worg]] site.  (You may find it
+useful to take a linear stroll through [[https://orgmode.org/worg/sitemap.html][the worg site map]].)  Also, once
+installed on your system, the Org Mode info pages are available in
+Emacs (or, using =info(1)=).
 
-Org Mode text markup allows the use of *asterisks*, =equal signs=,
-~tildes~, /[forward] slashes/, _underscores_ and (though, apparently,
-deprecated) +plus signs+, to achieve different font characteristics.
-(Until writing this, I have always used equal signs for short bits of
-code, but now I will try to remember to try out tildes.)  In-line math
-formatting =\(x = cos(y)\)= is supported; Org Mode also allows super-
-(10^{9}) and subscripts (I_{e}) (though these [[https://stackoverflow.com/a/698791/1527747][can be disabled]], if
-desired).
-
-*** <<tables>> Tables
-
-Org Mode has nice support for tables, e.g.,
-
-|    | contains | contained in |
-|----+----------+--------------|
-| as | a        | asterisk     |
-| y  |          | why          |
-
-created by
-#+begin_src org :exports code
-|    | contains | contained in |
-|----+----------+--------------|
-| as | a        | asterisk     |
-| y  |          | why          |
-#+end_src
-
-Org Mode provides facilities for defining equations to calculate cell
-values, etc.
 
 *** Blocks of various sizes, shapes, colors
 
 Various sorts of "blocks" are supported in Org Mode files.  These
-typically start with =#begin_...=, and end with a corresponding
-=#end_...=, where the =...= are something like =src=, =example=,
-=quote=.  A skeleton for one of these can conveniently be created by,
-in column 1 of an otherwise empty line, typing =[<X]= followed by =[tab]=,
-where =X= is one of
+start with =#begin_...=, and end with a corresponding =#end_...=,
+where the =...= are something like =src=, =example=, =quote=.  A
+skeleton for one of these can conveniently be created by, in column 1
+of an otherwise empty line, typing =[<X]= followed by =[tab]=, where
+=X= is one of
 - =e= for an example block (line wrapping does not apply) (=#+begin_example=)
 - =q= for a quote block (line wrapping applies) (=#+begin_quote=)
 - =s= for a source block (=#+begin_src=)
@@ -110,11 +87,6 @@ following, and hitting =[tab]=:
 seeing what you get, looking in the manual.  (Of course, one can
 always search the manual for =#[+]begin_=.)
   
-Org Mode does a good job exporting to LaTeX, html.  (Some people
-primarily use Org Mode as a more "user friendly" interface to LaTeX,
-though for serious documents, in the final analysis they probably
-spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
-
 In addition to the source blocks mentioned above (and elaborated on
 below), Org Mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
@@ -153,26 +125,6 @@ file.[fn::I believe there are facilities for "naming" bits of
 information in other .org files, but I don't know the details and I
 don't know if it works with source code blocks.]
 
-*** Exporting
-
-Org Mode buffers can be exported to HTML, PDF, and many other formats.
-
-*** ... and much else
-
-Though I have used Org Mode for more than a decade, I know very little
-of most of its capabilities, as I mostly use it to centralize the
-source code within a project, as well as to produce the random
-document, especially documents with embedded code segments (known, in
-Org Mode, as "source blocks").  A good source for further information,
-in addition to the main [[https://orgmode.org/][Org Mode]] web page, is the Org Mode [[https://orgmode.org/worg/][worg]] site.
-Also, once installed on your system, the Org Mode info pages are
-available in Emacs (or, using =info(1)=).
-
-Org Mode is bundled into the main Emacs distribution, but a
-more-than-casual user might like to use the more-than-likely
-up-to-date package available via [[https://melpa.org/][melpa]] (=[M-x package-list-packages]=,
-and regexp-search for /^..org /).
-
 ** Babel -- programming language support in org files
 
 [[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]] is one name for talking about programming language support in
@@ -183,6 +135,10 @@ another code block, and include code blocks and/or the results of
 their evaulation in the document produced by exporting the org buffer.
 
 *** <<sourceblocks>> Source blocks
+
+The Org Mode [[https://orgmode.org/guide/][Compact Guide]] has [[https://orgmode.org/guide/Working-with-Source-Code.html][a section]] on source blocks.  A separate
+[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html]["worg" page]] gives information on using R with Org Mode.  The list of
+languages supported by Org Mode is documented [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][here]].
 
 An Org Mode source block includes source code (in one language, per
 source block), an optional [[naming][name]], and optional /[[headerargs][header arguments]]/.
@@ -220,14 +176,6 @@ Org Mode source blocks look like this
 
 (As mentioned above, a source block skeleton can be created by
 typing, in column 1, =<s=, and hitting =tab=.)
-
-Org Mode source blocks can be edited, either inline in the Org Mode
-(".org") document buffer, or in a separate buffer (I call these "Org
-Src..." buffers, but they might also be known as "sub-edit buffers" or
-"source edit buffers) that you can "pop up" from the .org buffer ("pop
-out of the .org buffer"?), normally with =[C-c ']=.  The Org Src
-blocks typically have better support for Emacs so-called "font locks",
-which do program language-specific source code highlighting, etc.
 
 Source blocks can also be expressed using a =src_LANG= construct; a
 =#+name:= line can be used to name the =src_LANG= block.
@@ -273,8 +221,6 @@ been evaulated.].
 
 Finally, and of particular interest in these tutorials, is the fact
 that Org Mode uses ESS to provide R language support.
-
-   [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html][worg page]] on R and Org Mode.
 
 *** <<naming>> Naming blocks
 
