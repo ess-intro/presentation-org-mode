@@ -1,5 +1,5 @@
 * A file showing off some Org Mode and ESS features
-
+#+property: header-args :exports both
 ** Source blocks
 
 Source blocks are lines of text, surrounded by a =#+begin_src= line
@@ -538,3 +538,7 @@ printf("hello, world\n");
   1
   ,#+end_src
 #+end_src
+
+** more random :noexport:
+
+[[https://orgmode.org/list/876229nrxf.fsf@gmail.com/]["new exporter"]] e-mail message
