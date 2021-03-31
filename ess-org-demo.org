@@ -57,7 +57,7 @@ you will be prompted to make sure you want to execute the code.
 #+begin_src elisp :results none
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp . t) (R . t)))
+   '((emacs-lisp . t) (R . t) (python . t)))
 #+end_src
 
 (Here, I named the source block mainly so that the confirmation
@@ -198,10 +198,10 @@ its result?  Is there a peak?  A valley?
 *** :noweb
 
 Many (most?) programming languages have a way of "including" the
-contents of one source file in the compilation or execution phase of
-another source file.  I think of =#include <stdio.h=, for example, in
-=C=.  Literate programming defines a way of doing this known as
-[[https://www.cs.tufts.edu/~nr/noweb/]["noweb"]].
+"textual" contents of one source file in the compilation or execution
+phase of another source file.  I think of =#include <stdio.h=, for
+example, in =C=.  Literate programming defines a way of doing this
+known as [[https://www.cs.tufts.edu/~nr/noweb/]["noweb"]].
 
 In Org Mode, a _reference_ to a previous block of code named =NAME= is
 denoted by =<<NAME>>=.  The double angle brackets signal that this is
@@ -406,8 +406,9 @@ And, =list= converts the source block result into an Org Mode list.
 
 **** How the results are formatted
 
-There are various ways Org Mode might decide to embed the results, of,
-more or less, whatever type, inside the .org buffer.
+There are various ways Org Mode might decide to format the results,
+of, more or less, whatever type, before embedding them in the .org
+buffer.
 
 For example, to want the results to be wrapped in a source block, one
 can specify =code=:
@@ -437,5 +438,24 @@ results are summarily wrapped in a =#+begin_X...#+end_X= block.
 3
 #+end_src
 
-** :session
 
+**** Handling of results
+
+Typically, the results of evaluating a source block are placed in the
+buffer following the source block, preceded by a line
+: #+RESULTS: <NAME>
+where =<NAME>= is the name of the source block (if any).  However,
+this behavior can be modified with the =:results= header argument.
+The relevant options are
+- silent :: Don't change the buffer.  The results are echoed in the
+  minibuffer.
+- replace :: This is the normal behavior; the =#+RESULTS:= block is
+  replaced.
+- append :: Each evaluation generates a separate =#+RESULTS:= block,
+  which is placed after the previous result blocks.
+- prepend :: Each evaluation generates a separate results block, which
+  is placed before all previous result blocks.
+
+
+*** :session
+*** :cache
