@@ -34,7 +34,7 @@ PUBLISHEDFILES = ${ARTEFACTSDIR}/ess-org.html \
 ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS}
 
 # set up to allow evaluating R source blocks
-EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (R . t)))
+EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (org . t) (python . t) (R . t)))
 # trust evaulations in *this* context -- a file we create CAUTION!!!
 EMACSTRUSTEVAL = (setq org-confirm-babel-evaluate nil)
 # load our elisp code, set up for evaluation
@@ -79,6 +79,13 @@ ${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} essorgstartuporg
 		--eval "(org-publish-project \"ess-org\")" \
 		--batch
 	touch $@
+
+ess-org-demo-results.org: ess-org-demo.org tangle
+	cp -p $< $@
+	emacs --file $@ \
+		--eval "${EMACSSETUP}" \
+		--eval "(progn (do-source-blocks) (save-buffer))" \
+		--batch
 
 HEADERTXT = \#+HTML_HEAD: 
 HEADER = echo -n "${HEADERTXT} "

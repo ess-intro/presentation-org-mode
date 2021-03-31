@@ -687,6 +687,7 @@ Date: Tue, 23 Feb 2021 19:46:32 +0000
     (org-babel-execute-buffer)
     (org-edit-src-exit)))
 #+END_SRC
+
 then, do this:
 : (org-babel-map-executables nil (org-exe-org))
 
@@ -751,7 +752,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
                   (if (memq (org-element-type (org-element-context))
                             '(babel-call inline-babel-call))
                       (org-babel-lob-execute-maybe)
-                    (org-babel-execute-src-block arg))
+                    (org-babel-execute-src-block))
                   (point)))))
         result))
 #+END_SRC
@@ -763,18 +764,19 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 evaluate each source block/call point that :exports either "results"
 or "both",
 
-#+name: main-loop
+#+name: do-source-blocks
 #+begin_src elisp :results none
-    (defun do-source-blocks ()
-        (let (results
-              (pt (point)))
-          (org-babel-eval-wipe-error-buffer)
-          (unwind-protect
-              (save-window-excursion
-                (setq results (org-walk-and-evaluate
-                               ':exports
-                               (list "results" "both")))))
-            results))
+      (defun do-source-blocks ()
+          (let (results
+                (pt (point)))
+            (org-babel-eval-wipe-error-buffer)
+            (unwind-protect
+                (save-window-excursion
+                  (setq results (org-walk-and-evaluate
+                                 ':exports
+                                 (list "results" "both")
+                                 (org-get-org-blocks t)))))
+              results))
 #+end_src
 *** for each org block in the (whichever) buffer
 
@@ -785,13 +787,14 @@ or "both",
   (require 'ob-core)
   (require 'org-element)
 
-  (defun org-get-org-blocks ()
+  (defun org-get-org-blocks (&optional complement)
     "return the starting location of each org (language) source
-  block in the current buffer"
+  block in the current buffer; returns the complement of that set
+  if COMPLEMENT is true"
     (let ((blocks nil))
       (org-babel-map-executables nil
         (let ((info (org-babel-get-src-block-info t)))
-          (if (equal (car info) "org")
+          (if (xor (equal (car info) "org") complement)
               (setq blocks (cons (point) blocks)))))
       (reverse blocks)))
 #+end_src
@@ -799,7 +802,7 @@ or "both",
 for each org-in-org block that :exports either "results" or "both",
 open up an edit buffer, and evaluate all internal code that :exports
 either "results" or "both".
-#+name: main-loop
+#+name: do-org-blocks
 #+begin_src elisp :results none
 	(defun do-org-blocks ()
 		(let (results
