@@ -43,7 +43,7 @@ There are also "inline" source blocks: src_R{"hello, world"}.
 They have their own syntax for header arguments: src_R[:results
 output]{cat("hello, again")}.
 
-** Evaluating source blocks
+** /Evaluating/ source blocks
 
 In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
@@ -98,7 +98,7 @@ call_first-r-block().
 inline call statements have a syntax for block-specific header
 arguments similar to that of inline source blocks.
 
-** How source blocks are exported
+** /Exporting/ source blocks
 
 Source blocks are, optionally, exported -- to a .html or .pdf file,
 say -- along with some of the rest of a .org file.
@@ -170,7 +170,7 @@ the source block at point (see =[M-x describe-function]= for
 =org-babel-tangle= for details), but even so, I would suggest being
 careful.
 
-** Editing a source block
+** /Editing/ a source block
 
 The source block is just a number of text lines in text file.  So, it
 is very normal to do minor edits in line, in the .org file.
@@ -261,7 +261,7 @@ block, and a second time to produce the result from the source block
 you are evaluating.
 
 #+begin_src R :var pitoo=gives-pi :session R :results output
-cat("you were", pitoo/pi, "close!\n")
+  cat("you were", pitoo/pi, "close!\n")
 #+end_src
 
 The language of the source block providing the value of the variable
@@ -276,7 +276,7 @@ shape of the input value to that needed by the source code.
 
 #+name: to-r
 #+begin_src R :var howmany=from-python
-2*howmany
+  2*howmany
 #+end_src
 
 The name on the right hand side, instead of naming another source
@@ -294,7 +294,7 @@ In the following code block, the =:colnames= header argument is set to
 =yes= so that the first row is considered a row of column names.
 
 #+begin_src R :var tbl=a-table :colnames yes :session R
-summary(tbl)
+  summary(tbl)
 #+end_src
 
 #+RESULTS:
@@ -312,7 +312,7 @@ the *result* is an R data frame, its column names (=colnames()=) will
 be preserved in the resulting Org Mode table
 
 #+begin_src R :colnames yes
-mtcars[1:4,]
+  mtcars[1:4,]
 #+end_src
 
 #+RESULTS:
@@ -324,7 +324,7 @@ mtcars[1:4,]
 | 21.4 |   6 |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |  0 |    3 |    1 |
 
 #+begin_src R :colnames no
-mtcars[1:4,]
+  mtcars[1:4,]
 #+end_src
 
 #+RESULTS:
@@ -355,14 +355,14 @@ blocks.  The values here are =value= and =output=.
 #+end_src
 
 #+begin_src R :results output
-<<usenowebhere>>
+  <<usenowebhere>>
 #+end_src
 
 #+RESULTS:
 : 3.141593
 
 #+begin_src R :results value
-<<usenowebhere>>
+  <<usenowebhere>>
 #+end_src
 
 #+RESULTS:
@@ -377,31 +377,31 @@ output to a file.
 
 #+name: results-noweb
 #+begin_src R
-mtcars[c(1,12,13, 19),]
+  mtcars[c(1,12,13, 19),]
 #+end_src
 
 If no result type is listed, Org Mode makes its pretty-good guess.
 
 #+begin_src R :results value
-<<results-noweb>>
+  <<results-noweb>>
 #+end_src
 
 But, to be sure, you can specify the type you would like.  (Note the
 reapearance of =:colnames=.)
 #+begin_src R :results value table :colnames yes
-<<results-noweb>>
+  <<results-noweb>>
 #+end_src
 
 =scalar= and =verbatim= are synonyms.  They cause the value to be
 taken, well, at face value:
 #+begin_src R :results scalar
-<<results-noweb>>
+  <<results-noweb>>
 #+end_src
 
 And, =list= converts the source block result into an Org Mode list.
 
 #+begin_src R :results list
-<<results-noweb>>
+  <<results-noweb>>
 #+end_src
 
 **** How the results are formatted
@@ -414,7 +414,7 @@ For example, to want the results to be wrapped in a source block, one
 can specify =code=:
 
 #+begin_src R :results value code
-"<<results-noweb>>"
+  "<<results-noweb>>"
 #+end_src
 
 #+RESULTS:
@@ -435,7 +435,7 @@ experience!) also a =:wrap= header argument, separate from the
 results are summarily wrapped in a =#+begin_X...#+end_X= block.
 
 #+begin_src R :wrap foo
-3
+  3
 #+end_src
 
 
@@ -447,7 +447,7 @@ buffer following the source block, preceded by a line
 where =<NAME>= is the name of the source block (if any).
 
 #+begin_src R
-Sys.time()
+  Sys.time()
 #+end_src
 
 #+RESULTS:
@@ -455,7 +455,7 @@ Sys.time()
 
 #+name: time
 #+begin_src R
-Sys.time()
+  Sys.time()
 #+end_src
 
 #+RESULTS: time
@@ -472,8 +472,8 @@ argument.  The relevant options are
 - prepend :: Each evaluation generates a separate results block, which
   is placed before all previous result blocks.
 
-Well, really, that is all pretty much just copied from the [[https://orgmode.org/manual/Results-of-Evaluation.html#Results-of-Evaluation][manual]],
-which see.
+Well, really, that is all pretty much just copied from the [[https://orgmode.org/manual/Results-of-Evaluation.html#Results-of-Evaluation][manual]].
+Which, see.
 
 *** :session
 
@@ -500,7 +500,7 @@ use a language-specific default), and evaluate your code.  This works
 for interpreted languages but not, to my knowledge, for compiled
 languages.
 
-After evaulations, you can use =[C-x b]= to switch to that buffer and
+After evaluations, you can use =[C-x b]= to switch to that buffer and
 inspect the state, maybe set debug breakpoints, or debug after error
 or debug statement (=browser()=, say) in your code.
 
@@ -529,9 +529,12 @@ build up state as your are developing code, I recommend (carefully)
 using it.
 
 *** :cache
-#+begin_src C :session
+#+begin_src C :exports results
 printf("hello, world\n");
 #+end_src
 
-#+RESULTS:
-| hello | world |
+#+begin_src org :exports both :result
+  ,#+begin_src R
+  1
+  ,#+end_src
+#+end_src
