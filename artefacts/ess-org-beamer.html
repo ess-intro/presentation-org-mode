@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-03-29 Mon 08:31 -->
+<!-- 2021-03-31 Wed 06:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Org Mode for ESS users</title>
@@ -314,8 +314,8 @@ which, in turn, may be used as input to another source block.  <b>NB:</b>
 there are security issues here: you will need to customize the Emacs
 variable <code>org-babel-load-languages</code> , and you will be prompted each
 time before a code block is evaluated.</li>
-<li><b>export</b> it (<code>[C-c e]</code>), either the code, its results, or both, into
-a .html, .pdf, or other format file</li>
+<li><b>export</b> it (<code>[C-c C-e]</code>), either the code, its results, or both,
+into a .html, .pdf, or other format file</li>
 <li><b>tangle</b> it (<code>[C-c C-v t]</code>), that is, write the source code itself
 into a separate file, that might be used as input to a compilation
 or some other packaging step, or be a stand alone script (<code>Rscript</code>,
@@ -361,6 +361,9 @@ close the Org Source buffer and return to the Org buffer, type
 <h2 id="orge5e734a">Header arguments</h2>
 <div class="outline-text-2" id="text-orge5e734a">
 <dl class="org-dl">
+<dt>:noweb</dt><dd>allows code from another place in the org file to be
+inserted at a point in the current org file when evaluating or
+exporting.</dd>
 <dt>:var</dt><dd>allows results of other computations in an org file to be
 used as input to this source block</dd>
 <dt>:results</dt><dd>defines how results are collected after evaluation of
@@ -371,9 +374,6 @@ source block</dd>
 <dt>:session</dt><dd>normally, source blocks are evaluated in a "pristine"
 environment (a new R process, say); with this option, successive
 evaluations of source blocks can occur within a single process.</dd>
-<dt>:noweb</dt><dd>allows code from another place in the org file to be
-inserted at a point in the current org file when evaluating or
-exporting.</dd>
 </dl>
 </div>
 </div>
@@ -477,7 +477,7 @@ the buffer context in which it is executed.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-03-29 Mon 08:31</p>
+<p class="date">Created: 2021-03-31 Wed 06:04</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
