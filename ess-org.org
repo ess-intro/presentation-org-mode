@@ -24,7 +24,7 @@
 ** Introduction to Org Mode
 basics: document structuring, tables, math/LaTeX, exporting
 
-[[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[Https://orgmode.org/][Org Mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
+[[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][Org Mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
 -- the proliferation of notation makes googling somewhat of a
 challenge.]  sometimes exhorts one to do something like "Organize Your
 Life In Plain Text!"; the Org Mode manual, on the other hand, starts
