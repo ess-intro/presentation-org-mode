@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-03-29 Mon 08:38 -->
+<!-- 2021-03-31 Wed 06:04 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>using ESS with Emacs Org Mode</title>
@@ -288,113 +288,50 @@ mode parlance) between the Org Mode syntax to .html, .pdf, etc.,
 documents, with good support for doing mathematical (LaTeX)
 formatting.
 </p>
-</div>
 
-<div id="outline-container-org335dd33" class="outline-4">
-<h4 id="org335dd33">Document structuring</h4>
-<div class="outline-text-4" id="text-org335dd33">
 <p>
-A .org file is structured like an outline, with outline sections and
-levels indicated by lines starting with one or more asterisks in the
-first column; these define "headlines" for the outline.  Between
-headlines one can include text, tables, bits of code, etc.  Bits of
-the .org file can be displayed and/or hidden by positioning the cursor
-on a headline and (possibly repeatedly) hitting <code>tab</code>.
+Org Mode does a good job exporting to LaTeX, html.  (Some people
+primarily use Org Mode as a more "user friendly" interface to LaTeX,
+though for serious documents, in the final analysis they probably
+spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
 </p>
 
 <p>
-Asterisk-defined headlines can include "tags" (<code>:essintro:</code>; I am
-ignorant of their use), and can optionally be (immediately) followed
-by a special "drawer" <sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> named
-<code>[[properties][:PROPERTIES:]]</code> holding, well, properties, i.e, (key,
-value) tuples.
+Though I have used Org Mode for more than a decade, I know very little
+of most of its capabilities, as I mostly use it to centralize the
+source code within a project, as well as to produce the random
+document, especially documents with embedded code segments (known, in
+Org Mode, as "source blocks").
 </p>
-</div>
-</div>
-
-<div id="outline-container-org36dbe5e" class="outline-4">
-<h4 id="org36dbe5e">Markup</h4>
-<div class="outline-text-4" id="text-org36dbe5e">
-<p>
-Org Mode text markup allows the use of <b>asterisks</b>, <code>equal signs</code>,
-<code>tildes</code>, <i>[forward] slashes</i>, <span class="underline">underscores</span> and (though, apparently,
-deprecated) <del>plus signs</del>, to achieve different font characteristics.
-(Until writing this, I have always used equal signs for short bits of
-code, but now I will try to remember to try out tildes.)  In-line math
-formatting <code>\(x = cos(y)\)</code> is supported; Org Mode also allows super-
-(10<sup>9</sup>) and subscripts (I<sub>e</sub>) (though these <a href="https://stackoverflow.com/a/698791/1527747">can be disabled</a>, if
-desired).
-</p>
-</div>
-</div>
-
-<div id="outline-container-org5bdcec6" class="outline-4">
-<h4 id="org5bdcec6"><a id="orgab6c8a9"></a> Tables</h4>
-<div class="outline-text-4" id="text-org5bdcec6">
-<p>
-Org Mode has nice support for tables, e.g.,
-</p>
-
-<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="org-left" />
-
-<col  class="org-left" />
-
-<col  class="org-left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">&#xa0;</th>
-<th scope="col" class="org-left">contains</th>
-<th scope="col" class="org-left">contained in</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">as</td>
-<td class="org-left">a</td>
-<td class="org-left">asterisk</td>
-</tr>
-
-<tr>
-<td class="org-left">y</td>
-<td class="org-left">&#xa0;</td>
-<td class="org-left">why</td>
-</tr>
-</tbody>
-</table>
 
 <p>
-created by
+Org Mode is bundled into the main Emacs distribution, but a
+more-than-casual user might like to use the more-than-likely
+up-to-date package available via <a href="https://melpa.org/">melpa</a> (<code>[M-x package-list-packages]</code>,
+and regexp-search for /^..org /).
 </p>
-<div class="org-src-container">
-<pre class="src src-org">|    | contains | contained in |
-|----+----------+--------------|
-| as | a        | asterisk     |
-| y  |          | why          |
-</pre>
-</div>
 
 <p>
-Org Mode provides facilities for defining equations to calculate cell
-values, etc.
+The official <a href="https://orgmode.org/quickstart.html">Quick Start</a> guide provides a very good introduction to
+Org Mode.  The main <a href="https://orgmode.org/">Org Mode</a> web page is another good source for
+further information, as is the Org Mode <a href="https://orgmode.org/worg/">worg</a> site.  (You may find it
+useful to take a linear stroll through <a href="https://orgmode.org/worg/sitemap.html">the worg site map</a>.)  Also, once
+installed on your system, the Org Mode info pages are available in
+Emacs (or, using <code>info(1)</code>).
 </p>
 </div>
-</div>
+
 
 <div id="outline-container-org31a85ef" class="outline-4">
 <h4 id="org31a85ef">Blocks of various sizes, shapes, colors</h4>
 <div class="outline-text-4" id="text-org31a85ef">
 <p>
 Various sorts of "blocks" are supported in Org Mode files.  These
-typically start with <code>#begin_...</code>, and end with a corresponding
-<code>#end_...</code>, where the <code>...</code> are something like <code>src</code>, <code>example</code>,
-<code>quote</code>.  A skeleton for one of these can conveniently be created by,
-in column 1 of an otherwise empty line, typing <code>[&lt;X]</code> followed by <code>[tab]</code>,
-where <code>X</code> is one of
+start with <code>#begin_...</code>, and end with a corresponding <code>#end_...</code>,
+where the <code>...</code> are something like <code>src</code>, <code>example</code>, <code>quote</code>.  A
+skeleton for one of these can conveniently be created by, in column 1
+of an otherwise empty line, typing <code>[&lt;X]</code> followed by <code>[tab]</code>, where
+<code>X</code> is one of
 </p>
 <ul class="org-ul">
 <li><code>e</code> for an example block (line wrapping does not apply) (<code>#+begin_example</code>)</li>
@@ -414,13 +351,6 @@ a, c, C, E, h, l, v
 <p>
 seeing what you get, looking in the manual.  (Of course, one can
 always search the manual for <code>#[+]begin_</code>.)
-</p>
-
-<p>
-Org Mode does a good job exporting to LaTeX, html.  (Some people
-primarily use Org Mode as a more "user friendly" interface to LaTeX,
-though for serious documents, in the final analysis they probably
-spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
 </p>
 
 <p>
@@ -467,39 +397,7 @@ lines when "filled"
 Blocks can optionally have <a href="#org038ad62">names</a>.  These names can be used as <a href="#org5bb0595">noweb</a>
 references, or to use the value of a block (or, if a source block, of
 the block's results) as input (a <a href="#orgbbab0e0">variable</a>) to another block in the
-file.<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
-</p>
-</div>
-</div>
-
-<div id="outline-container-org4763a25" class="outline-4">
-<h4 id="org4763a25">Exporting</h4>
-<div class="outline-text-4" id="text-org4763a25">
-<p>
-Org Mode buffers can be exported to HTML, PDF, and many other formats.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org362f712" class="outline-4">
-<h4 id="org362f712">&#x2026; and much else</h4>
-<div class="outline-text-4" id="text-org362f712">
-<p>
-Though I have used Org Mode for more than a decade, I know very little
-of most of its capabilities, as I mostly use it to centralize the
-source code within a project, as well as to produce the random
-document, especially documents with embedded code segments (known, in
-Org Mode, as "source blocks").  A good source for further information,
-in addition to the main <a href="https://orgmode.org/">Org Mode</a> web page, is the Org Mode <a href="https://orgmode.org/worg/">worg</a> site.
-Also, once installed on your system, the Org Mode info pages are
-available in Emacs (or, using <code>info(1)</code>).
-</p>
-
-<p>
-Org Mode is bundled into the main Emacs distribution, but a
-more-than-casual user might like to use the more-than-likely
-up-to-date package available via <a href="https://melpa.org/">melpa</a> (<code>[M-x package-list-packages]</code>,
-and regexp-search for /^..org /).
+file.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
 </p>
 </div>
 </div>
@@ -521,6 +419,12 @@ their evaulation in the document produced by exporting the org buffer.
 <div id="outline-container-org92bdf40" class="outline-4">
 <h4 id="org92bdf40"><a id="org19d99cc"></a> Source blocks</h4>
 <div class="outline-text-4" id="text-org92bdf40">
+<p>
+The Org Mode <a href="https://orgmode.org/guide/">Compact Guide</a> has <a href="https://orgmode.org/guide/Working-with-Source-Code.html">a section</a> on source blocks.  A separate
+<a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html">"worg" page</a> gives information on using R with Org Mode.  The list of
+languages supported by Org Mode is documented <a href="https://orgmode.org/worg/org-contrib/babel/languages/index.html">here</a>.
+</p>
+
 <p>
 An Org Mode source block includes source code (in one language, per
 source block), an optional <a href="#org038ad62">name</a>, and optional <i><a href="#org6254a44">header arguments</a></i>.
@@ -566,16 +470,6 @@ typing, in column 1, <code>&lt;s</code>, and hitting <code>tab</code>.)
 </p>
 
 <p>
-Org Mode source blocks can be edited, either inline in the Org Mode
-(".org") document buffer, or in a separate buffer (I call these "Org
-Src&#x2026;" buffers, but they might also be known as "sub-edit buffers" or
-"source edit buffers) that you can "pop up" from the .org buffer ("pop
-out of the .org buffer"?), normally with <code>[C-c ']</code>.  The Org Src
-blocks typically have better support for Emacs so-called "font locks",
-which do program language-specific source code highlighting, etc.
-</p>
-
-<p>
 Source blocks can also be expressed using a <code>src_LANG</code> construct; a
 <code>#+name:</code> line can be used to name the <code>src_LANG</code> block.
 </p>
@@ -605,7 +499,7 @@ x
 <h4 id="orgda92e1c">Evaluating source blocks</h4>
 <div class="outline-text-4" id="text-orgda92e1c">
 <p>
-Once written, a source block can be evaulated<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>, returning <a href="#org74f2034">results</a>,
+Once written, a source block can be evaulated<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>, returning <a href="#org74f2034">results</a>,
 either the output of the code, or some terminating "value" of the
 code, as an element of the .org file.  And, the blocks can be
 evaulated manually, or &#x2013; and optionally, block by block &#x2013; while
@@ -618,17 +512,13 @@ within a "session", or outside of a "session".  A "session" here means
 some process that retains state between evaulations of (possibly
 different, but using the same programming language) source blocks.  On
 the other hand, a "non-session" starts up with no internal state from
-prior runs <sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup>.
+prior runs <sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>.
 </p>
 
 
 <p>
 Finally, and of particular interest in these tutorials, is the fact
 that Org Mode uses ESS to provide R language support.
-</p>
-
-<p>
-<a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html">worg page</a> on R and Org Mode.
 </p>
 </div>
 </div>
@@ -884,8 +774,8 @@ call_find-orgs() {{{results(=1=)}}}
 <li><a id="org3fc2826"></a>:colnames and :rownames<br />
 <div class="outline-text-5" id="text-org3fc2826">
 <p>
-When processing a <a href="#orgab6c8a9">table</a> result of a previous source block to be used as
-an input <a href="#orgbbab0e0">variable</a> to another code block, the <code>:colnames</code> header
+When processing a table result of a previous source block to be used
+as an input <a href="#orgbbab0e0">variable</a> to another code block, the <code>:colnames</code> header
 argument instructs Org Mode how to interpret the first row: should it
 be assumed to be a row of column names, a row of data, or should Org
 Mode use a heuristic to make that determination.
@@ -975,7 +865,7 @@ The Org Mode <a href="https://orgmode.org/quickstart.html">quickstart</a> is a n
 <p>
 <a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org">tutorial on R and Org Mode</a>
 </p>
-<pre class="example" id="org7745a01">
+<pre class="example" id="org8646f91">
 From: Erik Iverson &lt;erikriverson@gmail.com&gt;
 Date: Tue, 23 Feb 2021 12:30:03 -0800
 Subject: Re: org-in-org
@@ -989,7 +879,7 @@ or
 <a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org">https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org</a>
 or, more recently:
 </p>
-<pre class="example" id="org534faea">
+<pre class="example" id="org3d85371">
 From: Jeremie Juste &lt;jeremiejuste@gmail.com&gt;
 To: Greg Minshall &lt;minshall@umich.edu&gt;
 Subject: Re: org-in-org
@@ -1156,20 +1046,17 @@ header arguments.  one can put some header arguments on the
 &#x2013; the proliferation of notation makes googling somewhat of a
 challenge.</p></div></div>
 
-<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">a structure starting with an more-or-less
-arbitrary name, surrouned by colons, and ending with <code>:END:</code></p></div></div>
-
-<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">I believe there are facilities for "naming" bits of
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">I believe there are facilities for "naming" bits of
 information in other .org files, but I don't know the details and I
 don't know if it works with source code blocks.</p></div></div>
 
-<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">for security
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">for security
 reasons, you will need to set or customize the Emacs variable
 <code>org-babel-load-languages</code> , via <code>org-babel-do-load-languages</code> if you
 are doing this to in a current Emacs session, and you will be prompted
 each time before a code block is evaluated.</p></div></div>
 
-<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">obviously, prior runs may have, e.g., changed the
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">obviously, prior runs may have, e.g., changed the
 state of the file system on which all these evaulations are running;
 that is, the <b>external</b> state may by influenced by what has previously
 been evaulated.</p></div></div>
@@ -1179,7 +1066,7 @@ been evaulated.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-03-29 Mon 08:38</p>
+<p class="date">Created: 2021-03-31 Wed 06:04</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
