@@ -418,8 +418,8 @@ contents of a previous source code block.
 
 **** :colnames and :rownames
 
-When processing a [[tables][table]] result of a previous source block to be used as
-an input [[variables][variable]] to another code block, the =:colnames= header
+When processing a table result of a previous source block to be used
+as an input [[variables][variable]] to another code block, the =:colnames= header
 argument instructs Org Mode how to interpret the first row: should it
 be assumed to be a row of column names, a row of data, or should Org
 Mode use a heuristic to make that determination.
