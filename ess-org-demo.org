@@ -444,9 +444,25 @@ results are summarily wrapped in a =#+begin_X...#+end_X= block.
 Typically, the results of evaluating a source block are placed in the
 buffer following the source block, preceded by a line
 : #+RESULTS: <NAME>
-where =<NAME>= is the name of the source block (if any).  However,
-this behavior can be modified with the =:results= header argument.
-The relevant options are
+where =<NAME>= is the name of the source block (if any).
+
+#+begin_src R
+Sys.time()
+#+end_src
+
+#+RESULTS:
+: 2021-03-31 09:01:47
+
+#+name: time
+#+begin_src R
+Sys.time()
+#+end_src
+
+#+RESULTS: time
+: 2021-03-31 09:01:57
+
+However, this behavior can be modified with the =:results= header
+argument.  The relevant options are
 - silent :: Don't change the buffer.  The results are echoed in the
   minibuffer.
 - replace :: This is the normal behavior; the =#+RESULTS:= block is
@@ -456,6 +472,66 @@ The relevant options are
 - prepend :: Each evaluation generates a separate results block, which
   is placed before all previous result blocks.
 
+Well, really, that is all pretty much just copied from the [[https://orgmode.org/manual/Results-of-Evaluation.html#Results-of-Evaluation][manual]],
+which see.
 
 *** :session
+
+Normally, when Org Mode evaluates a source block, in instantiates a
+new *process* of the appropriate type (the =R= command, for example),
+provides that process with the source from the source block (expanding
+=:noweb= references), and lets it run.
+
+This ensures that each run starts from a "clean state".  On the other
+hand, it means that artefacts left behind by previous runs are not
+available to a future run.  And, it can complicate debugging.
+
+Thus, Org Mode provdies a =:session= header argument which names a
+buffer in which evaluations of the current source block (or, all
+source blocks in the file, or all in a subtree) will occur.
+
+During a given emacs instance, the first time you type =[C-c C-c]= in
+a source block with a given name, Emacs will prompt you for the name
+of the starting directory (with a default being the directory of the
+current file).  It will then start up such a process, attach it to a
+buffer (i'm not totally sure of the Emacs terminology here) with the
+name provided as the argument to the =:session= header argument (or,
+use a language-specific default), and evaluate your code.  This works
+for interpreted languages but not, to my knowledge, for compiled
+languages.
+
+After evaulations, you can use =[C-x b]= to switch to that buffer and
+inspect the state, maybe set debug breakpoints, or debug after error
+or debug statement (=browser()=, say) in your code.
+
+For R, the session buffer uses ~ESS[R]~ mode.
+
+As I said above, the fact that future evaluations of the given source
+block, or of any other source block with the same =:session= argument,
+will run in the same R process is both a feature and a bug.  On the
+bug side, you may end up developing code that only works with the
+accumulated state in the current buffer.
+
+For example, say you are developing an [[https://cran.r-project.org/web/packages/][R package]] and are testing it
+with some code that imports (=require()=) that package.  And, say your
+test code points out an error in your package code, and that you fix
+your package code and re-build and re-install your package.  Now, if
+you once again evaluate your test code, it will execute the
+=require()= statement but will do nothing as, as far as R is
+concerned, your package is *already* loaded.  So, you will need to
+detach and unload your package which, if my memory serves me right
+: detach(package:PACKAGENAME, unload=TRUE)
+or some such.  *Then*, R will load the new version of your package.
+
+Still, I find =:session= immensely valuable.  If you find yourself
+wanting to use a debugger to debug your code, or to incrementally
+build up state as your are developing code, I recommend (carefully)
+using it.
+
 *** :cache
+#+begin_src C :session
+printf("hello, world\n");
+#+end_src
+
+#+RESULTS:
+| hello | world |
