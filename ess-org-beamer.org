@@ -1,3 +1,4 @@
+* a beginning :noexport:
 #+title: Introduction to Org Mode for ESS users
 #+subtitle: part of the ESS intro series
 #+author: Greg Minshall
@@ -20,7 +21,6 @@
 #+beamer_header:
 # then, some more settings suggested by the tutorial
 #+BEAMER_FRAME_LEVEL: 2
-
 
 
 
