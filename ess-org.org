@@ -198,17 +198,17 @@ Source blocks can also be expressed using a =src_LANG= construct; a
 
 *** Evaluating source blocks
 
-Once written, a source block can be evaulated[fn:: for security
+Once written, a source block can be evaluated[fn:: for security
 reasons, you will need to set or customize the Emacs variable
 =org-babel-load-languages= , via =org-babel-do-load-languages= if you
 are doing this to in a current Emacs session, and you will be prompted
 each time before a code block is evaluated.], returning [[results][results]],
 either the output of the code, or some terminating "value" of the
 code, as an element of the .org file.  And, the blocks can be
-evaulated manually, or -- and optionally, block by block -- while
+evaluated manually, or -- and optionally, block by block -- while
 exporting a .org file to a different format.
 
-A source block can be evaulated in one of two sorts of contexts,
+A source block can be evaluated in one of two sorts of contexts,
 within a "session", or outside of a "session".  A "session" here means
 some process that retains state between evaulations of (possibly
 different, but using the same programming language) source blocks.  On
@@ -216,7 +216,7 @@ the other hand, a "non-session" starts up with no internal state from
 prior runs [fn::obviously, prior runs may have, e.g., changed the
 state of the file system on which all these evaulations are running;
 that is, the *external* state may by influenced by what has previously
-been evaulated.].
+been evaluated.].
 
 
 Finally, and of particular interest in these tutorials, is the fact
@@ -252,7 +252,7 @@ Org Mode source blocks are named with a =#+name:= line:
 *** <<headerargs>> Header arguments
 *** <<tangling>> Tangling
 
-While often we are content to evaulate code blocks inside the .org
+While often we are content to evaluate code blocks inside the .org
 file, equally often we might want to export some or all of the code
 blocks for evaulation (or inspection) outside of the .org file.  For
 example, we might want to use some of the code in the .org file to
@@ -697,6 +697,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
        :header-args+: :tangle ./tangled/el-org.el
        :END:
 
+*** filter
 #+name: org-filter-by-results
 #+begin_src elisp :results none
   (require 'ob-core)
@@ -723,56 +724,61 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 *** for each block in the (whichever) buffer
 
-- if ":exports code/both", create a systematically-named file with the
-  code
-- if ":exports results/both", create a systematically-named file with
-  the results
-
-		"visit each code block in the current buffer.  if the block
-	should export code, build a separate file with that code.  if the
-	block should export results, evaluate the code block and place
-	the results in a separate file.  the separate files names are
-	derived from the name of the source code block, with either
-	\"code\" or \"results\" appended, and is added to directory
-	DIR (default: \"./EXPORTS\").  if a source block is unnamed, its
-	[zero-based] ordinal position in the file is use (prefixed by the
-	string \"N-\")."
-
-*** for each block in the (whichever) buffer
-
 - if :eval is not (some form of) "no", offer it up for evaluation
 
-#+name: org-walk-and-evaulate
+#+name: org-walk-and-evaluate
 #+BEGIN_SRC elisp :results none
   (require 'ob-core)
 
-  (defun org-walk-and-evaulate (&optional arg)
-	  "Based on org-babel-execute-buffer, with the main difference
-  that we return the locations of the blocks we evaulated.  Probably
+  (defun org-walk-and-evaluate (&optional arg values dontnegate)
+      "Based on org-babel-execute-buffer, with the main difference
+  that we return the locations of the blocks we evaluated.  Probably
   should just use o-b-e-b."
-	  (let ((result nil))
-		  (save-window-excursion
-			  (org-babel-map-executables nil
-				  (if (org-filter-by-argument-value
-						   ':eval
-						   (list "never" "never-export" "no" "no-export")
-						   nil
-						   t)
-						  (progn
-							  ;; fine, this is horrible.
-							  (setq result (append result (list (point))))
-							  ;; flat-out copied from (org-babel-execute-buffer)
-							  (if (memq (org-element-type (org-element-context))
-												  '(babel-call inline-babel-call))
-									  (org-babel-lob-execute-maybe)
-								  (org-babel-execute-src-block arg))
-							  (point)))))
-		  result))
+      (let ((result nil)
+            (arg (if arg arg ':eval))
+            (values (if values
+                        values
+                      (list "never" "never-export" "no" "no-export")))
+            (negate (if dontnegate nil t)))
+        (save-window-excursion
+          (org-babel-map-executables nil
+            (if (org-filter-by-argument-value
+                 arg values nil negate)
+                (progn
+                  ;; fine, this is horrible.
+                  (setq result (append result (list (point))))
+                  ;; flat-out copied from (org-babel-execute-buffer)
+                  (if (memq (org-element-type (org-element-context))
+                            '(babel-call inline-babel-call))
+                      (org-babel-lob-execute-maybe)
+                    (org-babel-execute-src-block arg))
+                  (point)))))
+        result))
 #+END_SRC
 
+*** for each block/call point in current buffer
+
+- if :exports "results" or "both", evaluate it
+
+evaluate each source block/call point that :exports either "results"
+or "both",
+
+#+name: main-loop
+#+begin_src elisp :results none
+    (defun do-source-blocks ()
+        (let (results
+              (pt (point)))
+          (org-babel-eval-wipe-error-buffer)
+          (unwind-protect
+              (save-window-excursion
+                (setq results (org-walk-and-evaluate
+                               ':exports
+                               (list "results" "both")))))
+            results))
+#+end_src
 *** for each org block in the (whichever) buffer
 
-- if :exports "results" or "both", evaulate all blocks in the org block
+- if :exports "results" or "both", evaluate all blocks in the org block
 
 #+name: org-get-org-blocks
 #+begin_src elisp :results none
@@ -791,7 +797,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 #+end_src
 
 for each org-in-org block that :exports either "results" or "both",
-open up an edit buffer, and evaulate all internal code that :exports
+open up an edit buffer, and evaluate all internal code that :exports
 either "results" or "both".
 #+name: main-loop
 #+begin_src elisp :results none
@@ -805,7 +811,7 @@ either "results" or "both".
 						 (lambda (l)
 							 (goto-char l)
 							 (org-babel-do-in-edit-buffer
-								(let ((result (org-walk-and-evaulate)))
+								(let ((result (org-walk-and-evaluate)))
 									(org-edit-src-save)
 									(setq results (append results (list (list l result)))))))
 						 (org-filter-by-argument-value
