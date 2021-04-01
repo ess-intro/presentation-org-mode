@@ -789,7 +789,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
           (slocs (sort locs '>)))
       (mapc
        (lambda (l)
-         (debug)
+         ;; (debug)
          (goto-char l)
          (let* ((context (org-element-context))
                 (ctype (car context))
@@ -814,7 +814,6 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
                        (backward-char)
                        (point)))
                 (contents (delete-and-extract-region begin end)))
-           (message "%s..%s: %s" begin end contents)
            (insert to-insert)
            (goto-char begin)            ; go back to beginning of new src block
            (org-babel-do-in-edit-buffer
