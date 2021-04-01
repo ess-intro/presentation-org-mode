@@ -233,7 +233,7 @@ Org Mode source blocks are named with a =#+name:= line:
 #+BEGIN_SRC org
   ,#+name: somecode
   ,#+begin_src R :results output
-	  cat("this is *some* code!\n")
+      cat("this is *some* code!\n")
   ,#+end_src
 
   ,#+RESULTS: somecode
@@ -241,7 +241,7 @@ Org Mode source blocks are named with a =#+name:= line:
 
   ,#+name: someothercode
   ,#+begin_src R :results value
-	  whynot <- "this is some *other* code!"
+      whynot <- "this is some *other* code!"
   ,#+end_src
 
   ,#+RESULTS: someothercode
@@ -400,7 +400,7 @@ contents of a previous source code block.
 #+BEGIN_SRC org
   ,#+name: somecode
   ,#+begin_src R :results output
-	  cat("this is *some* code!\n")
+      cat("this is *some* code!\n")
   ,#+end_src
 
   ,#+RESULTS: somecode
@@ -408,7 +408,7 @@ contents of a previous source code block.
 
   ,#+name: someothercode
   ,#+begin_src R :results value
-	  whynot <- "this is some *other* code!"
+      whynot <- "this is some *other* code!"
   ,#+end_src
 
   ,#+RESULTS: someothercode
@@ -531,7 +531,7 @@ Headset -- are unplugged, only Internal is plugged in.
 
 #+BEGIN_SRC org
   ,#+begin_src R
-	  print("abc")
+      print("abc")
   ,#+end_src
 
   ,#+RESULTS:
@@ -542,7 +542,7 @@ Headset -- are unplugged, only Internal is plugged in.
 
 #+BEGIN_SRC org
   ,#+begin_src R
-	  print("def")
+      print("def")
   ,#+end_src
 
   ,#+RESULTS:
