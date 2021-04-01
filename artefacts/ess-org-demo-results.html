@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-04-01 Thu 20:47 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>using ESS with Emacs Org Mode</title>
+<meta name="author" content="Greg Minshall" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<style type="text/css">
+#table-of-contents {
+position: fixed;
+right: 0;
+top: 0;
+background-color:#FFF;
+padding: 1px 1%;
+border: 1px solid rgb(201,44,44);
+z-index: 2; /**/
+}
+
+/* Hide the full TOC by default */
+#table-of-contents #text-table-of-contents { display: none; }
+
+#table-of-contents:hover #text-table-of-contents {
+display: block; /* Show it on hover */
+}
+</style>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">using ESS with Emacs Org Mode
+<br />
+<span class="subtitle">part of the ESS intro series</span>
+</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org69a0e5e">A file showing off some Org Mode and ESS features</a>
+<ul>
+<li><a href="#org7c3a2f3">Source blocks</a>
+<ul>
+<li><a href="#orgc945fe4">Inline source blocks</a></li>
+</ul>
+</li>
+<li><a href="#orgb6117a8"><i>Evaluating</i> source blocks</a>
+<ul>
+<li><a href="#org1529422">Evaluation via a <code>call</code> statement</a></li>
+</ul>
+</li>
+<li><a href="#orgf6f1243"><i>Exporting</i> source blocks</a></li>
+<li><a href="#org8c08b30"><i>Tangling</i> code</a></li>
+<li><a href="#org01879d8"><i>Editing</i> a source block</a></li>
+<li><a href="#orgb70d34d">(Some) source block header arguments</a>
+<ul>
+<li><a href="#org089e67b">:noweb</a></li>
+<li><a href="#orgbd75ef0">:var</a></li>
+<li><a href="#org9b8c072">:results</a></li>
+<li><a href="#orgf04f0ea">:session</a></li>
+<li><a href="#org2c509d4">:cache</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org69a0e5e" class="outline-2">
+<h2 id="org69a0e5e">A file showing off some Org Mode and ESS features</h2>
+<div class="outline-text-2" id="text-org69a0e5e">
+</div>
+<div id="outline-container-org7c3a2f3" class="outline-3">
+<h3 id="org7c3a2f3">Source blocks</h3>
+<div class="outline-text-3" id="text-org7c3a2f3">
+<p>
+Source blocks are lines of text, surrounded by a <code>#+begin_src</code> line
+before the beginning and a <code>#+end_src</code> line after the end of the code.
+</p>
+
+<p>
+Source blocks can be named, and can have various <i>header arguments</i>.
+The name is on a <code>#+name</code> line.  The header arguments can be on the
+</p>
+<ul class="org-ul">
+<li>on a <code>#+property: header-args</code> line, to apply as defaults for all
+source blocks in a file</li>
+<li>inside a <code>/:PROPERTIES:/</code> drawer of a headline (node in the tree
+defined by the .org file), to apply as defaults for all source
+blocks in that subtree</li>
+<li>one the <code>#+begin_src</code> line that precedes the source block</li>
+<li>or, on separate <code>#+header</code> line, immediately preceding the
+<code>#+begin_src</code> line.</li>
+</ul>
+
+<p>
+Here is an example .org file that shows those ways of defining various
+header arguments.  The <code>#+header-args+</code> construct adds these arguments
+to the list of header args.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+property: header-args :tangle ./nosuchdirectory/bigfile</span>
+
+<span style="color: #eedd82;">** this is somewhere in this file</span>
+     <span style="color: #87cefa;">:PROPERTIES:</span>
+     <span style="color: #00ffff;">:header-args+:</span> :tangle very/important/code.R
+     <span style="color: #87cefa;">:END:</span>
+
+now, code blocks will carry that name
+
+<span style="color: #ff7f24;">#+header: :exports results</span>
+<span style="color: #ff7f24;">#+begin_src R :results value</span>
+<span style="color: #b3b3b3;">    x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"we want some code, and we want it now!"</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgc945fe4" class="outline-4">
+<h4 id="orgc945fe4">Inline source blocks</h4>
+<div class="outline-text-4" id="text-orgc945fe4">
+<div class="org-src-container">
+<pre class="src src-org">There are also "inline" source blocks: src_R{"hello, world"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, world=</span><span style="color: #deb887;">)}}}</span>.
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org">They have their own syntax for header arguments: src_R[:results
+output]{cat("hello, again")} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, again=</span><span style="color: #deb887;">)}}}</span>.
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb6117a8" class="outline-3">
+<h3 id="orgb6117a8"><i>Evaluating</i> source blocks</h3>
+<div class="outline-text-3" id="text-orgb6117a8">
+<p>
+In order to enable evaluation of source blocks of R code, you will
+need to evaluate the following source block.  (Emacs lisp is the only
+language whose evaluation is enabled by default.)  To do this,
+position your cursor inside the source block (or on the <code>#+begin_src</code>
+or <code>#+end_src</code> line), and type [C-c C-c] (not the square brackets; just
+what is inside).  Evaluating code in a file can be a security risk, so
+you will be prompted to make sure you want to execute the code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: set-allowed-languages</span>
+<span style="color: #ff7f24;">#+begin_src elisp :results none</span>
+<span style="color: #b3b3b3;">  (org-babel-do-load-languages</span>
+<span style="color: #b3b3b3;">   'org-babel-load-languages</span>
+<span style="color: #b3b3b3;">   '((emacs-lisp . t) (R . t) (python . t)))</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
+</div>
+
+
+<p>
+(Here, I named the source block mainly so that the confirmation
+message can provide you the name of the block for which it is asking
+permission to evaluate.)
+</p>
+
+<p>
+If you customize the variable <code>org-babel-load-languages</code>, then those
+languages will be set to evaluate source blocks when you start Emacs.
+However, if you wish to add a language during execution, you will
+again need to call <code>(org-babel--do-load-languages)</code>.  Note that doing
+so will <b>not disable</b> any previously loaded language in this Emacs
+process.
+</p>
+
+<p>
+An R source block, for example, can be evaluated using the same key
+strokes, [C-c C-c]:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: first-r-block</span>
+<span style="color: #ff7f24;">#+begin_src R :results output</span>
+<span style="color: #b3b3b3;">  cat(</span><span style="color: #ffa07a;">"this block has been evaluated\n"</span><span style="color: #b3b3b3;">)</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: first-r-block</span>
+<span style="color: #b3b3b3;">: this block has been evaluated</span>
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org1529422" class="outline-4">
+<h4 id="org1529422">Evaluation via a <code>call</code> statement</h4>
+<div class="outline-text-4" id="text-org1529422">
+<p>
+Source blocks can also be evaluated by <code>call</code> statements in the .org
+file.  Call statements have two forms, somewhat similar to the two
+forms of source blocks.
+</p>
+
+<p>
+First, a <code>#+call</code> line can trigger evaluation of a source block.  To
+trigger the triggering, you will need to type [C-c C-c] with point
+positioned on the call line.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+call: first-r-block()</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: this block has been evaluated</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org">Similarly, there is an inline call statement form which can trigger
+evaluation of a source block.  here it is, inline!
+call_first-r-block() <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=this block has been evaluated=</span><span style="color: #deb887;">)}}}</span>.
+</pre>
+</div>
+
+
+<p>
+inline call statements have a syntax for block-specific header
+arguments similar to that of inline source blocks.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf6f1243" class="outline-3">
+<h3 id="orgf6f1243"><i>Exporting</i> source blocks</h3>
+<div class="outline-text-3" id="text-orgf6f1243">
+<p>
+Source blocks are, optionally, exported &#x2013; to a .html or .pdf file,
+say &#x2013; along with some of the rest of a .org file.
+</p>
+
+<p>
+To start the export process, one types executes the command <code>M-x
+org-export-dispatch</code> (<code>[C-c C-e]</code>).  Org mode then pops up a window
+that allows you to customize your export.  At the top of this window
+are mostly options for defining the scope of the export.  For example,
+if you then type <code>[C-s]</code>, only the subtree in which the export is
+initialized will be exported.
+</p>
+
+<p>
+Then, one can choose the type of export: Org, Html, Latex (including
+PDF), Markdown, or Plain Text.
+</p>
+
+<p>
+(The top and the lower parts talk about <i>publishing</i>, which
+accomplishes exporting in a slightly heavier way, requiring the
+parameters to be pre-set in the <code>org-publish-project-alist</code> variable.
+We won't discuss publishing here &#x2013; you can read about it in the Org
+Mode manual &#x2013; but it is, in fact, the way the .html and .pdf files
+associated with this tutorial have been produced.)
+</p>
+
+<p>
+This code is based on a question to the R-help e-mail list.  The goal
+was a simple way to find the peaks and valleys (highest and lowest
+values) in a vector of numbers.
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: peaks-and-valleys</span>
+<span style="color: #ff7f24;">#+begin_src R :exports both</span>
+<span style="color: #b3b3b3;">  x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)</span>
+<span style="color: #b3b3b3;">  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]</span>
+<span style="color: #b3b3b3;">  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: peaks-and-valleys</span>
+<span style="color: #87cefa;">|  4 |</span>
+<span style="color: #87cefa;">|  9 |</span>
+<span style="color: #87cefa;">| 12 |</span>
+<span style="color: #87cefa;">| 16 |</span>
+</pre>
+</div>
+
+
+<p>
+If you type [C-c C-e], then [C-s] (for "subtree"), then [h] (for
+"html"), and [o] (for "open"), then, assuming your Emacs is configured
+to know how to open a .html file in a browser (90% likely, I'd guess),
+you'll see the text in this subtree, the above code, and the indices
+of the valleys (the last result).
+</p>
+
+<p>
+The <code>:exports both</code> is a header argument that tells Org Mode to export
+both the source code itself, as well as the results of its evaluation
+(you will be prompted to authorize the evaluation).  One could also
+say one of: <code>:exports none</code>, <code>:exports code</code>, or <code>:exports results</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8c08b30" class="outline-3">
+<h3 id="org8c08b30"><i>Tangling</i> code</h3>
+<div class="outline-text-3" id="text-org8c08b30">
+<p>
+Tangling is a term the literate programming world uses to mean
+extracting the source code from a "literate" document in a way that
+the code can then be compiled and/or executed.  In Org Mode files, the
+<code>:tangle</code> header argument defines the filename to which a source block
+should be written.  Like all header arguments, the <code>:tangle</code> header
+argument can be specified at the file, subtree, or individual source
+block level.  All source blocks that have (or inherit) the same
+<code>:tangle</code> header argument will be tangled to the same file, in the
+order in which they appear in the .org file.
+</p>
+
+<p>
+Repeating a source block had above,
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: peaks-and-valleys-tangling</span>
+<span style="color: #ff7f24;">#+begin_src R :exports both :tangle peaks-and-valleys.el</span>
+<span style="color: #b3b3b3;">  x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)</span>
+<span style="color: #b3b3b3;">  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]</span>
+<span style="color: #b3b3b3;">  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: peaks-and-valleys-tangling</span>
+<span style="color: #87cefa;">|  4 |</span>
+<span style="color: #87cefa;">|  9 |</span>
+<span style="color: #87cefa;">| 12 |</span>
+<span style="color: #87cefa;">| 16 |</span>
+</pre>
+</div>
+
+
+<p>
+Now, you could, if you chose, enter <code>[M-x org-babel-tangle]</code> (<code>[C-c
+C-v t]</code>).  But, be warned!  This will tangle all the source blocks in
+the current (this) .org file that have a <code>:tangle</code> header argument
+(specified or inherited).  One can restrict the tangle operation to
+the source block at point (see <code>[M-x describe-function]</code> for
+<code>org-babel-tangle</code> for details), but even so, I would suggest being
+careful.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org01879d8" class="outline-3">
+<h3 id="org01879d8"><i>Editing</i> a source block</h3>
+<div class="outline-text-3" id="text-org01879d8">
+<p>
+The source block is just a number of text lines in text file.  So, it
+is very normal to do minor edits in line, in the .org file.
+</p>
+
+<p>
+On the other hand, by positioning the cursor on the source block and
+executing <code>[M-x org-edit-src-code]</code> (<code>[C-c ']</code>), one can "pop out" the
+source block and edit it in a buffer with the major mode set
+appropriately for the language of the source block.  In the case of an
+R source block, the major mode will (the R-flavor of) ESS.
+</p>
+
+<p>
+Feel free to experiment with the following code.  On the R-help list,
+a new value for the vector <code>x</code> was proposed.
+</p>
+<pre class="example">
+x &lt;- c(1,1,1,2,2,3,4,4,4,5,6,6,6)
+</pre>
+
+<p>
+If you like, edit the source, change <code>x</code>, and evaluate it.  What is
+its result?  Is there a peak?  A valley?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">  x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)</span>
+<span style="color: #b3b3b3;">  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]</span>
+<span style="color: #b3b3b3;">  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|  4 |</span>
+<span style="color: #87cefa;">|  9 |</span>
+<span style="color: #87cefa;">| 12 |</span>
+<span style="color: #87cefa;">| 16 |</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb70d34d" class="outline-3">
+<h3 id="orgb70d34d">(Some) source block header arguments</h3>
+<div class="outline-text-3" id="text-orgb70d34d">
+</div>
+<div id="outline-container-org089e67b" class="outline-4">
+<h4 id="org089e67b">:noweb</h4>
+<div class="outline-text-4" id="text-org089e67b">
+<p>
+Many (most?) programming languages have a way of "including" the
+"textual" contents of one source file in the compilation or execution
+phase of another source file.  I think of <code>#include &lt;stdio.h</code>, for
+example, in <code>C</code>.  Literate programming defines a way of doing this
+known as <a href="https://www.cs.tufts.edu/~nr/noweb/">"noweb"</a>.
+</p>
+
+<p>
+In Org Mode, a <span class="underline">reference</span> to a previous block of code named <code>NAME</code> is
+denoted by <code>&lt;&lt;NAME&gt;&gt;</code>.  The double angle brackets signal that this is
+a noweb reference.  However, by default, noweb processing is
+<b>disabled</b> in an Org Mode buffer.  The <code>:noweb</code> header argument
+defaults to <code>no</code>, but can be set to <code>yes</code> to enable noweb processing.
+Again, as with all header arguments, this can be done on a per-file,
+per-subtree, or per-(referring-)source block basis.
+</p>
+
+<p>
+The noweb reference <code>&lt;&lt;NAME&gt;&gt;</code> can refer to either the name of another
+source block in the .org file:
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: a-noweb-name</span>
+<span style="color: #ff7f24;">#+begin_src R :noweb no</span>
+<span style="color: #b3b3b3;">  cm </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"copy me!"</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: a-noweb-name</span>
+<span style="color: #b3b3b3;">: copy me!</span>
+</pre>
+</div>
+
+
+<p>
+or with the <code>:noweb-ref</code> header argument:
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :noweb-ref another-noweb-name :noweb no</span>
+<span style="color: #b3b3b3;">  cmt </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"copy me, too!"</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: copy me, too!</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :noweb yes :results output</span>
+<span style="color: #b3b3b3;">  &lt;&lt;a-noweb-name&gt;&gt;</span>
+<span style="color: #b3b3b3;">  &lt;&lt;another-noweb-name&gt;&gt;</span>
+<span style="color: #b3b3b3;">  cat(cm, </span><span style="color: #ffa07a;">"\n"</span><span style="color: #b3b3b3;">, cmt, </span><span style="color: #ffa07a;">"\n"</span><span style="color: #b3b3b3;">, sep=</span><span style="color: #ffa07a;">""</span><span style="color: #b3b3b3;">)</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: copy me!</span>
+<span style="color: #b3b3b3;">: copy me, too!</span>
+</pre>
+</div>
+
+
+<p>
+(If you edit the header of the previous source block by changing "yes"
+to "no" and then evaluate it, you will get an error.)
+</p>
+
+<p>
+Note that, like the <code>:noweb</code> header argument, the <code>:noweb-ref</code> header
+argument can be set on a subtree basis.  (I dread to think of what
+would happen were it to be set on a file basis.  Okay, I have to try.
+Be right back&#x2026;  Not much happened.  I suppose this is
+special-cased.)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbd75ef0" class="outline-4">
+<h4 id="orgbd75ef0">:var</h4>
+<div class="outline-text-4" id="text-orgbd75ef0">
+<p>
+In Org Mode, the evaluation of source blocks can include initializing
+variables, using the <code>:var</code> header argument.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: gives-pi</span>
+<span style="color: #ff7f24;">#+begin_src R :var pi=3.14</span>
+<span style="color: #b3b3b3;">  pi</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: gives-pi</span>
+<span style="color: #b3b3b3;">: 3.14</span>
+</pre>
+</div>
+
+
+<p>
+The left hand side of the argument to <code>:var</code> is the name of the
+variable as seen by the code inside the source block.  The right hand
+side can be a constant (as above), or can designate the output of
+another source block in the .org file.  In that case, the right hand
+side is the name (<code>#+name:</code>) of the source block providing the desired
+result.
+</p>
+
+<p>
+If you evaluate the following source block, you will be asked to allow
+evaluation <b>twice</b>: once to produce the result from the <b>above</b> source
+block, and a second time to produce the result from the source block
+you are evaluating.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var pitoo=gives-pi :session R :results output</span>
+<span style="color: #b3b3b3;">  cat(</span><span style="color: #ffa07a;">"you were"</span><span style="color: #b3b3b3;">, pitoo/pi, </span><span style="color: #ffa07a;">"close!\n"</span><span style="color: #b3b3b3;">)</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: you were 0.999493 close!</span>
+</pre>
+</div>
+
+
+<p>
+The language of the source block providing the value of the variable
+does same as the language of the source block receiving the value.  In
+general, though, there may be some adaptation required to mould the
+shape of the input value to that needed by the source code.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: from-python</span>
+<span style="color: #ff7f24;">#+begin_src python :results value</span>
+<span style="color: #b3b3b3;">  </span><span style="color: #00ffff;">return</span><span style="color: #b3b3b3;"> 21</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: from-python</span>
+<span style="color: #b3b3b3;">: 21</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: to-r</span>
+<span style="color: #ff7f24;">#+begin_src R :var howmany=from-python</span>
+<span style="color: #b3b3b3;">  2*howmany</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: to-r</span>
+<span style="color: #b3b3b3;">: 42</span>
+</pre>
+</div>
+
+
+<p>
+The name on the right hand side, instead of naming another source
+block in the file, can also name, e.g., an Org Mode table.
+</p>
+
+<table id="orgfcf0507" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">student</th>
+<th scope="col" class="org-right">first exam</th>
+<th scope="col" class="org-right">second exam</th>
+<th scope="col" class="org-right">final</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Greg</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">George</td>
+<td class="org-right">2</td>
+<td class="org-right">2</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">Linda</td>
+<td class="org-right">3</td>
+<td class="org-right">1</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left">Georgia</td>
+<td class="org-right">4</td>
+<td class="org-right">4</td>
+<td class="org-right">4</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+In the following code block, the <code>:colnames</code> header argument is set to
+<code>yes</code> so that the first row is considered a row of column names.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var tbl=a-table :colnames yes :session R</span>
+<span style="color: #b3b3b3;">  summary(tbl)</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">| student          | first.exam   | second.exam  | final       |</span>
+<span style="color: #87cefa;">|------------------+--------------+--------------+-------------|</span>
+<span style="color: #87cefa;">| Length:4         | Min.   :1.00 | Min.   :1.00 | Min.   :2.0 |</span>
+<span style="color: #87cefa;">| Class :character | 1st Qu.:1.75 | 1st Qu.:1.75 | 1st Qu.:2.0 |</span>
+<span style="color: #87cefa;">| Mode  :character | Median :2.50 | Median :2.50 | Median :2.0 |</span>
+<span style="color: #87cefa;">| nil              | Mean   :2.50 | Mean   :2.50 | Mean   :2.5 |</span>
+<span style="color: #87cefa;">| nil              | 3rd Qu.:3.25 | 3rd Qu.:3.25 | 3rd Qu.:2.5 |</span>
+<span style="color: #87cefa;">| nil              | Max.   :4.00 | Max.   :4.00 | Max.   :4.0 |</span>
+</pre>
+</div>
+
+
+<p>
+For R code, a second effect of setting <code>:colnames</code> to <code>yes</code> is that if
+the <b>result</b> is an R data frame, its column names (<code>colnames()</code>) will
+be preserved in the resulting Org Mode table
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :colnames yes</span>
+<span style="color: #b3b3b3;">  mtcars[1:4,]</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
+<span style="color: #87cefa;">|------+-----+------+-----+------+-------+-------+----+----+------+------|</span>
+<span style="color: #87cefa;">|   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
+<span style="color: #87cefa;">|   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |</span>
+<span style="color: #87cefa;">| 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |</span>
+<span style="color: #87cefa;">| 21.4 |   6 |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |  0 |    3 |    1 |</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :colnames no</span>
+<span style="color: #b3b3b3;">  mtcars[1:4,]</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |</span>
+<span style="color: #87cefa;">| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |</span>
+<span style="color: #87cefa;">| 21.4 | 6 | 258 | 110 | 3.08 | 3.215 | 19.44 | 1 | 0 | 3 | 1 |</span>
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org9b8c072" class="outline-4">
+<h4 id="org9b8c072">:results</h4>
+<div class="outline-text-4" id="text-org9b8c072">
+<p>
+The <code>:results</code> header argument specifies many things.  First, it
+specifies whether the results of an evaluation consist in the value
+"returned" by the evaluated source block, or by the output (to
+standard output) produced by the source block.  The "value returned"
+means, in many programming languages (include R), the value of the
+last statement executed in the source block.  You may have noticed
+examples of this use of <code>:results</code> in some of the previous source
+blocks.  The values here are <code>value</code> and <code>output</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: usenowebhere</span>
+<span style="color: #ff7f24;">#+begin_src R :results none</span>
+<span style="color: #b3b3b3;">  truepi </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> pi</span>
+<span style="color: #b3b3b3;">  cat(truepi, </span><span style="color: #ffa07a;">"\n"</span><span style="color: #b3b3b3;">, sep=</span><span style="color: #ffa07a;">""</span><span style="color: #b3b3b3;">)</span>
+<span style="color: #b3b3b3;">  invisible(truepi*2)</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results output</span>
+<span style="color: #b3b3b3;">  &lt;&lt;usenowebhere&gt;&gt;</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: 3.141593</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value</span>
+<span style="color: #b3b3b3;">  &lt;&lt;usenowebhere&gt;&gt;</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: 6.28318530717959</span>
+</pre>
+</div>
+</div>
+
+
+<ul class="org-ul">
+<li><a id="org52331d9"></a>Type of result<br />
+<div class="outline-text-5" id="text-org52331d9">
+<p>
+Here, the question is what sort of Org structure should the returned
+value be considered to consist.  The results can be interpreted to be
+an Org Mode table, list, or verbatim text.  Or, the results can be
+output to a file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: results-noweb</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">  mtcars[c(1,12,13, 19),]</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: results-noweb</span>
+<span style="color: #87cefa;">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span style="color: #87cefa;">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
+<span style="color: #87cefa;">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
+<span style="color: #87cefa;">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
+</pre>
+</div>
+
+
+<p>
+If no result type is listed, Org Mode makes its pretty-good guess.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value</span>
+<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span style="color: #87cefa;">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
+<span style="color: #87cefa;">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
+<span style="color: #87cefa;">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
+</pre>
+</div>
+
+
+<p>
+But, to be sure, you can specify the type you would like.  (Note the
+reapearance of <code>:colnames</code>.)
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value table :colnames yes</span>
+<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|  mpg | cyl |  disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
+<span style="color: #87cefa;">|------+-----+-------+-----+------+-------+-------+----+----+------+------|</span>
+<span style="color: #87cefa;">|   21 |   6 |   160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
+<span style="color: #87cefa;">| 16.4 |   8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 |  0 |  0 |    3 |    3 |</span>
+<span style="color: #87cefa;">| 17.3 |   8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 |  0 |  0 |    3 |    3 |</span>
+<span style="color: #87cefa;">| 30.4 |   4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 |  1 |  1 |    4 |    2 |</span>
+</pre>
+</div>
+
+
+<p>
+<code>scalar</code> and <code>verbatim</code> are synonyms.  They cause the value to be
+taken, well, at face value:
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results scalar</span>
+<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: 21    6   160 110 3.9 2.62    16.46   0   1   4   4</span>
+<span style="color: #b3b3b3;">: 16.4  8   275.8   180 3.07    4.07    17.4    0   0   3   3</span>
+<span style="color: #b3b3b3;">: 17.3  8   275.8   180 3.07    3.73    17.6    0   0   3   3</span>
+<span style="color: #b3b3b3;">: 30.4  4   75.7    52  4.93    1.615   18.52   1   1   4   2</span>
+</pre>
+</div>
+
+
+<p>
+And, <code>list</code> converts the source block result into an Org Mode list.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results list</span>
+<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+- (21 6 160 110 3.9 2.62 16.46 0 1 4 4)
+- (16.4 8 275.8 180 3.07 4.07 17.4 0 0 3 3)
+- (17.3 8 275.8 180 3.07 3.73 17.6 0 0 3 3)
+- (30.4 4 75.7 52 4.93 1.615 18.52 1 1 4 2)
+</pre>
+</div>
+</div>
+</li>
+
+
+<li><a id="org710e9f9"></a>How the results are formatted<br />
+<div class="outline-text-5" id="text-org710e9f9">
+<p>
+There are various ways Org Mode might decide to format the results,
+of, more or less, whatever type, before embedding them in the .org
+buffer.
+</p>
+
+<p>
+For example, to want the results to be wrapped in a source block, one
+can specify <code>code</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value code</span>
+<span style="color: #b3b3b3;">  </span><span style="color: #ffa07a;">"&lt;&lt;results-noweb&gt;&gt;"</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">mtcars[c(1,12,13, 19),]</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span style="color: #87cefa;">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
+<span style="color: #87cefa;">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
+<span style="color: #87cefa;">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
+</pre>
+</div>
+
+
+<p>
+This also shows that <code>noweb</code> syntax isn't defeated by, e.g., being
+embedded inside quotation marks.  One can also specify that the
+results be embedded in an Org Mode "drawer" (which can be "closed", so
+the results don't show), or embedded in a source block of type "org",
+in blocks whose content will only be used when exporting to HTML, or
+to LaTeX (including PDF), etc.
+</p>
+
+<p>
+There is (apparently &#x2013; writing this tutorial is a learning
+experience!) also a <code>:wrap</code> header argument, separate from the
+<code>:results</code> header argument, which specifies a value <code>X</code>, and the
+results are summarily wrapped in a <code>#+begin_X...#+end_X</code> block.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :wrap foo</span>
+<span style="color: #b3b3b3;">  3</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #ff7f24;">#+begin_foo</span>
+3
+<span style="color: #ff7f24;">#+end_foo</span>
+</pre>
+</div>
+</div>
+</li>
+
+
+
+<li><a id="orgd1296cd"></a>Handling of results<br />
+<div class="outline-text-5" id="text-orgd1296cd">
+<p>
+Typically, the results of evaluating a source block are placed in the
+buffer following the source block, preceded by a line
+</p>
+<pre class="example">
+#+RESULTS: &lt;NAME&gt;
+</pre>
+
+<p>
+where <code>&lt;NAME&gt;</code> is the name of the source block (if any).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">  Sys.time()</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: 2021-04-01 20:47:15</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: time</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">  Sys.time()</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: time</span>
+<span style="color: #b3b3b3;">: 2021-04-01 20:47:15</span>
+</pre>
+</div>
+
+
+<p>
+However, this behavior can be modified with the <code>:results</code> header
+argument.  The relevant options are
+</p>
+<dl class="org-dl">
+<dt>silent</dt><dd>Don't change the buffer.  The results are echoed in the
+minibuffer.</dd>
+<dt>replace</dt><dd>This is the normal behavior; the <code>#+RESULTS:</code> block is
+replaced.</dd>
+<dt>append</dt><dd>Each evaluation generates a separate <code>#+RESULTS:</code> block,
+which is placed after the previous result blocks.</dd>
+<dt>prepend</dt><dd>Each evaluation generates a separate results block, which
+is placed before all previous result blocks.</dd>
+</dl>
+
+<p>
+Well, really, that is all pretty much just copied from the <a href="https://orgmode.org/manual/Results-of-Evaluation.html#Results-of-Evaluation">manual</a>.
+Which, see.
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orgf04f0ea" class="outline-4">
+<h4 id="orgf04f0ea">:session</h4>
+<div class="outline-text-4" id="text-orgf04f0ea">
+<p>
+Normally, when Org Mode evaluates a source block, in instantiates a
+new <b>process</b> of the appropriate type (the <code>R</code> command, for example),
+provides that process with the source from the source block (expanding
+<code>:noweb</code> references), and lets it run.
+</p>
+
+<p>
+This ensures that each run starts from a "clean state".  On the other
+hand, it means that artefacts left behind by previous runs are not
+available to a future run.  And, it can complicate debugging.
+</p>
+
+<p>
+Thus, Org Mode provdies a <code>:session</code> header argument which names a
+buffer in which evaluations of the current source block (or, all
+source blocks in the file, or all in a subtree) will occur.
+</p>
+
+<p>
+During a given emacs instance, the first time you type <code>[C-c C-c]</code> in
+a source block with a given name, Emacs will prompt you for the name
+of the starting directory (with a default being the directory of the
+current file).  It will then start up such a process, attach it to a
+buffer (i'm not totally sure of the Emacs terminology here) with the
+name provided as the argument to the <code>:session</code> header argument (or,
+use a language-specific default), and evaluate your code.  This works
+for interpreted languages but not, to my knowledge, for compiled
+languages.
+</p>
+
+<p>
+After evaluations, you can use <code>[C-x b]</code> to switch to that buffer and
+inspect the state, maybe set debug breakpoints, or debug after error
+or debug statement (<code>browser()</code>, say) in your code.
+</p>
+
+<p>
+For R, the session buffer uses <code>ESS[R]</code> mode.
+</p>
+
+<p>
+As I said above, the fact that future evaluations of the given source
+block, or of any other source block with the same <code>:session</code> argument,
+will run in the same R process is both a feature and a bug.  On the
+bug side, you may end up developing code that only works with the
+accumulated state in the current buffer.
+</p>
+
+<p>
+For example, say you are developing an <a href="https://cran.r-project.org/web/packages/">R package</a> and are testing it
+with some code that imports (<code>require()</code>) that package.  And, say your
+test code points out an error in your package code, and that you fix
+your package code and re-build and re-install your package.  Now, if
+you once again evaluate your test code, it will execute the
+<code>require()</code> statement but will do nothing as, as far as R is
+concerned, your package is <b>already</b> loaded.  So, you will need to
+detach and unload your package which, if my memory serves me right
+</p>
+<pre class="example">
+detach(package:PACKAGENAME, unload=TRUE)
+</pre>
+
+<p>
+or some such.  <b>Then</b>, R will load the new version of your package.
+</p>
+
+<p>
+Still, I find <code>:session</code> immensely valuable.  If you find yourself
+wanting to use a debugger to debug your code, or to incrementally
+build up state as your are developing code, I recommend (carefully)
+using it.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2c509d4" class="outline-4">
+<h4 id="org2c509d4">:cache</h4>
+<div class="outline-text-4" id="text-org2c509d4">
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">1</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Greg Minshall</p>
+<p class="date">Created: 2021-04-01 Thu 20:47</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
