@@ -23,8 +23,7 @@
 
 #+property: header-args :exports both
 
-#+begin_export html
-** This file, the .org file
+#+BEGIN_EXPORT html
 
 You are looking at this on the web, and I hope you find this useful.
 
@@ -35,7 +34,8 @@ Org Mode.
 You should be able to find that file at ...  (*This* file will not
 work as a .org file.)
 
-#+end_export
+#+END_EXPORT
+
 ** Source blocks
 
 Source blocks are lines of text, surrounded by a =#+begin_src= line
