@@ -46,7 +46,7 @@ EMACSSETUP = (progn (package-initialize) (load-file \"${ELORGEL}\") ${EMACSLL} $
 # now, evaluate all org source blocks in the file
 EMACSORGBLOCKS = (evaluate-org-blocks)
 # now, evaluate all *non* org source blocks in the file
-EMACSNONORGBLOCKS = (evaluate-non-org-blocks)
+EMACSNONORGBLOCKS = (progn (evaluate-non-org-blocks) (save-buffer))
 
 # ess-org-startup.org: built during make process, and converts the
 # contents of our .css file into a #+HTML_HEAD for inclusiong in the
