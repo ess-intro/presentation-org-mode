@@ -908,6 +908,20 @@ either "results" or "both".
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-latex-publish-to-pdf)
+        ("ess-org-demo-results-html"
+           :with-toc nil
+           :base-directory "./"
+           :publishing-directory "./artefacts"
+           :exclude ".*"
+           :include ("ess-org-demo-results.org")
+           :publishing-function org-html-publish-to-html)
+          ("ess-org-demo-results-pdf"
+           :with-toc nil
+           :base-directory "./"
+           :publishing-directory "./artefacts"
+           :exclude ".*"
+           :include ("ess-org-demo-results.org")
+           :publishing-function org-latex-publish-to-pdf)
           ("ess-org-beamer-html"
            :with-toc nil
            :base-directory "./"
@@ -924,6 +938,8 @@ either "results" or "both".
            :publishing-function org-beamer-publish-to-pdf)
           ("ess-org" :components ("ess-org-html"
                                   "ess-org-pdf"
+                                  "ess-org-demo-results-html"
+                                  "ess-org-demo-results-pdf"
                                   "ess-org-beamer-html"
                                   "ess-org-beamer-pdf"))))
 #+end_src
