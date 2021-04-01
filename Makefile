@@ -47,6 +47,8 @@ EMACSSETUP = (progn (package-initialize) (load-file \"${ELORGEL}\") ${EMACSLL} $
 EMACSORGBLOCKS = (evaluate-org-blocks)
 # now, evaluate all *non* org source blocks in the file
 EMACSNONORGBLOCKS = (progn (evaluate-non-org-blocks) (save-buffer))
+# 
+EMACSORGIFY = (progn (orgify-all-non-org-blocks) (save-buffer))
 
 # ess-org-startup.org: built during make process, and converts the
 # contents of our .css file into a #+HTML_HEAD for inclusiong in the
@@ -78,7 +80,7 @@ ${ARTEFACTSDIR}/ess-org-beamer.pdf: publish
 
 publish: ${TOUCHEDDIR}/publish
 
-${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} essorgstartuporg
+${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} ess-org-demo-results.org essorgstartuporg
 	emacs --file ${MAINORG} \
 		--eval "${EMACSSETUP}" \
 		--eval "${EMACSORGBLOCKS}" \
@@ -93,6 +95,7 @@ ess-org-demo-results.org: ess-org-demo.org tangle
 		--eval '${EMACSGETESSPATH}' \
 		--eval "${EMACSGETESSAUTOLOADS}" \
 		--eval "${EMACSNONORGBLOCKS}" \
+		--eval "${EMACSORGIFY}" \
 		--batch
 
 HEADERTXT = \#+HTML_HEAD: 
