@@ -757,30 +757,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
         result))
 #+END_SRC
 
-*** for each block/call point in current buffer
-
-- if :exports "results" or "both", evaluate it
-
-evaluate each source block/call point that :exports either "results"
-or "both",
-
-#+name: do-source-blocks
-#+begin_src elisp :results none
-      (defun do-source-blocks ()
-          (let (results
-                (pt (point)))
-            (org-babel-eval-wipe-error-buffer)
-            (unwind-protect
-                (save-window-excursion
-                  (setq results (org-walk-and-evaluate
-                                 ':exports
-                                 (list "results" "both")
-                                 (org-get-org-blocks t)))))
-              results))
-#+end_src
-*** for each org block in the (whichever) buffer
-
-- if :exports "results" or "both", evaluate all blocks in the org block
+*** find all [non-]org blocks
 
 #+name: org-get-org-blocks
 #+begin_src elisp :results none
@@ -799,12 +776,80 @@ or "both",
       (reverse blocks)))
 #+end_src
 
+*** orgify all non-org blocks
+
+#+name: orgify-all-non-org-blocks
+#+begin_src elisp
+  (defun orgify-all-non-org-blocks ()
+    ;; take every non-org block and insert it between #+begin_src
+    ;; org...#+end_src
+    (let ((to-insert "#+begin_src org\n#+end_src\n")
+          (pt (point))
+          (filtered (reverse
+                     (org-filter-by-argument-value
+                      ':exports
+                      (list "results" "both")
+                      (org-get-org-blocks t)))))
+      ;; we work on the reversed list, from the end of the buffer to the
+      ;; beginning, since our actions are going to change line numbers
+      (unwind-protect
+          (save-window-excursion
+            (mapc
+             (lambda (l)
+               (goto-char l)
+               (let* ((context (org-element-context))
+                      (clist (cadr context))
+                      (src-begin (plist-get clist :begin))
+                      (src-end (plist-get clist :end ))
+                      (results-begin (org-babel-where-is-src-block))
+                      (results-end (if results-begin
+                                       (progn (goto-char results-begin)(org-babel-result-end))
+                                     nil))
+                      (contents (delete-and-extract-region
+                                 src-begin
+                                 (if results-end results-end src-end))))
+                 (insert to-insert)
+                 (goto-char l)            ; go back to beginning of new src block
+                 (org-babel-do-in-edit-buffer
+                  (insert contents)       ; now, in edit buffer, insert previuos contents
+                  (org-edit-src-save)))
+               filtered)))
+        (goto-char pt))
+    (reverse filtered)))
+#+end_src
+
+#+RESULTS: orgify-all-non-org-blocks
+: orgify-all-non-org-blocks
+
+*** evaluate all(*) the non-org blocks in the buffer
+
+(*) if :exports "results" or "both", evaluate it
+
+#+name: evaluate-non-org-blocks
+#+begin_src elisp :results none
+  (defun evaluate-non-org-blocks ()
+      (let (results
+            (pt (point)))
+        (org-babel-eval-wipe-error-buffer)
+        (unwind-protect
+            (save-window-excursion
+              (setq results (org-walk-and-evaluate
+                             ':exports
+                             (list "results" "both")
+                             (org-get-org-blocks t)))))
+          results))
+#+end_src
+*** evaluate (internals of) all(*) the org blocks in the buffer
+
+(*) if :exports "results" or "both", evaluate all blocks in the org block
+
 for each org-in-org block that :exports either "results" or "both",
 open up an edit buffer, and evaluate all internal code that :exports
 either "results" or "both".
-#+name: do-org-blocks
+
+#+name: evaluate-org-blocks
 #+begin_src elisp :results none
-	(defun do-org-blocks ()
+	(defun evaluate-org-blocks ()
 		(let (results
 					(pt (point)))
 			(org-babel-eval-wipe-error-buffer)

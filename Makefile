@@ -37,10 +37,16 @@ ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS}
 EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (org . t) (python . t) (R . t)))
 # trust evaulations in *this* context -- a file we create CAUTION!!!
 EMACSTRUSTEVAL = (setq org-confirm-babel-evaluate nil)
+# we need ess in the load path
+EMACSGETESSPATH = (setq load-path (cons "~/.emacs.d/straight/build/ess" load-path))
+# and, load ess-autoloads
+EMACSGETESSAUTOLOADS =  (require 'ess-autoloads)
 # load our elisp code, set up for evaluation
 EMACSSETUP = (progn (package-initialize) (load-file \"${ELORGEL}\") ${EMACSLL} ${EMACSTRUSTEVAL})
 # now, evaluate all org source blocks in the file
-EMACSORGBLOCKS = (do-org-blocks)
+EMACSORGBLOCKS = (evaluate-org-blocks)
+# now, evaluate all *non* org source blocks in the file
+EMACSNONORGBLOCKS = (evaluate-non-org-blocks)
 
 # ess-org-startup.org: built during make process, and converts the
 # contents of our .css file into a #+HTML_HEAD for inclusiong in the
@@ -84,7 +90,9 @@ ess-org-demo-results.org: ess-org-demo.org tangle
 	cp -p $< $@
 	emacs --file $@ \
 		--eval "${EMACSSETUP}" \
-		--eval "(progn (do-source-blocks) (save-buffer))" \
+		--eval '${EMACSGETESSPATH}' \
+		--eval "${EMACSGETESSAUTOLOADS}" \
+		--eval "${EMACSNONORGBLOCKS}" \
 		--batch
 
 HEADERTXT = \#+HTML_HEAD: 
