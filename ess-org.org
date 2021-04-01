@@ -704,23 +704,25 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
   (require 'ob-core)
 
   (defun org-filter-by-argument-value (arg values &optional locs negate)
-      "Return the subset of LOCS (default: (point)) that correspond
+    "Return the subset of LOCS (default: (point)) that correspond
   to evaluatable locations in the current buffer whose
   \"info\" (org-babel-get-src-block-info) argument parameter
   contains an argument ARG with a value in VALUES."
-      (let ((pt (point))
-            (results (mapcar (lambda (l)
-                               (progn
-                                 (goto-char l)
-                                 (let* ((info (org-babel-get-src-block-info t))
-                                        (value (cdr (assoc arg (nth 2 info)))))
-                                   (if (or (and negate (not (member value values)))
-                                           (and (not negate) (member value values)))
-                                       l
-                                     nil))))
-                             (if locs locs (list (point))))))
-        (goto-char pt)
-        (reverse (seq-filter (lambda(x) x) results))))
+    (let ((pt (point))
+          (results (mapcar (lambda (l)
+                             (progn
+                               (goto-char l)
+                               (let* ((info (org-babel-get-src-block-info t))
+                                      (value (cdr (assoc arg (nth 2 info)))))
+                                 (if (or
+                                      (not info) ; call site? XXX should filter?
+                                      (and negate (not (member value values)))
+                                      (and (not negate) (member value values)))
+                                     l
+                                   nil))))
+                           (if locs locs (list (point))))))
+      (goto-char pt)
+      (reverse (seq-filter (lambda(x) x) results))))
 #+end_src
 
 *** for each block in the (whichever) buffer
@@ -770,8 +772,11 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
   if COMPLEMENT is true"
     (let ((blocks nil))
       (org-babel-map-executables nil
-        (let ((info (org-babel-get-src-block-info t)))
-          (if (xor (equal (car info) "org") complement)
+        (let* ((context (org-element-context))
+               (ctype (car context))
+               (clist (cadr context)))
+          (if (or (memq ctype '(babel-call inline-babel-call))
+                  (xor (equal (plist-get clist :language) "org") complement))
               (setq blocks (cons (point) blocks)))))
       (reverse blocks)))
 #+end_src
@@ -830,13 +835,10 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
           (filtered (org-filter-by-argument-value
                      ':exports
                      (list "results" "both")
-                     (org-get-org-blocks t)))
-          (call-sites nil))
-      (org-babel-map-call-lines nil (setq call-sites (cons (point) call-sites)))
-      (message "before unwind-protect")
+                     (org-get-org-blocks t))))
       (unwind-protect
           (save-window-excursion
-            (orgify-blocks (append filtered call-sites)))
+            (orgify-blocks filtered))
         (goto-char pt))
     (reverse filtered)))
 #+end_src
