@@ -778,51 +778,66 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 *** orgify all non-org blocks
 
+#+name: orgify-blocks
+#+begin_src elisp :results none
+  (defun orgify-blocks (locs)
+    ;; take each block that starts at a location in LOCS and insert it
+    ;; between #+begin_src org...#+end_src
+    (let ((to-insert "#+begin_src org :exports code :noweb nil\n#+end_src\n")
+          ;; we work on the reversed list, from the end of the buffer to the
+          ;; beginning, since our actions are going to change line numbers
+          (slocs (sort locs '>)))
+      (mapc
+       (lambda (l)
+         (debug)
+         (goto-char l)
+         (let* ((context (org-element-context))
+                (ctype (car context))
+                (clist (cadr context))
+                (src-begin (plist-get clist :begin))
+                (src-end (plist-get clist :end ))
+                (results-begin (org-babel-where-is-src-block-result))
+                (results-end (if results-begin
+                                 (progn (goto-char results-begin)(org-babel-result-end))
+                               nil))
+                (begin (progn
+                         (goto-char src-begin)
+                         (if (member ctype '(inline-src-block inline-babel-call))
+                             (progn (org-backward-paragraph) (forward-char)))
+                         (point)))
+                (end (progn
+                       (goto-char (if results-end results-end src-end))
+                       (if (member ctype '(inline-src-block inline-babel-call))
+                           (progn (org-forward-paragraph) (backward-char)))
+                       (re-search-backward "^..*$")
+                       (org-forward-paragraph)
+                       (backward-char)
+                       (point)))
+                (contents (delete-and-extract-region begin end)))
+           (message "%s..%s: %s" begin end contents)
+           (insert to-insert)
+           (goto-char begin)            ; go back to beginning of new src block
+           (org-babel-do-in-edit-buffer
+            (insert contents)))) ; now, in edit buffer, insert previuos contents
+       slocs)))
+#+end_src
+
 #+name: orgify-all-non-org-blocks
 #+begin_src elisp :results none
   (defun orgify-all-non-org-blocks ()
-    ;; take every non-org block and insert it between #+begin_src
-    ;; org...#+end_src
-    (let ((to-insert "#+begin_src org :exports code :noweb nil\n#+end_src\n")
-          (pt (point))                    ; XXX s/b marker?
+    ;; take every non-org block, as well as call site, and insert it
+    ;; between #+begin_src org...#+end_src
+    (let ((pt (point))                    ; XXX s/b marker?
           (filtered (org-filter-by-argument-value
-                      ':exports
-                      (list "results" "both")
-                      (org-get-org-blocks t))))
-      ;; we work on the reversed list, from the end of the buffer to the
-      ;; beginning, since our actions are going to change line numbers
+                     ':exports
+                     (list "results" "both")
+                     (org-get-org-blocks t)))
+          (call-sites nil))
+      (org-babel-map-call-lines nil (setq call-sites (cons (point) call-sites)))
       (message "before unwind-protect")
       (unwind-protect
           (save-window-excursion
-            (mapc
-             (lambda (l)
-               ;; (debug)
-               (goto-char l)
-               (let* ((context (org-element-context))
-                      (ctype (car context))
-                      (clist (cadr context))
-                      (src-begin (plist-get clist :begin))
-                      (src-end (plist-get clist :end ))
-                      (results-begin (org-babel-where-is-src-block-result))
-                      (results-end (if results-begin
-                                       (progn (goto-char results-begin)(org-babel-result-end))
-                                     nil))
-                      (begin (progn
-                                (goto-char src-begin)
-                                (if (not (eq ctype 'src-block))
-                                    (progn (org-backward-paragraph)))
-                                (point)))
-                      (end (progn
-                              (goto-char (if results-end results-end src-end))
-                              (if (not (eq ctype 'src-block))
-                                    (progn (org-forward-paragraph)))
-                              (point)))
-                      (contents (delete-and-extract-region begin end)))
-                 (insert to-insert)
-                 (goto-char begin)            ; go back to beginning of new src block
-                 (org-babel-do-in-edit-buffer
-                  (insert contents)))) ; now, in edit buffer, insert previuos contents
-               filtered))
+            (orgify-blocks (append filtered call-sites)))
         (goto-char pt))
     (reverse filtered)))
 #+end_src
