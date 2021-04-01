@@ -698,29 +698,29 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
        :header-args+: :tangle ./tangled/el-org.el
        :END:
 
-*** filter
-#+name: org-filter-by-results
+*** org-filter-by-argument-value
+#+name: org-filter-by-argument-value
 #+begin_src elisp :results none
   (require 'ob-core)
 
   (defun org-filter-by-argument-value (arg values &optional locs negate)
-	  "Return the subset of LOCS (default: (point)) that correspond
-  to evaulatable locations in the current buffer whose
+      "Return the subset of LOCS (default: (point)) that correspond
+  to evaluatable locations in the current buffer whose
   \"info\" (org-babel-get-src-block-info) argument parameter
   contains an argument ARG with a value in VALUES."
-	  (let ((pt (point))
-				  (results (mapcar (lambda (l)
-									   (progn
-										   (goto-char l)
-										   (let* ((info (org-babel-get-src-block-info))
-														  (value (cdr (assoc arg (nth 2 info)))))
-											   (if (or (and negate (not (member value values)))
-															   (and (not negate) (member value values)))
-													   l
-												   nil))))
-								   (if locs locs (list (point))))))
-		(goto-char pt)
-		(reverse (seq-filter (lambda(x) x) results))))
+      (let ((pt (point))
+            (results (mapcar (lambda (l)
+                               (progn
+                                 (goto-char l)
+                                 (let* ((info (org-babel-get-src-block-info t))
+                                        (value (cdr (assoc arg (nth 2 info)))))
+                                   (if (or (and negate (not (member value values)))
+                                           (and (not negate) (member value values)))
+                                       l
+                                     nil))))
+                             (if locs locs (list (point))))))
+        (goto-char pt)
+        (reverse (seq-filter (lambda(x) x) results))))
 #+end_src
 
 *** for each block in the (whichever) buffer
@@ -779,41 +779,41 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 *** orgify all non-org blocks
 
 #+name: orgify-all-non-org-blocks
-#+begin_src elisp
+#+begin_src elisp :results none
   (defun orgify-all-non-org-blocks ()
     ;; take every non-org block and insert it between #+begin_src
     ;; org...#+end_src
-    (let ((to-insert "#+begin_src org\n#+end_src\n")
+    (let ((to-insert "#+begin_src org :exports code :noweb nil\n#+end_src\n")
           (pt (point))
-          (filtered (reverse
-                     (org-filter-by-argument-value
+          (filtered (org-filter-by-argument-value
                       ':exports
                       (list "results" "both")
-                      (org-get-org-blocks t)))))
+                      (org-get-org-blocks t))))
       ;; we work on the reversed list, from the end of the buffer to the
       ;; beginning, since our actions are going to change line numbers
+      (message "before unwind-protect")
       (unwind-protect
           (save-window-excursion
             (mapc
              (lambda (l)
+               ;; (debug)
                (goto-char l)
                (let* ((context (org-element-context))
                       (clist (cadr context))
                       (src-begin (plist-get clist :begin))
                       (src-end (plist-get clist :end ))
-                      (results-begin (org-babel-where-is-src-block))
+                      (results-begin (org-babel-where-is-src-block-result))
                       (results-end (if results-begin
                                        (progn (goto-char results-begin)(org-babel-result-end))
                                      nil))
-                      (contents (delete-and-extract-region
-                                 src-begin
-                                 (if results-end results-end src-end))))
+                      (end (if results-end results-end src-end))
+                      (contents (delete-and-extract-region src-begin end)))
+                 (message "delete-and-extract region %s %s: %s" src-begin end contents)
                  (insert to-insert)
                  (goto-char l)            ; go back to beginning of new src block
                  (org-babel-do-in-edit-buffer
-                  (insert contents)       ; now, in edit buffer, insert previuos contents
-                  (org-edit-src-save)))
-               filtered)))
+                  (insert contents)))) ; now, in edit buffer, insert previuos contents
+               filtered))
         (goto-char pt))
     (reverse filtered)))
 #+end_src
