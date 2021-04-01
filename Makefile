@@ -87,12 +87,16 @@ ${ARTEFACTSDIR}/ess-org-beamer.pdf: publish
 
 publish: ${TOUCHEDDIR}/publish
 
-# when i try to do this with --batch, i don't get happiness
+# when i try to do this with --batch, i don't get happiness.  also, we
+# turn off org mode publish's time stamps, since apparently, if the
+# time stamp is good, the file isn't re-created, even if it doesn't
+# exist.
 ${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} ess-org-demo-results.org essorgstartuporg
 	emacs --file ${MAINORG} \
 		--eval "${EMACSSETUP}" \
 		--eval "${EMACSORGBLOCKS}" \
 		--eval '${EMACSLOADPATH}' \
+		--eval '(setq org-publish-use-timestamps-flag nil)' \
 		--eval "(org-publish-project \"ess-org\")" \
 	    --eval "(progn (kill-buffer) (kill-emacs))"
 	touch $@
