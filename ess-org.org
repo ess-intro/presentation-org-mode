@@ -784,7 +784,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
     ;; take every non-org block and insert it between #+begin_src
     ;; org...#+end_src
     (let ((to-insert "#+begin_src org :exports code :noweb nil\n#+end_src\n")
-          (pt (point))
+          (pt (point))                    ; XXX s/b marker?
           (filtered (org-filter-by-argument-value
                       ':exports
                       (list "results" "both")
@@ -799,6 +799,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
                ;; (debug)
                (goto-char l)
                (let* ((context (org-element-context))
+                      (ctype (car context))
                       (clist (cadr context))
                       (src-begin (plist-get clist :begin))
                       (src-end (plist-get clist :end ))
@@ -806,11 +807,19 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
                       (results-end (if results-begin
                                        (progn (goto-char results-begin)(org-babel-result-end))
                                      nil))
-                      (end (if results-end results-end src-end))
-                      (contents (delete-and-extract-region src-begin end)))
-                 (message "delete-and-extract region %s %s: %s" src-begin end contents)
+                      (begin (progn
+                                (goto-char src-begin)
+                                (if (not (eq ctype 'src-block))
+                                    (progn (org-backward-paragraph)))
+                                (point)))
+                      (end (progn
+                              (goto-char (if results-end results-end src-end))
+                              (if (not (eq ctype 'src-block))
+                                    (progn (org-forward-paragraph)))
+                              (point)))
+                      (contents (delete-and-extract-region begin end)))
                  (insert to-insert)
-                 (goto-char l)            ; go back to beginning of new src block
+                 (goto-char begin)            ; go back to beginning of new src block
                  (org-babel-do-in-edit-buffer
                   (insert contents)))) ; now, in edit buffer, insert previuos contents
                filtered))
