@@ -529,10 +529,6 @@ build up state as your are developing code, I recommend (carefully)
 using it.
 
 *** :cache
-#+begin_src C :exports results
-printf("hello, world\n");
-#+end_src
-
 #+begin_src org :exports both :result
   ,#+begin_src R
   1
