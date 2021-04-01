@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-03-31 Wed 06:04 -->
+<!-- 2021-04-01 Thu 20:50 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>using ESS with Emacs Org Mode</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Greg Minshall" />
+<meta name="generator" content="Org Mode" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -268,7 +268,7 @@ basics: document structuring, tables, math/LaTeX, exporting
 </p>
 
 <p>
-<a href="https://www.gnu.org/software/emacs/">Emacs</a> (<a href="https://en.wikipedia.org/wiki/Emacs">wikipedia</a>) <a href="//orgmode.org/">Org Mode</a> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>  sometimes exhorts one to do something like "Organize Your
+<a href="https://www.gnu.org/software/emacs/">Emacs</a> (<a href="https://en.wikipedia.org/wiki/Emacs">wikipedia</a>) <a href="https://orgmode.org/">Org Mode</a> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>  sometimes exhorts one to do something like "Organize Your
 Life In Plain Text!"; the Org Mode manual, on the other hand, starts
 off by saying, "Org is an outliner".  The philosophy of Org Mode
 (indeed, of Emacs, and maybe, to some extent, of any of the *nix
@@ -359,7 +359,7 @@ below), Org Mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
 </p>
 <div class="org-src-container">
-<pre class="src src-org">: this is verbatim
+<pre class="src src-org"><span style="color: #b3b3b3;">: this is verbatim</span>
 </pre>
 </div>
 
@@ -368,12 +368,12 @@ One can have longer runs of verbatim ("example") data (which is not
 word wrapped, etc.:
 </p>
 <div class="org-src-container">
-<pre class="src src-org">#+name: ex
-#+begin_example
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: ex</span>
+<span style="color: #ff7f24;">#+begin_example</span>
 this is a block
 that
 holds more verbatim text
-#+end_example
+<span style="color: #ff7f24;">#+end_example</span>
 </pre>
 </div>
 
@@ -381,7 +381,7 @@ holds more verbatim text
 As well as longer bits of text that <b>will</b> be wrapped ("quote"):
 </p>
 <div class="org-src-container">
-<pre class="src src-org">#+begin_quote
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_quote</span>
 this is a bit of
 text that should
 show up, eventually, strung out in a smaller
@@ -389,7 +389,7 @@ number
 of
 lines when "filled"
 (e.g., [M-x org-fill-paragraph], [M-q])
-#+end_quote
+<span style="color: #ff7f24;">#+end_quote</span>
 </pre>
 </div>
 
@@ -434,32 +434,32 @@ source block), an optional <a href="#org038ad62">name</a>, and optional <i><a hr
 Org Mode source blocks look like this
 </p>
 <div class="org-src-container">
-<pre class="src src-org">#+name: ex
-#+begin_example
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: ex</span>
+<span style="color: #ff7f24;">#+begin_example</span>
 this is a block
 that
 holds more verbatim text
-#+end_example
+<span style="color: #ff7f24;">#+end_example</span>
 
-#+begin_src R :var foo=ex :exports both
-foo
-#+end_src
+<span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports both</span>
+<span style="color: #b3b3b3;">foo</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-| this is a block          |
-| that                     |
-| holds more verbatim text |
-|                          |
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">| this is a block          |</span>
+<span style="color: #87cefa;">| that                     |</span>
+<span style="color: #87cefa;">| holds more verbatim text |</span>
+<span style="color: #87cefa;">|                          |</span>
 
-#+begin_src R :var foo=ex :exports code
-foo
-#+end_src
+<span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports code</span>
+<span style="color: #b3b3b3;">foo</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-| this is a block          |
-| that                     |
-| holds more verbatim text |
-|                          |
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">| this is a block          |</span>
+<span style="color: #87cefa;">| that                     |</span>
+<span style="color: #87cefa;">| holds more verbatim text |</span>
+<span style="color: #87cefa;">|                          |</span>
 
 </pre>
 </div>
@@ -475,16 +475,16 @@ Source blocks can also be expressed using a <code>src_LANG</code> construct; a
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+name: whyo
-src_R{"42"} {{{results(=42=)}}}
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: whyo</span>
+src_R{"42"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=42=</span><span style="color: #deb887;">)}}}</span>
 
-#+begin_src R :var x=whyo :exports results
-x
-#+end_src
+<span style="color: #ff7f24;">#+begin_src R :var x=whyo :exports results</span>
+<span style="color: #b3b3b3;">x</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-| 42 |
-|    |
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">| 42 |</span>
+<span style="color: #87cefa;">|    |</span>
 
 </pre>
 </div>
@@ -499,15 +499,15 @@ x
 <h4 id="orgda92e1c">Evaluating source blocks</h4>
 <div class="outline-text-4" id="text-orgda92e1c">
 <p>
-Once written, a source block can be evaulated<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>, returning <a href="#org74f2034">results</a>,
+Once written, a source block can be evaluated<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>, returning <a href="#org74f2034">results</a>,
 either the output of the code, or some terminating "value" of the
 code, as an element of the .org file.  And, the blocks can be
-evaulated manually, or &#x2013; and optionally, block by block &#x2013; while
+evaluated manually, or &#x2013; and optionally, block by block &#x2013; while
 exporting a .org file to a different format.
 </p>
 
 <p>
-A source block can be evaulated in one of two sorts of contexts,
+A source block can be evaluated in one of two sorts of contexts,
 within a "session", or outside of a "session".  A "session" here means
 some process that retains state between evaulations of (possibly
 different, but using the same programming language) source blocks.  On
@@ -537,21 +537,21 @@ another block.
 Org Mode source blocks are named with a <code>#+name:</code> line:
 </p>
 <div class="org-src-container">
-<pre class="src src-org">#+name: somecode
-#+begin_src R :results output
-	cat("this is *some* code!\n")
-#+end_src
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: somecode</span>
+<span style="color: #ff7f24;">#+begin_src R :results output</span>
+<span style="color: #b3b3b3;">    cat(</span><span style="color: #ffa07a;">"this is *some* code!\n"</span><span style="color: #b3b3b3;">)</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: somecode
-: this is *some* code!
+<span style="color: #ff7f24;">#+RESULTS: somecode</span>
+<span style="color: #b3b3b3;">: this is *some* code!</span>
 
-#+name: someothercode
-#+begin_src R :results value
-	whynot &lt;- "this is some *other* code!"
-#+end_src
+<span style="color: #ff7f24;">#+name: someothercode</span>
+<span style="color: #ff7f24;">#+begin_src R :results value</span>
+<span style="color: #b3b3b3;">    whynot </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"this is some *other* code!"</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: someothercode
-: this is some *other* code!
+<span style="color: #ff7f24;">#+RESULTS: someothercode</span>
+<span style="color: #b3b3b3;">: this is some *other* code!</span>
 
 </pre>
 </div>
@@ -565,7 +565,7 @@ Org Mode source blocks are named with a <code>#+name:</code> line:
 <h4 id="org878e7ad"><a id="org92aa496"></a> Tangling</h4>
 <div class="outline-text-4" id="text-org878e7ad">
 <p>
-While often we are content to evaulate code blocks inside the .org
+While often we are content to evaluate code blocks inside the .org
 file, equally often we might want to export some or all of the code
 blocks for evaulation (or inspection) outside of the .org file.  For
 example, we might want to use some of the code in the .org file to
@@ -598,20 +598,20 @@ line (basically, an overflow of the <code>#+begin_src</code> line):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+begin_src R :tangle ./nosuchdirectory/foofile
-"this is some R code"
-#+end_src
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :tangle ./nosuchdirectory/foofile</span>
+<span style="color: #ffa07a;">"this is some R code"</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-: this is some R code
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: this is some R code</span>
 
-#+header: :tangle ./nosuchdirectory/anotherfile
-#+begin_src R
-"this is some more R code"
-#+end_src
+<span style="color: #ff7f24;">#+header: :tangle ./nosuchdirectory/anotherfile</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #ffa07a;">"this is some more R code"</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-: this is some more R code
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: this is some more R code</span>
 </pre>
 </div>
 
@@ -630,29 +630,29 @@ file that don't have a "more local" <code>:tangle</code> specification.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+property: header-args :tangle ./nosuchdirectory/bigfile
+<pre class="src src-org"><span style="color: #ff7f24;">#+property: header-args :tangle ./nosuchdirectory/bigfile</span>
 
-** this is somewhere in this file
-     :PROPERTIES:
-     :header-args+: :tangle very/important/code.R
-     :header-args+: :noweb-ref nowcode
-     :END:
+<span style="color: #eedd82;">** this is somewhere in this file</span>
+     <span style="color: #87cefa;">:PROPERTIES:</span>
+     <span style="color: #00ffff;">:header-args</span><span style="color: #00ffff; text-decoration: line-through;">+:</span><span style="text-decoration: line-through;"> </span><span style="text-decoration: line-through;">:tangle very/important/code.R</span>
+<span style="text-decoration: line-through;">     </span><span style="color: #00ffff; text-decoration: line-through;">:header-args+</span><span style="color: #00ffff;">:</span> :noweb-ref nowcode
+     <span style="color: #87cefa;">:END:</span>
 
 now, code blocks will carry that name
-#+begin_src R
-    x &lt;- "we want some code, and we want it now!"
-#+end_src
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">    x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"we want some code, and we want it now!"</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-: we want some code, and we want it now!
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: we want some code, and we want it now!</span>
 
-** somewhere else
-#+begin_src R :results output
+<span style="color: #eedd82;">** somewhere else</span>
+<span style="color: #ff7f24;">#+begin_src R :results output</span>
 
-    cat(x, "\n")
-#+end_src
+<span style="color: #b3b3b3;">    cat(x, </span><span style="color: #ffa07a;">"\n"</span><span style="color: #b3b3b3;">)</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
+<span style="color: #ff7f24;">#+RESULTS:</span>
 </pre>
 </div>
 
@@ -680,7 +680,7 @@ enable it in a <a href="#org2e55ceb">properties drawer</a>, or, as in the follow
 once at the beginning of an org file:
 </p>
 <div class="org-src-container">
-<pre class="src src-org">#+property: header-args  :noweb yes
+<pre class="src src-org"><span style="color: #ff7f24;">#+property: header-args  :noweb yes</span>
 </pre>
 </div>
 
@@ -690,22 +690,22 @@ contents of a previous source code block.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+property: header-args :noweb yes
+<pre class="src src-org"><span style="color: #ff7f24;">#+property: header-args :noweb yes</span>
 
-#+name: fubar
-#+begin_src R
-"this is an example"
-#+end_src
+<span style="color: #ff7f24;">#+name: fubar</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #ffa07a;">"this is an example"</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: fubar
-: this is an example
+<span style="color: #ff7f24;">#+RESULTS: fubar</span>
+<span style="color: #b3b3b3;">: this is an example</span>
 
-#+begin_src R
+<span style="color: #ff7f24;">#+begin_src R</span>
 
-#+end_src
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-: this is an example
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: this is an example</span>
 
 </pre>
 </div>
@@ -723,22 +723,22 @@ contents of a previous source code block.
 <li><a id="org90d516b"></a><code>[C-c C-c]</code> on an inline-call<br />
 <div class="outline-text-5" id="text-org90d516b">
 <div class="org-src-container">
-<pre class="src src-org">#+name: find-orgs
-#+begin_src R
-1
-#+end_src
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: find-orgs</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">1</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: find-orgs
-: 1
+<span style="color: #ff7f24;">#+RESULTS: find-orgs</span>
+<span style="color: #b3b3b3;">: 1</span>
 
-call_find-orgs() {{{results(=1=)}}}
+call_find-orgs() <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=1=</span><span style="color: #deb887;">)}}}</span>
 
-#+call: find-orgs()
+<span style="color: #ff7f24;">#+call: find-orgs()</span>
 
-#+RESULTS:
-: 1
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: 1</span>
 
-call_find-orgs() {{{results(=1=)}}}
+call_find-orgs() <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=1=</span><span style="color: #deb887;">)}}}</span>
 
 </pre>
 </div>
@@ -750,21 +750,21 @@ call_find-orgs() {{{results(=1=)}}}
 <h4 id="orgb8c24f7"><a id="org74f2034"></a> Results</h4>
 <div class="outline-text-4" id="text-orgb8c24f7">
 <div class="org-src-container">
-<pre class="src src-org">#+name: somecode
-#+begin_src R :results output
-	cat("this is *some* code!\n")
-#+end_src
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: somecode</span>
+<span style="color: #ff7f24;">#+begin_src R :results output</span>
+<span style="color: #b3b3b3;">    cat(</span><span style="color: #ffa07a;">"this is *some* code!\n"</span><span style="color: #b3b3b3;">)</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: somecode
-: this is *some* code!
+<span style="color: #ff7f24;">#+RESULTS: somecode</span>
+<span style="color: #b3b3b3;">: this is *some* code!</span>
 
-#+name: someothercode
-#+begin_src R :results value
-	whynot &lt;- "this is some *other* code!"
-#+end_src
+<span style="color: #ff7f24;">#+name: someothercode</span>
+<span style="color: #ff7f24;">#+begin_src R :results value</span>
+<span style="color: #b3b3b3;">    whynot </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"this is some *other* code!"</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: someothercode
-: this is some *other* code!
+<span style="color: #ff7f24;">#+RESULTS: someothercode</span>
+<span style="color: #b3b3b3;">: this is some *other* code!</span>
 
 </pre>
 </div>
@@ -798,25 +798,25 @@ placed in the Org Mode buffer.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+BEGIN_SRC R
-mtcars[1:3,]
-#+END_SRC
+<pre class="src src-org"><span style="color: #ff7f24;">#+BEGIN_SRC R</span>
+<span style="color: #b3b3b3;">mtcars[1:3,]</span>
+<span style="color: #ff7f24;">#+END_SRC</span>
 
-#+RESULTS:
-|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |
-|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |
-| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |</span>
+<span style="color: #87cefa;">| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |</span>
 
-#+begin_src R :colnames yes :rownames yes
-mtcars[1:3,]
-#+end_src
+<span style="color: #ff7f24;">#+begin_src R :colnames yes :rownames yes</span>
+<span style="color: #b3b3b3;">mtcars[1:3,]</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-|               |  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |
-|---------------+------+-----+------+-----+------+-------+-------+----+----+------+------|
-| Mazda RX4     |   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |
-| Mazda RX4 Wag |   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |
-| Datsun 710    | 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #87cefa;">|               |  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
+<span style="color: #87cefa;">|---------------+------+-----+------+-----+------+-------+-------+----+----+------+------|</span>
+<span style="color: #87cefa;">| Mazda RX4     |   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
+<span style="color: #87cefa;">| Mazda RX4 Wag |   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |</span>
+<span style="color: #87cefa;">| Datsun 710    | 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |</span>
 
 </pre>
 </div>
@@ -865,7 +865,7 @@ The Org Mode <a href="https://orgmode.org/quickstart.html">quickstart</a> is a n
 <p>
 <a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org">tutorial on R and Org Mode</a>
 </p>
-<pre class="example" id="orgb8bc896">
+<pre class="example" id="org4d21da0">
 From: Erik Iverson &lt;erikriverson@gmail.com&gt;
 Date: Tue, 23 Feb 2021 12:30:03 -0800
 Subject: Re: org-in-org
@@ -879,7 +879,7 @@ or
 <a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org">https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org</a>
 or, more recently:
 </p>
-<pre class="example" id="org2557312">
+<pre class="example" id="org0b51532">
 From: Jeremie Juste &lt;jeremiejuste@gmail.com&gt;
 To: Greg Minshall &lt;minshall@umich.edu&gt;
 Subject: Re: org-in-org
@@ -920,12 +920,12 @@ block</i>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+begin_src R
-  "hello, world"
-#+end_src
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">  </span><span style="color: #ffa07a;">"hello, world"</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS:
-: hello, world
+<span style="color: #ff7f24;">#+RESULTS:</span>
+<span style="color: #b3b3b3;">: hello, world</span>
 </pre>
 </div>
 
@@ -944,7 +944,7 @@ can fit on one line (though multiple lines are possible).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">src_R{"hello, world"} {{{results(=hello\, world=)}}}
+<pre class="src src-org">src_R{"hello, world"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, world=</span><span style="color: #deb887;">)}}}</span>
 </pre>
 </div>
 
@@ -960,30 +960,30 @@ than that, i will not discuss it further.
 <h4 id="org5ac5edf">the anatomy of a source block</h4>
 <div class="outline-text-4" id="text-org5ac5edf">
 <div class="org-src-container">
-<pre class="src src-org">#+name: refid
-#+begin_example
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: refid</span>
+<span style="color: #ff7f24;">#+begin_example</span>
 this is a test
-#+end_example
+<span style="color: #ff7f24;">#+end_example</span>
 
-#+name: anatomy
-#+begin_src R :var varname=refid :results output
-cat(varname)
-#+end_src
+<span style="color: #ff7f24;">#+name: anatomy</span>
+<span style="color: #ff7f24;">#+begin_src R :var varname=refid :results output</span>
+<span style="color: #b3b3b3;">cat(varname)</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: anatomy
-: this is a test
+<span style="color: #ff7f24;">#+RESULTS: anatomy</span>
+<span style="color: #b3b3b3;">: this is a test</span>
 
-#+header: :var anothername=anatomy
-#+header: :exports results
-#+header: :results value
-#+name: second
-#+begin_src R
-anothername
-#+end_src
+<span style="color: #ff7f24;">#+header: :var anothername=anatomy</span>
+<span style="color: #ff7f24;">#+header: :exports results</span>
+<span style="color: #ff7f24;">#+header: :results value</span>
+<span style="color: #ff7f24;">#+name: second</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">anothername</span>
+<span style="color: #ff7f24;">#+end_src</span>
 
-#+RESULTS: second
-| this is a test |
-|                |
+<span style="color: #ff7f24;">#+RESULTS: second</span>
+<span style="color: #87cefa;">| this is a test |</span>
+<span style="color: #87cefa;">|                |</span>
 </pre>
 </div>
 
@@ -1059,14 +1059,14 @@ each time before a code block is evaluated.</p></div></div>
 <div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">obviously, prior runs may have, e.g., changed the
 state of the file system on which all these evaulations are running;
 that is, the <b>external</b> state may by influenced by what has previously
-been evaulated.</p></div></div>
+been evaluated.</p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-03-31 Wed 06:04</p>
+<p class="date">Created: 2021-04-01 Thu 20:50</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
