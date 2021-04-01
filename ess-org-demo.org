@@ -1,5 +1,41 @@
 * A file showing off some Org Mode and ESS features
+** meta : setup                                                    :noexport:
+#+author: Greg Minshall
+#+title: using ESS with Emacs Org Mode
+#+subtitle: part of the ESS intro series
+#+property: header-args :noweb yes
+#+property: header-args:org :exports both
+#+options: num:0 toc:3
+# in this document, i sometimes need sub-, super-scripts, sometimes
+# just a caret
+#+options: ^:{}
+#+property: header-args :noweb yes :exports code :eval never-export :unnumbered non-nil
+# floating TOC:
+# https://stackoverflow.com/questions/12232675/how-to-make-table-of-contents-floating
+# trick of setupfile trick: https://stackoverflow.com/a/56407596/1527747
+#+SETUPFILE: ./artefacts/ess-org-startup.org
+# LaTeX settings
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [36pt]
+# LaTeX [[https://www.ctan.org/pkg/geometry]["geometry" package]], for setting page layout geometry. 
+# "showframe" option is nice for debugging.
+#+LATEX_HEADER: \usepackage[a4paper, width=.7\paperwidth, height=.8\paperheight]{geometry}
+
 #+property: header-args :exports both
+
+#+begin_export html
+** This file, the .org file
+
+You are looking at this on the web, and I hope you find this useful.
+
+You might profit from downloading the .org file this was generated
+(with suitable incantations) from, and then explore it using Emacs and
+Org Mode.
+
+You should be able to find that file at ...  (*This* file will not
+work as a .org file.)
+
+#+end_export
 ** Source blocks
 
 Source blocks are lines of text, surrounded by a =#+begin_src= line
