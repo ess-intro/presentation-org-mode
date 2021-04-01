@@ -21,10 +21,17 @@ DOTANGLE = ./dotangle.el
 
 CSS = ${ARTEFACTSDIR}/floattoc.css
 ELORGEL = ${ARTEFACTSDIR}/el-org.el
-TANGLEDFILES = ${ELORGEL} ${CSS}
 
-PUBLISHEDFILES = ${ARTEFACTSDIR}/ess-org.html \
+DEMOORG = ess-org-demo.org
+DEMORESULTSORG = ess-org-demo-results.org
+
+TANGLEDFILES = ${ELORGEL} ${CSS}
+DERIVEDFILES = ${DEMORESULTSORG}
+PUBLISHEDFILES = \
+				${ARTEFACTSDIR}/ess-org.html \
 				${ARTEFACTSDIR}/ess-org.pdf \
+				${ARTEFACTSDIR}/ess-org-demo-results.html \
+				${ARTEFACTSDIR}/ess-org-demo-results.pdf \
 				${ARTEFACTSDIR}/ess-org-beamer.html \
 				${ARTEFACTSDIR}/ess-org-beamer.pdf
 
@@ -37,12 +44,12 @@ ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS}
 EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (org . t) (python . t) (R . t)))
 # trust evaulations in *this* context -- a file we create CAUTION!!!
 EMACSTRUSTEVAL = (setq org-confirm-babel-evaluate nil)
-# we need ess in the load path
-EMACSGETESSPATH = (setq load-path (cons "~/.emacs.d/straight/build/ess" load-path))
+# we need ess, htmlize in the load path
+EMACSLOADPATH = (setq load-path (append (list "~/.emacs.d/straight/build/ess" "~/.emacs.d/straight/build/htmlize") load-path))
 # and, load ess-autoloads
-EMACSGETESSAUTOLOADS =  (require 'ess-autoloads)
+EMACSGETESSAUTOLOADS =  "(require 'ess-autoloads)"
 # load our elisp code, set up for evaluation
-EMACSSETUP = (progn (package-initialize) (load-file \"${ELORGEL}\") ${EMACSLL} ${EMACSTRUSTEVAL})
+EMACSSETUP = (progn (load-file \"${ELORGEL}\") ${EMACSLL} ${EMACSTRUSTEVAL})
 # now, evaluate all org source blocks in the file
 EMACSORGBLOCKS = (evaluate-org-blocks)
 # now, evaluate all *non* org source blocks in the file
@@ -80,20 +87,22 @@ ${ARTEFACTSDIR}/ess-org-beamer.pdf: publish
 
 publish: ${TOUCHEDDIR}/publish
 
+# when i try to do this with --batch, i don't get happiness
 ${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} ess-org-demo-results.org essorgstartuporg
 	emacs --file ${MAINORG} \
 		--eval "${EMACSSETUP}" \
 		--eval "${EMACSORGBLOCKS}" \
+		--eval '${EMACSLOADPATH}' \
 		--eval "(org-publish-project \"ess-org\")" \
-		--batch
+	    --eval "(progn (kill-buffer) (kill-emacs))"
 	touch $@
 
-ess-org-demo-results.org: ess-org-demo.org tangle
+${DEMORESULTSORG}: ${DEMOORG} tangle
 	cp -p $< $@
 	emacs --file $@ \
 		--eval "${EMACSSETUP}" \
-		--eval '${EMACSGETESSPATH}' \
-		--eval "${EMACSGETESSAUTOLOADS}" \
+		--eval '${EMACSLOADPATH}' \
+		--eval ${EMACSGETESSAUTOLOADS} \
 		--eval "${EMACSNONORGBLOCKS}" \
 		--eval "${EMACSORGIFY}" \
 		--batch
@@ -121,3 +130,5 @@ gitcleanp:
 	@git status --short | awk '$$1 !~ /[?][?]/ { x++ } END {exit x}' || \
 			(echo "ERROR: git working tree not clean" > /dev/stderr; exit 1)
 
+clean: 
+	rm -f ${TANGLEDFILES} ${PUBLISHEDFILES} ${DERIVEDFILES}
