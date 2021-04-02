@@ -1,7 +1,7 @@
 artefacts/el-org.el
-artefacts/ess-org-demo-results.html*
-artefacts/ess-org-demo-results.org?
-artefacts/ess-org-demo-results.pdf*
+artefacts/ess-org-demo-results.html?*
+artefacts/ess-org-demo-results.org*
+artefacts/ess-org-demo-results.pdf?*
 artefacts/ess-org-demo-results.tex*
 artefacts/ess-org-startup.org
 artefacts/floattoc.css
