@@ -2,7 +2,7 @@
 ** meta : setup                                                    :noexport:
 #+author: Greg Minshall
 #+title: using ESS with Emacs Org Mode
-#+subtitle: part of the ESS intro series
+#+subtitle: [[https://ess-intro.github.io/][part of the ESS intro series]]
 #+property: header-args :noweb yes
 #+property: header-args:org :exports both
 #+options: num:0 toc:3
@@ -209,7 +209,9 @@ careful.
 ** /Editing/ a source block
 
 The source block is just a number of text lines in text file.  So, it
-is very normal to do minor edits in line, in the .org file.
+is very normal to do minor edits in line, in the .org file.  A certain
+amount of /code highlighting/ (/fontification/, I guess, in Emacs
+parlance) is provided when editing source blocks inline.
 
 On the other hand, by positioning the cursor on the source block and
 executing =[M-x org-edit-src-code]= (=[C-c ']=), one can "pop out" the
@@ -228,6 +230,21 @@ its result?  Is there a peak?  A valley?
   (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)>=0)<0)+1]
   cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)>0)>0)+1]
 #+end_src
+
+When editing, the "OrgSrc" minor mode is enabled.  This mode provides
+binding for
+- =[C-x C-s]= :: to save the source edit back to the main .org buffer
+- =[C-c C'k]= :: to abort the current editing, discarding any unsaved
+  changes
+- =[C-c ']= :: to save any unsaved changes back to the .org buffer and
+  close the source edit buffer
+
+NB: If you are editing a block that has =:noweb= references, the
+references will *not* be expanded when passing the block (in part or
+in whole) to a running iESS instance (via, e.g., =[C-c C-c]= or =[C-c
+C-b]=).  And, in fact, the R interpreter will likely flag a syntax
+error should you try to do so.
+
 
 ** (Some) source block header arguments
 
@@ -527,13 +544,13 @@ buffer in which evaluations of the current source block (or, all
 source blocks in the file, or all in a subtree) will occur.
 
 During a given emacs instance, the first time you type =[C-c C-c]= in
-a source block with a given name, Emacs will prompt you for the name
-of the starting directory (with a default being the directory of the
-current file).  It will then start up such a process, attach it to a
-buffer (i'm not totally sure of the Emacs terminology here) with the
-name provided as the argument to the =:session= header argument (or,
-use a language-specific default), and evaluate your code.  This works
-for interpreted languages but not, to my knowledge, for compiled
+a source block with a given =:session= name, Emacs will prompt you for
+the name of the starting directory (with a default being the directory
+of the current file).  It will then start up such a process, attach it
+to a buffer (i'm not totally sure of the Emacs terminology here) with
+the name provided as the argument to the =:session= header argument
+(or, use a language-specific default), and evaluate your code.  This
+works for interpreted languages but not, to my knowledge, for compiled
 languages.
 
 After evaluations, you can use =[C-x b]= to switch to that buffer and
