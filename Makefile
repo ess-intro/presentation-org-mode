@@ -38,7 +38,7 @@ PUBLISHEDFILES = \
 
 # these are the files we want on github (other than our normal
 # "source" files)
-ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS}
+ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS} ${DEMORESULTSORG}
 
 EXARTEFACTSSED = "s|^\#+SETUPFILE: ./artefacts/|\#+SETUPFILE: ./|"
 
