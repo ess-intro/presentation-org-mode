@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-02 Fri 08:21 -->
+<!-- 2021-04-02 Fri 20:34 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>using ESS with Emacs Org Mode</title>
@@ -244,28 +244,28 @@ display: block; /* Show it on hover */
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org69a0e5e">A file showing off some Org Mode and ESS features</a>
+<li><a href="#orgee7dad2">A file showing off some Org Mode and ESS features</a>
 <ul>
-<li><a href="#org7c3a2f3">Source blocks</a>
+<li><a href="#org71a50c7">Source blocks</a>
 <ul>
-<li><a href="#orgc945fe4">Inline source blocks</a></li>
+<li><a href="#orgc4faa08">Inline source blocks</a></li>
 </ul>
 </li>
-<li><a href="#orgb6117a8"><i>Evaluating</i> source blocks</a>
+<li><a href="#org3b8e1b3"><i>Evaluating</i> source blocks</a>
 <ul>
-<li><a href="#org1529422">Evaluation via a <code>call</code> statement</a></li>
+<li><a href="#org9869b9e">Evaluation via a <code>call</code> statement</a></li>
 </ul>
 </li>
-<li><a href="#orgf6f1243"><i>Exporting</i> source blocks</a></li>
-<li><a href="#org8c08b30"><i>Tangling</i> code</a></li>
-<li><a href="#org01879d8"><i>Editing</i> a source block</a></li>
-<li><a href="#orgb70d34d">(Some) source block header arguments</a>
+<li><a href="#org80743bb"><i>Exporting</i> source blocks</a></li>
+<li><a href="#orgc6151d8"><i>Tangling</i> code</a></li>
+<li><a href="#org586ec99"><i>Editing</i> a source block</a></li>
+<li><a href="#orgba2df32">(Some) source block header arguments</a>
 <ul>
-<li><a href="#org089e67b">:noweb</a></li>
-<li><a href="#orgbd75ef0">:var</a></li>
-<li><a href="#org9b8c072">:results</a></li>
-<li><a href="#orgf04f0ea">:session</a></li>
-<li><a href="#org2c509d4">:cache</a></li>
+<li><a href="#orgb88d206">:noweb</a></li>
+<li><a href="#org9a06c93">:var</a></li>
+<li><a href="#orge90703b">:results</a></li>
+<li><a href="#orga5e7502">:session</a></li>
+<li><a href="#org5c3c398">:cache</a></li>
 </ul>
 </li>
 </ul>
@@ -273,13 +273,13 @@ display: block; /* Show it on hover */
 </ul>
 </div>
 </div>
-<div id="outline-container-org69a0e5e" class="outline-2">
-<h2 id="org69a0e5e">A file showing off some Org Mode and ESS features</h2>
-<div class="outline-text-2" id="text-org69a0e5e">
+<div id="outline-container-orgee7dad2" class="outline-2">
+<h2 id="orgee7dad2">A file showing off some Org Mode and ESS features</h2>
+<div class="outline-text-2" id="text-orgee7dad2">
 </div>
-<div id="outline-container-org7c3a2f3" class="outline-3">
-<h3 id="org7c3a2f3">Source blocks</h3>
-<div class="outline-text-3" id="text-org7c3a2f3">
+<div id="outline-container-org71a50c7" class="outline-3">
+<h3 id="org71a50c7">Source blocks</h3>
+<div class="outline-text-3" id="text-org71a50c7">
 <p>
 Source blocks are lines of text, surrounded by a <code>#+begin_src</code> line
 before the beginning and a <code>#+end_src</code> line after the end of the code.
@@ -324,9 +324,9 @@ now, code blocks will carry that name
 </div>
 </div>
 
-<div id="outline-container-orgc945fe4" class="outline-4">
-<h4 id="orgc945fe4">Inline source blocks</h4>
-<div class="outline-text-4" id="text-orgc945fe4">
+<div id="outline-container-orgc4faa08" class="outline-4">
+<h4 id="orgc4faa08">Inline source blocks</h4>
+<div class="outline-text-4" id="text-orgc4faa08">
 <div class="org-src-container">
 <pre class="src src-org">There are also "inline" source blocks: src_R{"hello, world"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, world=</span><span style="color: #deb887;">)}}}</span>.
 </pre>
@@ -343,9 +343,9 @@ output]{cat("hello, again")} <span style="color: #deb887;">{{{results(</span><sp
 </div>
 
 
-<div id="outline-container-orgb6117a8" class="outline-3">
-<h3 id="orgb6117a8"><i>Evaluating</i> source blocks</h3>
-<div class="outline-text-3" id="text-orgb6117a8">
+<div id="outline-container-org3b8e1b3" class="outline-3">
+<h3 id="org3b8e1b3"><i>Evaluating</i> source blocks</h3>
+<div class="outline-text-3" id="text-org3b8e1b3">
 <p>
 In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
@@ -400,9 +400,9 @@ strokes, [C-c C-c]:
 </div>
 
 
-<div id="outline-container-org1529422" class="outline-4">
-<h4 id="org1529422">Evaluation via a <code>call</code> statement</h4>
-<div class="outline-text-4" id="text-org1529422">
+<div id="outline-container-org9869b9e" class="outline-4">
+<h4 id="org9869b9e">Evaluation via a <code>call</code> statement</h4>
+<div class="outline-text-4" id="text-org9869b9e">
 <p>
 Source blocks can also be evaluated by <code>call</code> statements in the .org
 file.  Call statements have two forms, somewhat similar to the two
@@ -440,9 +440,9 @@ arguments similar to that of inline source blocks.
 </div>
 </div>
 
-<div id="outline-container-orgf6f1243" class="outline-3">
-<h3 id="orgf6f1243"><i>Exporting</i> source blocks</h3>
-<div class="outline-text-3" id="text-orgf6f1243">
+<div id="outline-container-org80743bb" class="outline-3">
+<h3 id="org80743bb"><i>Exporting</i> source blocks</h3>
+<div class="outline-text-3" id="text-org80743bb">
 <p>
 Source blocks are, optionally, exported &#x2013; to a .html or .pdf file,
 say &#x2013; along with some of the rest of a .org file.
@@ -510,9 +510,9 @@ say one of: <code>:exports none</code>, <code>:exports code</code>, or <code>:ex
 </div>
 </div>
 
-<div id="outline-container-org8c08b30" class="outline-3">
-<h3 id="org8c08b30"><i>Tangling</i> code</h3>
-<div class="outline-text-3" id="text-org8c08b30">
+<div id="outline-container-orgc6151d8" class="outline-3">
+<h3 id="orgc6151d8"><i>Tangling</i> code</h3>
+<div class="outline-text-3" id="text-orgc6151d8">
 <p>
 Tangling is a term the literate programming world uses to mean
 extracting the source code from a "literate" document in a way that
@@ -558,12 +558,14 @@ careful.
 </div>
 </div>
 
-<div id="outline-container-org01879d8" class="outline-3">
-<h3 id="org01879d8"><i>Editing</i> a source block</h3>
-<div class="outline-text-3" id="text-org01879d8">
+<div id="outline-container-org586ec99" class="outline-3">
+<h3 id="org586ec99"><i>Editing</i> a source block</h3>
+<div class="outline-text-3" id="text-org586ec99">
 <p>
 The source block is just a number of text lines in text file.  So, it
-is very normal to do minor edits in line, in the .org file.
+is very normal to do minor edits in line, in the .org file.  A certain
+amount of <i>code highlighting</i> (<i>fontification</i>, I guess, in Emacs
+parlance) is provided when editing source blocks inline.
 </p>
 
 <p>
@@ -601,17 +603,38 @@ its result?  Is there a peak?  A valley?
 <span style="color: #87cefa;">| 16 |</span>
 </pre>
 </div>
+
+
+<p>
+<a id="orgf5b6fc9"></a> When editing, the "OrgSrc" minor mode is enabled.
+This mode provides binding for
+</p>
+<dl class="org-dl">
+<dt><code>[C-x C-s]</code></dt><dd>to save the source edit back to the main .org buffer</dd>
+<dt><code>[C-c C'k]</code></dt><dd>to abort the current editing, discarding any unsaved
+changes</dd>
+<dt><code>[C-c ']</code></dt><dd>to save any unsaved changes back to the .org buffer and
+close the source edit buffer</dd>
+</dl>
+
+<p>
+NB: If you are editing a block that has <code>:noweb</code> references, the
+references will <b>not</b> be expanded when passing the block (in part or
+in whole) to a running iESS instance (via, e.g., <code>[C-c C-c]</code> or <code>[C-c
+C-b]</code>).  And, in fact, the R interpreter will likely flag a syntax
+error should you try to do so.
+</p>
 </div>
 </div>
 
 
-<div id="outline-container-orgb70d34d" class="outline-3">
-<h3 id="orgb70d34d">(Some) source block header arguments</h3>
-<div class="outline-text-3" id="text-orgb70d34d">
+<div id="outline-container-orgba2df32" class="outline-3">
+<h3 id="orgba2df32">(Some) source block header arguments</h3>
+<div class="outline-text-3" id="text-orgba2df32">
 </div>
-<div id="outline-container-org089e67b" class="outline-4">
-<h4 id="org089e67b">:noweb</h4>
-<div class="outline-text-4" id="text-org089e67b">
+<div id="outline-container-orgb88d206" class="outline-4">
+<h4 id="orgb88d206">:noweb</h4>
+<div class="outline-text-4" id="text-orgb88d206">
 <p>
 Many (most?) programming languages have a way of "including" the
 "textual" contents of one source file in the compilation or execution
@@ -689,9 +712,9 @@ special-cased.)
 </div>
 </div>
 
-<div id="outline-container-orgbd75ef0" class="outline-4">
-<h4 id="orgbd75ef0">:var</h4>
-<div class="outline-text-4" id="text-orgbd75ef0">
+<div id="outline-container-org9a06c93" class="outline-4">
+<h4 id="org9a06c93">:var</h4>
+<div class="outline-text-4" id="text-org9a06c93">
 <p>
 In Org Mode, the evaluation of source blocks can include initializing
 variables, using the <code>:var</code> header argument.
@@ -772,7 +795,7 @@ The name on the right hand side, instead of naming another source
 block in the file, can also name, e.g., an Org Mode table.
 </p>
 
-<table id="orgfcf0507" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<table id="orga7f3724" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
 <colgroup>
@@ -884,9 +907,9 @@ be preserved in the resulting Org Mode table
 </div>
 
 
-<div id="outline-container-org9b8c072" class="outline-4">
-<h4 id="org9b8c072">:results</h4>
-<div class="outline-text-4" id="text-org9b8c072">
+<div id="outline-container-orge90703b" class="outline-4">
+<h4 id="orge90703b">:results</h4>
+<div class="outline-text-4" id="text-orge90703b">
 <p>
 The <code>:results</code> header argument specifies many things.  First, it
 specifies whether the results of an evaluation consist in the value
@@ -933,8 +956,8 @@ blocks.  The values here are <code>value</code> and <code>output</code>.
 
 
 <ul class="org-ul">
-<li><a id="org52331d9"></a>Type of result<br />
-<div class="outline-text-5" id="text-org52331d9">
+<li><a id="orgcf13b34"></a>Type of result<br />
+<div class="outline-text-5" id="text-orgcf13b34">
 <p>
 Here, the question is what sort of Org structure should the returned
 value be considered to consist.  The results can be interpreted to be
@@ -1033,8 +1056,8 @@ And, <code>list</code> converts the source block result into an Org Mode list.
 </li>
 
 
-<li><a id="org710e9f9"></a>How the results are formatted<br />
-<div class="outline-text-5" id="text-org710e9f9">
+<li><a id="org53f019b"></a>How the results are formatted<br />
+<div class="outline-text-5" id="text-org53f019b">
 <p>
 There are various ways Org Mode might decide to format the results,
 of, more or less, whatever type, before embedding them in the .org
@@ -1101,8 +1124,8 @@ results are summarily wrapped in a <code>#+begin_X...#+end_X</code> block.
 
 
 
-<li><a id="orgd1296cd"></a>Handling of results<br />
-<div class="outline-text-5" id="text-orgd1296cd">
+<li><a id="org86f0390"></a>Handling of results<br />
+<div class="outline-text-5" id="text-org86f0390">
 <p>
 Typically, the results of evaluating a source block are placed in the
 buffer following the source block, preceded by a line
@@ -1121,7 +1144,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block (if any).
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 2021-04-02 08:21:23</span>
+<span style="color: #b3b3b3;">: 2021-04-02 20:34:21</span>
 </pre>
 </div>
 
@@ -1133,7 +1156,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block (if any).
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS: time</span>
-<span style="color: #b3b3b3;">: 2021-04-02 08:21:23</span>
+<span style="color: #b3b3b3;">: 2021-04-02 20:34:21</span>
 </pre>
 </div>
 
@@ -1162,9 +1185,9 @@ Which, see.
 </ul>
 </div>
 
-<div id="outline-container-orgf04f0ea" class="outline-4">
-<h4 id="orgf04f0ea">:session</h4>
-<div class="outline-text-4" id="text-orgf04f0ea">
+<div id="outline-container-orga5e7502" class="outline-4">
+<h4 id="orga5e7502">:session</h4>
+<div class="outline-text-4" id="text-orga5e7502">
 <p>
 Normally, when Org Mode evaluates a source block, in instantiates a
 new <b>process</b> of the appropriate type (the <code>R</code> command, for example),
@@ -1175,25 +1198,48 @@ provides that process with the source from the source block (expanding
 <p>
 This ensures that each run starts from a "clean state".  On the other
 hand, it means that artefacts left behind by previous runs are not
-available to a future run.  And, it can complicate debugging.
+available to a future run in cases where that might be desirable.
+And, it can complicate debugging.
 </p>
 
 <p>
 Thus, Org Mode provdies a <code>:session</code> header argument which names a
-buffer in which evaluations of the current source block (or, all
-source blocks in the file, or all in a subtree) will occur.
+buffer (that Org Mode will create, if it doesn't already exist) in
+which evaluations of the current source block (or, all source blocks
+in the file, or all in a subtree) will occur.
 </p>
 
 <p>
 During a given emacs instance, the first time you type <code>[C-c C-c]</code> in
-a source block with a given name, Emacs will prompt you for the name
-of the starting directory (with a default being the directory of the
-current file).  It will then start up such a process, attach it to a
-buffer (i'm not totally sure of the Emacs terminology here) with the
-name provided as the argument to the <code>:session</code> header argument (or,
-use a language-specific default), and evaluate your code.  This works
-for interpreted languages but not, to my knowledge, for compiled
+a source block with a given <code>:session</code> name, Emacs will prompt you for
+the name of the starting directory (with a default being the directory
+of the current file).  It will then start up such a process, attach it
+to a buffer (i'm not totally sure of the Emacs terminology here) with
+the name provided as the argument to the <code>:session</code> header argument
+(or, use a language-specific default), and evaluate your code.  This
+works for interpreted languages but not, to my knowledge, for compiled
 languages.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :session R-session-name :exports code :eval never-export :results none</span>
+<span style="color: #b3b3b3;">x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> 1</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :session R-session-name :eval never-export :exports code</span>
+<span style="color: #b3b3b3;">x</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
+</div>
+
+
+<p>
+If you evaluate the above two blocks in order, the second will return
+as a result the value of <code>x</code> set by the first.
 </p>
 
 <p>
@@ -1203,7 +1249,8 @@ or debug statement (<code>browser()</code>, say) in your code.
 </p>
 
 <p>
-For R, the session buffer uses <code>ESS[R]</code> mode.
+For R, the session buffer uses <code>ESS[R]</code> mode.  (As well as in the
+[[orgsrcminormode]OrgSrc minor mode.)
 </p>
 
 <p>
@@ -1241,9 +1288,9 @@ using it.
 </div>
 </div>
 
-<div id="outline-container-org2c509d4" class="outline-4">
-<h4 id="org2c509d4">:cache</h4>
-<div class="outline-text-4" id="text-org2c509d4">
+<div id="outline-container-org5c3c398" class="outline-4">
+<h4 id="org5c3c398">:cache</h4>
+<div class="outline-text-4" id="text-org5c3c398">
 <div class="org-src-container">
 <pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
 <span style="color: #b3b3b3;">1</span>
@@ -1257,7 +1304,7 @@ using it.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-02 Fri 08:21</p>
+<p class="date">Created: 2021-04-02 Fri 20:34</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
