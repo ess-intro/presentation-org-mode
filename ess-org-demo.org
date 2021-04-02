@@ -231,8 +231,8 @@ its result?  Is there a peak?  A valley?
   cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)>0)>0)+1]
 #+end_src
 
-When editing, the "OrgSrc" minor mode is enabled.  This mode provides
-binding for
+<<orgsrcminormode>> When editing, the "OrgSrc" minor mode is enabled.
+This mode provides binding for
 - =[C-x C-s]= :: to save the source edit back to the main .org buffer
 - =[C-c C'k]= :: to abort the current editing, discarding any unsaved
   changes
@@ -537,11 +537,13 @@ provides that process with the source from the source block (expanding
 
 This ensures that each run starts from a "clean state".  On the other
 hand, it means that artefacts left behind by previous runs are not
-available to a future run.  And, it can complicate debugging.
+available to a future run in cases where that might be desirable.
+And, it can complicate debugging.
 
 Thus, Org Mode provdies a =:session= header argument which names a
-buffer in which evaluations of the current source block (or, all
-source blocks in the file, or all in a subtree) will occur.
+buffer (that Org Mode will create, if it doesn't already exist) in
+which evaluations of the current source block (or, all source blocks
+in the file, or all in a subtree) will occur.
 
 During a given emacs instance, the first time you type =[C-c C-c]= in
 a source block with a given =:session= name, Emacs will prompt you for
@@ -553,11 +555,23 @@ the name provided as the argument to the =:session= header argument
 works for interpreted languages but not, to my knowledge, for compiled
 languages.
 
+#+begin_src R :session R-session-name :exports code :eval never-export :results none
+x <- 1
+#+end_src
+
+#+begin_src R :session R-session-name :eval never-export :exports code
+x
+#+end_src
+
+If you evaluate the above two blocks in order, the second will return
+as a result the value of =x= set by the first.
+
 After evaluations, you can use =[C-x b]= to switch to that buffer and
 inspect the state, maybe set debug breakpoints, or debug after error
 or debug statement (=browser()=, say) in your code.
 
-For R, the session buffer uses ~ESS[R]~ mode.
+For R, the session buffer uses ~ESS[R]~ mode.  (As well as in the
+[[orgsrcminormode]OrgSrc minor mode.)
 
 As I said above, the fact that future evaluations of the given source
 block, or of any other source block with the same =:session= argument,
