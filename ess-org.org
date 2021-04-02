@@ -915,14 +915,14 @@ either "results" or "both".
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
-           :include ("ess-org-demo-results.org")
+           :include ("./artefacts/ess-org-demo-results.org")
            :publishing-function org-html-publish-to-html)
           ("ess-org-demo-results-pdf"
            :with-toc nil
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
-           :include ("ess-org-demo-results.org")
+           :include ("./artefacts/ess-org-demo-results.org")
            :publishing-function org-latex-publish-to-pdf)
           ("ess-org-beamer-html"
            :with-toc nil
@@ -944,6 +944,10 @@ either "results" or "both".
                                   "ess-org-demo-results-pdf"
                                   "ess-org-beamer-html"
                                   "ess-org-beamer-pdf"))))
+#+end_src
+
+#+begin_src elisp
+(provide 'el-org)
 #+end_src
 
 ** css                                                              :noexport:

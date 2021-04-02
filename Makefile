@@ -23,7 +23,7 @@ CSS = ${ARTEFACTSDIR}/floattoc.css
 ELORGEL = ${ARTEFACTSDIR}/el-org.el
 
 DEMOORG = ess-org-demo.org
-DEMORESULTSORG = ess-org-demo-results.org
+DEMORESULTSORG = artefacts/ess-org-demo-results.org
 
 TANGLEDFILES = ${ELORGEL} ${CSS}
 DERIVEDFILES = ${DEMORESULTSORG}
@@ -40,16 +40,18 @@ PUBLISHEDFILES = \
 # "source" files)
 ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS}
 
+EXARTEFACTSSED = "s|^\#+SETUPFILE: ./artefacts/|\#+SETUPFILE: ./|"
+
 # set up to allow evaluating R source blocks
 EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (org . t) (python . t) (R . t)))
 # trust evaulations in *this* context -- a file we create CAUTION!!!
 EMACSTRUSTEVAL = (setq org-confirm-babel-evaluate nil)
 # we need ess, htmlize in the load path
-EMACSLOADPATH = (setq load-path (append (list "~/.emacs.d/straight/build/ess" "~/.emacs.d/straight/build/htmlize") load-path))
+EMACSLOADPATH = (setq load-path (append (list "." "./artefacts" "~/.emacs.d/straight/build/ess" "~/.emacs.d/straight/build/htmlize") load-path))
 # and, load ess-autoloads
 EMACSGETESSAUTOLOADS =  "(require 'ess-autoloads)"
 # load our elisp code, set up for evaluation
-EMACSSETUP = (progn (load-file \"${ELORGEL}\") ${EMACSLL} ${EMACSTRUSTEVAL})
+EMACSSETUP = "(progn ${EMACSLL} (require 'el-org) ${EMACSTRUSTEVAL})"
 # now, evaluate all org source blocks in the file
 EMACSORGBLOCKS = (evaluate-org-blocks)
 # now, evaluate all *non* org source blocks in the file
@@ -91,21 +93,21 @@ publish: ${TOUCHEDDIR}/publish
 # turn off org mode publish's time stamps, since apparently, if the
 # time stamp is good, the file isn't re-created, even if it doesn't
 # exist.
-${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} ess-org-demo-results.org essorgstartuporg
+${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} ${DEMORESULTSORG} essorgstartuporg
 	emacs --file ${MAINORG} \
-		--eval "${EMACSSETUP}" \
-		--eval "${EMACSORGBLOCKS}" \
 		--eval '${EMACSLOADPATH}' \
+		--eval ${EMACSSETUP} \
+		--eval "${EMACSORGBLOCKS}" \
 		--eval '(setq org-publish-use-timestamps-flag nil)' \
 		--eval "(org-publish-project \"ess-org\")" \
 	    --eval "(progn (kill-buffer) (kill-emacs))"
 	touch $@
 
 ${DEMORESULTSORG}: ${DEMOORG} tangle
-	cp -p $< $@
+	cat $< | sed ${EXARTEFACTSSED} > $@
 	emacs --file $@ \
-		--eval "${EMACSSETUP}" \
 		--eval '${EMACSLOADPATH}' \
+		--eval ${EMACSSETUP} \
 		--eval ${EMACSGETESSAUTOLOADS} \
 		--eval "${EMACSNONORGBLOCKS}" \
 		--eval "${EMACSORGIFY}" \
