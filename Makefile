@@ -55,7 +55,7 @@ EMACSSETUP = "(progn ${EMACSLL} (require 'el-org) ${EMACSTRUSTEVAL})"
 # now, evaluate all org source blocks in the file
 EMACSORGBLOCKS = (evaluate-org-blocks)
 # now, evaluate all *non* org source blocks in the file
-EMACSNONORGBLOCKS = (progn (evaluate-non-org-blocks) (save-buffer))
+EMACSNONORGBLOCKS = (let ((ess-ask-for-ess-directory nil)) (evaluate-non-org-blocks) (save-buffer))
 # 
 EMACSORGIFY = (progn (orgify-all-non-org-blocks) (save-buffer))
 
