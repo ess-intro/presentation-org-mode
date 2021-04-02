@@ -832,10 +832,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
     ;; take every non-org block, as well as call site, and insert it
     ;; between #+begin_src org...#+end_src
     (let ((pt (point))                    ; XXX s/b marker?
-          (filtered (org-filter-by-argument-value
-                     ':exports
-                     (list "results" "both")
-                     (org-get-org-blocks t))))
+          (filtered (org-get-org-blocks t)))
       (unwind-protect
           (save-window-excursion
             (orgify-blocks filtered))
@@ -910,19 +907,19 @@ either "results" or "both".
            :exclude ".*"
            :include ("ess-org.org")
            :publishing-function org-latex-publish-to-pdf)
-        ("ess-org-demo-results-html"
+          ("ess-org-demo-results-html"
            :with-toc nil
-           :base-directory "./"
+           :base-directory "./artefacts"
            :publishing-directory "./artefacts"
            :exclude ".*"
-           :include ("./artefacts/ess-org-demo-results.org")
+           :include ("ess-org-demo-results.org")
            :publishing-function org-html-publish-to-html)
           ("ess-org-demo-results-pdf"
            :with-toc nil
-           :base-directory "./"
+           :base-directory "./artefacts"
            :publishing-directory "./artefacts"
            :exclude ".*"
-           :include ("./artefacts/ess-org-demo-results.org")
+           :include ("ess-org-demo-results.org")
            :publishing-function org-latex-publish-to-pdf)
           ("ess-org-beamer-html"
            :with-toc nil
