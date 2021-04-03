@@ -919,9 +919,9 @@ The beamer slides for this tutorial are [[https://ess-intro.github.io/presentati
 of this file is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][pdf]]), and plain text version, suitable for
 experimentation in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]] (no PDF file for this one!).
 
-Rainer König's [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][screencasts]] about Org Mode (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]]) are
-useful for coming up to speed with Org Mode, but are more focused on
-the non-programming aspects of Org Mode.
+Rainer König's [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][screencasts]] about Org Mode (also available as a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course
+on Udemy]]) are useful for coming up to speed with Org Mode, but are
+more focused on the non-programming aspects of Org Mode.
 
 There are some nice tutorials.  A somewhat older one is from Erik
 Iverson, [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][org-mode-R-tutorial.org]].  And, there is a more recent one
