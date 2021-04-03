@@ -21,22 +21,7 @@
 # "showframe" option is nice for debugging.
 #+LATEX_HEADER: \usepackage[a4paper, width=.7\paperwidth, height=.8\paperheight]{geometry}
 
-** Org Mode community
-
-The Org Mode community has various [[https://orgmode.org/community.html][forms]] of engaging with one another.
-
-** Other tutorials, etc.
-
-The Org Mode [[https://orgmode.org/guide/][Compact Guide]] has [[https://orgmode.org/guide/Working-with-Source-Code.html][a section]] on source blocks.  A separate
-[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html]["worg" page]] gives information on using R with Org Mode.  The list of
-languages officially supported by Org Mode is documented [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][here]].  In
-addition to that list, a number of Emacs [[https://www.emacswiki.org/emacs/InstallingPackages][packages]] add support for
-additional programming languages; you can enter =[M-x list-packages]=
-and (regexp) search for =^ ob-=, to list a number of these.
-
-The Org Mode [[https://orgmode.org/quickstart.html][quickstart]] is a nice way to start with Org Mode.
-
-[[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][Rainer's screencasts about Org Mode]] (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]])
+** Other tutorials, etc. :noexport:
 
 [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][tutorial on R and Org Mode]]
 #+begin_example
@@ -347,24 +332,12 @@ either "results" or "both".
 			results))
 #+end_src
 
+*** org-publish-project-alist
+
 #+name: publishing
 #+begin_src elisp :results none
   (setq org-publish-project-alist
-        '(("ess-org-html"
-           :with-toc nil
-           :base-directory "./"
-           :publishing-directory "./artefacts"
-           :exclude ".*"
-           :include ("ess-org.org")
-           :publishing-function org-html-publish-to-html)
-          ("ess-org-pdf"
-           :with-toc nil
-           :base-directory "./"
-           :publishing-directory "./artefacts"
-           :exclude ".*"
-           :include ("ess-org.org")
-           :publishing-function org-latex-publish-to-pdf)
-          ("ess-org-demo-results-html"
+        '(("ess-org-demo-results-html"
            :with-toc nil
            :base-directory "./artefacts"
            :publishing-directory "./artefacts"
@@ -392,9 +365,7 @@ either "results" or "both".
            :exclude ".*"
            :include ("ess-org-beamer.org")
            :publishing-function org-beamer-publish-to-pdf)
-          ("ess-org" :components ("ess-org-html"
-                                  "ess-org-pdf"
-                                  "ess-org-demo-results-html"
+          ("ess-org" :components ("ess-org-demo-results-html"
                                   "ess-org-demo-results-pdf"
                                   "ess-org-beamer-html"
                                   "ess-org-beamer-pdf"))))
@@ -428,6 +399,12 @@ NB: as currently written, a =#+title= line -- which produces an =<h1>=
 right at the beginning, messes up the logic.
 
 (this code came from my photoTagger project.)
+
+XXX i should make this an NPM package.  maybe that would also get me
+to upgrade it to a more recent bootstrap.
+
+(what i'd really like is to feed this back into the Org Mode source.
+hint, hint.)
 
 ***** javascript
 #+begin_src js :tangle ./tangled/ggm-twbs.js
