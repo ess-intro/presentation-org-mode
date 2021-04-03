@@ -21,119 +21,6 @@
 # "showframe" option is nice for debugging.
 #+LATEX_HEADER: \usepackage[a4paper, width=.7\paperwidth, height=.8\paperheight]{geometry}
 
-** Introduction to Org Mode
-basics: document structuring, tables, math/LaTeX, exporting
-
-[[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][Org Mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
--- the proliferation of notation makes googling somewhat of a
-challenge.]  sometimes exhorts one to do something like "Organize Your
-Life In Plain Text!"; the Org Mode manual, on the other hand, starts
-off by saying, "Org is an outliner".  The philosophy of Org Mode
-(indeed, of Emacs, and maybe, to some extent, of any of the *nix
-operating systems) is that using non-proprietary file formats and
-software provides the most "liberating" and "horizon-free" way of
-taking advantage of modern information technology.  And, to some
-extent, that a mostly-command line interface, rather than a graphical
-user interface, is also "the way to go".
-
-I think Org Mode started off as a way of simplifying the creation of
-formatted documents, with tables, etc., for taking notes, creating
-agendas (items with date elements), and evolved into a much larger
-system of utilities for, for example, converting ("exporting", in org
-mode parlance) between the Org Mode syntax to .html, .pdf, etc.,
-documents, with good support for doing mathematical (LaTeX)
-formatting.
-
-Org Mode does a good job exporting to LaTeX, html.  (Some people
-primarily use Org Mode as a more "user friendly" interface to LaTeX,
-though for serious documents, in the final analysis they probably
-spend a lot of time tweaking LaTeX, and org-to-LaTeX, configuration.)
-
-Though I have used Org Mode for more than a decade, I know very little
-of most of its capabilities, as I mostly use it to centralize the
-source code within a project, as well as to produce the random
-document, especially documents with embedded code segments (known, in
-Org Mode, as "source blocks").
-
-Org Mode is bundled into the main Emacs distribution, but a
-more-than-casual user might like to use the more-than-likely
-up-to-date package available via [[https://melpa.org/][melpa]] (=[M-x package-list-packages]=,
-and regexp-search for /^..org /).
-
-The official [[https://orgmode.org/quickstart.html][Quick Start]] guide provides a very good introduction to
-Org Mode.  The main [[https://orgmode.org/][Org Mode]] web page is another good source for
-further information, as is the Org Mode [[https://orgmode.org/worg/][worg]] site.  (You may find it
-useful to take a linear stroll through [[https://orgmode.org/worg/sitemap.html][the worg site map]].)  Also, once
-installed on your system, the Org Mode info pages are available in
-Emacs (or, using =info(1)=).
-
-
-*** Blocks of various sizes, shapes, colors
-
-Various sorts of "blocks" are supported in Org Mode files.  These
-start with =#begin_...=, and end with a corresponding =#end_...=,
-where the =...= are something like =src=, =example=, =quote=.  A
-skeleton for some of these can conveniently be created by, in column 1
-of an otherwise empty line, typing =[<X]= followed by =[tab]=, where
-=X= is one of
-- =e= for an example block (line wrapping does not apply) (=#+begin_example=)
-- =q= for a quote block (line wrapping applies) (=#+begin_quote=)
-- =s= for a source block (=#+begin_src=)
-
-there are various other blocks; you can experiment by typing (in
-column one, of an otherwise empty line) =[<]= and then one of the
-following, and hitting =[tab]=:
-: a, c, C, E, h, l, v
-seeing what you get, looking in the manual.  (Of course, one can
-always search the manual for =#[+]begin_=.)
-  
-In addition to the source blocks mentioned above (and elaborated on
-below), Org Mode allows short bits of "verbatim" code to be introduced
-by a colon as the first non-blank column of a line
-#+BEGIN_SRC org
-  : this is verbatim
-#+END_SRC
-
-One can have longer runs of verbatim ("example") data (which is not
-word wrapped, etc.:
-#+BEGIN_SRC org
-  ,#+name: ex
-  ,#+begin_example
-  this is a block
-  that
-  holds more verbatim text
-  ,#+end_example
-#+END_SRC
-
-As well as longer bits of text that *will* be wrapped ("quote"):
-#+BEGIN_SRC org
-  ,#+begin_quote
-  this is a bit of
-  text that should
-  show up, eventually, strung out in a smaller
-  number
-  of
-  lines when "filled"
-  (e.g., [M-x org-fill-paragraph], [M-q])
-  ,#+end_quote
-#+END_SRC
-
-Blocks can optionally have [[naming][names]].  These names can be used as [[noweb][noweb]]
-references, or to use the value of a block (or, if a source block, of
-the block's results) as input (a [[variables][variable]]) to another block in the
-file.[fn::I believe there are facilities for "naming" bits of
-information in other .org files, but I don't know the details and I
-don't know if it works with source code blocks.]
-
-** Babel -- programming language support in org files
-
-[[https://orgmode.org/worg/org-contrib/babel/intro.html][Babel]] is one name for talking about programming language support in
-Org Mode.  You are able to embed source code inside of Org Mode
-buffers, edit these code blocks in a language-specific way, evaluate
-code blocks, pass the results of the evaulation of one code block to
-another code block, and include code blocks and/or the results of
-their evaulation in the document produced by exporting the org buffer.
-
 ** Org Mode community
 
    mailing lists
@@ -532,7 +419,7 @@ either "results" or "both".
 a+22
 #+end_src
 
-** ggm-twbs
+** ggm-twbs :noexport:
 this is the twbs code, with some of mine in front to re-arrange the
 (normally exported) .html file into the right shape for twbs'
 bootstrap'ping.
