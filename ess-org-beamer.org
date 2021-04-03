@@ -6,9 +6,6 @@
 #+options: num:0 toc:2
 #+options: H:1
 # floating TOC:
-# https://stackoverflow.com/questions/12232675/how-to-make-table-of-contents-floating
-# trick of setupfile trick: https://stackoverflow.com/a/56407596/1527747
-#+SETUPFILE: ./artefacts/ess-org-startup.org
 # beamer bits
 # the following from [C-c C-e #], then [beamer] (as suggested by below tutorial)
 #+latex_class: beamer
