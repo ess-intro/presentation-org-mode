@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-03 Sat 13:28 -->
+<!-- 2021-04-03 Sat 18:59 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -259,7 +259,6 @@
 <li><a href="#orgeeea27d"><code>:cache</code></a></li>
 </ul>
 </li>
-<li><a href="#org8155a48">Some more random bits</a></li>
 <li><a href="#org1e648e4">Other sources of information</a></li>
 </ul>
 </li>
@@ -273,6 +272,17 @@
 <div id="outline-container-org486e732" class="outline-3">
 <h3 id="org486e732">Introduction to Org Mode</h3>
 <div class="outline-text-3" id="text-org486e732">
+<blockquote>
+<p>
+First, some notation :: A string inside square brackets, <code>[abecde]</code>,
+means you, the user, should type the string, leaving out the square
+brackets.  Also, the Emacs convention for control and modifier (alt)
+keys is used.  So, <code>[C-x b]</code> means type <code>control x</code>, then the letter
+<code>b</code>.  And, <code>[M-x b]</code> would mean type <code>modifier x</code> (maybe better known
+as <code>alt x</code>), then the letter <code>b</code> (almost certainly an error!).
+</p>
+</blockquote>
+
 <p>
 (To skip the introductory material and go straight to the
 demonstration work, click <a href="#orgd594193">here</a>.)
@@ -415,7 +425,7 @@ show up, eventually, strung out in a smaller
 number
 of
 lines when "filled"
-(e.g., [M-x org-fill-paragraph], [M-q])
+(e.g., [M-x org-fill-paragraph] ([M-q]))
 <span style="color: #ff7f24;">#+end_quote</span>
 </pre>
 </div>
@@ -535,7 +545,7 @@ In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
 language whose evaluation is enabled by default.)  To do this,
 position your cursor inside the source block (or on the <code>#+begin_src</code>
-or <code>#+end_src</code> line), and type [C-c C-c] (not the square brackets;
+or <code>#+end_src</code> line), and type <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) (not the square brackets;
 just what is inside).  Additionally, evaluating code in a file can be
 a security risk, so you will be prompted to make sure you want to
 execute the code.
@@ -568,8 +578,8 @@ process.
 </p>
 
 <p>
-An R source block, for example, can be evaluated using the same key
-strokes, [C-c C-c]:
+An R source block, for example, can be evaluated using the same
+command, <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>):
 </p>
 
 <div class="org-src-container">
@@ -596,7 +606,7 @@ forms of source blocks.
 
 <p>
 First, a <code>#+call</code> line can trigger evaluation of a source block.  To
-trigger the triggering, you will need to type [C-c C-c] with point
+trigger the triggering, you will need to type <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) with point
 positioned on the call line.
 </p>
 
@@ -634,12 +644,12 @@ say &#x2013; along with some of the rest of a .org file.
 </p>
 
 <p>
-To start the export process, one types executes the command <code>M-x
-org-export-dispatch</code> (<code>[C-c C-e]</code>).  Org mode then pops up a window
-that allows you to customize your export.  At the top of this window
-are mostly options for defining the scope of the export.  For example,
-if you then type <code>[C-s]</code>, only the subtree in which the export is
-initialized will be exported.
+To start the export process, one types executes the command
+<code>M-x org-export-dispatch</code> (<code>[C-c C-e]</code>).  Org mode then pops up a window that allows you to
+customize your export.  At the top of this window are mostly options
+for defining the scope of the export.  For example, if you then type
+<code>[C-s]</code>, only the subtree in which the export is initialized will be
+exported.
 </p>
 
 <p>
@@ -679,7 +689,7 @@ lowest values) in a vector of numbers.
 
 
 <p>
-If you type [C-c C-e], then [C-s] (for "subtree"), then [h] (for
+If you type <code>M-x org-export-dispatch</code> (<code>[C-c C-e]</code>), then [C-s] (for "subtree"), then [h] (for
 "html"), and [o] (for "open"), then, assuming your Emacs is configured
 to know how to open a .html file in a browser (90% likely, I'd guess),
 you'll see the text in this subtree, the above code, and the indices
@@ -730,13 +740,12 @@ Repeating a source block had above,
 
 
 <p>
-Now, you could, if you chose, enter <code>[M-x org-babel-tangle]</code> (<code>[C-c
-C-v t]</code>).  But, be warned!  This will tangle all the source blocks in
-the current (this) .org file that have a <code>:tangle</code> header argument
-(specified or inherited).  One can restrict the tangle operation to
-the source block at point (see <code>[M-x describe-function]</code> for
-<code>org-babel-tangle</code> for details), but even so, I would suggest being
-careful.
+Now, you could, if you chose, enter <code>[M-x org-babel-tangle]</code> (<code>[C-c C-v t]</code>).  But, be warned!
+This will tangle all the source blocks in the current (this) .org file
+that have a <code>:tangle</code> header argument (specified or inherited).  One
+can restrict the tangle operation to the source block at point (see
+<code>[M-x describe-function]</code> (<code>[C-h f]</code>) for <code>org-babel-tangle</code> for details), but even so, I would
+suggest being careful.
 </p>
 </div>
 </div>
@@ -793,23 +802,22 @@ its result?  Is there a peak?  A valley? <sup><a id="fnr.3" class="footref" href
 This mode provides binding for
 </p>
 <dl class="org-dl">
-<dt><code>[C-x C-s]</code></dt><dd>to save the source edit back to the main .org buffer</dd>
-<dt><code>[C-c C'k]</code></dt><dd>to abort the current editing, discarding any unsaved
-changes</dd>
-<dt><code>[C-c ']</code></dt><dd>to save any unsaved changes back to the .org buffer and
-close the source edit buffer</dd>
+<dt><code>[M-x org-edit-src-save]</code> (<code>[C-x C-s]</code>)</dt><dd>to save the source edit back to the main .org buffer</dd>
+<dt>{{{C-c C-k}}}</dt><dd>to abort the current editing, discarding any
+unsaved changes</dd>
+<dt><code>[M-x org-edit-src-exit]</code> (<code>[C-c ']</code>)</dt><dd>to save any unsaved changes back to the
+.org buffer and close the source edit buffer</dd>
 </dl>
 
 <p>
 NB: If you are editing a block that has <a href="#org127cc72">:noweb</a> references, the
 references will <b>not</b> be expanded when passing the block (in part or
-in whole) to a running iESS instance (via, e.g., <code>[C-c C-c]</code> or <code>[C-c
-C-b]</code>).  And, in fact, the R interpreter will likely flag a syntax
-error should you try to do so.
+in whole) to a running iESS instance (via, e.g., <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) or
+<code>[M-x ess-eval-buffer]</code> (<code>[C-c C-b]</code>)).  And, in fact, the R interpreter will likely flag a
+syntax error should you try to do so.
 </p>
 </div>
 </div>
-
 
 <div id="outline-container-orgd26f43c" class="outline-3">
 <h3 id="orgd26f43c"><a id="orgd162314"></a> Header arguments</h3>
@@ -1433,7 +1441,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 2021-04-03 13:28:40</span>
+<span style="color: #b3b3b3;">: 2021-04-03 18:59:37</span>
 </pre>
 </div>
 
@@ -1445,7 +1453,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS: time</span>
-<span style="color: #b3b3b3;">: 2021-04-03 13:28:40</span>
+<span style="color: #b3b3b3;">: 2021-04-03 18:59:37</span>
 </pre>
 </div>
 
@@ -1499,7 +1507,7 @@ in the file, or all in a subtree) will occur.
 </p>
 
 <p>
-During a given Emacs instance, the first time you type <code>[C-c C-c]</code> in
+During a given Emacs instance, the first time you type <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) in
 a source block with a given <code>:session</code> name, Emacs will prompt you for
 the name of the starting directory (with a default being the directory
 of the current file).  It will then start up such a process, attach it
@@ -1532,7 +1540,7 @@ as a result the value of <code>x</code> set by the first.
 </p>
 
 <p>
-After evaluations, you can use <code>[C-x b]</code> to switch to that buffer and
+After evaluations, you can use <code>[M-x switch-to-buffer]</code> (<code>[C-x b]</code>) to switch to that buffer and
 inspect the state, maybe set debug breakpoints, or debug after error
 or debug statement (<code>browser()</code>, say) in your code.
 </p>
@@ -1581,42 +1589,130 @@ working, I recommend (carefully) using it.
 <div id="outline-container-orgeeea27d" class="outline-4">
 <h4 id="orgeeea27d"><code>:cache</code></h4>
 <div class="outline-text-4" id="text-orgeeea27d">
+<p>
+Sometimes you will have a long-running computation, the results of
+which are used as input to other computations, or for export.  In this
+case, you may not want to have to re-run the computation if its
+results won't change.  To help with this situation, Org Mode has the
+<code>:cache</code> header argument.
+</p>
+
+<p>
+If a source block is marked with <code>:cache yes</code> is scheduled to be
+evaluated, Org Mode checks the following:
+</p>
+<ul class="org-ul">
+<li>the contents of the source block itself</li>
+<li>the header arguments to the source block</li>
+<li>the values of the sources of all the <code>:var</code> header arguments</li>
+</ul>
+
+<p>
+If none of these have changed (as testified by a cryptographic hash
+over these) since the last evaluation of the source block, then the
+value of the previous evaluation is used as the value of the current
+evaluation.
+</p>
+
+<p>
+Of course, if a source code block takes input from some external
+source, such as a file, that may have changed since the previous
+evaluation, Org Mode won't notice, and you may get incorrect results.
+Also, a source code block that makes use of the results of a random
+number generator will not be re-evaluated.  It is the responsibility
+of the programmer to <b>not</b> mark source blocks of these types with
+<code>:cache yes</code>.
+</p>
+
+<p>
+Here is an example.  When it is actually evaluated, this source code
+block will block for two seconds.  If you evaluate it a <b>second</b> time,
+the results will appear immediately.
+</p>
+
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">1</span>
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: long-computation</span>
+<span style="color: #ff7f24;">#+begin_src R :cache yes</span>
+<span style="color: #b3b3b3;">  Sys.sleep(2)</span>
+<span style="color: #b3b3b3;">  42</span>
 <span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS[1850a21ec1cef57306973138b0c17881d00f9820]: long-computation</span>
+<span style="color: #b3b3b3;">: 42</span>
 </pre>
 </div>
-</div>
-</div>
-</div>
 
-<div id="outline-container-org8155a48" class="outline-3">
-<h3 id="org8155a48">Some more random bits</h3>
-<div class="outline-text-3" id="text-org8155a48">
+
 <p>
-Here is an example of using an <code>example</code> block as input to the
-evaluation of a source block.
+Now, we look at how <code>:cache</code> deals with one of the inputs changing.
+First, here is a source which produces the same value each time it is
+run:
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: ex</span>
-<span style="color: #ff7f24;">#+begin_example</span>
-this is a block
-that
-holds more verbatim text
-<span style="color: #ff7f24;">#+end_example</span>
-
-<span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports both</span>
-<span style="color: #b3b3b3;">foo</span>
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: stable</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">  23</span>
 <span style="color: #ff7f24;">#+end_src</span>
 
-<span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports code</span>
-<span style="color: #b3b3b3;">foo</span>
+<span style="color: #ff7f24;">#+RESULTS: stable</span>
+<span style="color: #b3b3b3;">: 23</span>
+</pre>
+</div>
+
+
+<p>
+Then, a source that produces a different value each second:
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: unstable</span>
+<span style="color: #ff7f24;">#+begin_src R</span>
+<span style="color: #b3b3b3;">  Sys.time()</span>
 <span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS: unstable</span>
+<span style="color: #b3b3b3;">: 2021-04-03 18:59:39</span>
+</pre>
+</div>
+
+
+<p>
+Then, two functions.  The first uses results of the unvarying source
+code block as input.  The first time you evaluate it with
+<code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>), it will sleep the two seconds.  However, after that,
+evaluating it will return results immediately.
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var input=stable :cache yes</span>
+<span style="color: #b3b3b3;">  Sys.sleep(2)</span>
+<span style="color: #b3b3b3;">  input</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS[1de9d77db24319fea2fea80b19d13eb552cda0f3]:</span>
+<span style="color: #b3b3b3;">: 23</span>
+</pre>
+</div>
+
+
+<p>
+This function, on the other hand, takes as input results from the
+varying function.  Each time (well, separated by at least one second)
+you evaluate it, it will take the full two seconds.
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var input=unstable :cache yes</span>
+<span style="color: #b3b3b3;">  Sys.sleep(2)</span>
+<span style="color: #b3b3b3;">  input</span>
+<span style="color: #ff7f24;">#+end_src</span>
+
+<span style="color: #ff7f24;">#+RESULTS[c39945418234917ab30d937b5ab117eac722816f]:</span>
+<span style="color: #b3b3b3;">: 2021-04-03 18:59:42</span>
 </pre>
 </div>
 </div>
 </div>
+</div>
+
+
 <div id="outline-container-org1e648e4" class="outline-3">
 <h3 id="org1e648e4">Other sources of information</h3>
 <div class="outline-text-3" id="text-org1e648e4">
@@ -1655,7 +1751,7 @@ of this in this document.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-03 Sat 13:28</p>
+<p class="date">Created: 2021-04-03 Sat 18:59</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
