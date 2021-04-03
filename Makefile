@@ -15,6 +15,10 @@ MAINORG = ess-org.org
 # well, this is the beamer presentation, and might arguably be
 # considered our main work product
 BEAMERORG = ess-org-beamer.org
+# and, our demo file
+DEMOORG = ess-org-demo.org
+
+ORGFILES = ${MAINORG} ${BEAMERORG} ${DEMOORG}
 
 # script to tangle org files
 DOTANGLE = ./dotangle.el
@@ -24,12 +28,16 @@ TWBSCSS = ${ARTEFACTSDIR}/ggm-twbs.css
 TWBSJS = ${ARTEFACTSDIR}/ggm-twbs.js
 HTMLFRAG = ${ARTEFACTSDIR}/ggm-twbs.html-fragment
 
-DEMOORG = ess-org-demo.org
+# ess-org-startup.org: built during make process, and converts the
+# contents of our .css file into a #+HTML_HEAD for inclusiong in the
+# .html file https://stackoverflow.com/a/56407596/1527747
+ESSORGSTARTUPORG = ${ARTEFACTSDIR}/ess-org-startup.org
+
 DEMOEXPANDEDORG = ${ARTEFACTSDIR}/ess-org-demo-expanded.org
 DEMORESULTSORG = ${ARTEFACTSDIR}/ess-org-demo-results.org
 
 TANGLEDFILES = ${ELORGEL} ${HTMLFRAG} ${TWBSCSS} ${TWBSJS}
-DERIVEDFILES = ${DEMOEXPANDEDORG} ${DEMORESULTSORG}
+DERIVEDFILES = ${DEMOEXPANDEDORG} ${DEMORESULTSORG} ${ESSORGSTARTUPORG}
 PUBLISHEDFILES = \
 				${ARTEFACTSDIR}/ess-org.html \
 				${ARTEFACTSDIR}/ess-org.pdf \
@@ -43,6 +51,8 @@ PUBLISHEDFILES = \
 # "source" files)
 ARTEFACTSFILES = ${PUBLISHEDFILES} ${HTMLFRAG} \
 			${DEMOEXPANDEDORG} ${DEMORESULTSORG}
+
+TOUCHEDFILES = ${TOUCHEDDIR}/tangle ${TOUCHEDDIR}/publish
 
 EXARTEFACTSSED = "s|^\#+SETUPFILE: ./artefacts/|\#+SETUPFILE: ./|"
 
@@ -63,11 +73,6 @@ EMACSNONORGBLOCKS = (let ((ess-ask-for-ess-directory nil)) (resultify-non-org-bl
 # 
 EMACSORGIFY = (progn (orgify-all-non-org-blocks) (save-buffer))
 
-# ess-org-startup.org: built during make process, and converts the
-# contents of our .css file into a #+HTML_HEAD for inclusiong in the
-# .html file https://stackoverflow.com/a/56407596/1527747
-ESSORGSTARTUPORG = ${ARTEFACTSDIR}/ess-org-startup.org
-
 
 all: tangle publish
 
@@ -76,7 +81,7 @@ ${TANGLEDFILES}: tangle
 
 tangle: ${TOUCHEDDIR}/tangle
 
-${TOUCHEDDIR}/tangle: ${MAINORG}
+${TOUCHEDDIR}/tangle: ${ORGFILES}
 	${DOTANGLE} $<
 	for longname in ${TANGLEDFILES}; do \
 		i=`basename $${longname}`; \
@@ -97,7 +102,7 @@ publish: ${TOUCHEDDIR}/publish
 # turn off org mode publish's time stamps, since apparently, if the
 # time stamp is good, the file isn't re-created, even if it doesn't
 # exist.
-${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} ${DEMORESULTSORG} essorgstartuporg
+${TOUCHEDDIR}/publish: ${ORGFILES} ${TANGLEDFILES} essorgstartuporg ${DEMORESULTSORG}
 	emacs --file ${MAINORG} \
 		--eval '${EMACSLOADPATH}' \
 		--eval ${EMACSSETUP} \
@@ -152,3 +157,4 @@ gitcleanp:
 
 clean: 
 	rm -f ${TANGLEDFILES} ${PUBLISHEDFILES} ${DERIVEDFILES}
+	rm -f ${TOUCHEDFILES}
