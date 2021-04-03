@@ -1,7 +1,7 @@
 * using ESS with Emacs Org Mode
 ** meta : setup                                                    :noexport:
 #+author: Greg Minshall
-#+title: using ESS with Emacs Org Mode
+# XXX can't use title with ggm-twbs: #+title: using ESS with Emacs Org Mode
 #+subtitle: part of the ESS intro series
 #+property: header-args :noweb yes
 #+property: header-args:org :exports both
