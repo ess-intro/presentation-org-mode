@@ -41,20 +41,15 @@ work as a .org file.)
 Source blocks are lines of text, surrounded by a =#+begin_src= line
 before the beginning and a =#+end_src= line after the end of the code.
 
-Source blocks can be named, and can have various /header arguments/.
-The name is on a =#+name= line.  The header arguments can be on the
-- on a =#+property: header-args= line, to apply as defaults for all
-  source blocks in a file
-- inside a =/:PROPERTIES:/= drawer of a headline (node in the tree
-  defined by the .org file), to apply as defaults for all source
-  blocks in that subtree
-- one the =#+begin_src= line that precedes the source block
-- or, on separate =#+header= line, immediately preceding the
-  =#+begin_src= line.
+Source blocks can be named by a =#+name= line which appears
+immediately before the =#+begin_src= line.
 
-Here is an example .org file that shows those ways of defining various
-header arguments.  The =#+header-args+= construct adds these arguments
-to the list of header args.
+Source blocks can also have various [[headerarguments][/header arguments/]] that modify the
+context in which the source block executes.
+
+Here is an example from a .org file that shows those ways of defining
+various header arguments.  The =#+header-args+= construct adds these
+arguments to the list of header args.
 
 #+BEGIN_SRC org
   ,#+property: header-args :tangle ./nosuchdirectory/bigfile
@@ -72,12 +67,31 @@ to the list of header args.
   ,#+end_src
 #+END_SRC
 
+(As mentioned above, a source block skeleton can be created by
+typing, in column 1, =<s=, and hitting =tab=.)
 *** Inline source blocks
 
 There are also "inline" source blocks: src_R{"hello, world"}.
 
 They have their own syntax for header arguments: src_R[:results
 output]{cat("hello, again")}.
+
+Source blocks can also be expressed using a =src_LANG= construct; a
+=#+name:= line can be used to name the =src_LANG= block.
+
+#+name: whyo
+src_R{"42"} {{{results(=42=)}}}
+
+#+begin_src R :var x=whyo :exports results
+x
+#+end_src
+
+#+RESULTS:
+| 42 |
+|    |
+
+=src_LANG= constructs also have a syntax for defining [[headerarguments][header
+arguments]].
 
 ** /Evaluating/ source blocks
 
@@ -240,16 +254,59 @@ This mode provides binding for
 - =[C-c ']= :: to save any unsaved changes back to the .org buffer and
   close the source edit buffer
 
-NB: If you are editing a block that has =:noweb= references, the
+NB: If you are editing a block that has [[noweb][:noweb]] references, the
 references will *not* be expanded when passing the block (in part or
 in whole) to a running iESS instance (via, e.g., =[C-c C-c]= or =[C-c
 C-b]=).  And, in fact, the R interpreter will likely flag a syntax
 error should you try to do so.
 
 
-** (Some) source block header arguments
+** <<headerarguments>> Header arguments
 
-*** :noweb
+Header arguments 
+The header arguments can be specified on, and apply to
+- a =#+property: header-args= line, to apply as defaults for all
+  source blocks in a file
+- inside a =/:PROPERTIES:/= drawer of a headline (node in the tree
+  defined by the .org file), to apply as defaults for all source
+  blocks in that subtree
+- the =#+begin_src= line that precedes the source block
+- separate =#+header= line(s), immediately preceding the =#+begin_src=
+  line.
+*** <<colnames>> :colnames and :rownames
+
+When processing a table result of a previous source block to be used
+as an input [[var][variable]] to another code block, the =:colnames= header
+argument instructs Org Mode how to interpret the first row: should it
+be assumed to be a row of column names, a row of data, or should Org
+Mode use a heuristic to make that determination.
+
+Similarly, Org Mode uses =:rownames= to determine whether the first
+column of each row should be considered as a name for that row, or
+simply as the data of the first column of that row.
+
+Also, when processing the *results* of a code block, these header
+arguments tell some Org Mode language support routines how to deal
+with column and row names of the returned result.  If left off, the
+Org Mode result of evaluation will drop any language-specific column
+and row names.  However, if these header arguments are set to =yes=,
+language-specific column and row names will be included in the results
+placed in the Org Mode buffer.
+
+#+BEGIN_SRC R
+mtcars[1:3,]
+#+END_SRC
+
+#+RESULTS:
+|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |
+|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |
+| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |
+
+#+begin_src R :colnames yes :rownames yes
+mtcars[1:3,]
+#+end_src
+
+*** <<noweb>> :noweb
 
 Many (most?) programming languages have a way of "including" the
 "textual" contents of one source file in the compilation or execution
@@ -294,7 +351,7 @@ would happen were it to be set on a file basis.  Okay, I have to try.
 Be right back...  Not much happened.  I suppose this is
 special-cased.)
 
-*** :var
+*** <<var>> :var
 
 In Org Mode, the evaluation of source blocks can include initializing
 variables, using the =:var= header argument.
@@ -346,7 +403,7 @@ block in the file, can also name, e.g., an Org Mode table.
 | Linda   |          3 |           1 |     2 |
 | Georgia |          4 |           4 |     4 |
 
-In the following code block, the =:colnames= header argument is set to
+In the following code block, the [[colnames][:colnames]] header argument is set to
 =yes= so that the first row is considered a row of column names.
 
 #+begin_src R :var tbl=a-table :colnames yes :session R
@@ -605,6 +662,41 @@ using it.
   ,#+end_src
 #+end_src
 
+** Some more random bits
+
+Here is an example of using an =example= block as input to the
+evaluation of a source block.
+#+BEGIN_SRC org
+  ,#+name: ex
+  ,#+begin_example
+  this is a block
+  that
+  holds more verbatim text
+  ,#+end_example
+
+  ,#+begin_src R :var foo=ex :exports both
+  foo
+  ,#+end_src
+
+  ,#+RESULTS:
+  | this is a block          |
+  | that                     |
+  | holds more verbatim text |
+  |                          |
+
+  ,#+begin_src R :var foo=ex :exports code
+  foo
+  ,#+end_src
+
+  ,#+RESULTS:
+  | this is a block          |
+  | that                     |
+  | holds more verbatim text |
+  |                          |
+
+#+END_SRC
+
+** Other sources of information
 ** more random :noexport:
 
 [[https://orgmode.org/list/876229nrxf.fsf@gmail.com/]["new exporter"]] e-mail message

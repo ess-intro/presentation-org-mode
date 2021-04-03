@@ -134,71 +134,6 @@ code blocks, pass the results of the evaulation of one code block to
 another code block, and include code blocks and/or the results of
 their evaulation in the document produced by exporting the org buffer.
 
-*** <<sourceblocks>> Source blocks
-
-The Org Mode [[https://orgmode.org/guide/][Compact Guide]] has [[https://orgmode.org/guide/Working-with-Source-Code.html][a section]] on source blocks.  A separate
-[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html]["worg" page]] gives information on using R with Org Mode.  The list of
-languages officially supported by Org Mode is documented [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][here]].  In
-addition to that list, a number of Emacs [[https://www.emacswiki.org/emacs/InstallingPackages][packages]] add support for
-additional programming languages; you can enter =[M-x list-packages]=
-and (regexp) search for =^ ob-=, to list a number of these.
-
-An Org Mode source block includes source code (in one language, per
-source block), an optional [[naming][name]], and optional /[[headerargs][header arguments]]/.
-
-Org Mode source blocks look like this
-#+BEGIN_SRC org
-  ,#+name: ex
-  ,#+begin_example
-  this is a block
-  that
-  holds more verbatim text
-  ,#+end_example
-
-  ,#+begin_src R :var foo=ex :exports both
-  foo
-  ,#+end_src
-
-  ,#+RESULTS:
-  | this is a block          |
-  | that                     |
-  | holds more verbatim text |
-  |                          |
-
-  ,#+begin_src R :var foo=ex :exports code
-  foo
-  ,#+end_src
-
-  ,#+RESULTS:
-  | this is a block          |
-  | that                     |
-  | holds more verbatim text |
-  |                          |
-
-#+END_SRC
-
-(As mentioned above, a source block skeleton can be created by
-typing, in column 1, =<s=, and hitting =tab=.)
-
-Source blocks can also be expressed using a =src_LANG= construct; a
-=#+name:= line can be used to name the =src_LANG= block.
-
-#+BEGIN_SRC org
-  ,#+name: whyo
-  src_R{"42"} {{{results(=42=)}}}
-
-  ,#+begin_src R :var x=whyo :exports results
-  x
-  ,#+end_src
-
-  ,#+RESULTS:
-  | 42 |
-  |    |
-
-#+END_SRC
-
-=src_LANG= constructs also have a syntax for defining [[headerargs][=header arguments=]].
-
 *** <<evaulating>> Evaulating
 **** =[C-c C-c]= on a source block
 **** =[C-c C-c]= on an inline source block
@@ -223,55 +158,19 @@ Source blocks can also be expressed using a =src_LANG= construct; a
   call_find-orgs() {{{results(=1=)}}}
 
 #+end_src
-*** :colnames and :rownames
-
-When processing a table result of a previous source block to be used
-as an input [[variables][variable]] to another code block, the =:colnames= header
-argument instructs Org Mode how to interpret the first row: should it
-be assumed to be a row of column names, a row of data, or should Org
-Mode use a heuristic to make that determination.
-
-Similarly, Org Mode uses =:rownames= to determine whether the first
-column of each row should be considered as a name for that row, or
-simply as the data of the first column of that row.
-
-Also, when processing the *results* of a code block, these header
-arguments tell some Org Mode language support routines how to deal
-with column and row names of the returned result.  If left off, the
-Org Mode result of evaluation will drop any language-specific column
-and row names.  However, if these header arguments are set to =yes=,
-language-specific column and row names will be included in the results
-placed in the Org Mode buffer.
-
-#+begin_src org
-  ,#+BEGIN_SRC R
-  mtcars[1:3,]
-  ,#+END_SRC
-
-  ,#+RESULTS:
-  |   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |
-  |   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |
-  | 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |
-
-  ,#+begin_src R :colnames yes :rownames yes
-  mtcars[1:3,]
-  ,#+end_src
-
-  ,#+RESULTS:
-  |               |  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |
-  |---------------+------+-----+------+-----+------+-------+-------+----+----+------+------|
-  | Mazda RX4     |   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |
-  | Mazda RX4 Wag |   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |
-  | Datsun 710    | 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |
-
-#+end_src
-
 
 ** Org Mode community
 
    mailing lists
 
 ** Other tutorials, etc.
+
+The Org Mode [[https://orgmode.org/guide/][Compact Guide]] has [[https://orgmode.org/guide/Working-with-Source-Code.html][a section]] on source blocks.  A separate
+[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html]["worg" page]] gives information on using R with Org Mode.  The list of
+languages officially supported by Org Mode is documented [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][here]].  In
+addition to that list, a number of Emacs [[https://www.emacswiki.org/emacs/InstallingPackages][packages]] add support for
+additional programming languages; you can enter =[M-x list-packages]=
+and (regexp) search for =^ ob-=, to list a number of these.
 
 The Org Mode [[https://orgmode.org/quickstart.html][quickstart]] is a nice way to start with Org Mode.
 
