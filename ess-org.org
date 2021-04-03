@@ -23,7 +23,7 @@
 
 ** Org Mode community
 
-   mailing lists
+The Org Mode community has various [[https://orgmode.org/community.html][forms]] of engaging with one another.
 
 ** Other tutorials, etc.
 
@@ -304,9 +304,9 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 (*) if :exports "results" or "both", evaluate it
 
-#+name: evaluate-non-org-blocks
+#+name: resultify-non-org-blocks
 #+begin_src elisp :results none
-  (defun evaluate-non-org-blocks ()
+  (defun resultify-non-org-blocks ()
       (let (results
             (pt (point)))
         (org-babel-eval-wipe-error-buffer)
@@ -326,9 +326,9 @@ for each org-in-org block that :exports either "results" or "both",
 open up an edit buffer, and evaluate all internal code that :exports
 either "results" or "both".
 
-#+name: evaluate-org-blocks
+#+name: resultify-org-blocks
 #+begin_src elisp :results none
-	(defun evaluate-org-blocks ()
+	(defun resultify-org-blocks ()
 		(let (results
 					(pt (point)))
 			(org-babel-eval-wipe-error-buffer)

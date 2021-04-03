@@ -55,9 +55,9 @@ EMACSGETESSAUTOLOADS =  "(require 'ess-autoloads)"
 # load our elisp code, set up for evaluation
 EMACSSETUP = "(progn ${EMACSLL} (require 'el-org) ${EMACSTRUSTEVAL})"
 # now, evaluate all org source blocks in the file
-EMACSORGBLOCKS = (evaluate-org-blocks)
+EMACSORGBLOCKS = (resultify-org-blocks)
 # now, evaluate all *non* org source blocks in the file
-EMACSNONORGBLOCKS = (let ((ess-ask-for-ess-directory nil)) (evaluate-non-org-blocks) (save-buffer))
+EMACSNONORGBLOCKS = (let ((ess-ask-for-ess-directory nil)) (resultify-non-org-blocks) (save-buffer))
 # 
 EMACSORGIFY = (progn (orgify-all-non-org-blocks) (save-buffer))
 
