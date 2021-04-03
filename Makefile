@@ -19,13 +19,15 @@ BEAMERORG = ess-org-beamer.org
 # script to tangle org files
 DOTANGLE = ./dotangle.el
 
-CSS = ${ARTEFACTSDIR}/floattoc.css
 ELORGEL = ${ARTEFACTSDIR}/el-org.el
+TWBSCSS = ${ARTEFACTSDIR}/ggm-twbs.css
+TWBSJS = ${ARTEFACTSDIR}/ggm-twbs.js
+HTMLFRAG = ${ARTEFACTSDIR}/ggm-twbs.html-fragment
 
 DEMOORG = ess-org-demo.org
 DEMORESULTSORG = artefacts/ess-org-demo-results.org
 
-TANGLEDFILES = ${ELORGEL} ${CSS}
+TANGLEDFILES = ${ELORGEL} ${HTMLFRAG} ${TWBSCSS} ${TWBSJS}
 DERIVEDFILES = ${DEMORESULTSORG}
 PUBLISHEDFILES = \
 				${ARTEFACTSDIR}/ess-org.html \
@@ -38,7 +40,7 @@ PUBLISHEDFILES = \
 
 # these are the files we want on github (other than our normal
 # "source" files)
-ARTEFACTSFILES = ${PUBLISHEDFILES} ${CSS} ${DEMORESULTSORG}
+ARTEFACTSFILES = ${PUBLISHEDFILES} ${HTMLFRAG} ${DEMORESULTSORG}
 
 EXARTEFACTSSED = "s|^\#+SETUPFILE: ./artefacts/|\#+SETUPFILE: ./|"
 
@@ -115,11 +117,9 @@ ${DEMORESULTSORG}: ${DEMOORG} tangle
 
 HEADERTXT = \#+HTML_HEAD: 
 HEADER = echo -n "${HEADERTXT} "
-${ESSORGSTARTUPORG}: ${CSS}
+${ESSORGSTARTUPORG}: ${HTMLFRAG}
 	( \
-		${HEADER}; echo '<style type="text/css">'; \
 		(cat $< | sed 's/^/${HEADERTXT} /;s/  */ /g'); \
-		${HEADER}; echo ' </style>' \
 	) > $@
 
 essorgstartuporg: ${ESSORGSTARTUPORG}

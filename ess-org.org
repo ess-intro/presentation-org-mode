@@ -983,3 +983,246 @@ either "results" or "both".
 a+22
 #+end_src
 
+** ggm-twbs
+this is the twbs code, with some of mine in front to re-arrange the
+(normally exported) .html file into the right shape for twbs'
+bootstrap'ping.
+
+NB: as currently written, a =#+title= line -- which produces an =<h1>=
+right at the beginning, messes up the logic.
+
+(this code came from my photoTagger project.)
+
+***** javascript
+#+begin_src js :tangle ./tangled/ggm-twbs.js
+  $(function() {
+      'use strict';
+
+      // begin ggm-twbs: this code beats the exported .html file into
+      // twbs-shape
+
+      $('#content').addClass("container");
+
+      // here we are assuming the first child is the table of contents.
+      // XXX if there is no toc?  XXX if it elsewhere in the .html file?
+      $("#table-of-contents")
+          .children()
+          .first()
+          .remove();
+      $("#table-of-contents")
+          .children()
+          .wrapAll('<div class="col-md-3 col-md-push-9"></div>');
+      $("#table-of-contents")
+          .children()
+          .unwrap();
+      $("#table-of-contents").remove();
+
+      // fixed olsun
+      $('#text-table-of-contents').addClass("bs-docs-sidebar");
+
+      // for scrollspy (below), add class nav to the toc
+      $("#text-table-of-contents ul").addClass("nav");
+
+      // then, *each* (not *all*, though maybe that is what we should
+      // do?) of the rest are wrapped in the col-md-9/col-md-pull-3
+      // div's
+      $("#content").children()
+          .first()
+          .siblings()
+          .wrapAll('<div class="col-md-9 col-md-pull-3"></div>');
+
+      $('#content').children().wrapAll('<div class="row">');
+      // end ggm-twbs
+
+
+      $('.bs-docs-sidebar li').first().addClass('active');
+
+      $(document.body).scrollspy({target: '.bs-docs-sidebar'});
+
+      $('.bs-docs-sidebar').affix();
+  });
+
+#+end_src
+
+***** css
+my mods to twbs to allow exporting with normal org-mode html exporter,
+then (in javascript, on the client) adapt the generated html to twbs,
+need (well...) an external .css file.  these are pretty much direct
+from a .html file twbs-exported from a .org file.
+#+begin_src css :tangle ./tangled/ggm-twbs.css
+  /* org mode styles on top of twbs */
+
+  html {
+      position: relative;
+      min-height: 100%;
+  }
+
+  body {
+      font-size: 18px;
+      margin-bottom: 105px;
+  }
+
+  footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 101px;
+      background-color: #f5f5f5;
+  }
+
+  footer > div {
+      padding: 10px;
+  }
+
+  footer p {
+      margin: 0 0 5px;
+      text-align: center;
+      font-size: 16px;
+  }
+
+  #table-of-contents {
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+
+  blockquote p {
+      font-size: 18px;
+  }
+
+  pre {
+      font-size: 16px;
+  }
+
+  .footpara {
+      display: inline-block;
+  }
+
+  figcaption {
+      font-size: 16px;
+      color: #666;
+      font-style: italic;
+      padding-bottom: 15px;
+  }
+
+  /* from twbs docs */
+
+  .bs-docs-sidebar.affix {
+      position: static;
+  }
+  @media (min-width: 768px) {
+      .bs-docs-sidebar {
+          padding-left: 20px;
+      }
+  }
+
+  /* All levels of nav */
+  .bs-docs-sidebar .nav > li > a {
+      display: block;
+      padding: 4px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #999;
+  }
+  .bs-docs-sidebar .nav > li > a:hover,
+  .bs-docs-sidebar .nav > li > a:focus {
+      padding-left: 19px;
+      color: #A1283B;
+      text-decoration: none;
+      background-color: transparent;
+      border-left: 1px solid #A1283B;
+  }
+  .bs-docs-sidebar .nav > .active > a,
+  .bs-docs-sidebar .nav > .active:hover > a,
+  .bs-docs-sidebar .nav > .active:focus > a {
+      padding-left: 18px;
+      font-weight: bold;
+      color: #A1283B;
+      background-color: transparent;
+      border-left: 2px solid #A1283B;
+  }
+
+  /* Nav: second level (shown on .active) */
+  .bs-docs-sidebar .nav .nav {
+      display: none; /* Hide by default, but at >768px, show it */
+      padding-bottom: 10px;
+  }
+  .bs-docs-sidebar .nav .nav > li > a {
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-left: 30px;
+      font-size: 12px;
+      font-weight: normal;
+  }
+  .bs-docs-sidebar .nav .nav > li > a:hover,
+  .bs-docs-sidebar .nav .nav > li > a:focus {
+      padding-left: 29px;
+  }
+  .bs-docs-sidebar .nav .nav > .active > a,
+  .bs-docs-sidebar .nav .nav > .active:hover > a,
+  .bs-docs-sidebar .nav .nav > .active:focus > a {
+      padding-left: 28px;
+      font-weight: 500;
+  }
+
+  /* Nav: third level (shown on .active) */
+  .bs-docs-sidebar .nav .nav .nav {
+      padding-bottom: 10px;
+  }
+  .bs-docs-sidebar .nav .nav .nav > li > a {
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-left: 40px;
+      font-size: 12px;
+      font-weight: normal;
+  }
+  .bs-docs-sidebar .nav .nav .nav > li > a:hover,
+  .bs-docs-sidebar .nav .nav .nav > li > a:focus {
+      padding-left: 39px;
+  }
+  .bs-docs-sidebar .nav .nav .nav > .active > a,
+  .bs-docs-sidebar .nav .nav .nav > .active:hover > a,
+  .bs-docs-sidebar .nav .nav .nav > .active:focus > a {
+      padding-left: 38px;
+      font-weight: 500;
+  }
+
+  /* Show and affix the side nav when space allows it */
+  @media (min-width: 992px) {
+      .bs-docs-sidebar .nav > .active > ul {
+          display: block;
+      }
+      /* Widen the fixed sidebar */
+      .bs-docs-sidebar.affix,
+      .bs-docs-sidebar.affix-bottom {
+          width: 213px;
+      }
+      .bs-docs-sidebar.affix {
+          position: fixed; /* Undo the static from mobile first approach */
+          top: 20px;
+      }
+      .bs-docs-sidebar.affix-bottom {
+          position: absolute; /* Undo the static from mobile first approach */
+      }
+      .bs-docs-sidebar.affix .bs-docs-sidenav,.bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+          margin-top: 0;
+          margin-bottom: 0
+      }
+  }
+  @media (min-width: 1200px) {
+      /* Widen the fixed sidebar again */
+      .bs-docs-sidebar.affix-bottom,
+      .bs-docs-sidebar.affix {
+          width: 263px;
+      }
+  }
+
+#+end_src
+
+and, this is html to enable ggm-twbs:
+#+begin_src html :tangle ./tangled/ggm-twbs.html-fragment
+  <link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link href="./ggm-twbs.css" rel="stylesheet"/>
+  <script src="./ggm-twbs.js"></script>
+#+end_src
