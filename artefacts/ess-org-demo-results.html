@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-03 Sat 09:59 -->
+<!-- 2021-04-03 Sat 13:28 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -198,6 +198,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link href="./ggm-twbs.css" rel="stylesheet"/>
 <script src="./ggm-twbs.js"></script>
+<style>td.org-right, th.org-right, td.org-left, th.org-left { padding-left: 1em; padding-right: 1em;}</style>
 <script type="text/javascript">
 // @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
@@ -231,8 +232,8 @@
 <ul>
 <li><a href="#org486e732">Introduction to Org Mode</a>
 <ul>
-<li><a href="#org7e40eba">Blocks of various sizes, shapes, colors</a></li>
-<li><a href="#orge99ce58">Drawers, Properties, Property Drawers</a></li>
+<li><a href="#org72a05fa">Blocks of various sizes, shapes, colors</a></li>
+<li><a href="#org4c1c18d">Drawers, Properties, Property Drawers</a></li>
 </ul>
 </li>
 <li><a href="#org71a50c7">Source blocks</a>
@@ -250,12 +251,12 @@
 <li><a href="#org586ec99"><i>Editing</i> a source block</a></li>
 <li><a href="#orgd26f43c">Header arguments</a>
 <ul>
-<li><a href="#org06e1f50">:colnames and :rownames</a></li>
-<li><a href="#org548f0a7">:noweb</a></li>
-<li><a href="#org180627a">:var</a></li>
-<li><a href="#orge90703b">:results</a></li>
-<li><a href="#orga5e7502">:session</a></li>
-<li><a href="#org5c3c398">:cache</a></li>
+<li><a href="#org01f8f72"><code>:colnames and :rownames</code></a></li>
+<li><a href="#org8eb7dac"><code>:noweb</code></a></li>
+<li><a href="#org71241bc"><code>:var</code></a></li>
+<li><a href="#org0a40967"><code>:results</code></a></li>
+<li><a href="#org19a1e8b"><code>:session</code></a></li>
+<li><a href="#orgeeea27d"><code>:cache</code></a></li>
 </ul>
 </li>
 <li><a href="#org8155a48">Some more random bits</a></li>
@@ -272,6 +273,11 @@
 <div id="outline-container-org486e732" class="outline-3">
 <h3 id="org486e732">Introduction to Org Mode</h3>
 <div class="outline-text-3" id="text-org486e732">
+<p>
+(To skip the introductory material and go straight to the
+demonstration work, click <a href="#orgd594193">here</a>.)
+</p>
+
 
 You are looking at this on the web, and I hope you find this useful.
 
@@ -279,8 +285,8 @@ You might profit from downloading the .org file this was generated
 (with suitable incantations) from, and then explore it using Emacs and
 Org Mode.
 
-You should be able to find that file at ...  (*This* file will not
-work as a .org file.)
+You should be able to find that file at XXX (*This* file will not work
+as a .org file.)
 
 <p>
 <a href="https://www.gnu.org/software/emacs/">Emacs</a> (<a href="https://en.wikipedia.org/wiki/Emacs">wikipedia</a>) <a href="https://orgmode.org/">Org Mode</a> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>  sometimes exhorts one to do something like "Organize Your
@@ -337,9 +343,9 @@ The rest of this document is dedicated to explaining these things.
 </p>
 </div>
 
-<div id="outline-container-org7e40eba" class="outline-4">
-<h4 id="org7e40eba">Blocks of various sizes, shapes, colors</h4>
-<div class="outline-text-4" id="text-org7e40eba">
+<div id="outline-container-org72a05fa" class="outline-4">
+<h4 id="org72a05fa">Blocks of various sizes, shapes, colors</h4>
+<div class="outline-text-4" id="text-org72a05fa">
 <p>
 Various sorts of "blocks" are supported in Org Mode files.  These
 start with <code>#begin_...</code>, and end with a corresponding <code>#end_...</code>,
@@ -357,15 +363,21 @@ of an otherwise empty line, typing <code>[&lt;X]</code> followed by <code>[tab]<
 <p>
 there are various other blocks; you can experiment by typing (in
 column one, of an otherwise empty line) <code>[&lt;]</code> and then one of the
-following, and hitting <code>[tab]</code>:
+following
 </p>
-<pre class="example">
-a, c, C, E, h, l, v
-</pre>
-
+<ul class="org-ul">
+<li>a</li>
+<li>c</li>
+<li>C</li>
+<li>E</li>
+<li>h</li>
+<li>l</li>
+<li>v</li>
+</ul>
 <p>
-seeing what you get, looking in the manual.  (Of course, one can
-always search the manual for <code>#[+]begin_</code>.)
+then hitting <code>[tab]</code>: and seeing what you get, looking in the manual
+for enlightenment.  (Of course, one can always search the manual for
+<code>#[+]begin_</code>.)
 </p>
 
 <p>
@@ -383,17 +395,20 @@ One can have longer runs of verbatim ("example") data (which is not
 word wrapped, etc.:
 </p>
 
-<pre class="example" id="orgda26bd4">
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: ex</span>
+<span style="color: #ff7f24;">#+begin_example</span>
 this is a block
 that
 holds more verbatim text
+<span style="color: #ff7f24;">#+end_example</span>
 </pre>
-
+</div>
 <p>
 As well as longer bits of text that <b>will</b> be wrapped ("quote"):
 </p>
-<blockquote>
-<p>
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+begin_quote</span>
 this is a bit of
 text that should
 show up, eventually, strung out in a smaller
@@ -401,9 +416,9 @@ number
 of
 lines when "filled"
 (e.g., [M-x org-fill-paragraph], [M-q])
-</p>
-</blockquote>
-
+<span style="color: #ff7f24;">#+end_quote</span>
+</pre>
+</div>
 
 <p>
 Blocks can optionally have names.  These names can be used as <code>:noweb</code>
@@ -414,9 +429,9 @@ file.<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup>
 </div>
 </div>
 
-<div id="outline-container-orge99ce58" class="outline-4">
-<h4 id="orge99ce58">Drawers, Properties, Property Drawers</h4>
-<div class="outline-text-4" id="text-orge99ce58">
+<div id="outline-container-org4c1c18d" class="outline-4">
+<h4 id="org4c1c18d">Drawers, Properties, Property Drawers</h4>
+<div class="outline-text-4" id="text-org4c1c18d">
 <p>
 Org Mode <a href="https://orgmode.org/manual/Drawers.html#Drawers">drawers</a> are a way of "closing away" information you normally
 won't want to see.  These start with a line <code>:NAME:</code>, where <code>NAME</code> is
@@ -430,10 +445,19 @@ concepts to provide a place to put parameters that customize the
 environment in which Org Mode processes your file (and, in particular,
 for our case, the context in which source code is evaluated).
 </p>
-</div>
-</div>
-</div>
 
+<p>
+On the other hand, if you are <b>not</b> looking at this on the web, and
+would like to see a webified version, with a bit more of an
+introduction to Org Mode, you can look here XXX
+</p>
+
+<p>
+<a id="orgd594193"></a>
+</p>
+</div>
+</div>
+</div>
 <div id="outline-container-org71a50c7" class="outline-3">
 <h3 id="org71a50c7">Source blocks</h3>
 <div class="outline-text-3" id="text-org71a50c7">
@@ -453,52 +477,32 @@ context in which the source block executes.
 </p>
 
 <p>
-Here is an example from a .org file that shows those ways of defining
-various header arguments.  The <code>#+header-args+</code> construct adds these
-arguments to the list of header args.
-</p>
-
-<div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+property: header-args :tangle ./nosuchdirectory/bigfile</span>
-
-<span style="color: #eedd82;">** this is somewhere in this file</span>
-     <span style="color: #87cefa;">:PROPERTIES:</span>
-     <span style="color: #00ffff;">:header-args+:</span> :tangle very/important/code.R
-     <span style="color: #87cefa;">:END:</span>
-
-now, code blocks will carry that name
-
-<span style="color: #ff7f24;">#+header: :exports results</span>
-<span style="color: #ff7f24;">#+begin_src R :results value</span>
-<span style="color: #b3b3b3;">    x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"we want some code, and we want it now!"</span>
-<span style="color: #ff7f24;">#+end_src</span>
-</pre>
-</div>
-
-<p>
 (As mentioned above, a source block skeleton can be created by
 typing, in column 1, <code>&lt;s</code>, and hitting <code>tab</code>.)
 </p>
 </div>
+
 <div id="outline-container-orgc4faa08" class="outline-4">
 <h4 id="orgc4faa08">Inline source blocks</h4>
 <div class="outline-text-4" id="text-orgc4faa08">
 <div class="org-src-container">
-<pre class="src src-org">There are also "inline" source blocks: src_R{"hello, world"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, world=</span><span style="color: #deb887;">)}}}</span>.
+<pre class="src src-org">Source blocks can also be expressed using a <span style="color: #b3b3b3;">=src_LANG=</span> construct; a
+<span style="color: #b3b3b3;">=#+name:=</span> line can be used to name the <span style="color: #b3b3b3;">=src_LANG=</span> block.  for example,
+src_R{"hello, world"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, world=</span><span style="color: #deb887;">)}}}</span>.
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org">They have their own syntax for header arguments: src_R[:results
-output]{cat("hello, again")} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, again=</span><span style="color: #deb887;">)}}}</span>.
+<pre class="src src-org">Inline source blocks have their own syntax for <span style="color: #00ffff; text-decoration: underline;"><a href="headerarguments">header arguments</a></span>:
+src_R[:results output]{cat("hello, again")} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, again=</span><span style="color: #deb887;">)}}}</span>.
 </pre>
 </div>
 
 
 <p>
-Source blocks can also be expressed using a <code>src_LANG</code> construct; a
-<code>#+name:</code> line can be used to name the <code>src_LANG</code> block.
+And, the results of an inline source block can be used as input (via
+<a href="#orgfdb003c">:var</a>) to another source block.
 </p>
 
 <div class="org-src-container">
@@ -518,15 +522,10 @@ src_R{"42"} <span style="color: #deb887;">{{{results(</span><span style="color: 
 <span style="color: #87cefa;">|    |</span>
 </pre>
 </div>
+</div>
+</div>
+</div>
 
-
-<p>
-<code>src_LANG</code> constructs also have a syntax for defining <a href="#orgd162314">header
-arguments</a>.
-</p>
-</div>
-</div>
-</div>
 
 <div id="outline-container-org3b8e1b3" class="outline-3">
 <h3 id="org3b8e1b3"><i>Evaluating</i> source blocks</h3>
@@ -658,9 +657,9 @@ associated with this tutorial have been produced.)
 </p>
 
 <p>
-This code is based on a question to the R-help e-mail list.  The goal
-was a simple way to find the peaks and valleys (highest and lowest
-values) in a vector of numbers.
+The following code is based on a <a href="https://stat.ethz.ch/pipermail/r-help/2021-March/470671.html">question</a> to the R-help e-mail list.
+The goal was a simple way to find the peaks and valleys (highest and
+lowest values) in a vector of numbers.
 </p>
 <div class="org-src-container">
 <pre class="src src-org"><span style="color: #ff7f24;">#+name: peaks-and-valleys</span>
@@ -717,10 +716,8 @@ Repeating a source block had above,
 
 <div class="org-src-container">
 <pre class="src src-org"><span style="color: #ff7f24;">#+name: peaks-and-valleys-tangling</span>
-<span style="color: #ff7f24;">#+begin_src R :exports both :tangle peaks-and-valleys.el</span>
-<span style="color: #b3b3b3;">  x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)</span>
-<span style="color: #b3b3b3;">  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]</span>
-<span style="color: #b3b3b3;">  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]</span>
+<span style="color: #ff7f24;">#+begin_src R :exports both :tangle peaks-and-valleys.el :noweb yes</span>
+<span style="color: #b3b3b3;">  &lt;&lt;peaks-and-valleys&gt;&gt;</span>
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS: peaks-and-valleys-tangling</span>
@@ -772,7 +769,7 @@ x &lt;- c(1,1,1,2,2,3,4,4,4,5,6,6,6)
 
 <p>
 If you like, edit the source, change <code>x</code>, and evaluate it.  What is
-its result?  Is there a peak?  A valley?
+its result?  Is there a peak?  A valley? <sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>
 </p>
 
 <div class="org-src-container">
@@ -818,23 +815,56 @@ error should you try to do so.
 <h3 id="orgd26f43c"><a id="orgd162314"></a> Header arguments</h3>
 <div class="outline-text-3" id="text-orgd26f43c">
 <p>
-Header arguments 
-The header arguments can be specified on, and apply to
+Header arguments modify the execution context in which Org Mode source
+blocks are evaluated and/or in which the results of those evaluations
+are processed.
+</p>
+
+<p>
+Header arguments can be specified on, and apply to
 </p>
 <ul class="org-ul">
 <li>a <code>#+property: header-args</code> line, to apply as defaults for all
 source blocks in a file</li>
-<li>inside a <code>/:PROPERTIES:/</code> drawer of a headline (node in the tree
+<li>inside a <code>:PROPERTIES:</code> drawer of a headline (node in the tree
 defined by the .org file), to apply as defaults for all source
 blocks in that subtree</li>
 <li>the <code>#+begin_src</code> line that precedes the source block</li>
 <li>separate <code>#+header</code> line(s), immediately preceding the <code>#+begin_src</code>
 line.</li>
 </ul>
+
+<p>
+Here is an example from a .org file that shows those ways of defining
+various header arguments.  The <code>#+header-args+</code> construct adds these
+arguments to the list of header args.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+property: header-args :tangle ./nosuchdirectory/bigfile</span>
+
+<span style="color: #eedd82;">** this is somewhere in this file</span>
+     <span style="color: #87cefa;">:PROPERTIES:</span>
+     <span style="color: #00ffff;">:header-args+:</span> :tangle very/important/code.R
+     <span style="color: #87cefa;">:END:</span>
+
+now, code blocks will carry that name
+
+<span style="color: #ff7f24;">#+header: :exports results</span>
+<span style="color: #ff7f24;">#+begin_src R :results value</span>
+<span style="color: #b3b3b3;">    x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"we want some code, and we want it now!"</span>
+<span style="color: #ff7f24;">#+end_src</span>
+</pre>
 </div>
-<div id="outline-container-org06e1f50" class="outline-4">
-<h4 id="org06e1f50"><a id="org9ceaf10"></a> :colnames and :rownames</h4>
-<div class="outline-text-4" id="text-org06e1f50">
+
+<p>
+The following are some of the header arguments I most often use.
+</p>
+</div>
+
+<div id="outline-container-org01f8f72" class="outline-4">
+<h4 id="org01f8f72"><a id="org9ceaf10"></a> <code>:colnames and :rownames</code></h4>
+<div class="outline-text-4" id="text-org01f8f72">
 <p>
 When processing a table result of a previous source block to be used
 as an input <a href="#orgfdb003c">variable</a> to another code block, the <code>:colnames</code> header
@@ -889,9 +919,9 @@ placed in the Org Mode buffer.
 </div>
 
 
-<div id="outline-container-org548f0a7" class="outline-4">
-<h4 id="org548f0a7"><a id="org127cc72"></a> :noweb</h4>
-<div class="outline-text-4" id="text-org548f0a7">
+<div id="outline-container-org8eb7dac" class="outline-4">
+<h4 id="org8eb7dac"><a id="org127cc72"></a> <code>:noweb</code></h4>
+<div class="outline-text-4" id="text-org8eb7dac">
 <p>
 Many (most?) programming languages have a way of "including" the
 "textual" contents of one source file in the compilation or execution
@@ -901,14 +931,14 @@ known as <a href="https://www.cs.tufts.edu/~nr/noweb/">"noweb"</a>.
 </p>
 
 <p>
-In Org Mode's <a href="https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example">implementation</a>, a <span class="underline">reference</span> to a previous block of
-code named <code>NAME</code> is denoted by <code>&lt;&lt;NAME&gt;&gt;</code>.  The double angle brackets
-signal that this is a noweb reference.<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup>  However,
-by default, noweb processing is <b>disabled</b> in an Org Mode buffer.  The
-<code>:noweb</code> header argument defaults to <code>no</code>, but can be set to <code>yes</code> to
-enable noweb processing.  Again, as with all header arguments, this
-can be done on a per-file, per-subtree, or per-(referring-)source
-block basis.
+In Org Mode's <a href="https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example">implementation</a>, inside a source block, a <span class="underline">reference</span> to
+a previous block of code named <code>NAME</code> is denoted by <code>&lt;&lt;NAME&gt;&gt;</code>.  The
+double angle brackets signal that this is a noweb
+reference.<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>  However, by default, noweb processing is
+<b>disabled</b> in an Org Mode buffer.  The <code>:noweb</code> header argument
+defaults to <code>no</code>, but can be set to <code>yes</code> to enable noweb processing.
+Again, as with all header arguments, this can be done on a per-file,
+per-subtree, or per-(referring-)source block basis.
 </p>
 
 <p>
@@ -957,7 +987,8 @@ or with the <code>:noweb-ref</code> header argument:
 
 <p>
 (If you edit the header of the previous source block by changing "yes"
-to "no" and then evaluate it, you will get an error.)
+to "no" and then evaluate it, you will get an error as R tries to
+parse a line that begins with <code>&lt;&lt;</code>.)
 </p>
 
 <p>
@@ -970,9 +1001,9 @@ special-cased.)
 </div>
 </div>
 
-<div id="outline-container-org180627a" class="outline-4">
-<h4 id="org180627a"><a id="orgfdb003c"></a> :var</h4>
-<div class="outline-text-4" id="text-org180627a">
+<div id="outline-container-org71241bc" class="outline-4">
+<h4 id="org71241bc"><a id="orgfdb003c"></a> <code>:var</code></h4>
+<div class="outline-text-4" id="text-org71241bc">
 <p>
 In Org Mode, the evaluation of source blocks can include initializing
 variables, using the <code>:var</code> header argument.
@@ -1165,9 +1196,9 @@ be preserved in the resulting Org Mode table
 </div>
 
 
-<div id="outline-container-orge90703b" class="outline-4">
-<h4 id="orge90703b">:results</h4>
-<div class="outline-text-4" id="text-orge90703b">
+<div id="outline-container-org0a40967" class="outline-4">
+<h4 id="org0a40967"><code>:results</code></h4>
+<div class="outline-text-4" id="text-org0a40967">
 <p>
 The <code>:results</code> header argument specifies many things.  First, it
 specifies whether the results of an evaluation consist in the value
@@ -1393,7 +1424,7 @@ buffer following the source block, preceded by a line
 </pre>
 
 <p>
-where <code>&lt;NAME&gt;</code> is the name of the source block (if any).
+where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blank.
 </p>
 
 <div class="org-src-container">
@@ -1402,7 +1433,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block (if any).
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 2021-04-03 09:59:44</span>
+<span style="color: #b3b3b3;">: 2021-04-03 13:28:40</span>
 </pre>
 </div>
 
@@ -1414,7 +1445,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block (if any).
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS: time</span>
-<span style="color: #b3b3b3;">: 2021-04-03 09:59:44</span>
+<span style="color: #b3b3b3;">: 2021-04-03 13:28:40</span>
 </pre>
 </div>
 
@@ -1443,9 +1474,9 @@ Which, see.
 </ul>
 </div>
 
-<div id="outline-container-orga5e7502" class="outline-4">
-<h4 id="orga5e7502">:session</h4>
-<div class="outline-text-4" id="text-orga5e7502">
+<div id="outline-container-org19a1e8b" class="outline-4">
+<h4 id="org19a1e8b"><code>:session</code></h4>
+<div class="outline-text-4" id="text-org19a1e8b">
 <p>
 Normally, when Org Mode evaluates a source block, in instantiates a
 new <b>process</b> of the appropriate type (the <code>R</code> command, for example),
@@ -1468,7 +1499,7 @@ in the file, or all in a subtree) will occur.
 </p>
 
 <p>
-During a given emacs instance, the first time you type <code>[C-c C-c]</code> in
+During a given Emacs instance, the first time you type <code>[C-c C-c]</code> in
 a source block with a given <code>:session</code> name, Emacs will prompt you for
 the name of the starting directory (with a default being the directory
 of the current file).  It will then start up such a process, attach it
@@ -1508,7 +1539,7 @@ or debug statement (<code>browser()</code>, say) in your code.
 
 <p>
 For R, the session buffer uses <code>ESS[R]</code> mode.  (As well as in the
-[[orgsrcminormode]OrgSrc minor mode.)
+<a href="#orgf5b6fc9">OrgSrc</a> minor mode.)
 </p>
 
 <p>
@@ -1534,21 +1565,22 @@ detach(package:PACKAGENAME, unload=TRUE)
 </pre>
 
 <p>
-or some such.  <b>Then</b>, R will load the new version of your package.
+or some such.  <b>Then</b>, R will load the new version of your package the
+next time you or your code <code>require's</code> it.
 </p>
 
 <p>
-Still, I find <code>:session</code> immensely valuable.  If you find yourself
-wanting to use a debugger to debug your code, or to incrementally
-build up state as your are developing code, I recommend (carefully)
-using it.
+Still, I find <code>:session</code> immensely valuable while developing code or
+doing an analysis.  If you find yourself wanting to use a debugger to
+debug your code, or to incrementally build up state as your are
+working, I recommend (carefully) using it.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org5c3c398" class="outline-4">
-<h4 id="org5c3c398">:cache</h4>
-<div class="outline-text-4" id="text-org5c3c398">
+<div id="outline-container-orgeeea27d" class="outline-4">
+<h4 id="orgeeea27d"><code>:cache</code></h4>
+<div class="outline-text-4" id="text-orgeeea27d">
 <div class="org-src-container">
 <pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
 <span style="color: #b3b3b3;">1</span>
@@ -1566,36 +1598,25 @@ using it.
 Here is an example of using an <code>example</code> block as input to the
 evaluation of a source block.
 </p>
-<pre class="example" id="orgf856762">
+<div class="org-src-container">
+<pre class="src src-org"><span style="color: #ff7f24;">#+name: ex</span>
+<span style="color: #ff7f24;">#+begin_example</span>
 this is a block
 that
 holds more verbatim text
-</pre>
+<span style="color: #ff7f24;">#+end_example</span>
 
-<div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports both</span>
+<span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports both</span>
 <span style="color: #b3b3b3;">foo</span>
 <span style="color: #ff7f24;">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">| this is a block          |</span>
-<span style="color: #87cefa;">| that                     |</span>
-<span style="color: #87cefa;">| holds more verbatim text |</span>
-<span style="color: #87cefa;">|                          |</span>
-</pre>
-</div>
-
-
-<div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports code</span>
+<span style="color: #ff7f24;">#+begin_src R :var foo=ex :exports code</span>
 <span style="color: #b3b3b3;">foo</span>
 <span style="color: #ff7f24;">#+end_src</span>
 </pre>
 </div>
 </div>
 </div>
-
-
 <div id="outline-container-org1e648e4" class="outline-3">
 <h3 id="org1e648e4">Other sources of information</h3>
 <div class="outline-text-3" id="text-org1e648e4">
@@ -1622,16 +1643,19 @@ challenge.</p></div></div>
 information in other .org files, but I don't know the details and I
 don't know if it works with source code blocks.</p></div></div>
 
-<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">Outside of a source block,
-<code>&lt;&lt;NAME&gt;&gt;</code> is used to tag an <a href="https://orgmode.org/manual/Internal-Links.html#Internal-Links">internal link</a> in the .org file; the
-reader may have noticed instances of this in this document.</p></div></div>
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">One solution was proposed
+<a href="https://stat.ethz.ch/pipermail/r-help/2021-March/470709.html">here</a>.</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">Outside of a source block, <code>&lt;&lt;NAME&gt;&gt;</code> is used to tag an
+<a href="https://orgmode.org/manual/Internal-Links.html#Internal-Links">internal link</a> in the .org file; the reader may have noticed instances
+of this in this document.</p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-03 Sat 09:59</p>
+<p class="date">Created: 2021-04-03 Sat 13:28</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
