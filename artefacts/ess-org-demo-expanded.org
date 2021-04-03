@@ -13,7 +13,7 @@
 # floating TOC:
 # https://stackoverflow.com/questions/12232675/how-to-make-table-of-contents-floating
 # trick of setupfile trick: https://stackoverflow.com/a/56407596/1527747
-#+SETUPFILE: ./artefacts/ess-org-startup.org
+#+SETUPFILE: ./ess-org-startup.org
 #+HTML_HEAD:   <style>td.org-right, th.org-right, td.org-left, th.org-left { padding-left: 1em; padding-right: 1em;}</style>
 # LaTeX settings
 #+LATEX_CLASS: article
@@ -57,7 +57,7 @@ means you, the user, should type the string, leaving out the square
 brackets.  Also, the Emacs convention for control and modifier (alt)
 keys is used.  So, =[C-x b]= means type =control x=, then the letter
 =b=.  And, =[M-x b]= would mean type =modifier x= (maybe better known
-as =alt x=), then the letter =b= (almost certainly an error!).
+as =alt x=), then the letter =b=.
 
 (To skip the introductory material and go straight to the
 demonstration work, click [[pastintro][here]].)
@@ -243,7 +243,7 @@ In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
 language whose evaluation is enabled by default.)  To do this,
 position your cursor inside the source block (or on the =#+begin_src=
-or =#+end_src= line), and type {{{C-cC-c}}} (not the square brackets;
+or =#+end_src= line), and type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) (not the square brackets;
 just what is inside).  Additionally, evaluating code in a file can be
 a security risk, so you will be prompted to make sure you want to
 execute the code.
@@ -267,7 +267,7 @@ so will *not disable* any previously loaded language in this Emacs
 process.
 
 An R source block, for example, can be evaluated using the same
-command, {{{C-cC-c}}}:
+command, =[M-x org-babel-execute-src-block]= (=[C-c C-c]=):
 
 #+name: first-r-block
 #+begin_src R :results output
@@ -281,7 +281,7 @@ file.  Call statements have two forms, somewhat similar to the two
 forms of source blocks.
 
 First, a =#+call= line can trigger evaluation of a source block.  To
-trigger the triggering, you will need to type {{{C-cC-c}}} with point
+trigger the triggering, you will need to type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) with point
 positioned on the call line.
 
 #+call: first-r-block()
@@ -299,7 +299,7 @@ Source blocks are, optionally, exported -- to a .html or .pdf file,
 say -- along with some of the rest of a .org file.
 
 To start the export process, one types executes the command
-{{{C-cC-e}}}.  Org mode then pops up a window that allows you to
+=M-x org-export-dispatch= (=[C-c C-e]=).  Org mode then pops up a window that allows you to
 customize your export.  At the top of this window are mostly options
 for defining the scope of the export.  For example, if you then type
 =[C-s]=, only the subtree in which the export is initialized will be
@@ -325,7 +325,7 @@ lowest values) in a vector of numbers.
   cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)>0)>0)+1]
 #+end_src
 
-If you type {{{C-cC-e}}}, then [C-s] (for "subtree"), then [h] (for
+If you type =M-x org-export-dispatch= (=[C-c C-e]=), then [C-s] (for "subtree"), then [h] (for
 "html"), and [o] (for "open"), then, assuming your Emacs is configured
 to know how to open a .html file in a browser (90% likely, I'd guess),
 you'll see the text in this subtree, the above code, and the indices
@@ -355,11 +355,11 @@ Repeating a source block had above,
   <<peaks-and-valleys>>
 #+end_src
 
-Now, you could, if you chose, enter {{{C-cC-vt}}}.  But, be warned!
+Now, you could, if you chose, enter =[M-x org-babel-tangle]= (=[C-c C-v t]=).  But, be warned!
 This will tangle all the source blocks in the current (this) .org file
 that have a =:tangle= header argument (specified or inherited).  One
 can restrict the tangle operation to the source block at point (see
-{{{C-hf}}} for =org-babel-tangle= for details), but even so, I would
+=[M-x describe-function]= (=[C-h f]=) for =org-babel-tangle= for details), but even so, I would
 suggest being careful.
 
 ** /Editing/ a source block
@@ -370,7 +370,7 @@ amount of /code highlighting/ (/fontification/, I guess, in Emacs
 parlance) is provided when editing source blocks inline.
 
 On the other hand, by positioning the cursor on the source block and
-executing {{{C-capostrophe}}}, one can "pop out" the
+executing =[M-x org-edit-src-code]= (=[C-c ']=), one can "pop out" the
 source block and edit it in a buffer with the major mode set
 appropriately for the language of the source block.  In the case of an
 R source block, the major mode will (the R-flavor of) ESS.
@@ -390,16 +390,16 @@ its result?  Is there a peak?  A valley? [fn::One solution was proposed
 
 <<orgsrcminormode>> When editing, the "OrgSrc" minor mode is enabled.
 This mode provides binding for
-- {{{C-xC-s}}} :: to save the source edit back to the main .org buffer
+- =[M-x org-edit-src-save]= (=[C-x C-s]=) :: to save the source edit back to the main .org buffer
 - {{{C-c C-k}}} :: to abort the current editing, discarding any
   unsaved changes
-- {{{sb-C-capostrophe}}} :: to save any unsaved changes back to the
+- =[M-x org-edit-src-exit]= (=[C-c ']=) :: to save any unsaved changes back to the
   .org buffer and close the source edit buffer
 
 NB: If you are editing a block that has [[noweb][:noweb]] references, the
 references will *not* be expanded when passing the block (in part or
-in whole) to a running iESS instance (via, e.g., {{{C-cC-c}}} or
-{{{C-cC-b}}}).  And, in fact, the R interpreter will likely flag a
+in whole) to a running iESS instance (via, e.g., =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) or
+=[M-x ess-eval-buffer]= (=[C-c C-b]=)).  And, in fact, the R interpreter will likely flag a
 syntax error should you try to do so.
 
 ** <<headerarguments>> Header arguments
@@ -774,7 +774,7 @@ buffer (that Org Mode will create, if it doesn't already exist) in
 which evaluations of the current source block (or, all source blocks
 in the file, or all in a subtree) will occur.
 
-During a given Emacs instance, the first time you type {{{C-cC-c}}} in
+During a given Emacs instance, the first time you type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) in
 a source block with a given =:session= name, Emacs will prompt you for
 the name of the starting directory (with a default being the directory
 of the current file).  It will then start up such a process, attach it
@@ -795,7 +795,7 @@ x
 If you evaluate the above two blocks in order, the second will return
 as a result the value of =x= set by the first.
 
-After evaluations, you can use {{{C-xb}}} to switch to that buffer and
+After evaluations, you can use =[M-x switch-to-buffer]= (=[C-x b]=) to switch to that buffer and
 inspect the state, maybe set debug breakpoints, or debug after error
 or debug statement (=browser()=, say) in your code.
 
@@ -878,7 +878,7 @@ Then, a source that produces a different value each second:
 
 Then, two functions.  The first uses results of the unvarying source
 code block as input.  The first time you evaluate it with
-{{{C-cC-c}}}, it will sleep the two seconds.  However, after that,
+=[M-x org-babel-execute-src-block]= (=[C-c C-c]=), it will sleep the two seconds.  However, after that,
 evaluating it will return results immediately.
 #+begin_src R :var input=stable :cache yes
   Sys.sleep(2)
@@ -905,4 +905,4 @@ Emacs (or, using =info(1)=).
 
 [[https://orgmode.org/list/876229nrxf.fsf@gmail.com/]["new exporter"]] e-mail message
 
-{{{C-cC-c}}}
+=[M-x org-babel-execute-src-block]= (=[C-c C-c]=)

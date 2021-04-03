@@ -25,7 +25,8 @@ TWBSJS = ${ARTEFACTSDIR}/ggm-twbs.js
 HTMLFRAG = ${ARTEFACTSDIR}/ggm-twbs.html-fragment
 
 DEMOORG = ess-org-demo.org
-DEMORESULTSORG = artefacts/ess-org-demo-results.org
+DEMOEXPANDEDORG = ${ARTEFACTSDIR}/ess-org-demo-expanded.org
+DEMORESULTSORG = ${ARTEFACTSDIR}/ess-org-demo-results.org
 
 TANGLEDFILES = ${ELORGEL} ${HTMLFRAG} ${TWBSCSS} ${TWBSJS}
 DERIVEDFILES = ${DEMORESULTSORG}
@@ -105,7 +106,19 @@ ${TOUCHEDDIR}/publish: ${MAINORG} ${TANGLEDFILES} ${DEMORESULTSORG} essorgstartu
 	    --eval "(progn (kill-buffer) (kill-emacs))"
 	touch $@
 
-${DEMORESULTSORG}: ${DEMOORG} tangle
+# admittedly, this is a bit silly.  but...  so, i write macros for
+# keystrokes, to have consistency, etc.  but, in the file users open
+# in emacs, i want the macros expanded.  so, i do this.  this has the
+# advantage of keeping everything "user facing" in ./artefacts (but,
+# still.)
+${DEMOEXPANDEDORG}: ${DEMOORG} tangle
+	cat $< | sed ${EXARTEFACTSSED} > $@
+	emacs --file $@ \
+		--eval "(org-macro-replace-all (org-macro--collect-macros))" \
+		--eval "(save-buffer)" \
+		--batch
+
+${DEMORESULTSORG}: ${DEMOEXPANDEDORG} tangle
 	cat $< | sed ${EXARTEFACTSSED} > $@
 	emacs --file $@ \
 		--eval '${EMACSLOADPATH}' \
