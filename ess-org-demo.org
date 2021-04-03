@@ -85,9 +85,10 @@ In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
 language whose evaluation is enabled by default.)  To do this,
 position your cursor inside the source block (or on the =#+begin_src=
-or =#+end_src= line), and type [C-c C-c] (not the square brackets; just
-what is inside).  Evaluating code in a file can be a security risk, so
-you will be prompted to make sure you want to execute the code.
+or =#+end_src= line), and type [C-c C-c] (not the square brackets;
+just what is inside).  Additionally, evaluating code in a file can be
+a security risk, so you will be prompted to make sure you want to
+execute the code.
 
 #+name: set-allowed-languages
 #+begin_src elisp :results none
@@ -179,7 +180,7 @@ say one of: =:exports none=, =:exports code=, or =:exports results=.
 
 ** /Tangling/ code
 
-Tangling is a term the literate programming world uses to mean
+Tangling is a term the [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]] world uses to mean
 extracting the source code from a "literate" document in a way that
 the code can then be compiled and/or executed.  In Org Mode files, the
 =:tangle= header argument defines the filename to which a source block
@@ -256,13 +257,15 @@ phase of another source file.  I think of =#include <stdio.h=, for
 example, in =C=.  Literate programming defines a way of doing this
 known as [[https://www.cs.tufts.edu/~nr/noweb/]["noweb"]].
 
-In Org Mode, a _reference_ to a previous block of code named =NAME= is
-denoted by =<<NAME>>=.  The double angle brackets signal that this is
-a noweb reference.  However, by default, noweb processing is
-*disabled* in an Org Mode buffer.  The =:noweb= header argument
-defaults to =no=, but can be set to =yes= to enable noweb processing.
-Again, as with all header arguments, this can be done on a per-file,
-per-subtree, or per-(referring-)source block basis.
+In Org Mode's [[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example][implementation]], a _reference_ to a previous block of
+code named =NAME= is denoted by =<<NAME>>=.  The double angle brackets
+signal that this is a noweb reference.[fn::Outside of a source block,
+=[<<NAME>>]= is used to tag an [[https://orgmode.org/manual/Internal-Links.html#Internal-Links][internal link]] in the .org file.]
+However, by default, noweb processing is *disabled* in an Org Mode
+buffer.  The =:noweb= header argument defaults to =no=, but can be set
+to =yes= to enable noweb processing.  Again, as with all header
+arguments, this can be done on a per-file, per-subtree, or
+per-(referring-)source block basis.
 
 The noweb reference =<<NAME>>= can refer to either the name of another
 source block in the .org file:

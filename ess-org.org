@@ -73,7 +73,7 @@ Emacs (or, using =info(1)=).
 Various sorts of "blocks" are supported in Org Mode files.  These
 start with =#begin_...=, and end with a corresponding =#end_...=,
 where the =...= are something like =src=, =example=, =quote=.  A
-skeleton for one of these can conveniently be created by, in column 1
+skeleton for some of these can conveniently be created by, in column 1
 of an otherwise empty line, typing =[<X]= followed by =[tab]=, where
 =X= is one of
 - =e= for an example block (line wrapping does not apply) (=#+begin_example=)
@@ -138,7 +138,10 @@ their evaulation in the document produced by exporting the org buffer.
 
 The Org Mode [[https://orgmode.org/guide/][Compact Guide]] has [[https://orgmode.org/guide/Working-with-Source-Code.html][a section]] on source blocks.  A separate
 [[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html]["worg" page]] gives information on using R with Org Mode.  The list of
-languages supported by Org Mode is documented [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][here]].
+languages officially supported by Org Mode is documented [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][here]].  In
+addition to that list, a number of Emacs [[https://www.emacswiki.org/emacs/InstallingPackages][packages]] add support for
+additional programming languages; you can enter =[M-x list-packages]=
+and (regexp) search for =^ ob-=, to list a number of these.
 
 An Org Mode source block includes source code (in one language, per
 source block), an optional [[naming][name]], and optional /[[headerargs][header arguments]]/.
@@ -196,181 +199,6 @@ Source blocks can also be expressed using a =src_LANG= construct; a
 
 =src_LANG= constructs also have a syntax for defining [[headerargs][=header arguments=]].
 
-*** Evaluating source blocks
-
-Once written, a source block can be evaluated[fn:: for security
-reasons, you will need to set or customize the Emacs variable
-=org-babel-load-languages= , via =org-babel-do-load-languages= if you
-are doing this to in a current Emacs session, and you will be prompted
-each time before a code block is evaluated.], returning [[results][results]],
-either the output of the code, or some terminating "value" of the
-code, as an element of the .org file.  And, the blocks can be
-evaluated manually, or -- and optionally, block by block -- while
-exporting a .org file to a different format.
-
-A source block can be evaluated in one of two sorts of contexts,
-within a "session", or outside of a "session".  A "session" here means
-some process that retains state between evaulations of (possibly
-different, but using the same programming language) source blocks.  On
-the other hand, a "non-session" starts up with no internal state from
-prior runs [fn::obviously, prior runs may have, e.g., changed the
-state of the file system on which all these evaulations are running;
-that is, the *external* state may by influenced by what has previously
-been evaluated.].
-
-
-Finally, and of particular interest in these tutorials, is the fact
-that Org Mode uses ESS to provide R language support.
-
-*** <<naming>> Naming blocks
-
-Org Mode source blocks can be named.  The name can be used to include
-the *source* of one block in another block via [[noweb][noweb]], or to include
-the *results* of the evaluation of one block as an input [[variables][variable]] to
-another block.
-
-Org Mode source blocks are named with a =#+name:= line:
-#+BEGIN_SRC org
-  ,#+name: somecode
-  ,#+begin_src R :results output
-      cat("this is *some* code!\n")
-  ,#+end_src
-
-  ,#+RESULTS: somecode
-  : this is *some* code!
-
-  ,#+name: someothercode
-  ,#+begin_src R :results value
-      whynot <- "this is some *other* code!"
-  ,#+end_src
-
-  ,#+RESULTS: someothercode
-  : this is some *other* code!
-
-#+END_SRC
-
-*** <<headerargs>> Header arguments
-*** <<tangling>> Tangling
-
-While often we are content to evaluate code blocks inside the .org
-file, equally often we might want to export some or all of the code
-blocks for evaulation (or inspection) outside of the .org file.  For
-example, we might want to use some of the code in the .org file to
-create an R package.
-
-In the world of [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]], /tangling/ is the process of
-extracting source code from a (theoretically primarily text) document.
-In Org Mode, one uses =org-babel-tangle= (normally bound to =[C-c C-v
-t]=) to tangle the source code blocks in a file.  The file to which a
-source block will be tangled is specified in the =:tangle= attribute,
-placed on the =#+src_block= line or in a =:header-args= line (in a
-[[properties][properties drawer]], to apply to a subtree of the .org file, or
-stand-alone as above to apply to the entire .org file).
-
-To actually /tangle/ a file, use =]M-x org-babel-tangle]=, often bound
-to =[C-c C-v t]=.
-
-The name of the file to which a given source block is tangled is given
-by the =:tangle= [[headerargs][header argument]].  Like other header arguments, the
-=:tangle= header argument can be specified by one of several ways.
-The first way is by specifying it adjoining the source block, either
-on the =#+begin_src= line, or on an immediately preceding =#+header=
-line (basically, an overflow of the =#+begin_src= line):
-
-#+begin_src org
-  ,#+begin_src R :tangle ./nosuchdirectory/foofile
-  "this is some R code"
-  ,#+end_src
-
-  ,#+RESULTS:
-  : this is some R code
-
-  ,#+header: :tangle ./nosuchdirectory/anotherfile
-  ,#+begin_src R
-  "this is some more R code"
-  ,#+end_src
-
-  ,#+RESULTS:
-  : this is some more R code
-#+end_src
-
-<<properties>> Second, the destination file to tangle a subtree's
-worth of source blocks can be specified in a PROPERIES drawer on the
-headline for that tree using the =header-args= property's =tangle=
-attribute to name the code blocks in that branch that don't have a
-"more local" =:tangle= specification.
-
-Alternatively, using a =#+property= tag at the top of a file, you can
-define a default tangle destination for all the code blocks in the
-file that don't have a "more local" =:tangle= specification.
-
-#+BEGIN_SRC org
-  ,#+property: header-args :tangle ./nosuchdirectory/bigfile
-
-  ,** this is somewhere in this file
-       :PROPERTIES:
-       :header-args+: :tangle very/important/code.R
-       :header-args+: :noweb-ref nowcode
-       :END:
-
-  now, code blocks will carry that name
-  ,#+begin_src R
-      x <- "we want some code, and we want it now!"
-  ,#+end_src
-
-  ,#+RESULTS:
-  : we want some code, and we want it now!
-
-  ,** somewhere else
-  ,#+begin_src R :results output
-      <<nowcode>>
-      cat(x, "\n")
-  ,#+end_src
-
-  ,#+RESULTS:
-#+END_SRC
-
-As you can see, the properties drawer can carry many of properties,
-including the name of a destination file for [[tangling][tangling]].  The very odd
-=<<nowcode>>= is our next topic: [[noweb][noweb]].
-
-*** <<noweb>> noweb
-
-[[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example][noweb]] is a literate programming syntax to allow referencing blocks of
-code within some larger (.org file, say) context.  It allows a
-programmer to re-use bits of code (sort of =#include= like).
-
-noweb syntax is *disabled* by default.  To enable noweb syntax, one
-can either enable it on the header line of each source code block,
-enable it in a [[properties][properties drawer]], or, as in the following, enable it
-once at the beginning of an org file:
-#+BEGIN_SRC org
-  ,#+property: header-args  :noweb yes
-#+END_SRC
-
-Once enabled, references of the kind =<<NAME>>= will incorporate the
-contents of a previous source code block.
-
-#+BEGIN_SRC org
-  ,#+property: header-args :noweb yes
-
-  ,#+name: fubar
-  ,#+begin_src R
-  "this is an example"
-  ,#+end_src
-
-  ,#+RESULTS: fubar
-  : this is an example
-
-  ,#+begin_src R
-  <<fubar>>
-  ,#+end_src
-
-  ,#+RESULTS:
-  : this is an example
-
-#+END_SRC
-
 *** <<evaulating>> Evaulating
 **** =[C-c C-c]= on a source block
 **** =[C-c C-c]= on an inline source block
@@ -395,28 +223,7 @@ contents of a previous source code block.
   call_find-orgs() {{{results(=1=)}}}
 
 #+end_src
-*** <<results>> Results
-
-#+BEGIN_SRC org
-  ,#+name: somecode
-  ,#+begin_src R :results output
-      cat("this is *some* code!\n")
-  ,#+end_src
-
-  ,#+RESULTS: somecode
-  : this is *some* code!
-
-  ,#+name: someothercode
-  ,#+begin_src R :results value
-      whynot <- "this is some *other* code!"
-  ,#+end_src
-
-  ,#+RESULTS: someothercode
-  : this is some *other* code!
-
-#+END_SRC
-
-**** :colnames and :rownames
+*** :colnames and :rownames
 
 When processing a table result of a previous source block to be used
 as an input [[variables][variable]] to another code block, the =:colnames= header
@@ -459,11 +266,6 @@ placed in the Org Mode buffer.
 
 #+end_src
 
-*** <<variables>> Variables
--- in and out
-entire document or a subtree of the document
-*** Life in Org Src buffers
-*** <<exporting>> Exporting
 
 ** Org Mode community
 
