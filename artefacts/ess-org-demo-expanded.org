@@ -72,8 +72,9 @@ You might profit from downloading the .org file this was generated
 (with suitable incantations) from, and then explore it using Emacs and
 Org Mode.
 
-You should be able to find that file at XXX (*This* file will not work
-as a .org file.)
+You should be able to find that file
+<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html">here</a>
+(<em>This</em> file will not work as a .org file.)
 
 #+END_EXPORT
 
@@ -896,12 +897,35 @@ you evaluate it, it will take the full two seconds.
 #+end_src
 
 ** Other sources of information
+
 The official [[https://orgmode.org/quickstart.html][Quick Start]] guide provides a very good introduction to
 Org Mode.  The main [[https://orgmode.org/][Org Mode]] web page is another good source for
 further information, as is the Org Mode [[https://orgmode.org/worg/][worg]] site.  (You may find it
 useful to take a linear stroll through [[https://orgmode.org/worg/sitemap.html][the worg site map]].)  Also, once
 installed on your system, the Org Mode info pages are available in
 Emacs (or, using =info(1)=).
+
+The Org Mode [[https://orgmode.org/guide/][Compact Guide]] has [[https://orgmode.org/guide/Working-with-Source-Code.html][a section]] on source blocks.  A separate
+[[https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-R.html]["worg" page]] gives information on using R with Org Mode.  The list of
+languages officially supported by Org Mode is documented [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][here]].  In
+addition to that list, a number of Emacs [[https://www.emacswiki.org/emacs/InstallingPackages][packages]] add support for
+additional programming languages; you can enter =[M-x list-packages]=
+and (regexp) search for =^ ob-=, to list a number of these.
+
+The Org Mode community has various [[https://orgmode.org/community.html][forms]] of engaging with one another.
+In particular, there is an e-mail list, an IRC channel, etc.
+
+The beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]]).  A .html version
+of this file is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]]), and plain text version, suitable for
+experimentation in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]] (no PDF file for this one!).
+
+Rainer König's [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][screencasts]] about Org Mode (now a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]]) are
+useful for coming up to speed with Org Mode, but are more focused on
+the non-programming aspects of Org Mode.
+
+There are some nice tutorials.  A somewhat older one is from Erik
+Iverson, [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][org-mode-R-tutorial.org]].  And, there is a more recent one
+from Vikas Rawal, [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org][orgpapers.org]].
 
 ** more random :noexport:
 
