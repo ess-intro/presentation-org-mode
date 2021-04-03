@@ -370,7 +370,6 @@ in whole) to a running iESS instance (via, e.g., =[C-c C-c]= or =[C-c
 C-b]=).  And, in fact, the R interpreter will likely flag a syntax
 error should you try to do so.
 
-
 ** <<headerarguments>> Header arguments
 
 Header arguments modify the execution context in which Org Mode source
@@ -795,32 +794,73 @@ debug your code, or to incrementally build up state as your are
 working, I recommend (carefully) using it.
 
 *** =:cache=
-#+begin_src org :exports both :result
-  ,#+begin_src R
-  1
-  ,#+end_src
+
+Sometimes you will have a long-running computation, the results of
+which are used as input to other computations, or for export.  In this
+case, you may not want to have to re-run the computation if its
+results won't change.  To help with this situation, Org Mode has the
+=:cache= header argument.
+
+If a source block is marked with =:cache yes= is scheduled to be
+evaluated, Org Mode checks the following:
+- the contents of the source block itself
+- the header arguments to the source block
+- the values of the sources of all the =:var= header arguments
+
+If none of these have changed (as testified by a cryptographic hash
+over these) since the last evaluation of the source block, then the
+value of the previous evaluation is used as the value of the current
+evaluation.
+
+Of course, if a source code block takes input from some external
+source, such as a file, that may have changed since the previous
+evaluation, Org Mode won't notice, and you may get incorrect results.
+Also, a source code block that makes use of the results of a random
+number generator will not be re-evaluated.  It is the responsibility
+of the programmer to *not* mark source blocks of these types with
+=:cache yes=.
+
+Here is an example.  When it is actually evaluated, this source code
+block will block for two seconds.  If you evaluate it a *second* time,
+the results will appear immediately.
+
+#+name: long-computation
+#+begin_src R :cache yes
+  Sys.sleep(2)
+  42
 #+end_src
 
-** Some more random bits
-
-Here is an example of using an =example= block as input to the
-evaluation of a source block.
-#+begin_src org
-  ,#+name: ex
-  ,#+begin_example
-  this is a block
-  that
-  holds more verbatim text
-  ,#+end_example
-
-  ,#+begin_src R :var foo=ex :exports both
-  foo
-  ,#+end_src
-
-  ,#+begin_src R :var foo=ex :exports code
-  foo
-  ,#+end_src
+Now, we look at how =:cache= deals with one of the inputs changing.
+First, here is a source which produces the same value each time it is
+run:
+#+name: stable
+#+begin_src R
+  23
 #+end_src
+
+Then, a source that produces a different value each second:
+#+name: unstable
+#+begin_src R
+  Sys.time()
+#+end_src
+
+Then, two functions.  The first uses results of the unvarying source
+code block as input.  The first time you evaluate it (with =[C-c
+C-c]=), it will sleep the two seconds.  However, after that,
+evaluating it will return results immediately.
+#+begin_src R :var input=stable :cache yes
+  Sys.sleep(2)
+  input
+#+end_src
+
+This function, on the other hand, takes as input results from the
+varying function.  Each time (well, separated by at least one second)
+you evaluate it, it will take the full two seconds.
+#+begin_src R :var input=unstable :cache yes
+  Sys.sleep(2)
+  input
+#+end_src
+
 ** Other sources of information
 The official [[https://orgmode.org/quickstart.html][Quick Start]] guide provides a very good introduction to
 Org Mode.  The main [[https://orgmode.org/][Org Mode]] web page is another good source for
