@@ -947,27 +947,6 @@ either "results" or "both".
 (provide 'el-org)
 #+end_src
 
-** css                                                              :noexport:
-
-#+begin_src css :tangle ./tangled/floattoc.css
-  #table-of-contents {
-        position: fixed;
-        right: 0;
-        top: 0;
-        background-color:#FFF;
-        padding: 1px 1%;
-        border: 1px solid rgb(201,44,44);
-        z-index: 2; /**/
-  }
-
-  /* Hide the full TOC by default */
-  #table-of-contents #text-table-of-contents { display: none; }
-
-  #table-of-contents:hover #text-table-of-contents {
-        display: block; /* Show it on hover */
-  }
-#+end_src
-
 ** testing :noexport:
             :PROPERTIES:
             :header-args:     :tanglex foobar
