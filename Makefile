@@ -1,3 +1,10 @@
+# there's a famous comment in the V6 (i think) Unix kernel sources
+# that says something like "you are not expected to understand the
+# following line".  here, it's not "understanding", but "the ability
+# to run" that is in question -- the make process here may or may not
+# be reproducible on someone else's machine.  good luck -- there be
+# unicorns!
+
 # a little error checking
 GNUMAKEFLAGS += --warn-undefined-variables
 
