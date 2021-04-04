@@ -5,9 +5,10 @@ presentation exist.
 
 it's not clear to me the build process would work on anyone else's
 machine.  but, if so, ~make~ is run on the source files on a
-developer's machine, and the resulting .html and .pdf files, in
-=./artefacts/= are added to the repository and (when =git push= is
-executed) uploaded to the github repository for access.
+developer's machine, and the resulting .html and .pdf files (along
+with a few others), in =./artefacts/= are added to the repository and
+(when =git push= is executed) uploaded to the github repository for
+access.
 
 the beamer slides for the presentation are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]]).  a plain text
 file, "suitable for experimentation" in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]].  A .html
