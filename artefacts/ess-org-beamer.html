@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-03 Sat 20:01 -->
+<!-- 2021-04-04 Sun 06:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Org Mode for ESS users</title>
@@ -220,7 +220,7 @@
 <div id="content">
 <h1 class="title">Introduction to Org Mode for ESS users
 <br />
-<span class="subtitle">part of the ESS intro series</span>
+<span class="subtitle"><a href="https://ess-intro.github.io/"><span class="underline">part of the ESS intro series</span></a></span>
 </h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
@@ -232,8 +232,8 @@
 <li><a href="#orgf679411">R source blocks</a></li>
 <li><a href="#orge5e734a">Header arguments</a></li>
 <li><a href="#orgfcaba6f">Org Src buffers for R</a></li>
-<li><a href="#org5d8713a">Other resources (I)</a></li>
-<li><a href="#org701cabe">Other resources (II)</a></li>
+<li><a href="#org1d4b4b3">Other resources</a></li>
+<li><a href="#org50b720b">Tutorials, Videos</a></li>
 <li><a href="#org0a0b4d6">Farewell</a></li>
 </ul>
 </div>
@@ -346,11 +346,11 @@ used as input to this source block</dd>
 <dt>:results</dt><dd>defines how results are collected after evaluation of
 the source block, and how (or whether) they are inserted into the
 org buffer</dd>
-<dt>:tangle</dt><dd>name of file to which to <i>tangle</i> the contents of this
-source block</dd>
 <dt>:session</dt><dd>normally, source blocks are evaluated in a "pristine"
 environment (a new R process, say); with this option, successive
 evaluations of source blocks can occur within a single process.</dd>
+<dt>:tangle</dt><dd>name of file to which to <i>tangle</i> the contents of this
+source block</dd>
 </dl>
 </div>
 </div>
@@ -375,58 +375,47 @@ of the next function.
 </div>
 </div>
 
-<div id="outline-container-org5d8713a" class="outline-2">
-<h2 id="org5d8713a">Other resources (I)</h2>
-<div class="outline-text-2" id="text-org5d8713a">
-<p>
-For Emacs: 
-</p>
-
+<div id="outline-container-org1d4b4b3" class="outline-2">
+<h2 id="org1d4b4b3">Other resources</h2>
+<div class="outline-text-2" id="text-org1d4b4b3">
 <ul class="org-ul">
-<li>SystemCrafters' <a href="https://www.youtube.com/c/SystemCrafters/playlists"><span class="underline">playlists</span></a> include various introductory videos.</li>
-</ul>
+<li>the official <a href="https://orgmode.org/quickstart.html"><span class="underline">Quick Start</span></a> guide, a very good introduction to Org Mode</li>
 
-<p>
-For Org Mode:
-</p>
+<li>the <a href="https://orgmode.org/"><span class="underline">Org Mode</span></a> web page</li>
 
-<ul class="org-ul">
-<li>The Org Mode <a href="https://orgmode.org/"><span class="underline">web site</span></a>.</li>
-<li>Rainer König has a <a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE"><span class="underline">series of videos</span></a> (now also available as a
-<a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7"><span class="underline">course on Udemy</span></a>).</li>
-<li>DT ("Distro Tube"?) has yet another <a href="https://www.youtube.com/watch?v=Ea_-TaEGa7Y">introductory video</a>.</li>
-<li>The Org Mode community site ("worg") has a <a href="https://orgmode.org/worg/org-contrib/babel/"><span class="underline">section</span></a> about Babel.</li>
-</ul>
+<li>the Org Mode <a href="https://orgmode.org/worg/"><span class="underline">worg</span></a> site</li>
 
-<p>
-For Org mode with R:
-</p>
+<li>the other presentations in this <a href="https://ess-intro.github.io/"><span class="underline">ESS intro series</span></a></li>
 
-<ul class="org-ul">
-<li>Erik Riverson many years ago produced <a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org"><span class="underline">a tutorial</span></a> that, while dated
-in some places, is still very useful.</li>
-<li>XXX A copy of a longer exposition of this tutorial XXX</li>
+<li>the beamer slides for this tutorial are <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html"><span class="underline">here</span></a> (<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf"><span class="underline">pdf</span></a>)</li>
+
+<li>a <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org"><span class="underline">.org file</span></a> for experimenting (an HTML version <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html"><span class="underline">here</span></a> and a PDF
+one <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf"><span class="underline">here</span></a>)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org701cabe" class="outline-2">
-<h2 id="org701cabe">Other resources (II)</h2>
-<div class="outline-text-2" id="text-org701cabe">
+<div id="outline-container-org50b720b" class="outline-2">
+<h2 id="org50b720b">Tutorials, Videos</h2>
+<div class="outline-text-2" id="text-org50b720b">
 <p>
-For everything:
+There are some nice tutorials:
 </p>
 
 <ul class="org-ul">
-<li>the Emacs, etc., "info pages" (<code>[C-h i]</code>), which include information
-on Emacs, Org Mode, etc. (even R, depending on your installation),
-provide very detailed information.</li>
+<li>a somewhat older one is from Erik Iverson, <a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org"><span class="underline">org-mode-R-tutorial.org</span></a></li>
+<li>a more recent one from Vikas Rawal, <a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org"><span class="underline">orgpapers.org</span></a></li>
 </ul>
 
 <p>
-There are various ways to connect with other Org Mode users listed
-<a href="https://orgmode.org/community.html">here</a>.  Similar information for ESS is <a href="https://ess.r-project.org/index.php?Section=getting%20help">here</a>.
+And, some videos, including:
 </p>
+
+<ul class="org-ul">
+<li>Rainer König's <a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE"><span class="underline">screencasts</span></a> about Org Mode (also available as a
+<a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7"><span class="underline">course on Udemy</span></a>)</li>
+<li>DT ("Distro Tube"?) has yet another <a href="https://www.youtube.com/watch?v=Ea_-TaEGa7Y"><span class="underline">introductory video</span></a>.</li>
+</ul>
 </div>
 </div>
 
@@ -454,7 +443,7 @@ the buffer context in which it is executed.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-03 Sat 20:01</p>
+<p class="date">Created: 2021-04-04 Sun 06:35</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
