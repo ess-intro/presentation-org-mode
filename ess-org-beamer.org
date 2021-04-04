@@ -1,6 +1,6 @@
 * a beginning :noexport:
 #+title: Introduction to Org Mode for ESS users
-#+subtitle: part of the ESS intro series
+#+subtitle: [[https://ess-intro.github.io/][_part of the ESS intro series_]]
 #+author: Greg Minshall
 #+options: toc:nil ':nil
 #+options: num:0 toc:2
@@ -107,11 +107,11 @@ close the Org Source buffer and return to the Org buffer, type
 - :results :: defines how results are collected after evaluation of
   the source block, and how (or whether) they are inserted into the
   org buffer
-- :tangle :: name of file to which to /tangle/ the contents of this
-  source block
 - :session :: normally, source blocks are evaluated in a "pristine"
   environment (a new R process, say); with this option, successive
   evaluations of source blocks can occur within a single process.
+- :tangle :: name of file to which to /tangle/ the contents of this
+  source block
 
 * Org Src buffers for R
 
@@ -124,58 +124,33 @@ just the function at the current location to be evaluated (rather than
 the whole Org Src buffer), and moves the cursor ("point") to the start
 of the next function.
 
-* :session for R :noexport:
+* Other resources
 
-Normally, successive evaluations of source blocks do not have access to
-any state instantiated by previous evaluations (other than emitted
-results).
+- the official [[https://orgmode.org/quickstart.html][_Quick Start_]] guide, a very good introduction to Org Mode
 
-However, the =:session NAME= header argument causes all evaluation of
-a block to occur in a single R process (in an Emacs buffer, under
-ESS).
+- the [[https://orgmode.org/][_Org Mode_]] web page
+  
+- the Org Mode [[https://orgmode.org/worg/][_worg_]] site
+  
+- the other presentations in this [[https://ess-intro.github.io/][_ESS intro series_]]
 
-#+begin_src org
-	,#+begin_src R :session aRbitRaRyname
-		a <- rnorm(1)
-	,#+end_src
-#+end_src
+- the beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][_here_]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][_pdf_]])
 
-This can be convenient, as it allows you to build up, and examine, a
-series of functions and variables, ease debugging, etc. [fn::In
-general, depending on the language of the source block you are using,
-evaluation with or without sessions may exhibit different behavior.
-(I think I've noticed this with python.)]
+- a [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][_.org file_]] for experimenting (an HTML version [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][_here_]] and a PDF
+  one [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][_here_]])
 
-* Other resources (I)
+* Tutorials, Videos
 
-For Emacs: 
+There are some nice tutorials:
 
-- SystemCrafters' [[https://www.youtube.com/c/SystemCrafters/playlists][_playlists_]] include various introductory videos.
+- a somewhat older one is from Erik Iverson, [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][_org-mode-R-tutorial.org_]]
+- a more recent one from Vikas Rawal, [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org][_orgpapers.org_]]
 
-For Org Mode:
+And, some videos, including:
 
-- The Org Mode [[https://orgmode.org/][_web site_]].
-- Rainer König has a [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][_series of videos_]] (now also available as a
-  [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][_course on Udemy_]]).
-- DT ("Distro Tube"?) has yet another [[https://www.youtube.com/watch?v=Ea_-TaEGa7Y][introductory video]].
-- The Org Mode community site ("worg") has a [[https://orgmode.org/worg/org-contrib/babel/][_section_]] about Babel.
-
-For Org mode with R:
-
-- Erik Riverson many years ago produced [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][_a tutorial_]] that, while dated
-  in some places, is still very useful.
-- XXX A copy of a longer exposition of this tutorial XXX
-
-* Other resources (II)
-
-For everything:
-
-- the Emacs, etc., "info pages" (=[C-h i]=), which include information
-  on Emacs, Org Mode, etc. (even R, depending on your installation),
-  provide very detailed information.
-
-There are various ways to connect with other Org Mode users listed
-[[https://orgmode.org/community.html][here]].  Similar information for ESS is [[https://ess.r-project.org/index.php?Section=getting%20help][here]].
+- Rainer König's [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][_screencasts_]] about Org Mode (also available as a
+  [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][_course on Udemy_]])
+- DT ("Distro Tube"?) has yet another [[https://www.youtube.com/watch?v=Ea_-TaEGa7Y][_introductory video_]].
 
 * Farewell
 
