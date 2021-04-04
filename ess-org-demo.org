@@ -913,12 +913,15 @@ additional programming languages; you can enter =[M-x list-packages]=
 and (regexp) search for =^ ob-=, to list a number of these.
 
 The Org Mode community has various [[https://orgmode.org/community.html][forms]] of engaging with one another.
-In particular, there is an e-mail list, an IRC channel, etc.  The [[https://ess.r-project.org/index.php?Section=home][ESS
-project]] also has ways to connect, listed [[https://ess.r-project.org/index.php?Section=getting%20help][here]].
+In particular, there is an e-mail list, an IRC channel, etc.
+
+The other presentations in this [[https://ess-intro.github.io/][ESS intro series]] provide more detail
+about ESS.  The [[https://ess.r-project.org/index.php?Section=home][ESS project]] also has ways to connect, listed [[https://ess.r-project.org/index.php?Section=getting%20help][here]].
 
 The beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]]).  A .html version
 of this file is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][pdf]]), and plain text version, suitable for
-experimentation in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]] (no PDF file for this one!).
+experimentation in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]] (no PDF file for this one!).  The
+github repository for this presentation is [[https://github.com/ess-intro/presentation-org-mode][here]].
 
 There are some videos you might find useful.  Rainer König's
 [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][screencasts]] about Org Mode (also available as a [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]]) are
