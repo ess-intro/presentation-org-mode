@@ -70,7 +70,8 @@ EXARTEFACTSSED = "s|^\#+SETUPFILE: ./artefacts/|\#+SETUPFILE: ./|"
 # these are the files we want on github (other than our normal
 # "source" files)
 ARTEFACTSFILES = ${PUBLISHEDFILES} ${HTMLFRAG} \
-			${DEMOEXPANDEDORG} ${DEMORESULTSORG}
+			${DEMOEXPANDEDORG} ${DEMORESULTSORG} \
+			${CSSFILES}
 
 # set up to allow evaluating R source blocks
 EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (org . t) (python . t) (R . t)))
