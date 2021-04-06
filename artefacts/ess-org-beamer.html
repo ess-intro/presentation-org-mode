@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-06 Tue 16:49 -->
+<!-- 2021-04-06 Tue 20:47 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Org Mode for ESS users</title>
@@ -223,25 +223,9 @@
 <br />
 <span class="subtitle"><a href="https://ess-intro.github.io/"><span class="underline">part of the ESS intro series</span></a></span>
 </h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#org24c4531">Org Mode</a></li>
-<li><a href="#orgc31e6b8">Babel &#x2013; Org Mode support for programming</a></li>
-<li><a href="#org25a9815">"To a source block", you can</a></li>
-<li><a href="#orgf679411">R source blocks</a></li>
-<li><a href="#orge5e734a">Header arguments</a></li>
-<li><a href="#orgfcaba6f">Org Src buffers for R</a></li>
-<li><a href="#org1d4b4b3">Other resources</a></li>
-<li><a href="#org50b720b">Tutorials, Videos</a></li>
-<li><a href="#org0a0b4d6">Farewell</a></li>
-</ul>
-</div>
-</div>
 <div id="outline-container-org24c4531" class="outline-2">
-<h2 id="org24c4531">Org Mode</h2>
-<div class="outline-text-2" id="text-org24c4531">
+<h2 id="org24c4531"><span class="section-number-2">1</span> Org Mode</h2>
+<div class="outline-text-2" id="text-1">
 <p>
 "If Emacs is the distribution, Org Mode is the entire desktop
 environment one runs on top of it."
@@ -266,8 +250,8 @@ formulae)</li>
 </div>
 
 <div id="outline-container-orgc31e6b8" class="outline-2">
-<h2 id="orgc31e6b8">Babel &#x2013; Org Mode support for programming</h2>
-<div class="outline-text-2" id="text-orgc31e6b8">
+<h2 id="orgc31e6b8"><span class="section-number-2">2</span> Babel &#x2013; Org Mode support for programming</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 One can write source code in "source blocks".  Source blocks have the
 following attributes:
@@ -284,8 +268,8 @@ interacts with its environment</li>
 </div>
 
 <div id="outline-container-org25a9815" class="outline-2">
-<h2 id="org25a9815">"To a source block", you can</h2>
-<div class="outline-text-2" id="text-org25a9815">
+<h2 id="org25a9815"><span class="section-number-2">3</span> "To a source block", you can</h2>
+<div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><b>evaluate</b> it (<code>[C-c C-c]</code><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>) to produce results, which, in turn, may be used as input to
 another source block.  <b>NB:</b> there are security issues here: you
@@ -300,16 +284,16 @@ into a separate file, that might be used as input to a compilation
 or some other packaging step, or be a stand alone script (<code>Rscript</code>,
 say).</li>
 <li><b>edit</b> it, either in place in the Org buffer, or "stand alone" in an
-Org Source buffer (<code>[C-c ']</code><sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup>), with the possibility of real-time
-syntax checking/linting, etc.</li>
+<i>OrgSrc</i> buffer (<code>[C-c ']</code><sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup>), with the possibility of
+real-time syntax checking/linting, etc.</li>
 </ul>
 </div>
 </div>
 
 
 <div id="outline-container-orgf679411" class="outline-2">
-<h2 id="orgf679411">R source blocks</h2>
-<div class="outline-text-2" id="text-orgf679411">
+<h2 id="orgf679411"><span class="section-number-2">4</span> R source blocks</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 In particular, one can have a source block with R code
 </p>
@@ -331,15 +315,15 @@ or <code>[C-c C-v e]</code>.
 
 <p>
 To edit this source block in an Org Src buffer, type <code>[C-c ']</code>.  To
-close the Org Source buffer and return to the Org buffer, type
-<code>[C-c ']</code> again.
+close the OrgSrc buffer and return to the Org buffer, type <code>[C-c ']</code>
+again.
 </p>
 </div>
 </div>
 
 <div id="outline-container-orge5e734a" class="outline-2">
-<h2 id="orge5e734a">Header arguments</h2>
-<div class="outline-text-2" id="text-orge5e734a">
+<h2 id="orge5e734a"><span class="section-number-2">5</span> Header arguments</h2>
+<div class="outline-text-2" id="text-5">
 <dl class="org-dl">
 <dt>:noweb</dt><dd>allows code from another place in the org file to be
 inserted at a point in the current org file when evaluating or
@@ -349,38 +333,57 @@ used as input to this source block</dd>
 <dt>:results</dt><dd>defines how results are collected after evaluation of
 the source block, and how (or whether) they are inserted into the
 org buffer</dd>
-<dt>:session</dt><dd>normally, source blocks are evaluated in a "pristine"
-environment (a new R process, say); with this option, successive
-evaluations of source blocks can occur within a single process.</dd>
+<dt>:session</dt><dd>outlined on next slide</dd>
 <dt>:tangle</dt><dd>name of file to which to <i>tangle</i> the contents of this
 source block</dd>
 </dl>
 </div>
 </div>
 
-<div id="outline-container-orgfcaba6f" class="outline-2">
-<h2 id="orgfcaba6f">Org Src buffers for R</h2>
-<div class="outline-text-2" id="text-orgfcaba6f">
-<p>
-Again, <code>[C-c ']</code> to enter and to exit.
-</p>
+<div id="outline-container-org5ea88aa" class="outline-2">
+<h2 id="org5ea88aa"><span class="section-number-2">6</span> <code>:session</code> header argument</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>Normally, Org Mode evaluates a source block by forking a new R
+subprocess, passing it the code (and any variables to be used as
+input), letting the code run, capturing the results, and then
+disposing of the R subprocess.  This ensures that code runs in a
+fresh environment.</li>
+
+<li>Often, especially when doing statistical analysis, we would like to
+build up state over time, by executing various code blocks, and/or
+by poking in the environment.</li>
+
+<li>Also, we may want to debug our code in a convenient way.</li>
+</ul>
 
 <p>
-An Org Src buffer for R is an <code>ESS[R]</code> mode buffer.
+For these reasons, the <code>:session</code> header argument is very useful.  All
+source code blocks specifying the same session name in the <code>:session</code>
+header argument run in the same inferior ESS (<code>iESS</code>) process.
 </p>
+</div>
+</div>
 
+<div id="outline-container-orge9077db" class="outline-2">
+<h2 id="orge9077db"><span class="section-number-2">7</span> A style of working</h2>
+<div class="outline-text-2" id="text-7">
 <p>
-Evaluating code is still initiated with <code>[C-c C-c]</code>, but tends to send
-just the function at the current location to be evaluated (rather than
-the whole Org Src buffer), and moves the cursor ("point") to the start
-of the next function.
+In Emacs, I find that I spend time bouncing between three buffers:
 </p>
+<ul class="org-ul">
+<li>the .org file, often doing minor in-line edits in a source block</li>
+<li>an OrgSrc edit buffer, for more major edits (and get font lock,
+etc.); this buffer comes and goes, as needed</li>
+<li>the R <code>:session</code> buffer to run code, examine results, and debug as
+needed</li>
+</ul>
 </div>
 </div>
 
 <div id="outline-container-org1d4b4b3" class="outline-2">
-<h2 id="org1d4b4b3">Other resources</h2>
-<div class="outline-text-2" id="text-org1d4b4b3">
+<h2 id="org1d4b4b3"><span class="section-number-2">8</span> Other resources</h2>
+<div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>the official <a href="https://orgmode.org/quickstart.html">Quick Start</a> guide, a very good introduction to Org Mode</li>
 
@@ -399,8 +402,8 @@ one <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org
 </div>
 
 <div id="outline-container-org50b720b" class="outline-2">
-<h2 id="org50b720b">Tutorials, Videos</h2>
-<div class="outline-text-2" id="text-org50b720b">
+<h2 id="org50b720b"><span class="section-number-2">9</span> Tutorials, Videos</h2>
+<div class="outline-text-2" id="text-9">
 <p>
 There are some nice tutorials:
 </p>
@@ -423,8 +426,8 @@ And, some videos, including:
 </div>
 
 <div id="outline-container-org0a0b4d6" class="outline-2">
-<h2 id="org0a0b4d6">Farewell</h2>
-<div class="outline-text-2" id="text-org0a0b4d6">
+<h2 id="org0a0b4d6"><span class="section-number-2">10</span> Farewell</h2>
+<div class="outline-text-2" id="text-10">
 <p>
 Thank you for "attending" this tutorial.  I hope it has given you a
 sense of Org Mode.  This has been more of a teaser than an exhaustive
@@ -445,7 +448,7 @@ block</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-06 Tue 16:49</p>
+<p class="date">Created: 2021-04-06 Tue 20:47</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
