@@ -44,24 +44,33 @@ DEMOEXPANDEDORG = ${ARTEFACTSDIR}/ess-org-demo-expanded.org
 DEMORESULTSORG = ${ARTEFACTSDIR}/ess-org-demo-results.org
 
 TANGLEDFILES = ${ELORGEL} ${HTMLFRAG} ${TWBSCSS} ${TWBSJS}
-DERIVEDFILES = ${DEMOEXPANDEDORG} ${DEMORESULTSORG} ${ESSORGSTARTUPORG}
-PUBLISHEDFILES = \
-				${ARTEFACTSDIR}/ess-org.html \
-				${ARTEFACTSDIR}/ess-org.pdf \
-				${ARTEFACTSDIR}/ess-org-demo-results.html \
-				${ARTEFACTSDIR}/ess-org-demo-results.pdf \
-				${ARTEFACTSDIR}/ess-org-beamer.html \
-				${ARTEFACTSDIR}/ess-org-beamer.pdf
+DERIVEDFILES = ${DEMOEXPANDEDORG} \
+					${DEMORESULTSORG} \
+					${ESSORGSTARTUPORG} \
+					${CSSFILES}
 
+PUBLISHEDHTMLFILES = \
+				${ARTEFACTSDIR}/ess-org-demo-results.html \
+				${ARTEFACTSDIR}/ess-org-beamer.html
+PUBLISHEDPDFFILES = \
+				${ARTEFACTSDIR}/ess-org-demo-results.pdf \
+				${ARTEFACTSDIR}/ess-org-beamer.pdf
+PUBLISHEDFILES = ${PUBLISHEDHTMLFILES} ${PUBLISHEDPDFFILES}
+
+
+TOUCHEDFILES = ${TOUCHEDDIR}/tangle ${TOUCHEDDIR}/publish
+
+# these are generated from an emacs non-batch session.  we don't
+# normally re-create these.  but, if they need to be re-created, they
+# will following a 'make clean'
+CSSFILES = $(subst .html,.css,${PUBLISHEDHTMLFILES})
+
+EXARTEFACTSSED = "s|^\#+SETUPFILE: ./artefacts/|\#+SETUPFILE: ./|"
 
 # these are the files we want on github (other than our normal
 # "source" files)
 ARTEFACTSFILES = ${PUBLISHEDFILES} ${HTMLFRAG} \
 			${DEMOEXPANDEDORG} ${DEMORESULTSORG}
-
-TOUCHEDFILES = ${TOUCHEDDIR}/tangle ${TOUCHEDDIR}/publish
-
-EXARTEFACTSSED = "s|^\#+SETUPFILE: ./artefacts/|\#+SETUPFILE: ./|"
 
 # set up to allow evaluating R source blocks
 EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp . t) (org . t) (python . t) (R . t)))
@@ -79,7 +88,10 @@ EMACSORGBLOCKS = (resultify-org-blocks)
 EMACSNONORGBLOCKS = (let ((ess-ask-for-ess-directory nil)) (resultify-non-org-blocks) (save-buffer))
 # 
 EMACSORGIFY = (progn (orgify-all-non-org-blocks) (save-buffer))
-
+# output to stdout the CSS used for htlmize'ing our files.  this needs
+# to be done in "full emacs" mode (not --batch, etc.), since htmlize's
+# behaviour is dependent on what the platform it is running on.
+EMACSCSSIFY = "(let ((htmlize-hyperlink-style \"\")) (org-html-htmlize-generate-css) (append-to-file (point-min) (point-max) \"/dev/stdout\"))"
 
 all: tangle publish
 
@@ -105,18 +117,21 @@ ${ARTEFACTSDIR}/ess-org-beamer.pdf: publish
 
 publish: ${TOUCHEDDIR}/publish
 
-# when i try to do this with --batch, i don't get happiness.  also, we
-# turn off org mode publish's time stamps, since apparently, if the
+# we turn off org mode publish's time stamps, since apparently, if the
 # time stamp is good, the file isn't re-created, even if it doesn't
 # exist.
-${TOUCHEDDIR}/publish: ${ORGFILES} ${TANGLEDFILES} essorgstartuporg ${DEMORESULTSORG}
+${TOUCHEDDIR}/publish: ${ORGFILES} \
+							${TANGLEDFILES} essorgstartuporg \
+							${DEMORESULTSORG} \
+							${CSSFILES}
 	emacs --file ${MAINORG} \
 		--eval '${EMACSLOADPATH}' \
 		--eval ${EMACSSETUP} \
 		--eval "${EMACSORGBLOCKS}" \
+		--eval "(setq org-html-htmlize-output-type 'css)" \
 		--eval '(setq org-publish-use-timestamps-flag nil)' \
-		--eval "(org-publish-project \"ess-org\")" \
-	    --eval "(progn (kill-buffer) (kill-emacs))"
+		--eval "(progn (org-publish-project \"ess-org\"))" \
+		--batch
 	touch $@
 
 # admittedly, this is a bit silly.  but...  so, i write macros for
@@ -140,6 +155,17 @@ ${DEMORESULTSORG}: ${DEMOEXPANDEDORG} tangle
 		--eval "${EMACSNONORGBLOCKS}" \
 		--eval "${EMACSORGIFY}" \
 		--batch
+
+artefacts/%.css: artefacts/%.org tangle
+	emacs --file $< \
+		--eval ${EMACSCSSIFY} \
+	    --eval "(progn (kill-buffer) (kill-emacs))" > $@
+
+artefacts/%.css: %.org tangle
+	emacs --file $< \
+		--eval ${EMACSCSSIFY} \
+	    --eval "(progn (kill-buffer) (kill-emacs))" > $@
+
 
 HEADERTXT = \#+HTML_HEAD: 
 HEADER = echo -n "${HEADERTXT} "

@@ -15,6 +15,8 @@
 # trick of setupfile trick: https://stackoverflow.com/a/56407596/1527747
 #+SETUPFILE: ./artefacts/ess-org-startup.org
 #+HTML_HEAD:   <style>td.org-right, th.org-right, td.org-left, th.org-left { padding-left: 1em; padding-right: 1em;}</style>
+# get our styles
+#+HTML_HEAD:   <link href="./ess-org-demo-results.css" rel="stylesheet"/>
 # LaTeX settings
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [36pt]

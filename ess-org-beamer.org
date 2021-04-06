@@ -1,4 +1,4 @@
-* a beginning :noexport:
+* Introduction to Org Mode for ESS users :noexport:
 #+title: Introduction to Org Mode for ESS users
 #+subtitle: [[https://ess-intro.github.io/][_part of the ESS intro series_]]
 #+author: Greg Minshall
@@ -6,6 +6,7 @@
 #+options: num:0 toc:2
 #+options: H:1
 # floating TOC:
+#+HTML_HEAD:   <link href="./ess-org-beamer.css" rel="stylesheet"/>
 # beamer bits
 # the following from [C-c C-e #], then [beamer] (as suggested by below tutorial)
 #+latex_class: beamer
