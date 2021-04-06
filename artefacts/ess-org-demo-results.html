@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-04 Sun 09:05 -->
+<!-- 2021-04-06 Tue 06:12 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -361,9 +361,9 @@ The rest of this document is dedicated to explaining these things.
 Various sorts of "blocks" are supported in Org Mode files.  These
 start with <code>#begin_...</code>, and end with a corresponding <code>#end_...</code>,
 where the <code>...</code> are something like <code>src</code>, <code>example</code>, <code>quote</code>.  A
-skeleton for some of these can conveniently be created by, in column 1
-of an otherwise empty line, typing <code>[&lt;X]</code> followed by <code>[tab]</code>, where
-<code>X</code> is one of
+skeleton for some of these can conveniently be created with the
+command <code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>), and entering the type of block you are
+interested in creating, e.g.,
 </p>
 <ul class="org-ul">
 <li><code>e</code> for an example block (line wrapping does not apply) (<code>#+begin_example</code>)</li>
@@ -372,23 +372,21 @@ of an otherwise empty line, typing <code>[&lt;X]</code> followed by <code>[tab]<
 </ul>
 
 <p>
-there are various other blocks; you can experiment by typing (in
-column one, of an otherwise empty line) <code>[&lt;]</code> and then one of the
-following
+there are various other blocks; you can experiment by typing
+<code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>) and then one of the following
 </p>
 <ul class="org-ul">
-<li>a</li>
-<li>c</li>
-<li>C</li>
-<li>E</li>
-<li>h</li>
-<li>l</li>
-<li>v</li>
+<li><code>a</code></li>
+<li><code>c</code></li>
+<li><code>C</code></li>
+<li><code>E</code></li>
+<li><code>h</code></li>
+<li><code>l</code></li>
+<li><code>v</code></li>
 </ul>
 <p>
-then hitting <code>[tab]</code>: and seeing what you get, looking in the manual
-for enlightenment.  (Of course, one can always search the manual for
-<code>#[+]begin_</code>.)
+and seeing what you get, looking in the manual for enlightenment.  (Of
+course, one can always search the manual for <code>#[+]begin_</code>.)
 </p>
 
 <p>
@@ -488,8 +486,8 @@ context in which the source block executes.
 </p>
 
 <p>
-(As mentioned above, a source block skeleton can be created by
-typing, in column 1, <code>&lt;s</code>, and hitting <code>tab</code>.)
+(As mentioned above, a source block skeleton can be created by typing
+<code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>) and entering [=s=].)
 </p>
 </div>
 
@@ -804,7 +802,7 @@ This mode provides binding for
 </p>
 <dl class="org-dl">
 <dt><code>[M-x org-edit-src-save]</code> (<code>[C-x C-s]</code>)</dt><dd>to save the source edit back to the main .org buffer</dd>
-<dt>{{{C-c C-k}}}</dt><dd>to abort the current editing, discarding any
+<dt><code>[M-x org-edit-src-abort]</code> (<code>[C-c C-k]</code>)</dt><dd>to abort the current editing, discarding any
 unsaved changes</dd>
 <dt><code>[M-x org-edit-src-exit]</code> (<code>[C-c ']</code>)</dt><dd>to save any unsaved changes back to the
 .org buffer and close the source edit buffer</dd>
@@ -943,11 +941,12 @@ known as <a href="https://www.cs.tufts.edu/~nr/noweb/">"noweb"</a>.
 In Org Mode's <a href="https://orgmode.org/worg/org-contrib/babel/intro.html#literate-programming-example">implementation</a>, inside a source block, a <span class="underline">reference</span> to
 a previous block of code named <code>NAME</code> is denoted by <code>&lt;&lt;NAME&gt;&gt;</code>.  The
 double angle brackets signal that this is a noweb
-reference.<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>  However, by default, noweb processing is
-<b>disabled</b> in an Org Mode buffer.  The <code>:noweb</code> header argument
-defaults to <code>no</code>, but can be set to <code>yes</code> to enable noweb processing.
-Again, as with all header arguments, this can be done on a per-file,
-per-subtree, or per-(referring-)source block basis.
+reference.<sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup>
+However, by default, noweb processing is <b>disabled</b> in an Org Mode
+buffer.  The <code>:noweb</code> header argument defaults to <code>no</code>, but can be set
+to <code>yes</code> to enable noweb processing.  Again, as with all header
+arguments, this can be done on a per-file, per-subtree, or
+per-(referring-)source block basis.
 </p>
 
 <p>
@@ -1442,7 +1441,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 2021-04-04 09:05:24</span>
+<span style="color: #b3b3b3;">: 2021-04-06 06:12:15</span>
 </pre>
 </div>
 
@@ -1454,7 +1453,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS: time</span>
-<span style="color: #b3b3b3;">: 2021-04-04 09:05:24</span>
+<span style="color: #b3b3b3;">: 2021-04-06 06:12:15</span>
 </pre>
 </div>
 
@@ -1671,7 +1670,7 @@ Then, a source that produces a different value each second:
 <span style="color: #ff7f24;">#+end_src</span>
 
 <span style="color: #ff7f24;">#+RESULTS: unstable</span>
-<span style="color: #b3b3b3;">: 2021-04-04 09:05:27</span>
+<span style="color: #b3b3b3;">: 2021-04-06 06:12:18</span>
 </pre>
 </div>
 
@@ -1705,8 +1704,8 @@ you evaluate it, it will take the full two seconds.
 <span style="color: #b3b3b3;">  input</span>
 <span style="color: #ff7f24;">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS[c0fcb9578caf8035514bb512baee1930ce76b2c8]:</span>
-<span style="color: #b3b3b3;">: 2021-04-04 09:05:29</span>
+<span style="color: #ff7f24;">#+RESULTS[7dc9dfa8a7085d340454dae8bfe3d9a8a55441a3]:</span>
+<span style="color: #b3b3b3;">: 2021-04-06 06:12:20</span>
 </pre>
 </div>
 </div>
@@ -1786,15 +1785,15 @@ don't know if it works with source code blocks.</p></div></div>
 <a href="https://stat.ethz.ch/pipermail/r-help/2021-March/470709.html">here</a>.</p></div></div>
 
 <div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">Outside of a source block, <code>&lt;&lt;NAME&gt;&gt;</code> is used to tag an
-<a href="https://orgmode.org/manual/Internal-Links.html#Internal-Links">internal link</a> in the .org file; the reader may have noticed instances
-of this in this document.</p></div></div>
+<a href="https://orgmode.org/manual/Internal-Links.html#Internal-Links">internal link</a> in the .org file; if you are visiting this as a .org
+file in Emacs, you may have noticed instances in this document.</p></div></div>
 
 
 </div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-04 Sun 09:05</p>
+<p class="date">Created: 2021-04-06 Tue 06:12</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
