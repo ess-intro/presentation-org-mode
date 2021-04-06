@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-06 Tue 06:12 -->
+<!-- 2021-04-06 Tue 16:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Org Mode for ESS users</title>
+<meta name="generator" content="Org mode" />
 <meta name="author" content="Greg Minshall" />
-<meta name="generator" content="Org Mode" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -193,6 +193,7 @@
   .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
+<link href="./ess-org-beamer.css" rel="stylesheet"/>
 <script type="text/javascript">
 // @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
@@ -313,13 +314,13 @@ syntax checking/linting, etc.</li>
 In particular, one can have a source block with R code
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value</span>
-<span style="color: #b3b3b3;">    </span><span style="color: #ffa07a;">"here, the last value executed is the result"</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results value</span>
+    "here, the last value executed is the result"
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+begin_src R :results output</span>
-<span style="color: #b3b3b3;">    cat(</span><span style="color: #ffa07a;">"here, the output is the result\n"</span><span style="color: #b3b3b3;">)</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<span class="org-org-block-begin-line">#+begin_src R :results output</span>
+    cat("here, the output is the result\n")
+<span class="org-org-block-end-line">#+end_src</span>
 </pre>
 </div>
 
@@ -381,18 +382,18 @@ of the next function.
 <h2 id="org1d4b4b3">Other resources</h2>
 <div class="outline-text-2" id="text-org1d4b4b3">
 <ul class="org-ul">
-<li>the official <a href="https://orgmode.org/quickstart.html"><span class="underline">Quick Start</span></a> guide, a very good introduction to Org Mode</li>
+<li>the official <a href="https://orgmode.org/quickstart.html">Quick Start</a> guide, a very good introduction to Org Mode</li>
 
-<li>the <a href="https://orgmode.org/"><span class="underline">Org Mode</span></a> web page</li>
+<li>the <a href="https://orgmode.org/">Org Mode</a> web page</li>
 
-<li>the Org Mode <a href="https://orgmode.org/worg/"><span class="underline">worg</span></a> site</li>
+<li>the Org Mode <a href="https://orgmode.org/worg/">worg</a> site</li>
 
-<li>the other presentations in this <a href="https://ess-intro.github.io/"><span class="underline">ESS intro series</span></a></li>
+<li>the other presentations in this <a href="https://ess-intro.github.io/">ESS intro series</a></li>
 
-<li>the beamer slides for this tutorial are <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html"><span class="underline">here</span></a> (<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf"><span class="underline">pdf</span></a>)</li>
+<li>the beamer slides for this tutorial are <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html">here</a> (<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf">pdf</a>)</li>
 
-<li>a <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org"><span class="underline">.org file</span></a> for experimenting (an HTML version <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html"><span class="underline">here</span></a> and a PDF
-one <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf"><span class="underline">here</span></a>)</li>
+<li>a <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">.org file</a> for experimenting (an HTML version <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html">here</a> and a PDF
+one <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf">here</a>)</li>
 </ul>
 </div>
 </div>
@@ -405,8 +406,8 @@ There are some nice tutorials:
 </p>
 
 <ul class="org-ul">
-<li>a somewhat older one is from Erik Iverson, <a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org"><span class="underline">org-mode-R-tutorial.org</span></a></li>
-<li>a more recent one from Vikas Rawal, <a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org"><span class="underline">orgpapers.org</span></a></li>
+<li>a somewhat older one is from Erik Iverson, <a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org">org-mode-R-tutorial.org</a></li>
+<li>a more recent one from Vikas Rawal, <a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org">orgpapers.org</a></li>
 </ul>
 
 <p>
@@ -414,9 +415,9 @@ And, some videos, including:
 </p>
 
 <ul class="org-ul">
-<li>Rainer König's <a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE"><span class="underline">screencasts</span></a> about Org Mode (also available as a
-<a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7"><span class="underline">course on Udemy</span></a>)</li>
-<li>DT ("Distro Tube"?) has yet another <a href="https://www.youtube.com/watch?v=Ea_-TaEGa7Y"><span class="underline">introductory video</span></a>.</li>
+<li>Rainer König's <a href="https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE">screencasts</a> about Org Mode (also available as a
+<a href="https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7">course on Udemy</a>)</li>
+<li>DT ("Distro Tube"?) has yet another <a href="https://www.youtube.com/watch?v=Ea_-TaEGa7Y">introductory video</a>.</li>
 </ul>
 </div>
 </div>
@@ -444,7 +445,7 @@ block</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-06 Tue 06:12</p>
+<p class="date">Created: 2021-04-06 Tue 16:49</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
