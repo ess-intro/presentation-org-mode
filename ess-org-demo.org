@@ -47,6 +47,7 @@ The following is true in a source edit buffer
 #+macro: C-cC-b =[M-x ess-eval-buffer]= (=[C-c C-b]=)
 #+macro: C-xb =[M-x switch-to-buffer]= (=[C-x b]=)
 #+macro: C-hf =[M-x describe-function]= (=[C-h f]=)
+#+macro: C-cC-comma =[M-x org-insert-structure-template]= (=[C-c C-,]=)
 these are standalone.  no macro (currently)
 : =[M-x package-list-packages]=
 
@@ -127,26 +128,24 @@ The rest of this document is dedicated to explaining these things.
 Various sorts of "blocks" are supported in Org Mode files.  These
 start with =#begin_...=, and end with a corresponding =#end_...=,
 where the =...= are something like =src=, =example=, =quote=.  A
-skeleton for some of these can conveniently be created by, in column 1
-of an otherwise empty line, typing =[<X]= followed by =[tab]=, where
-=X= is one of
+skeleton for some of these can conveniently be created with the
+command {{{C-cC-comma}}}, and entering the type of block you are
+interested in creating, e.g.,
 - =e= for an example block (line wrapping does not apply) (=#+begin_example=)
 - =q= for a quote block (line wrapping applies) (=#+begin_quote=)
 - =s= for a source block (=#+begin_src=)
 
-there are various other blocks; you can experiment by typing (in
-column one, of an otherwise empty line) =[<]= and then one of the
-following
-- a
-- c
-- C
-- E
-- h
-- l
-- v
-then hitting =[tab]=: and seeing what you get, looking in the manual
-for enlightenment.  (Of course, one can always search the manual for
-=#[+]begin_=.)
+there are various other blocks; you can experiment by typing
+{{{C-cC-comma}}} and then one of the following
+- =a=
+- =c=
+- =C=
+- =E=
+- =h=
+- =l=
+- =v=
+and seeing what you get, looking in the manual for enlightenment.  (Of
+course, one can always search the manual for =#[+]begin_=.)
   
 In addition to the source blocks mentioned above (and elaborated on
 below), Org Mode allows short bits of "verbatim" code to be introduced
@@ -214,8 +213,8 @@ immediately before the =#+begin_src= line.
 Source blocks can also have various [[headerarguments][/header arguments/]] that modify the
 context in which the source block executes.
 
-(As mentioned above, a source block skeleton can be created by
-typing, in column 1, =<s=, and hitting =tab=.)
+(As mentioned above, a source block skeleton can be created by typing
+{{{C-cC-comma}}} and entering [=s=].)
 
 *** Inline source blocks
 
@@ -394,7 +393,7 @@ its result?  Is there a peak?  A valley? [fn::One solution was proposed
 <<orgsrcminormode>> When editing, the "OrgSrc" minor mode is enabled.
 This mode provides binding for
 - {{{C-xC-s}}} :: to save the source edit back to the main .org buffer
-- {{{C-c C-k}}} :: to abort the current editing, discarding any
+- {{{C-cC-k}}} :: to abort the current editing, discarding any
   unsaved changes
 - {{{sb-C-capostrophe}}} :: to save any unsaved changes back to the
   .org buffer and close the source edit buffer
@@ -488,12 +487,13 @@ In Org Mode's [[https://orgmode.org/worg/org-contrib/babel/intro.html#literate-p
 a previous block of code named =NAME= is denoted by =<<NAME>>=.  The
 double angle brackets signal that this is a noweb
 reference.[fn::Outside of a source block, =<<NAME>>= is used to tag an
-[[https://orgmode.org/manual/Internal-Links.html#Internal-Links][internal link]] in the .org file; the reader may have noticed instances
-of this in this document.]  However, by default, noweb processing is
-*disabled* in an Org Mode buffer.  The =:noweb= header argument
-defaults to =no=, but can be set to =yes= to enable noweb processing.
-Again, as with all header arguments, this can be done on a per-file,
-per-subtree, or per-(referring-)source block basis.
+[[https://orgmode.org/manual/Internal-Links.html#Internal-Links][internal link]] in the .org file; if you are visiting this as a .org
+file in Emacs, you may have noticed instances in this document.]
+However, by default, noweb processing is *disabled* in an Org Mode
+buffer.  The =:noweb= header argument defaults to =no=, but can be set
+to =yes= to enable noweb processing.  Again, as with all header
+arguments, this can be done on a per-file, per-subtree, or
+per-(referring-)source block basis.
 
 The noweb reference =<<NAME>>= can refer to either the name of another
 source block in the .org file:
