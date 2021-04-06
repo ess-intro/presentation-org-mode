@@ -157,12 +157,12 @@ ${DEMORESULTSORG}: ${DEMOEXPANDEDORG} tangle
 		--eval "${EMACSORGIFY}" \
 		--batch
 
-artefacts/%.css: artefacts/%.org tangle
+artefacts/%.css: | artefacts/%.org tangle
 	emacs --file $< \
 		--eval ${EMACSCSSIFY} \
 	    --eval "(progn (kill-buffer) (kill-emacs))" > $@
 
-artefacts/%.css: %.org tangle
+artefacts/%.css: | %.org tangle
 	emacs --file $< \
 		--eval ${EMACSCSSIFY} \
 	    --eval "(progn (kill-buffer) (kill-emacs))" > $@
