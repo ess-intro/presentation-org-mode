@@ -3,7 +3,6 @@
 #+subtitle: [[https://ess-intro.github.io/][_part of the ESS intro series_]]
 #+author: Greg Minshall
 #+options: toc:nil ':nil
-#+options: num:0 toc:2
 #+options: H:1
 # floating TOC:
 #+HTML_HEAD:   <link href="./ess-org-beamer.css" rel="stylesheet"/>
@@ -12,16 +11,9 @@
 #+latex_class: beamer
 #+columns: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
 #+beamer_theme: default
-#+beamer_color_theme:
-#+beamer_font_theme:
-#+beamer_inner_theme:
-#+beamer_outer_theme:
 # color'd links https://tex.stackexchange.com/a/13424/101318
 #+beamer_header: \definecolor{links}{HTML}{228B22}
 #+beamer_header: \hypersetup{colorlinks,linkcolor=,urlcolor=links}
-
-# then, some more settings suggested by the tutorial
-#+BEAMER_FRAME_LEVEL: 2
 
 * meta, comments                                                   :noexport:
 
@@ -75,8 +67,8 @@ following attributes:
   or some other packaging step, or be a stand alone script (=Rscript=,
   say).
 - *edit* it, either in place in the Org buffer, or "stand alone" in an
-  Org Source buffer (=[C-c ']=[fn:point]), with the possibility of real-time
-  syntax checking/linting, etc.
+  /OrgSrc/ buffer (=[C-c ']=[fn:point]), with the possibility of
+  real-time syntax checking/linting, etc.
 
 
 * R source blocks
@@ -96,8 +88,8 @@ To evaluate an entire source block in an Org buffer, type =[C-c C-c]=
 or =[C-c C-v e]=.
 
 To edit this source block in an Org Src buffer, type =[C-c ']=.  To
-close the Org Source buffer and return to the Org buffer, type
-=[C-c ']= again.
+close the OrgSrc buffer and return to the Org buffer, type =[C-c ']=
+again.
 
 * Header arguments
 
@@ -109,22 +101,36 @@ close the Org Source buffer and return to the Org buffer, type
 - :results :: defines how results are collected after evaluation of
   the source block, and how (or whether) they are inserted into the
   org buffer
-- :session :: normally, source blocks are evaluated in a "pristine"
-  environment (a new R process, say); with this option, successive
-  evaluations of source blocks can occur within a single process.
+- :session :: outlined on next slide
 - :tangle :: name of file to which to /tangle/ the contents of this
   source block
 
-* Org Src buffers for R
+* =:session= header argument
 
-Again, =[C-c ']= to enter and to exit.
+- Normally, Org Mode evaluates a source block by forking a new R
+  subprocess, passing it the code (and any variables to be used as
+  input), letting the code run, capturing the results, and then
+  disposing of the R subprocess.  This ensures that code runs in a
+  fresh environment.
 
-An Org Src buffer for R is an =ESS[R]= mode buffer.
+- Often, especially when doing statistical analysis, we would like to
+  build up state over time, by executing various code blocks, and/or
+  by poking in the environment.
 
-Evaluating code is still initiated with =[C-c C-c]=, but tends to send
-just the function at the current location to be evaluated (rather than
-the whole Org Src buffer), and moves the cursor ("point") to the start
-of the next function.
+- Also, we may want to debug our code in a convenient way.
+
+For these reasons, the =:session= header argument is very useful.  All
+source code blocks specifying the same session name in the =:session=
+header argument run in the same inferior ESS (=iESS=) process.
+
+* A style of working
+
+In Emacs, I find that I spend time bouncing between three buffers:
+- the .org file, often doing minor in-line edits in a source block
+- an OrgSrc edit buffer, for more major edits (and get font lock,
+  etc.); I create and dispose of these (=[C-c ']=) as needed
+- the R =:session= buffer to run code, examine results, and debug as
+  needed
 
 * Other resources
 
