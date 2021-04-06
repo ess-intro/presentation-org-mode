@@ -338,28 +338,24 @@ either "results" or "both".
 #+begin_src elisp :results none
   (setq org-publish-project-alist
         '(("ess-org-demo-results-html"
-           :with-toc nil
            :base-directory "./artefacts"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org-demo-results.org")
            :publishing-function org-html-publish-to-html)
           ("ess-org-demo-results-pdf"
-           :with-toc nil
            :base-directory "./artefacts"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org-demo-results.org")
            :publishing-function org-latex-publish-to-pdf)
           ("ess-org-beamer-html"
-           :with-toc nil
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
            :include ("ess-org-beamer.org")
            :publishing-function org-html-publish-to-html)
           ("ess-org-beamer-pdf"
-           :with-toc nil
            :base-directory "./"
            :publishing-directory "./artefacts"
            :exclude ".*"
