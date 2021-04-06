@@ -128,7 +128,7 @@ header argument run in the same inferior ESS (=iESS=) process.
 In Emacs, I find that I spend time bouncing between three buffers:
 - the .org file, often doing minor in-line edits in a source block
 - an OrgSrc edit buffer, for more major edits (and get font lock,
-  etc.); I create and dispose of these (=[C-c ']=) as needed
+  etc.); this buffer comes and goes, as needed
 - the R =:session= buffer to run code, examine results, and debug as
   needed
 
