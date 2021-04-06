@@ -38,18 +38,18 @@ length of the lines of text, so that often the lines will end up
 longer.  I'm not sure what a safe way would be of programmatically
 filling all these paragraphs, so I'm leaving them.  Apologies.
 
-#+macro: C-cC-c =[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
-#+macro: C-cC-e =M-x org-export-dispatch= (=[C-c C-e]=)
-#+macro: C-cC-vt =[M-x org-babel-tangle]= (=[C-c C-v t]=)
-#+macro: C-capostrophe =[M-x org-edit-src-code]= (=[C-c ']=)
+#+macro: C-cC-c =[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
+#+macro: C-cC-e =M-x org-export-dispatch= (=[C-c C-e]=)
+#+macro: C-cC-vt =[M-x org-babel-tangle]= (=[C-c C-v t]=)
+#+macro: C-capostrophe =[M-x org-edit-src-code]= (=[C-c ']=)
 The following is true in a source edit buffer
-#+macro: sb-C-capostrophe =[M-x org-edit-src-exit]= (=[C-c ']=)
-#+macro: C-xC-s =[M-x org-edit-src-save]= (=[C-x C-s]=)
-#+macro: C-cC-k =[M-x org-edit-src-abort]= (=[C-c C-k]=)
-#+macro: C-cC-b =[M-x ess-eval-buffer]= (=[C-c C-b]=)
-#+macro: C-xb =[M-x switch-to-buffer]= (=[C-x b]=)
-#+macro: C-hf =[M-x describe-function]= (=[C-h f]=)
-#+macro: C-cC-comma =[M-x org-insert-structure-template]= (=[C-c C-,]=)
+#+macro: sb-C-capostrophe =[M-x org-edit-src-exit]= (=[C-c ']=)
+#+macro: C-xC-s =[M-x org-edit-src-save]= (=[C-x C-s]=)
+#+macro: C-cC-k =[M-x org-edit-src-abort]= (=[C-c C-k]=)
+#+macro: C-cC-b =[M-x ess-eval-buffer]= (=[C-c C-b]=)
+#+macro: C-xb =[M-x switch-to-buffer]= (=[C-x b]=)
+#+macro: C-hf =[M-x describe-function]= (=[C-h f]=)
+#+macro: C-cC-comma =[M-x org-insert-structure-template]= (=[C-c C-,]=)
 these are standalone.  no macro (currently)
 : =[M-x package-list-packages]=
 
@@ -198,10 +198,6 @@ interest to us here are [[https://orgmode.org/manual/Property-Syntax.html#Proper
 concepts to provide a place to put parameters that customize the
 environment in which Org Mode processes your file (and, in particular,
 for our case, the context in which source code is evaluated).
-
-On the other hand, if you are *not* looking at this on the web, and
-would like to see a webified version, with a bit more of an
-introduction to Org Mode, you can look here XXX
 
 <<pastintro>>
 ** Source blocks
@@ -352,7 +348,7 @@ block level.  All source blocks that have (or inherit) the same
 =:tangle= header argument will be tangled to the same file, in the
 order in which they appear in the .org file.
 
-Repeating a source block had above,
+Repeating a source block from above (using [[noweb][=:noweb=]] syntax),
 
 #+name: peaks-and-valleys-tangling
 #+begin_src R :exports both :tangle peaks-and-valleys.el :noweb yes
@@ -412,7 +408,7 @@ Header arguments modify the execution context in which Org Mode source
 blocks are evaluated and/or in which the results of those evaluations
 are processed.
 
-Header arguments can be specified on, and apply to
+<<perfile>> Header arguments can be specified on, and apply to
 - a =#+property: header-args= line, to apply as defaults for all
   source blocks in a file
 - inside a =:PROPERTIES:= drawer of a headline (node in the tree
@@ -493,8 +489,8 @@ reference.[fn::Outside of a source block, =<<NAME>>= is used to tag an
 file in Emacs, you may have noticed instances in this document.]
 However, by default, noweb processing is *disabled* in an Org Mode
 buffer.  The =:noweb= header argument defaults to =no=, but can be set
-to =yes= to enable noweb processing.  Again, as with all header
-arguments, this can be done on a per-file, per-subtree, or
+to =yes= to enable noweb processing.  Again, [[perfile][as with all header
+arguments]], this can be done on a per-file, per-subtree, or
 per-(referring-)source block basis.
 
 The noweb reference =<<NAME>>= can refer to either the name of another
