@@ -16,12 +16,12 @@
 #+beamer_font_theme:
 #+beamer_inner_theme:
 #+beamer_outer_theme:
-#+beamer_header:
+# color'd links https://tex.stackexchange.com/a/13424/101318
+#+beamer_header: \definecolor{links}{HTML}{228B22}
+#+beamer_header: \hypersetup{colorlinks,linkcolor=,urlcolor=links}
+
 # then, some more settings suggested by the tutorial
 #+BEAMER_FRAME_LEVEL: 2
-
-
-
 
 * meta, comments                                                   :noexport:
 
@@ -128,31 +128,31 @@ of the next function.
 
 * Other resources
 
-- the official [[https://orgmode.org/quickstart.html][_Quick Start_]] guide, a very good introduction to Org Mode
+- the official [[https://orgmode.org/quickstart.html][Quick Start]] guide, a very good introduction to Org Mode
 
-- the [[https://orgmode.org/][_Org Mode_]] web page
+- the [[https://orgmode.org/][Org Mode]] web page
   
-- the Org Mode [[https://orgmode.org/worg/][_worg_]] site
+- the Org Mode [[https://orgmode.org/worg/][worg]] site
   
-- the other presentations in this [[https://ess-intro.github.io/][_ESS intro series_]]
+- the other presentations in this [[https://ess-intro.github.io/][ESS intro series]]
 
-- the beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][_here_]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][_pdf_]])
+- the beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]])
 
-- a [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][_.org file_]] for experimenting (an HTML version [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][_here_]] and a PDF
-  one [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][_here_]])
+- a [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][.org file]] for experimenting (an HTML version [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][here]] and a PDF
+  one [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][here]])
 
 * Tutorials, Videos
 
 There are some nice tutorials:
 
-- a somewhat older one is from Erik Iverson, [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][_org-mode-R-tutorial.org_]]
-- a more recent one from Vikas Rawal, [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org][_orgpapers.org_]]
+- a somewhat older one is from Erik Iverson, [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][org-mode-R-tutorial.org]]
+- a more recent one from Vikas Rawal, [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org][orgpapers.org]]
 
 And, some videos, including:
 
-- Rainer König's [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][_screencasts_]] about Org Mode (also available as a
-  [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][_course on Udemy_]])
-- DT ("Distro Tube"?) has yet another [[https://www.youtube.com/watch?v=Ea_-TaEGa7Y][_introductory video_]].
+- Rainer König's [[https://www.youtube.com/playlist?list=PLVtKhBrRV_ZkPnBtt_TD1Cs9PJlU0IIdE][screencasts]] about Org Mode (also available as a
+  [[https://www.udemy.com/course/getting-yourself-organized-with-org-mode/?referralCode=D0CB0D077ED5EC0788F7][course on Udemy]])
+- DT ("Distro Tube"?) has yet another [[https://www.youtube.com/watch?v=Ea_-TaEGa7Y][introductory video]].
 
 * Farewell
 
