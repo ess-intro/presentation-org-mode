@@ -10,6 +10,6 @@ with a few others), in =./artefacts/= are added to the repository and
 (when =git push= is executed) uploaded to the github repository for
 access.
 
-the beamer slides for the presentation are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]]).  a plain text
-file, "suitable for experimentation" in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]].  A .html
-version of that file is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][pdf]]).
+the beamer slides for the presentation are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][html]]).  a plain text
+file, "suitable for experimentation" in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]]; an HTML
+version of that file is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][here]].
