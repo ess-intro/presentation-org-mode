@@ -38,18 +38,18 @@ length of the lines of text, so that often the lines will end up
 longer.  I'm not sure what a safe way would be of programmatically
 filling all these paragraphs, so I'm leaving them.  Apologies.
 
-#+macro: C-cC-c =[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
-#+macro: C-cC-e =M-x org-export-dispatch= (=[C-c C-e]=)
-#+macro: C-cC-vt =[M-x org-babel-tangle]= (=[C-c C-v t]=)
-#+macro: C-capostrophe =[M-x org-edit-src-code]= (=[C-c ']=)
+#+macro: C-cC-c =[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
+#+macro: C-cC-e =M-x org-export-dispatch= (=[C-c C-e]=)
+#+macro: C-cC-vt =[M-x org-babel-tangle]= (=[C-c C-v t]=)
+#+macro: C-capostrophe =[M-x org-edit-src-code]= (=[C-c ']=)
 The following is true in a source edit buffer
-#+macro: sb-C-capostrophe =[M-x org-edit-src-exit]= (=[C-c ']=)
-#+macro: C-xC-s =[M-x org-edit-src-save]= (=[C-x C-s]=)
-#+macro: C-cC-k =[M-x org-edit-src-abort]= (=[C-c C-k]=)
-#+macro: C-cC-b =[M-x ess-eval-buffer]= (=[C-c C-b]=)
-#+macro: C-xb =[M-x switch-to-buffer]= (=[C-x b]=)
-#+macro: C-hf =[M-x describe-function]= (=[C-h f]=)
-#+macro: C-cC-comma =[M-x org-insert-structure-template]= (=[C-c C-,]=)
+#+macro: sb-C-capostrophe =[M-x org-edit-src-exit]= (=[C-c ']=)
+#+macro: C-xC-s =[M-x org-edit-src-save]= (=[C-x C-s]=)
+#+macro: C-cC-k =[M-x org-edit-src-abort]= (=[C-c C-k]=)
+#+macro: C-cC-b =[M-x ess-eval-buffer]= (=[C-c C-b]=)
+#+macro: C-xb =[M-x switch-to-buffer]= (=[C-x b]=)
+#+macro: C-hf =[M-x describe-function]= (=[C-h f]=)
+#+macro: C-cC-comma =[M-x org-insert-structure-template]= (=[C-c C-,]=)
 these are standalone.  no macro (currently)
 : =[M-x package-list-packages]=
 
@@ -131,14 +131,14 @@ Various sorts of "blocks" are supported in Org Mode files.  These
 start with =#begin_...=, and end with a corresponding =#end_...=,
 where the =...= are something like =src=, =example=, =quote=.  A
 skeleton for some of these can conveniently be created with the
-command =[M-x org-insert-structure-template]= (=[C-c C-,]=), and entering the type of block you are
+command =[M-x org-insert-structure-template]= (=[C-c C-,]=), and entering the type of block you are
 interested in creating, e.g.,
 - =e= for an example block (line wrapping does not apply) (=#+begin_example=)
 - =q= for a quote block (line wrapping applies) (=#+begin_quote=)
 - =s= for a source block (=#+begin_src=)
 
 there are various other blocks; you can experiment by typing
-=[M-x org-insert-structure-template]= (=[C-c C-,]=) and then one of the following
+=[M-x org-insert-structure-template]= (=[C-c C-,]=) and then one of the following
 - =a=
 - =c=
 - =C=
@@ -199,10 +199,6 @@ concepts to provide a place to put parameters that customize the
 environment in which Org Mode processes your file (and, in particular,
 for our case, the context in which source code is evaluated).
 
-On the other hand, if you are *not* looking at this on the web, and
-would like to see a webified version, with a bit more of an
-introduction to Org Mode, you can look here XXX
-
 <<pastintro>>
 ** Source blocks
 
@@ -216,7 +212,7 @@ Source blocks can also have various [[headerarguments][/header arguments/]] that
 context in which the source block executes.
 
 (As mentioned above, a source block skeleton can be created by typing
-=[M-x org-insert-structure-template]= (=[C-c C-,]=) and entering [=s=].)
+=[M-x org-insert-structure-template]= (=[C-c C-,]=) and entering [=s=].)
 
 *** Inline source blocks
 
@@ -247,7 +243,7 @@ In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
 language whose evaluation is enabled by default.)  To do this,
 position your cursor inside the source block (or on the =#+begin_src=
-or =#+end_src= line), and type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) (not the square brackets;
+or =#+end_src= line), and type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) (not the square brackets;
 just what is inside).  Additionally, evaluating code in a file can be
 a security risk, so you will be prompted to make sure you want to
 execute the code.
@@ -271,7 +267,7 @@ so will *not disable* any previously loaded language in this Emacs
 process.
 
 An R source block, for example, can be evaluated using the same
-command, =[M-x org-babel-execute-src-block]= (=[C-c C-c]=):
+command, =[M-x org-babel-execute-src-block]= (=[C-c C-c]=):
 
 #+name: first-r-block
 #+begin_src R :results output
@@ -285,7 +281,7 @@ file.  Call statements have two forms, somewhat similar to the two
 forms of source blocks.
 
 First, a =#+call= line can trigger evaluation of a source block.  To
-trigger the triggering, you will need to type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) with point
+trigger the triggering, you will need to type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) with point
 positioned on the call line.
 
 #+call: first-r-block()
@@ -303,7 +299,7 @@ Source blocks are, optionally, exported -- to a .html or .pdf file,
 say -- along with some of the rest of a .org file.
 
 To start the export process, one types executes the command
-=M-x org-export-dispatch= (=[C-c C-e]=).  Org mode then pops up a window that allows you to
+=M-x org-export-dispatch= (=[C-c C-e]=).  Org mode then pops up a window that allows you to
 customize your export.  At the top of this window are mostly options
 for defining the scope of the export.  For example, if you then type
 =[C-s]=, only the subtree in which the export is initialized will be
@@ -329,7 +325,7 @@ lowest values) in a vector of numbers.
   cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)>0)>0)+1]
 #+end_src
 
-If you type =M-x org-export-dispatch= (=[C-c C-e]=), then [C-s] (for "subtree"), then [h] (for
+If you type =M-x org-export-dispatch= (=[C-c C-e]=), then [C-s] (for "subtree"), then [h] (for
 "html"), and [o] (for "open"), then, assuming your Emacs is configured
 to know how to open a .html file in a browser (90% likely, I'd guess),
 you'll see the text in this subtree, the above code, and the indices
@@ -352,18 +348,18 @@ block level.  All source blocks that have (or inherit) the same
 =:tangle= header argument will be tangled to the same file, in the
 order in which they appear in the .org file.
 
-Repeating a source block had above,
+Repeating a source block from above (using [[noweb][=:noweb=]] syntax),
 
 #+name: peaks-and-valleys-tangling
 #+begin_src R :exports both :tangle peaks-and-valleys.el :noweb yes
   <<peaks-and-valleys>>
 #+end_src
 
-Now, you could, if you chose, enter =[M-x org-babel-tangle]= (=[C-c C-v t]=).  But, be warned!
+Now, you could, if you chose, enter =[M-x org-babel-tangle]= (=[C-c C-v t]=).  But, be warned!
 This will tangle all the source blocks in the current (this) .org file
 that have a =:tangle= header argument (specified or inherited).  One
 can restrict the tangle operation to the source block at point (see
-=[M-x describe-function]= (=[C-h f]=) for =org-babel-tangle= for details), but even so, I would
+=[M-x describe-function]= (=[C-h f]=) for =org-babel-tangle= for details), but even so, I would
 suggest being careful.
 
 ** /Editing/ a source block
@@ -374,7 +370,7 @@ amount of /code highlighting/ (/fontification/, I guess, in Emacs
 parlance) is provided when editing source blocks inline.
 
 On the other hand, by positioning the cursor on the source block and
-executing =[M-x org-edit-src-code]= (=[C-c ']=), one can "pop out" the
+executing =[M-x org-edit-src-code]= (=[C-c ']=), one can "pop out" the
 source block and edit it in a buffer with the major mode set
 appropriately for the language of the source block.  In the case of an
 R source block, the major mode will (the R-flavor of) ESS.
@@ -394,16 +390,16 @@ its result?  Is there a peak?  A valley? [fn::One solution was proposed
 
 <<orgsrcminormode>> When editing, the "OrgSrc" minor mode is enabled.
 This mode provides binding for
-- =[M-x org-edit-src-save]= (=[C-x C-s]=) :: to save the source edit back to the main .org buffer
-- =[M-x org-edit-src-abort]= (=[C-c C-k]=) :: to abort the current editing, discarding any
+- =[M-x org-edit-src-save]= (=[C-x C-s]=) :: to save the source edit back to the main .org buffer
+- =[M-x org-edit-src-abort]= (=[C-c C-k]=) :: to abort the current editing, discarding any
   unsaved changes
-- =[M-x org-edit-src-exit]= (=[C-c ']=) :: to save any unsaved changes back to the
+- =[M-x org-edit-src-exit]= (=[C-c ']=) :: to save any unsaved changes back to the
   .org buffer and close the source edit buffer
 
 NB: If you are editing a block that has [[noweb][:noweb]] references, the
 references will *not* be expanded when passing the block (in part or
-in whole) to a running iESS instance (via, e.g., =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) or
-=[M-x ess-eval-buffer]= (=[C-c C-b]=)).  And, in fact, the R interpreter will likely flag a
+in whole) to a running iESS instance (via, e.g., =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) or
+=[M-x ess-eval-buffer]= (=[C-c C-b]=)).  And, in fact, the R interpreter will likely flag a
 syntax error should you try to do so.
 
 ** <<headerarguments>> Header arguments
@@ -412,7 +408,7 @@ Header arguments modify the execution context in which Org Mode source
 blocks are evaluated and/or in which the results of those evaluations
 are processed.
 
-Header arguments can be specified on, and apply to
+<<perfile>> Header arguments can be specified on, and apply to
 - a =#+property: header-args= line, to apply as defaults for all
   source blocks in a file
 - inside a =:PROPERTIES:= drawer of a headline (node in the tree
@@ -493,8 +489,8 @@ reference.[fn::Outside of a source block, =<<NAME>>= is used to tag an
 file in Emacs, you may have noticed instances in this document.]
 However, by default, noweb processing is *disabled* in an Org Mode
 buffer.  The =:noweb= header argument defaults to =no=, but can be set
-to =yes= to enable noweb processing.  Again, as with all header
-arguments, this can be done on a per-file, per-subtree, or
+to =yes= to enable noweb processing.  Again, [[perfile][as with all header
+arguments]], this can be done on a per-file, per-subtree, or
 per-(referring-)source block basis.
 
 The noweb reference =<<NAME>>= can refer to either the name of another
@@ -779,7 +775,7 @@ buffer (that Org Mode will create, if it doesn't already exist) in
 which evaluations of the current source block (or, all source blocks
 in the file, or all in a subtree) will occur.
 
-During a given Emacs instance, the first time you type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) in
+During a given Emacs instance, the first time you type =[M-x org-babel-execute-src-block]= (=[C-c C-c]=) in
 a source block with a given =:session= name, Emacs will prompt you for
 the name of the starting directory (with a default being the directory
 of the current file).  It will then start up such a process, attach it
@@ -800,7 +796,7 @@ x
 If you evaluate the above two blocks in order, the second will return
 as a result the value of =x= set by the first.
 
-After evaluations, you can use =[M-x switch-to-buffer]= (=[C-x b]=) to switch to that buffer and
+After evaluations, you can use =[M-x switch-to-buffer]= (=[C-x b]=) to switch to that buffer and
 inspect the state, maybe set debug breakpoints, or debug after error
 or debug statement (=browser()=, say) in your code.
 
@@ -883,7 +879,7 @@ Then, a source that produces a different value each second:
 
 Then, two functions.  The first uses results of the unvarying source
 code block as input.  The first time you evaluate it with
-=[M-x org-babel-execute-src-block]= (=[C-c C-c]=), it will sleep the two seconds.  However, after that,
+=[M-x org-babel-execute-src-block]= (=[C-c C-c]=), it will sleep the two seconds.  However, after that,
 evaluating it will return results immediately.
 #+begin_src R :var input=stable :cache yes
   Sys.sleep(2)
@@ -941,4 +937,4 @@ from Vikas Rawal, [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers
 
 [[https://orgmode.org/list/876229nrxf.fsf@gmail.com/]["new exporter"]] e-mail message
 
-=[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
+=[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
