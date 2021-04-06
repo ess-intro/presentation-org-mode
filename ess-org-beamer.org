@@ -60,22 +60,23 @@ following attributes:
 
 * "To a source block", you can
 
-- *evaluate* it (=[C-c C-c]=[fn::The key sequence =[C-c C-c]= is used
-  extensively in Org mode; the specific action taken is determined by
-  the buffer context in which it is executed.])  to produce results,
-  which, in turn, may be used as input to another source block.  *NB:*
-  there are security issues here: you will need to customize the Emacs
-  variable =org-babel-load-languages= , and you will be prompted each
-  time before a code block is evaluated.
-- *export* it (=[C-c C-e]=), either the code, its results, or both,
-  into a .html, .pdf, or other format file
+- *evaluate* it (=[C-c C-c]=[fn:point: with =point= in the source
+  block]) to produce results, which, in turn, may be used as input to
+  another source block.  *NB:* there are security issues here: you
+  will need to customize the Emacs variable =org-babel-load-languages=
+  , and you will be prompted each time before a code block is
+  evaluated
+- *export* (=[C-c C-e]=) the code, its results, or both, with
+  other parts of the .org file, into a .html, .pdf, or other format
+  file
 - *tangle* it (=[C-c C-v t]=), that is, write the source code itself
   into a separate file, that might be used as input to a compilation
   or some other packaging step, or be a stand alone script (=Rscript=,
   say).
-- *edit* it (=[C-c ']=), either in place in the Org buffer, or
-  "stand alone" in an Org Source buffer, with the possibility of
-  real-time syntax checking/linting, etc.
+- *edit* it, either in place in the Org buffer, or "stand alone" in an
+  Org Source buffer (=[C-c ']=[fn:point]), with the possibility of real-time
+  syntax checking/linting, etc.
+
 
 * R source blocks
 
