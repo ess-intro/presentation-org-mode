@@ -3,12 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-06 Tue 06:12 -->
+<!-- 2021-04-06 Tue 16:49 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
+<meta name="generator" content="Org mode" />
 <meta name="author" content="Greg Minshall" />
-<meta name="generator" content="Org Mode" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -199,6 +199,7 @@
 <link href="./ggm-twbs.css" rel="stylesheet"/>
 <script src="./ggm-twbs.js"></script>
 <style>td.org-right, th.org-right, td.org-left, th.org-left { padding-left: 1em; padding-right: 1em;}</style>
+<link href="./ess-org-demo-results.css" rel="stylesheet"/>
 <script type="text/javascript">
 // @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
 <!--/*--><![CDATA[/*><!--*/
@@ -395,7 +396,7 @@ below), Org Mode allows short bits of "verbatim" code to be introduced
 by a colon as the first non-blank column of a line
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #b3b3b3;">: this is verbatim</span>
+<pre class="src src-org"><span class="org-org-code">: this is verbatim</span>
 </pre>
 </div>
 
@@ -405,19 +406,19 @@ word wrapped, etc.:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: ex</span>
-<span style="color: #ff7f24;">#+begin_example</span>
-this is a block
-that
-holds more verbatim text
-<span style="color: #ff7f24;">#+end_example</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: ex</span>
+<span class="org-org-block-begin-line">#+begin_example</span>
+<span class="custom">this is a block</span>
+<span class="custom">that</span>
+<span class="custom">holds more verbatim text</span>
+<span class="org-org-block-end-line">#+end_example</span>
 </pre>
 </div>
 <p>
 As well as longer bits of text that <b>will</b> be wrapped ("quote"):
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_quote</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_quote</span>
 this is a bit of
 text that should
 show up, eventually, strung out in a smaller
@@ -425,7 +426,7 @@ number
 of
 lines when "filled"
 (e.g., [M-x org-fill-paragraph] ([M-q]))
-<span style="color: #ff7f24;">#+end_quote</span>
+<span class="org-org-block-end-line">#+end_quote</span>
 </pre>
 </div>
 
@@ -495,16 +496,16 @@ context in which the source block executes.
 <h4 id="orgc4faa08">Inline source blocks</h4>
 <div class="outline-text-4" id="text-orgc4faa08">
 <div class="org-src-container">
-<pre class="src src-org">Source blocks can also be expressed using a <span style="color: #b3b3b3;">=src_LANG=</span> construct; a
-<span style="color: #b3b3b3;">=#+name:=</span> line can be used to name the <span style="color: #b3b3b3;">=src_LANG=</span> block.  for example,
-src_R{"hello, world"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, world=</span><span style="color: #deb887;">)}}}</span>.
+<pre class="src src-org">Source blocks can also be expressed using a <span class="org-org-verbatim">=src_LANG=</span> construct; a
+<span class="org-org-verbatim">=#+name:=</span> line can be used to name the <span class="org-org-verbatim">=src_LANG=</span> block.  for example,
+src_R{"hello, world"} <span class="org-org-macro">{{{results(</span><span class="org-org-macro"><span class="org-org-verbatim">=hello\, world=</span></span><span class="org-org-macro">)}}}</span>.
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org">Inline source blocks have their own syntax for <span style="color: #00ffff; text-decoration: underline;"><a href="headerarguments">header arguments</a></span>:
-src_R[:results output]{cat("hello, again")} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=hello\, again=</span><span style="color: #deb887;">)}}}</span>.
+<pre class="src src-org">Inline source blocks have their own syntax for <span class="org-org-link"><a href="headerarguments">header arguments</a></span>:
+src_R[:results output]{cat("hello, again")} <span class="org-org-macro">{{{results(</span><span class="org-org-macro"><span class="org-org-verbatim">=hello\, again=</span></span><span class="org-org-macro">)}}}</span>.
 </pre>
 </div>
 
@@ -515,20 +516,20 @@ And, the results of an inline source block can be used as input (via
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: whyo</span>
-src_R{"42"} <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=42=</span><span style="color: #deb887;">)}}}</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: whyo</span>
+src_R{"42"} <span class="org-org-macro">{{{results(</span><span class="org-org-macro"><span class="org-org-verbatim">=42=</span></span><span class="org-org-macro">)}}}</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var x=whyo :exports results</span>
-<span style="color: #b3b3b3;">x</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :var x=whyo :exports results</span>
+x
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">| 42 |</span>
-<span style="color: #87cefa;">|    |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">| 42 |</span>
+<span class="org-org-table">|    |</span>
 </pre>
 </div>
 </div>
@@ -551,12 +552,12 @@ execute the code.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: set-allowed-languages</span>
-<span style="color: #ff7f24;">#+begin_src elisp :results none</span>
-<span style="color: #b3b3b3;">  (org-babel-do-load-languages</span>
-<span style="color: #b3b3b3;">   'org-babel-load-languages</span>
-<span style="color: #b3b3b3;">   '((emacs-lisp . t) (R . t) (python . t)))</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: set-allowed-languages</span>
+<span class="org-org-block-begin-line">#+begin_src elisp :results none</span>
+<span class="org-org-block">  (org-babel-do-load-languages</span>
+<span class="org-org-block">   'org-babel-load-languages</span>
+<span class="org-org-block">   '((emacs-lisp . t) (R . t) (python . t)))</span>
+<span class="org-org-block-end-line">#+end_src</span>
 </pre>
 </div>
 
@@ -582,13 +583,13 @@ command, <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: first-r-block</span>
-<span style="color: #ff7f24;">#+begin_src R :results output</span>
-<span style="color: #b3b3b3;">  cat(</span><span style="color: #ffa07a;">"this block has been evaluated\n"</span><span style="color: #b3b3b3;">)</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: first-r-block</span>
+<span class="org-org-block-begin-line">#+begin_src R :results output</span>
+  cat("this block has been evaluated\n")
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: first-r-block</span>
-<span style="color: #b3b3b3;">: this block has been evaluated</span>
+<span class="org-org-meta-line">#+RESULTS: first-r-block</span>
+<span class="org-org-code">: this block has been evaluated</span>
 </pre>
 </div>
 </div>
@@ -610,10 +611,10 @@ positioned on the call line.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+call: first-r-block()</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+call: first-r-block()</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: this block has been evaluated</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: this block has been evaluated</span>
 </pre>
 </div>
 
@@ -621,7 +622,7 @@ positioned on the call line.
 <div class="org-src-container">
 <pre class="src src-org">Similarly, there is an inline call statement form which can trigger
 evaluation of a source block.  here it is, inline!
-call_first-r-block() <span style="color: #deb887;">{{{results(</span><span style="color: #b3b3b3;">=this block has been evaluated=</span><span style="color: #deb887;">)}}}</span>.
+call_first-r-block() <span class="org-org-macro">{{{results(</span><span class="org-org-macro"><span class="org-org-verbatim">=this block has been evaluated=</span></span><span class="org-org-macro">)}}}</span>.
 </pre>
 </div>
 
@@ -671,18 +672,18 @@ The goal was a simple way to find the peaks and valleys (highest and
 lowest values) in a vector of numbers.
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: peaks-and-valleys</span>
-<span style="color: #ff7f24;">#+begin_src R :exports both</span>
-<span style="color: #b3b3b3;">  x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)</span>
-<span style="color: #b3b3b3;">  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]</span>
-<span style="color: #b3b3b3;">  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: peaks-and-valleys</span>
+<span class="org-org-block-begin-line">#+begin_src R :exports both</span>
+  x &lt;- c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)
+  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]
+  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: peaks-and-valleys</span>
-<span style="color: #87cefa;">|  4 |</span>
-<span style="color: #87cefa;">|  9 |</span>
-<span style="color: #87cefa;">| 12 |</span>
-<span style="color: #87cefa;">| 16 |</span>
+<span class="org-org-meta-line">#+RESULTS: peaks-and-valleys</span>
+<span class="org-org-table">|  4 |</span>
+<span class="org-org-table">|  9 |</span>
+<span class="org-org-table">| 12 |</span>
+<span class="org-org-table">| 16 |</span>
 </pre>
 </div>
 
@@ -724,16 +725,16 @@ Repeating a source block had above,
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: peaks-and-valleys-tangling</span>
-<span style="color: #ff7f24;">#+begin_src R :exports both :tangle peaks-and-valleys.el :noweb yes</span>
-<span style="color: #b3b3b3;">  &lt;&lt;peaks-and-valleys&gt;&gt;</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: peaks-and-valleys-tangling</span>
+<span class="org-org-block-begin-line">#+begin_src R :exports both :tangle peaks-and-valleys.el :noweb yes</span>
+  <span class="org-org-target">&lt;&lt;peaks-and-valleys&gt;&gt;</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: peaks-and-valleys-tangling</span>
-<span style="color: #87cefa;">|  4 |</span>
-<span style="color: #87cefa;">|  9 |</span>
-<span style="color: #87cefa;">| 12 |</span>
-<span style="color: #87cefa;">| 16 |</span>
+<span class="org-org-meta-line">#+RESULTS: peaks-and-valleys-tangling</span>
+<span class="org-org-table">|  4 |</span>
+<span class="org-org-table">|  9 |</span>
+<span class="org-org-table">| 12 |</span>
+<span class="org-org-table">| 16 |</span>
 </pre>
 </div>
 
@@ -781,17 +782,17 @@ its result?  Is there a peak?  A valley? <sup><a id="fnr.3" class="footref" href
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">  x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)</span>
-<span style="color: #b3b3b3;">  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]</span>
-<span style="color: #b3b3b3;">  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R</span>
+  x &lt;- c(1,0,0,0,2,2,3,4,0,1,1,0,5,5,5,0,1)
+  (cumsum(rle(x)$lengths)-(rle(x)$length-1))[which(diff(diff(rle(x)$values)&gt;=0)&lt;0)+1]
+  cumsum(rle(x)$lengths)[which(diff(diff(rle(x)$value)&gt;0)&gt;0)+1]
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|  4 |</span>
-<span style="color: #87cefa;">|  9 |</span>
-<span style="color: #87cefa;">| 12 |</span>
-<span style="color: #87cefa;">| 16 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|  4 |</span>
+<span class="org-org-table">|  9 |</span>
+<span class="org-org-table">| 12 |</span>
+<span class="org-org-table">| 16 |</span>
 </pre>
 </div>
 
@@ -848,19 +849,19 @@ arguments to the list of header args.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+property: header-args :tangle ./nosuchdirectory/bigfile</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+property: header-args :tangle ./nosuchdirectory/bigfile</span>
 
-<span style="color: #eedd82;">** this is somewhere in this file</span>
-     <span style="color: #87cefa;">:PROPERTIES:</span>
-     <span style="color: #00ffff;">:header-args+:</span> :tangle very/important/code.R
-     <span style="color: #87cefa;">:END:</span>
+<span class="org-org-level-2">** this is somewhere in this file</span>
+     <span class="org-org-drawer">:PROPERTIES:</span>
+     <span class="org-org-special-keyword">:header-args+:</span> <span class="org-org-property-value">:tangle very/important/code.R</span>
+     <span class="org-org-drawer">:END:</span>
 
 now, code blocks will carry that name
 
-<span style="color: #ff7f24;">#+header: :exports results</span>
-<span style="color: #ff7f24;">#+begin_src R :results value</span>
-<span style="color: #b3b3b3;">    x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"we want some code, and we want it now!"</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<span class="org-org-meta-line">#+header: :exports results</span>
+<span class="org-org-block-begin-line">#+begin_src R :results value</span>
+    x &lt;- "we want some code, and we want it now!"
+<span class="org-org-block-end-line">#+end_src</span>
 </pre>
 </div>
 
@@ -897,29 +898,29 @@ placed in the Org Mode buffer.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+BEGIN_SRC R</span>
-<span style="color: #b3b3b3;">mtcars[1:3,]</span>
-<span style="color: #ff7f24;">#+END_SRC</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+BEGIN_SRC R</span>
+mtcars[1:3,]
+<span class="org-org-block-end-line">#+END_SRC</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
-<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |</span>
-<span style="color: #87cefa;">| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span class="org-org-table">|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |</span>
+<span class="org-org-table">| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :colnames yes :rownames yes</span>
-<span style="color: #b3b3b3;">mtcars[1:3,]</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :colnames yes :rownames yes</span>
+mtcars[1:3,]
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|               |  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
-<span style="color: #87cefa;">|---------------+------+-----+------+-----+------+-------+-------+----+----+------+------|</span>
-<span style="color: #87cefa;">| Mazda RX4     |   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
-<span style="color: #87cefa;">| Mazda RX4 Wag |   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |</span>
-<span style="color: #87cefa;">| Datsun 710    | 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|               |  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
+<span class="org-org-table">|---------------+------+-----+------+-----+------+-------+-------+----+----+------+------|</span>
+<span class="org-org-table">| Mazda RX4     |   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
+<span class="org-org-table">| Mazda RX4 Wag |   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |</span>
+<span class="org-org-table">| Datsun 710    | 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |</span>
 </pre>
 </div>
 </div>
@@ -954,13 +955,13 @@ The noweb reference <code>&lt;&lt;NAME&gt;&gt;</code> can refer to either the na
 source block in the .org file:
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: a-noweb-name</span>
-<span style="color: #ff7f24;">#+begin_src R :noweb no</span>
-<span style="color: #b3b3b3;">  cm </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"copy me!"</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: a-noweb-name</span>
+<span class="org-org-block-begin-line">#+begin_src R :noweb no</span>
+  cm &lt;- "copy me!"
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: a-noweb-name</span>
-<span style="color: #b3b3b3;">: copy me!</span>
+<span class="org-org-meta-line">#+RESULTS: a-noweb-name</span>
+<span class="org-org-code">: copy me!</span>
 </pre>
 </div>
 
@@ -969,26 +970,26 @@ source block in the .org file:
 or with the <code>:noweb-ref</code> header argument:
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :noweb-ref another-noweb-name :noweb no</span>
-<span style="color: #b3b3b3;">  cmt </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> </span><span style="color: #ffa07a;">"copy me, too!"</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :noweb-ref another-noweb-name :noweb no</span>
+  cmt &lt;- "copy me, too!"
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: copy me, too!</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: copy me, too!</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :noweb yes :results output</span>
-<span style="color: #b3b3b3;">  &lt;&lt;a-noweb-name&gt;&gt;</span>
-<span style="color: #b3b3b3;">  &lt;&lt;another-noweb-name&gt;&gt;</span>
-<span style="color: #b3b3b3;">  cat(cm, </span><span style="color: #ffa07a;">"\n"</span><span style="color: #b3b3b3;">, cmt, </span><span style="color: #ffa07a;">"\n"</span><span style="color: #b3b3b3;">, sep=</span><span style="color: #ffa07a;">""</span><span style="color: #b3b3b3;">)</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :noweb yes :results output</span>
+  <span class="org-org-target">&lt;&lt;a-noweb-name&gt;&gt;</span>
+  <span class="org-org-target">&lt;&lt;another-noweb-name&gt;&gt;</span>
+  cat(cm, "\n", cmt, "\n", sep="")
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: copy me!</span>
-<span style="color: #b3b3b3;">: copy me, too!</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: copy me!</span>
+<span class="org-org-code">: copy me, too!</span>
 </pre>
 </div>
 
@@ -1018,13 +1019,13 @@ variables, using the <code>:var</code> header argument.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: gives-pi</span>
-<span style="color: #ff7f24;">#+begin_src R :var pi=3.14</span>
-<span style="color: #b3b3b3;">  pi</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: gives-pi</span>
+<span class="org-org-block-begin-line">#+begin_src R :var pi=3.14</span>
+  pi
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: gives-pi</span>
-<span style="color: #b3b3b3;">: 3.14</span>
+<span class="org-org-meta-line">#+RESULTS: gives-pi</span>
+<span class="org-org-code">: 3.14</span>
 </pre>
 </div>
 
@@ -1046,12 +1047,12 @@ you are evaluating.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var pitoo=gives-pi :session R :results output</span>
-<span style="color: #b3b3b3;">  cat(</span><span style="color: #ffa07a;">"you were"</span><span style="color: #b3b3b3;">, pitoo/pi, </span><span style="color: #ffa07a;">"close!\n"</span><span style="color: #b3b3b3;">)</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :var pitoo=gives-pi :session R :results output</span>
+  cat("you were", pitoo/pi, "close!\n")
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: you were 0.999493 close!</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: you were 0.999493 close!</span>
 </pre>
 </div>
 
@@ -1064,25 +1065,25 @@ shape of the input value to that needed by the source code.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: from-python</span>
-<span style="color: #ff7f24;">#+begin_src python :results value</span>
-<span style="color: #b3b3b3;">  </span><span style="color: #00ffff;">return</span><span style="color: #b3b3b3;"> 21</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: from-python</span>
+<span class="org-org-block-begin-line">#+begin_src python :results value</span>
+<span class="org-org-block">  </span><span class="org-org-block"><span class="org-keyword">return</span></span><span class="org-org-block"> 21</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: from-python</span>
-<span style="color: #b3b3b3;">: 21</span>
+<span class="org-org-meta-line">#+RESULTS: from-python</span>
+<span class="org-org-code">: 21</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: to-r</span>
-<span style="color: #ff7f24;">#+begin_src R :var howmany=from-python</span>
-<span style="color: #b3b3b3;">  2*howmany</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: to-r</span>
+<span class="org-org-block-begin-line">#+begin_src R :var howmany=from-python</span>
+  2*howmany
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: to-r</span>
-<span style="color: #b3b3b3;">: 42</span>
+<span class="org-org-meta-line">#+RESULTS: to-r</span>
+<span class="org-org-code">: 42</span>
 </pre>
 </div>
 
@@ -1149,19 +1150,19 @@ In the following code block, the <a href="#org9ceaf10">:colnames</a> header argu
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var tbl=a-table :colnames yes :session R</span>
-<span style="color: #b3b3b3;">  summary(tbl)</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :var tbl=a-table :colnames yes :session R</span>
+  summary(tbl)
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">| student          | first.exam   | second.exam  | final       |</span>
-<span style="color: #87cefa;">|------------------+--------------+--------------+-------------|</span>
-<span style="color: #87cefa;">| Length:4         | Min.   :1.00 | Min.   :1.00 | Min.   :2.0 |</span>
-<span style="color: #87cefa;">| Class :character | 1st Qu.:1.75 | 1st Qu.:1.75 | 1st Qu.:2.0 |</span>
-<span style="color: #87cefa;">| Mode  :character | Median :2.50 | Median :2.50 | Median :2.0 |</span>
-<span style="color: #87cefa;">| nil              | Mean   :2.50 | Mean   :2.50 | Mean   :2.5 |</span>
-<span style="color: #87cefa;">| nil              | 3rd Qu.:3.25 | 3rd Qu.:3.25 | 3rd Qu.:2.5 |</span>
-<span style="color: #87cefa;">| nil              | Max.   :4.00 | Max.   :4.00 | Max.   :4.0 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">| student          | first.exam   | second.exam  | final       |</span>
+<span class="org-org-table">|------------------+--------------+--------------+-------------|</span>
+<span class="org-org-table">| Length:4         | Min.   :1.00 | Min.   :1.00 | Min.   :2.0 |</span>
+<span class="org-org-table">| Class :character | 1st Qu.:1.75 | 1st Qu.:1.75 | 1st Qu.:2.0 |</span>
+<span class="org-org-table">| Mode  :character | Median :2.50 | Median :2.50 | Median :2.0 |</span>
+<span class="org-org-table">| nil              | Mean   :2.50 | Mean   :2.50 | Mean   :2.5 |</span>
+<span class="org-org-table">| nil              | 3rd Qu.:3.25 | 3rd Qu.:3.25 | 3rd Qu.:2.5 |</span>
+<span class="org-org-table">| nil              | Max.   :4.00 | Max.   :4.00 | Max.   :4.0 |</span>
 </pre>
 </div>
 
@@ -1173,31 +1174,31 @@ be preserved in the resulting Org Mode table
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :colnames yes</span>
-<span style="color: #b3b3b3;">  mtcars[1:4,]</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :colnames yes</span>
+  mtcars[1:4,]
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
-<span style="color: #87cefa;">|------+-----+------+-----+------+-------+-------+----+----+------+------|</span>
-<span style="color: #87cefa;">|   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
-<span style="color: #87cefa;">|   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |</span>
-<span style="color: #87cefa;">| 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |</span>
-<span style="color: #87cefa;">| 21.4 |   6 |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |  0 |    3 |    1 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
+<span class="org-org-table">|------+-----+------+-----+------+-------+-------+----+----+------+------|</span>
+<span class="org-org-table">|   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
+<span class="org-org-table">|   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |</span>
+<span class="org-org-table">| 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |</span>
+<span class="org-org-table">| 21.4 |   6 |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |  0 |    3 |    1 |</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :colnames no</span>
-<span style="color: #b3b3b3;">  mtcars[1:4,]</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :colnames no</span>
+  mtcars[1:4,]
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
-<span style="color: #87cefa;">|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |</span>
-<span style="color: #87cefa;">| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |</span>
-<span style="color: #87cefa;">| 21.4 | 6 | 258 | 110 | 3.08 | 3.215 | 19.44 | 1 | 0 | 3 | 1 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span class="org-org-table">|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |</span>
+<span class="org-org-table">| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |</span>
+<span class="org-org-table">| 21.4 | 6 | 258 | 110 | 3.08 | 3.215 | 19.44 | 1 | 0 | 3 | 1 |</span>
 </pre>
 </div>
 </div>
@@ -1219,34 +1220,34 @@ blocks.  The values here are <code>value</code> and <code>output</code>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: usenowebhere</span>
-<span style="color: #ff7f24;">#+begin_src R :results none</span>
-<span style="color: #b3b3b3;">  truepi </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> pi</span>
-<span style="color: #b3b3b3;">  cat(truepi, </span><span style="color: #ffa07a;">"\n"</span><span style="color: #b3b3b3;">, sep=</span><span style="color: #ffa07a;">""</span><span style="color: #b3b3b3;">)</span>
-<span style="color: #b3b3b3;">  invisible(truepi*2)</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: usenowebhere</span>
+<span class="org-org-block-begin-line">#+begin_src R :results none</span>
+  truepi &lt;- pi
+  cat(truepi, "\n", sep="")
+  invisible(truepi*2)
+<span class="org-org-block-end-line">#+end_src</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results output</span>
-<span style="color: #b3b3b3;">  &lt;&lt;usenowebhere&gt;&gt;</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results output</span>
+  <span class="org-org-target">&lt;&lt;usenowebhere&gt;&gt;</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 3.141593</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: 3.141593</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value</span>
-<span style="color: #b3b3b3;">  &lt;&lt;usenowebhere&gt;&gt;</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results value</span>
+  <span class="org-org-target">&lt;&lt;usenowebhere&gt;&gt;</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 6.28318530717959</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: 6.28318530717959</span>
 </pre>
 </div>
 </div>
@@ -1263,16 +1264,16 @@ output to a file.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: results-noweb</span>
-<span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">  mtcars[c(1,12,13, 19),]</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: results-noweb</span>
+<span class="org-org-block-begin-line">#+begin_src R</span>
+  mtcars[c(1,12,13, 19),]
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: results-noweb</span>
-<span style="color: #87cefa;">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
-<span style="color: #87cefa;">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
-<span style="color: #87cefa;">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
-<span style="color: #87cefa;">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
+<span class="org-org-meta-line">#+RESULTS: results-noweb</span>
+<span class="org-org-table">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span class="org-org-table">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
+<span class="org-org-table">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
+<span class="org-org-table">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
 </pre>
 </div>
 
@@ -1282,15 +1283,15 @@ If no result type is listed, Org Mode makes its pretty-good guess.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value</span>
-<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results value</span>
+  <span class="org-org-target">&lt;&lt;results-noweb&gt;&gt;</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
-<span style="color: #87cefa;">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
-<span style="color: #87cefa;">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
-<span style="color: #87cefa;">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span class="org-org-table">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
+<span class="org-org-table">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
+<span class="org-org-table">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
 </pre>
 </div>
 
@@ -1300,17 +1301,17 @@ But, to be sure, you can specify the type you would like.  (Note the
 reapearance of <code>:colnames</code>.)
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value table :colnames yes</span>
-<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results value table :colnames yes</span>
+  <span class="org-org-target">&lt;&lt;results-noweb&gt;&gt;</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|  mpg | cyl |  disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
-<span style="color: #87cefa;">|------+-----+-------+-----+------+-------+-------+----+----+------+------|</span>
-<span style="color: #87cefa;">|   21 |   6 |   160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
-<span style="color: #87cefa;">| 16.4 |   8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 |  0 |  0 |    3 |    3 |</span>
-<span style="color: #87cefa;">| 17.3 |   8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 |  0 |  0 |    3 |    3 |</span>
-<span style="color: #87cefa;">| 30.4 |   4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 |  1 |  1 |    4 |    2 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|  mpg | cyl |  disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |</span>
+<span class="org-org-table">|------+-----+-------+-----+------+-------+-------+----+----+------+------|</span>
+<span class="org-org-table">|   21 |   6 |   160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |</span>
+<span class="org-org-table">| 16.4 |   8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 |  0 |  0 |    3 |    3 |</span>
+<span class="org-org-table">| 17.3 |   8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 |  0 |  0 |    3 |    3 |</span>
+<span class="org-org-table">| 30.4 |   4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 |  1 |  1 |    4 |    2 |</span>
 </pre>
 </div>
 
@@ -1320,15 +1321,15 @@ reapearance of <code>:colnames</code>.)
 taken, well, at face value:
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results scalar</span>
-<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results scalar</span>
+  <span class="org-org-target">&lt;&lt;results-noweb&gt;&gt;</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 21    6   160 110 3.9 2.62    16.46   0   1   4   4</span>
-<span style="color: #b3b3b3;">: 16.4  8   275.8   180 3.07    4.07    17.4    0   0   3   3</span>
-<span style="color: #b3b3b3;">: 17.3  8   275.8   180 3.07    3.73    17.6    0   0   3   3</span>
-<span style="color: #b3b3b3;">: 30.4  4   75.7    52  4.93    1.615   18.52   1   1   4   2</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: 21    6       160     110     3.9     2.62    16.46   0       1       4       4</span>
+<span class="org-org-code">: 16.4  8       275.8   180     3.07    4.07    17.4    0       0       3       3</span>
+<span class="org-org-code">: 17.3  8       275.8   180     3.07    3.73    17.6    0       0       3       3</span>
+<span class="org-org-code">: 30.4  4       75.7    52      4.93    1.615   18.52   1       1       4       2</span>
 </pre>
 </div>
 
@@ -1338,11 +1339,11 @@ And, <code>list</code> converts the source block result into an Org Mode list.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results list</span>
-<span style="color: #b3b3b3;">  &lt;&lt;results-noweb&gt;&gt;</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results list</span>
+  <span class="org-org-target">&lt;&lt;results-noweb&gt;&gt;</span>
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
 - (21 6 160 110 3.9 2.62 16.46 0 1 4 4)
 - (16.4 8 275.8 180 3.07 4.07 17.4 0 0 3 3)
 - (17.3 8 275.8 180 3.07 3.73 17.6 0 0 3 3)
@@ -1367,24 +1368,24 @@ can specify <code>code</code>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :results value code</span>
-<span style="color: #b3b3b3;">  </span><span style="color: #ffa07a;">"&lt;&lt;results-noweb&gt;&gt;"</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :results value code</span>
+  "<span class="org-org-target">&lt;&lt;results-noweb&gt;&gt;</span>"
+<span class="org-org-block-end-line">#+end_src</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">mtcars[c(1,12,13, 19),]</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-block-begin-line">#+begin_src R</span>
+mtcars[c(1,12,13, 19),]
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #87cefa;">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
-<span style="color: #87cefa;">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
-<span style="color: #87cefa;">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
-<span style="color: #87cefa;">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-table">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
+<span class="org-org-table">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
+<span class="org-org-table">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
+<span class="org-org-table">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
 </pre>
 </div>
 
@@ -1406,14 +1407,14 @@ results are summarily wrapped in a <code>#+begin_X...#+end_X</code> block.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :wrap foo</span>
-<span style="color: #b3b3b3;">  3</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :wrap foo</span>
+  3
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #ff7f24;">#+begin_foo</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-block-begin-line">#+begin_foo</span>
 3
-<span style="color: #ff7f24;">#+end_foo</span>
+<span class="org-org-block-end-line">#+end_foo</span>
 </pre>
 </div>
 </div>
@@ -1436,24 +1437,24 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">  Sys.time()</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R</span>
+  Sys.time()
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS:</span>
-<span style="color: #b3b3b3;">: 2021-04-06 06:12:15</span>
+<span class="org-org-meta-line">#+RESULTS:</span>
+<span class="org-org-code">: 2021-04-06 16:49:09</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: time</span>
-<span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">  Sys.time()</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: time</span>
+<span class="org-org-block-begin-line">#+begin_src R</span>
+  Sys.time()
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: time</span>
-<span style="color: #b3b3b3;">: 2021-04-06 06:12:15</span>
+<span class="org-org-meta-line">#+RESULTS: time</span>
+<span class="org-org-code">: 2021-04-06 16:49:09</span>
 </pre>
 </div>
 
@@ -1519,17 +1520,17 @@ languages.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :session R-session-name :exports code :eval never-export :results none</span>
-<span style="color: #b3b3b3;">x </span><span style="color: #7fffd4;">&lt;-</span><span style="color: #b3b3b3;"> 1</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :session R-session-name :exports code :eval never-export :results none</span>
+x &lt;- 1
+<span class="org-org-block-end-line">#+end_src</span>
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :session R-session-name :eval never-export :exports code</span>
-<span style="color: #b3b3b3;">x</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :session R-session-name :eval never-export :exports code</span>
+x
+<span class="org-org-block-end-line">#+end_src</span>
 </pre>
 </div>
 
@@ -1631,14 +1632,14 @@ the results will appear immediately.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: long-computation</span>
-<span style="color: #ff7f24;">#+begin_src R :cache yes</span>
-<span style="color: #b3b3b3;">  Sys.sleep(2)</span>
-<span style="color: #b3b3b3;">  42</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: long-computation</span>
+<span class="org-org-block-begin-line">#+begin_src R :cache yes</span>
+  Sys.sleep(2)
+  42
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS[1850a21ec1cef57306973138b0c17881d00f9820]: long-computation</span>
-<span style="color: #b3b3b3;">: 42</span>
+<span class="org-org-meta-line">#+RESULTS[1850a21ec1cef57306973138b0c17881d00f9820]: long-computation</span>
+<span class="org-org-code">: 42</span>
 </pre>
 </div>
 
@@ -1649,13 +1650,13 @@ First, here is a source which produces the same value each time it is
 run:
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: stable</span>
-<span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">  23</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: stable</span>
+<span class="org-org-block-begin-line">#+begin_src R</span>
+  23
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: stable</span>
-<span style="color: #b3b3b3;">: 23</span>
+<span class="org-org-meta-line">#+RESULTS: stable</span>
+<span class="org-org-code">: 23</span>
 </pre>
 </div>
 
@@ -1664,13 +1665,13 @@ run:
 Then, a source that produces a different value each second:
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+name: unstable</span>
-<span style="color: #ff7f24;">#+begin_src R</span>
-<span style="color: #b3b3b3;">  Sys.time()</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-meta-line">#+name: unstable</span>
+<span class="org-org-block-begin-line">#+begin_src R</span>
+  Sys.time()
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS: unstable</span>
-<span style="color: #b3b3b3;">: 2021-04-06 06:12:18</span>
+<span class="org-org-meta-line">#+RESULTS: unstable</span>
+<span class="org-org-code">: 2021-04-06 16:49:11</span>
 </pre>
 </div>
 
@@ -1682,13 +1683,13 @@ code block as input.  The first time you evaluate it with
 evaluating it will return results immediately.
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var input=stable :cache yes</span>
-<span style="color: #b3b3b3;">  Sys.sleep(2)</span>
-<span style="color: #b3b3b3;">  input</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :var input=stable :cache yes</span>
+  Sys.sleep(2)
+  input
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS[1de9d77db24319fea2fea80b19d13eb552cda0f3]:</span>
-<span style="color: #b3b3b3;">: 23</span>
+<span class="org-org-meta-line">#+RESULTS[1de9d77db24319fea2fea80b19d13eb552cda0f3]:</span>
+<span class="org-org-code">: 23</span>
 </pre>
 </div>
 
@@ -1699,13 +1700,13 @@ varying function.  Each time (well, separated by at least one second)
 you evaluate it, it will take the full two seconds.
 </p>
 <div class="org-src-container">
-<pre class="src src-org"><span style="color: #ff7f24;">#+begin_src R :var input=unstable :cache yes</span>
-<span style="color: #b3b3b3;">  Sys.sleep(2)</span>
-<span style="color: #b3b3b3;">  input</span>
-<span style="color: #ff7f24;">#+end_src</span>
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :var input=unstable :cache yes</span>
+  Sys.sleep(2)
+  input
+<span class="org-org-block-end-line">#+end_src</span>
 
-<span style="color: #ff7f24;">#+RESULTS[7dc9dfa8a7085d340454dae8bfe3d9a8a55441a3]:</span>
-<span style="color: #b3b3b3;">: 2021-04-06 06:12:20</span>
+<span class="org-org-meta-line">#+RESULTS[6961a3f7abf2cbc5302d8cc1d46569feb8bfca3f]:</span>
+<span class="org-org-code">: 2021-04-06 16:49:14</span>
 </pre>
 </div>
 </div>
@@ -1793,7 +1794,7 @@ file in Emacs, you may have noticed instances in this document.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-06 Tue 06:12</p>
+<p class="date">Created: 2021-04-06 Tue 16:49</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
