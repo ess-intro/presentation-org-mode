@@ -78,7 +78,7 @@ EMACSLL = (org-babel-do-load-languages 'org-babel-load-languages '((emacs-lisp .
 # trust evaulations in *this* context -- a file we create CAUTION!!!
 EMACSTRUSTEVAL = (setq org-confirm-babel-evaluate nil)
 # we need ess, htmlize in the load path
-EMACSLOADPATH = (setq load-path (append (list "." "./artefacts" "~/.emacs.d/straight/build/ess" "~/.emacs.d/straight/build/htmlize") load-path))
+EMACSLOADPATH = (setq load-path (append (list "." "./artefacts" "~/.emacs.d/straight/build/ess" "~/.emacs.d/straight/build/htmlize" "~/.emacs.d/straight/build/dash") load-path))
 # and, load ess-autoloads
 EMACSGETESSAUTOLOADS =  "(require 'ess-autoloads)"
 # load our elisp code, set up for evaluation
@@ -89,6 +89,9 @@ EMACSORGBLOCKS = (resultify-org-blocks)
 EMACSNONORGBLOCKS = (let ((ess-ask-for-ess-directory nil)) (resultify-non-org-blocks) (save-buffer))
 # 
 EMACSORGIFY = (progn (orgify-all-non-org-blocks) (save-buffer))
+# macrify -- expand all macros and fill the paragraphs in which they
+# were found
+EMACSMACRIFY = "(progn (require 'dash) (macrify t))"
 # output to stdout the CSS used for htlmize'ing our files.  this needs
 # to be done in "full emacs" mode (not --batch, etc.), since htmlize's
 # behaviour is dependent on what the platform it is running on.
@@ -137,13 +140,15 @@ ${TOUCHEDDIR}/publish: ${ORGFILES} \
 
 # admittedly, this is a bit silly.  but...  so, i write macros for
 # keystrokes, to have consistency, etc.  but, in the file users open
-# in emacs, i want the macros expanded.  so, i do this.  this has the
-# advantage of keeping everything "user facing" in ./artefacts (but,
-# still.)
+# in emacs, i want the macros expanded so they see the actual
+# contents.  so, i do this.  this has the advantage of keeping
+# everything "user facing" in ./artefacts (but, still, a bit silly.)
 ${DEMOEXPANDEDORG}: ${DEMOORG} tangle
 	cat $< | sed ${EXARTEFACTSSED} > $@
 	emacs --file $@ \
-		--eval "(org-macro-replace-all (org-macro--collect-macros))" \
+		--eval '${EMACSLOADPATH}' \
+		--eval ${EMACSSETUP} \
+		--eval ${EMACSMACRIFY} \
 		--eval "(save-buffer)" \
 		--batch
 

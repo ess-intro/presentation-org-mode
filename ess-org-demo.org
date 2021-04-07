@@ -33,11 +33,6 @@ produced from a file ess-org-demo.org by replacing these macros so
 that you, in the text, will actually see the key strokes.  (You can
 look in Makefile to see how this happens.)
 
-The downside of this is that doing the macro expansion increases the
-length of the lines of text, so that often the lines will end up
-longer.  I'm not sure what a safe way would be of programmatically
-filling all these paragraphs, so I'm leaving them.  Apologies.
-
 #+macro: C-cC-c =[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
 #+macro: C-cC-e =M-x org-export-dispatch= (=[C-c C-e]=)
 #+macro: C-cC-vt =[M-x org-babel-tangle]= (=[C-c C-v t]=)

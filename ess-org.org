@@ -223,7 +223,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
       (reverse blocks)))
 #+end_src
 
-*** orgify all non-org blocks
+*** orgify-blocks: orgify all non-org blocks
 
 #+name: orgify-blocks
 #+begin_src elisp :results none
@@ -285,7 +285,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
 #+RESULTS: orgify-all-non-org-blocks
 : orgify-all-non-org-blocks
 
-*** evaluate all(*) the non-org blocks in the buffer
+*** resultify-non-org-blocks: evaluate all(*) the non-org blocks in the buffer
 
 (*) if :exports "results" or "both", evaluate it
 
@@ -303,7 +303,7 @@ but, i'd rather query, e.g., =:exports= to see if it exports results.
                              (org-get-org-blocks t)))))
           results))
 #+end_src
-*** evaluate (internals of) all(*) the org blocks in the buffer
+*** resultify-org-blocks: evaluate (internals of) all(*) the org blocks in the buffer
 
 (*) if :exports "results" or "both", evaluate all blocks in the org block
 
@@ -330,6 +330,38 @@ either "results" or "both".
 							':exports (list "results" "both") (org-get-org-blocks))))
 				(goto-char pt))
 			results))
+#+end_src
+
+*** macrify: expand all macros, optionally filling paragraphs
+
+this routine expands all macros in the current buffer
+#+name: macrify
+#+begin_src elisp :results none
+  (defun macrify (&optional fill)
+    "expand all macros in the current buffer.  if FILL is non-nil,
+  fill all the paragraphs where strings similar to macros (i.e.,
+  starting with three curly left braces) were found"
+    (let* ((entry-point (point))
+           (markers
+            (when fill
+              (goto-char (point-min))
+              (-unfold (lambda (x)
+                         (let ((next (search-forward "{{{" nil t)))
+                           (if next
+                               (list (point-marker)))))
+                       nil)
+              )))
+      (org-macro-replace-all (org-macro--collect-macros))
+      (dolist (marker markers)
+        (goto-char (marker-position marker))
+        (let ((oec (org-element-context)))
+          ;; make sure we are in a paragraph or the child of a paragraph
+          ;; (for example, if we are a verbatim region in a paragraph)
+          (if (or
+               (equal (car oec) 'paragraph)
+               (equal (car (plist-get (cadr oec) :parent)) 'paragraph))
+              (org-fill-paragraph))))
+        (goto-char entry-point)))
 #+end_src
 
 *** org-publish-project-alist
