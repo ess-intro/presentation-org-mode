@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-06 Tue 20:52 -->
+<!-- 2021-04-07 Wed 06:26 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -363,8 +363,8 @@ Various sorts of "blocks" are supported in Org Mode files.  These
 start with <code>#begin_...</code>, and end with a corresponding <code>#end_...</code>,
 where the <code>...</code> are something like <code>src</code>, <code>example</code>, <code>quote</code>.  A
 skeleton for some of these can conveniently be created with the
-command <code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>), and entering the type of block you are
-interested in creating, e.g.,
+command <code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>), and
+entering the type of block you are interested in creating, e.g.,
 </p>
 <ul class="org-ul">
 <li><code>e</code> for an example block (line wrapping does not apply) (<code>#+begin_example</code>)</li>
@@ -374,7 +374,8 @@ interested in creating, e.g.,
 
 <p>
 there are various other blocks; you can experiment by typing
-<code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>) and then one of the following
+<code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>) and then one of
+the following
 </p>
 <ul class="org-ul">
 <li><code>a</code></li>
@@ -482,7 +483,8 @@ context in which the source block executes.
 
 <p>
 (As mentioned above, a source block skeleton can be created by typing
-<code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>) and entering [=s=].)
+<code>[M-x org-insert-structure-template]</code> (<code>[C-c C-,]</code>) and entering
+[=s=].)
 </p>
 </div>
 
@@ -539,10 +541,10 @@ In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
 language whose evaluation is enabled by default.)  To do this,
 position your cursor inside the source block (or on the <code>#+begin_src</code>
-or <code>#+end_src</code> line), and type <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) (not the square brackets;
-just what is inside).  Additionally, evaluating code in a file can be
-a security risk, so you will be prompted to make sure you want to
-execute the code.
+or <code>#+end_src</code> line), and type <code>[M-x org-babel-execute-src-block]</code>
+(<code>[C-c C-c]</code>) (not the square brackets; just what is inside).
+Additionally, evaluating code in a file can be a security risk, so you
+will be prompted to make sure you want to execute the code.
 </p>
 
 <div class="org-src-container">
@@ -600,7 +602,8 @@ forms of source blocks.
 
 <p>
 First, a <code>#+call</code> line can trigger evaluation of a source block.  To
-trigger the triggering, you will need to type <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) with point
+trigger the triggering, you will need to type
+<code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) with point
 positioned on the call line.
 </p>
 
@@ -639,11 +642,11 @@ say &#x2013; along with some of the rest of a .org file.
 
 <p>
 To start the export process, one types executes the command
-<code>M-x org-export-dispatch</code> (<code>[C-c C-e]</code>).  Org mode then pops up a window that allows you to
-customize your export.  At the top of this window are mostly options
-for defining the scope of the export.  For example, if you then type
-<code>[C-s]</code>, only the subtree in which the export is initialized will be
-exported.
+<code>M-x org-export-dispatch</code> (<code>[C-c C-e]</code>).  Org mode then pops up a
+window that allows you to customize your export.  At the top of this
+window are mostly options for defining the scope of the export.  For
+example, if you then type <code>[C-s]</code>, only the subtree in which the
+export is initialized will be exported.
 </p>
 
 <p>
@@ -683,11 +686,12 @@ lowest values) in a vector of numbers.
 
 
 <p>
-If you type <code>M-x org-export-dispatch</code> (<code>[C-c C-e]</code>), then [C-s] (for "subtree"), then [h] (for
-"html"), and [o] (for "open"), then, assuming your Emacs is configured
-to know how to open a .html file in a browser (90% likely, I'd guess),
-you'll see the text in this subtree, the above code, and the indices
-of the valleys (the last result).
+If you type <code>M-x org-export-dispatch</code> (<code>[C-c C-e]</code>), then [C-s] (for
+"subtree"), then [h] (for "html"), and [o] (for "open"), then,
+assuming your Emacs is configured to know how to open a .html file in
+a browser (90% likely, I'd guess), you'll see the text in this
+subtree, the above code, and the indices of the valleys (the last
+result).
 </p>
 
 <p>
@@ -734,11 +738,12 @@ Repeating a source block from above (using <a href="#org127cc72"><code>:noweb</c
 
 
 <p>
-Now, you could, if you chose, enter <code>[M-x org-babel-tangle]</code> (<code>[C-c C-v t]</code>).  But, be warned!
-This will tangle all the source blocks in the current (this) .org file
-that have a <code>:tangle</code> header argument (specified or inherited).  One
-can restrict the tangle operation to the source block at point (see
-<code>[M-x describe-function]</code> (<code>[C-h f]</code>) for <code>org-babel-tangle</code> for details), but even so, I would
+Now, you could, if you chose, enter <code>[M-x org-babel-tangle]</code>
+(<code>[C-c C-v t]</code>).  But, be warned!  This will tangle all the source
+blocks in the current (this) .org file that have a <code>:tangle</code> header
+argument (specified or inherited).  One can restrict the tangle
+operation to the source block at point (see <code>[M-x describe-function]</code>
+(<code>[C-h f]</code>) for <code>org-babel-tangle</code> for details), but even so, I would
 suggest being careful.
 </p>
 </div>
@@ -804,11 +809,12 @@ unsaved changes</dd>
 </dl>
 
 <p>
-NB: If you are editing a block that has <a href="#org127cc72">:noweb</a> references, the
-references will <b>not</b> be expanded when passing the block (in part or
-in whole) to a running iESS instance (via, e.g., <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) or
-<code>[M-x ess-eval-buffer]</code> (<code>[C-c C-b]</code>)).  And, in fact, the R interpreter will likely flag a
-syntax error should you try to do so.
+NB: If you are editing a block that has <a href="#org127cc72">:noweb</a> references,
+the references will <b>not</b> be expanded when passing the block (in part
+or in whole) to a running iESS instance (via, e.g.,
+<code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) or
+<code>[M-x ess-eval-buffer]</code> (<code>[C-c C-b]</code>)).  And, in fact, the R
+interpreter will likely flag a syntax error should you try to do so.
 </p>
 </div>
 </div>
@@ -1436,7 +1442,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS:</span>
-<span class="org-org-code">: 2021-04-06 20:52:22</span>
+<span class="org-org-code">: 2021-04-07 06:26:30</span>
 </pre>
 </div>
 
@@ -1448,7 +1454,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS: time</span>
-<span class="org-org-code">: 2021-04-06 20:52:22</span>
+<span class="org-org-code">: 2021-04-07 06:26:30</span>
 </pre>
 </div>
 
@@ -1502,14 +1508,15 @@ in the file, or all in a subtree) will occur.
 </p>
 
 <p>
-During a given Emacs instance, the first time you type <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) in
-a source block with a given <code>:session</code> name, Emacs will prompt you for
-the name of the starting directory (with a default being the directory
-of the current file).  It will then start up such a process, attach it
-to a buffer (i'm not totally sure of the Emacs terminology here) with
-the name provided as the argument to the <code>:session</code> header argument
-(or, use a language-specific default), and evaluate your code.  This
-works for interpreted languages but not, to my knowledge, for compiled
+During a given Emacs instance, the first time you type
+<code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>) in a source block
+with a given <code>:session</code> name, Emacs will prompt you for the name of
+the starting directory (with a default being the directory of the
+current file).  It will then start up such a process, attach it to a
+buffer (i'm not totally sure of the Emacs terminology here) with the
+name provided as the argument to the <code>:session</code> header argument (or,
+use a language-specific default), and evaluate your code.  This works
+for interpreted languages but not, to my knowledge, for compiled
 languages.
 </p>
 
@@ -1535,9 +1542,10 @@ as a result the value of <code>x</code> set by the first.
 </p>
 
 <p>
-After evaluations, you can use <code>[M-x switch-to-buffer]</code> (<code>[C-x b]</code>) to switch to that buffer and
-inspect the state, maybe set debug breakpoints, or debug after error
-or debug statement (<code>browser()</code>, say) in your code.
+After evaluations, you can use <code>[M-x switch-to-buffer]</code> (<code>[C-x b]</code>) to
+switch to that buffer and inspect the state, maybe set debug
+breakpoints, or debug after error or debug statement (<code>browser()</code>,
+say) in your code.
 </p>
 
 <p>
@@ -1665,7 +1673,7 @@ Then, a source that produces a different value each second:
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS: unstable</span>
-<span class="org-org-code">: 2021-04-06 20:52:24</span>
+<span class="org-org-code">: 2021-04-07 06:26:32</span>
 </pre>
 </div>
 
@@ -1673,8 +1681,9 @@ Then, a source that produces a different value each second:
 <p>
 Then, two functions.  The first uses results of the unvarying source
 code block as input.  The first time you evaluate it with
-<code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>), it will sleep the two seconds.  However, after that,
-evaluating it will return results immediately.
+<code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>), it will sleep the
+two seconds.  However, after that, evaluating it will return results
+immediately.
 </p>
 <div class="org-src-container">
 <pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :var input=stable :cache yes</span>
@@ -1699,8 +1708,8 @@ you evaluate it, it will take the full two seconds.
   input
 <span class="org-org-block-end-line">#+end_src</span>
 
-<span class="org-org-meta-line">#+RESULTS[91a1cf3df9783cf52dca2c361d8bcc210cce327d]:</span>
-<span class="org-org-code">: 2021-04-06 20:52:27</span>
+<span class="org-org-meta-line">#+RESULTS[55509cc85d91aba839a9a7170013c121e2f9197e]:</span>
+<span class="org-org-code">: 2021-04-07 06:26:35</span>
 </pre>
 </div>
 </div>
@@ -1788,7 +1797,7 @@ file in Emacs, you may have noticed instances in this document.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-06 Tue 20:52</p>
+<p class="date">Created: 2021-04-07 Wed 06:26</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
