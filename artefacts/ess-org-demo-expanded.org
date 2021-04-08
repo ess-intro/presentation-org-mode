@@ -48,33 +48,54 @@ The following is true in a source edit buffer
 these are standalone.  no macro (currently)
 : =[M-x package-list-packages]=
 
-** Introduction to Org Mode
-
-#+begin_quote
-First, some notation :: A string inside square brackets, =[abecde]=,
-means you, the user, should type the string, leaving out the square
-brackets.  Also, the Emacs convention for control and modifier (alt)
-keys is used.  So, =[C-x b]= means type =control x=, then the letter
-=b=.  And, =[M-x b]= would mean type =modifier x= (maybe better known
-as =alt x=), then the letter =b= (almost certainly an error!).
-#+end_quote
-
-(To skip the introductory material and go straight to the
-demonstration work, click [[pastintro][here]].)
+** Preamble
 
 #+BEGIN_EXPORT html
-
-You are looking at this on the web, and I hope you find this useful.
-
-You might profit from downloading the .org file this was generated
-(with suitable incantations) from, and then explore it using Emacs and
-Org Mode.
-
-You should be able to find that file
-<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">here</a>
-(<em>This</em> file will not work as a .org file.)
-
+<em>Tips for using this document</em>
+<blockquote>
+You are looking at this on the web, and I hope you find it useful.
+<p>
+But, a useful method of using this file to learn is to download
+<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">
+the plain text .org file</a>, open it in Emacs, and explore it,
+editing and/or evaluating the various blocks provided, seeing what
+they do, changing things, trying again, how did it change -- all those
+pedagogical techniques.  (If you somehow mess up, you can always
+download the file again!)
+</blockquote>
 #+END_EXPORT
+
+The structure of this document was originally designed to (and may
+still) parallel that of the short [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][beamer presentation]] from the same
+project.  There are pointers to other presentations and tutorials
+under [[moreinfo][below]].  In particular, you may find the Org Mode [[https://orgmode.org/quickstart.html][Quick Start]]
+guide, as well as a tutorial by Erik Iverson, [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][org-mode-R-tutorial.org]],
+and a more recent one from Vikas Rawal, [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org][orgpapers.org]], useful.
+
+/Some notation/
+#+begin_quote
+A string inside square brackets, =[abecde]=, means you, the user,
+should type the string, leaving out the square brackets.
+
+Also, the Emacs convention for control and modifier (alt) keys is
+used.  So, =[C-x b]= means type =control x=, then the letter =b=.
+And, =[M-x b]= would mean type =modifier x= (maybe better known as
+'alt x'), then the letter =b= (almost certainly an error!).
+#+end_quote
+
+Here's a brief map.  After a brief introduction to [[orgmode][Org Mode]], we
+discuss
+- [[srcblocks][the basics of]] source blocks, in which code is embedded;
+- [[evaluating][how to /evaluate/]] a source block (to produce results);
+- [[exporting][how to export]] a .org file, including the code of source blocks
+  and/or the results of evaluating them;
+- [[tangling][how to extract]] source blocks from the .org file and write them to a
+  file (a process known as /tangling/);
+- [[editing][the two options for editing]] source blocks;
+- [[headerarguments][some of the /header arguments/]] that can be used; and, finally
+- [[moreinfo][pointers to]] more information
+
+** <<orgmode>> Introduction to Org Mode
 
 [[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][Org Mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
 -- the proliferation of notation makes googling somewhat of a
@@ -196,7 +217,7 @@ environment in which Org Mode processes your file (and, in particular,
 for our case, the context in which source code is evaluated).
 
 <<pastintro>>
-** Source blocks
+** <<srcblocks>> Source blocks
 
 Source blocks are lines of text, surrounded by a =#+begin_src= line
 before the beginning and a =#+end_src= line after the end of the code.
@@ -234,7 +255,7 @@ x
 | 42 |
 |    |
 
-** /Evaluating/ source blocks
+** <<evaluating>> /Evaluating/ source blocks
 
 In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
@@ -256,15 +277,15 @@ will be prompted to make sure you want to execute the code.
 message can provide you the name of the block for which it is asking
 permission to evaluate.)
 
-If you customize the variable =org-babel-load-languages=, then those
-languages will be set to evaluate source blocks when you start Emacs.
-However, if you wish to add a language during execution, you will
-again need to call =(org-babel--do-load-languages)=.  Note that doing
-so will *not disable* any previously loaded language in this Emacs
-process.
+You can also enable evaluation in an R source code block by
+customizing the variable =org-babel-load-languages=, via =[M-x
+customize-variable]=, or =[M-S-:(customize-variable
+'org-babel-load-languages)]= and enable R (something like "Ins",
+"Value Menu", "R", "State"),
 
-An R source block, for example, can be evaluated using the same
-command, =[M-x org-babel-execute-src-block]= (=[C-c C-c]=):
+Once enabled, an R source block, for example, can be evaluated using
+the same command, =[M-x org-babel-execute-src-block]= (=[C-c C-c]=)
+(with point inside the source block):
 
 #+name: first-r-block
 #+begin_src R :results output
@@ -291,7 +312,7 @@ call_first-r-block().
 inline call statements have a syntax for block-specific header
 arguments similar to that of inline source blocks.
 
-** /Exporting/ source blocks
+** <<exporting>> /Exporting/ source blocks
 
 Source blocks are, optionally, exported -- to a .html or .pdf file,
 say -- along with some of the rest of a .org file.
@@ -335,7 +356,7 @@ both the source code itself, as well as the results of its evaluation
 (you will be prompted to authorize the evaluation).  One could also
 say one of: =:exports none=, =:exports code=, or =:exports results=.
 
-** /Tangling/ code
+** <<tangling>> /Tangling/ code
 
 Tangling is a term the [[https://orgmode.org/worg/org-contrib/babel/index.html][literate programming]] world uses to mean
 extracting the source code from a "literate" document in a way that
@@ -362,7 +383,7 @@ operation to the source block at point (see =[M-x describe-function]=
 (=[C-h f]=) for =org-babel-tangle= for details), but even so, I would
 suggest being careful.
 
-** /Editing/ a source block
+** <<editing>> /Editing/ a source block
 
 The source block is just a number of text lines in text file.  So, it
 is very normal to do minor edits in line, in the .org file.  A certain
@@ -898,7 +919,7 @@ you evaluate it, it will take the full two seconds.
   input
 #+end_src
 
-** Other sources of information
+** <<moreinfo>> Other sources of information
 
 The official [[https://orgmode.org/quickstart.html][Quick Start]] guide provides a very good introduction to
 Org Mode.  The main [[https://orgmode.org/][Org Mode]] web page is another good source for
@@ -920,7 +941,7 @@ In particular, there is an e-mail list, an IRC channel, etc.
 The other presentations in this [[https://ess-intro.github.io/][ESS intro series]] provide more detail
 about ESS.  The [[https://ess.r-project.org/index.php?Section=home][ESS project]] also has ways to connect, listed [[https://ess.r-project.org/index.php?Section=getting%20help][here]].
 
-The beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]]).  A .html version
+The beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][html]]).  A .html version
 of this file is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][pdf]]), and plain text version, suitable for
 experimentation in Emacs, is [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][here]] (no PDF file for this one!).  The
 github repository for this presentation is [[https://github.com/ess-intro/presentation-org-mode][here]].
