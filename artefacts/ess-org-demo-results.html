@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-07 Wed 06:26 -->
+<!-- 2021-04-08 Thu 10:03 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -231,25 +231,26 @@
 <ul>
 <li><a href="#orgee7dad2">A file showing off some Org Mode and ESS features</a>
 <ul>
-<li><a href="#org486e732">Introduction to Org Mode</a>
+<li><a href="#orgb001d93">Preamble</a></li>
+<li><a href="#org81f0225">Introduction to Org Mode</a>
 <ul>
 <li><a href="#org72a05fa">Blocks of various sizes, shapes, colors</a></li>
 <li><a href="#org4c1c18d">Drawers, Properties, Property Drawers</a></li>
 </ul>
 </li>
-<li><a href="#org71a50c7">Source blocks</a>
+<li><a href="#orgc5d30bc">Source blocks</a>
 <ul>
 <li><a href="#orgc4faa08">Inline source blocks</a></li>
 </ul>
 </li>
-<li><a href="#org3b8e1b3"><i>Evaluating</i> source blocks</a>
+<li><a href="#org1808191"><i>Evaluating</i> source blocks</a>
 <ul>
 <li><a href="#org9869b9e">Evaluation via a <code>call</code> statement</a></li>
 </ul>
 </li>
-<li><a href="#org80743bb"><i>Exporting</i> source blocks</a></li>
-<li><a href="#orgc6151d8"><i>Tangling</i> code</a></li>
-<li><a href="#org586ec99"><i>Editing</i> a source block</a></li>
+<li><a href="#orgd810a8f"><i>Exporting</i> source blocks</a></li>
+<li><a href="#orga49945c"><i>Tangling</i> code</a></li>
+<li><a href="#org6244c6c"><i>Editing</i> a source block</a></li>
 <li><a href="#orgd26f43c">Header arguments</a>
 <ul>
 <li><a href="#org01f8f72"><code>:colnames and :rownames</code></a></li>
@@ -260,7 +261,7 @@
 <li><a href="#orgeeea27d"><code>:cache</code></a></li>
 </ul>
 </li>
-<li><a href="#org1e648e4">Other sources of information</a></li>
+<li><a href="#org62b453a">Other sources of information</a></li>
 </ul>
 </li>
 </ul>
@@ -270,36 +271,69 @@
 <h2 id="orgee7dad2">A file showing off some Org Mode and ESS features</h2>
 <div class="outline-text-2" id="text-orgee7dad2">
 </div>
-<div id="outline-container-org486e732" class="outline-3">
-<h3 id="org486e732">Introduction to Org Mode</h3>
-<div class="outline-text-3" id="text-org486e732">
+<div id="outline-container-orgb001d93" class="outline-3">
+<h3 id="orgb001d93">Preamble</h3>
+<div class="outline-text-3" id="text-orgb001d93">
+<em>Tips for using this document</em>
+<blockquote>
+You are looking at this on the web, and I hope you find it useful.
+<p>
+But, a useful method of using this file to learn is to download
+<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">
+the plain text .org file</a>, open it in Emacs, and explore it,
+editing and/or evaluating the various blocks provided, seeing what
+they do, changing things, trying again, how did it change -- all those
+pedagogical techniques.  (If you somehow mess up, you can always
+download the file again!)
+</blockquote>
+
+<p>
+The structure of this document was originally designed to (and may
+still) parallel that of the short <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf">beamer presentation</a> from the same
+project.  There are pointers to other presentations and tutorials
+under <a href="#org5c4683e">below</a>.  In particular, you may find the Org Mode <a href="https://orgmode.org/quickstart.html">Quick Start</a>
+guide, as well as a tutorial by Erik Iverson, <a href="https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org">org-mode-R-tutorial.org</a>,
+and a more recent one from Vikas Rawal, <a href="https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org">orgpapers.org</a>, useful.
+</p>
+
+<p>
+<i>Some notation</i>
+</p>
 <blockquote>
 <p>
-First, some notation :: A string inside square brackets, <code>[abecde]</code>,
-means you, the user, should type the string, leaving out the square
-brackets.  Also, the Emacs convention for control and modifier (alt)
-keys is used.  So, <code>[C-x b]</code> means type <code>control x</code>, then the letter
-<code>b</code>.  And, <code>[M-x b]</code> would mean type <code>modifier x</code> (maybe better known
-as <code>alt x</code>), then the letter <code>b</code> (almost certainly an error!).
+A string inside square brackets, <code>[abecde]</code>, means you, the user,
+should type the string, leaving out the square brackets.
+</p>
+
+<p>
+Also, the Emacs convention for control and modifier (alt) keys is
+used.  So, <code>[C-x b]</code> means type <code>control x</code>, then the letter <code>b</code>.
+And, <code>[M-x b]</code> would mean type <code>modifier x</code> (maybe better known as
+'alt x'), then the letter <code>b</code> (almost certainly an error!).
 </p>
 </blockquote>
 
 <p>
-(To skip the introductory material and go straight to the
-demonstration work, click <a href="#orgd594193">here</a>.)
+Here's a brief map.  After a brief introduction to <a href="#org0623e3f">Org Mode</a>, we
+discuss
 </p>
+<ul class="org-ul">
+<li><a href="#org22c41a3">the basics of</a> source blocks, in which code is embedded;</li>
+<li><a href="#orga4991b1">how to <i>evaluate</i></a> a source block (to produce results);</li>
+<li><a href="#org6054252">how to export</a> a .org file, including the code of source blocks
+and/or the results of evaluating them;</li>
+<li><a href="#orga786a96">how to extract</a> source blocks from the .org file and write them to a
+file (a process known as <i>tangling</i>);</li>
+<li><a href="#org8572b33">the two options for editing</a> source blocks;</li>
+<li><a href="#orgd162314">some of the <i>header arguments</i></a> that can be used; and, finally</li>
+<li><a href="#org5c4683e">pointers to</a> more information</li>
+</ul>
+</div>
+</div>
 
-
-You are looking at this on the web, and I hope you find this useful.
-
-You might profit from downloading the .org file this was generated
-(with suitable incantations) from, and then explore it using Emacs and
-Org Mode.
-
-You should be able to find that file
-<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">here</a>
-(<em>This</em> file will not work as a .org file.)
-
+<div id="outline-container-org81f0225" class="outline-3">
+<h3 id="org81f0225"><a id="org0623e3f"></a> Introduction to Org Mode</h3>
+<div class="outline-text-3" id="text-org81f0225">
 <p>
 <a href="https://www.gnu.org/software/emacs/">Emacs</a> (<a href="https://en.wikipedia.org/wiki/Emacs">wikipedia</a>) <a href="https://orgmode.org/">Org Mode</a> <sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>  sometimes exhorts one to do something like "Organize Your
 Life In Plain Text!"; the Org Mode manual, on the other hand, starts
@@ -463,9 +497,9 @@ for our case, the context in which source code is evaluated).
 </div>
 </div>
 </div>
-<div id="outline-container-org71a50c7" class="outline-3">
-<h3 id="org71a50c7">Source blocks</h3>
-<div class="outline-text-3" id="text-org71a50c7">
+<div id="outline-container-orgc5d30bc" class="outline-3">
+<h3 id="orgc5d30bc"><a id="org22c41a3"></a> Source blocks</h3>
+<div class="outline-text-3" id="text-orgc5d30bc">
 <p>
 Source blocks are lines of text, surrounded by a <code>#+begin_src</code> line
 before the beginning and a <code>#+end_src</code> line after the end of the code.
@@ -533,9 +567,9 @@ x
 </div>
 
 
-<div id="outline-container-org3b8e1b3" class="outline-3">
-<h3 id="org3b8e1b3"><i>Evaluating</i> source blocks</h3>
-<div class="outline-text-3" id="text-org3b8e1b3">
+<div id="outline-container-org1808191" class="outline-3">
+<h3 id="org1808191"><a id="orga4991b1"></a> <i>Evaluating</i> source blocks</h3>
+<div class="outline-text-3" id="text-org1808191">
 <p>
 In order to enable evaluation of source blocks of R code, you will
 need to evaluate the following source block.  (Emacs lisp is the only
@@ -565,17 +599,17 @@ permission to evaluate.)
 </p>
 
 <p>
-If you customize the variable <code>org-babel-load-languages</code>, then those
-languages will be set to evaluate source blocks when you start Emacs.
-However, if you wish to add a language during execution, you will
-again need to call <code>(org-babel--do-load-languages)</code>.  Note that doing
-so will <b>not disable</b> any previously loaded language in this Emacs
-process.
+You can also enable evaluation in an R source code block by
+customizing the variable <code>org-babel-load-languages</code>, via <code>[M-x
+customize-variable]</code>, or <code>[M-S-:(customize-variable
+'org-babel-load-languages)]</code> and enable R (something like "Ins",
+"Value Menu", "R", "State"),
 </p>
 
 <p>
-An R source block, for example, can be evaluated using the same
-command, <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>):
+Once enabled, an R source block, for example, can be evaluated using
+the same command, <code>[M-x org-babel-execute-src-block]</code> (<code>[C-c C-c]</code>)
+(with point inside the source block):
 </p>
 
 <div class="org-src-container">
@@ -632,9 +666,9 @@ arguments similar to that of inline source blocks.
 </div>
 </div>
 
-<div id="outline-container-org80743bb" class="outline-3">
-<h3 id="org80743bb"><i>Exporting</i> source blocks</h3>
-<div class="outline-text-3" id="text-org80743bb">
+<div id="outline-container-orgd810a8f" class="outline-3">
+<h3 id="orgd810a8f"><a id="org6054252"></a> <i>Exporting</i> source blocks</h3>
+<div class="outline-text-3" id="text-orgd810a8f">
 <p>
 Source blocks are, optionally, exported &#x2013; to a .html or .pdf file,
 say &#x2013; along with some of the rest of a .org file.
@@ -703,9 +737,9 @@ say one of: <code>:exports none</code>, <code>:exports code</code>, or <code>:ex
 </div>
 </div>
 
-<div id="outline-container-orgc6151d8" class="outline-3">
-<h3 id="orgc6151d8"><i>Tangling</i> code</h3>
-<div class="outline-text-3" id="text-orgc6151d8">
+<div id="outline-container-orga49945c" class="outline-3">
+<h3 id="orga49945c"><a id="orga786a96"></a> <i>Tangling</i> code</h3>
+<div class="outline-text-3" id="text-orga49945c">
 <p>
 Tangling is a term the <a href="https://orgmode.org/worg/org-contrib/babel/index.html">literate programming</a> world uses to mean
 extracting the source code from a "literate" document in a way that
@@ -749,9 +783,9 @@ suggest being careful.
 </div>
 </div>
 
-<div id="outline-container-org586ec99" class="outline-3">
-<h3 id="org586ec99"><i>Editing</i> a source block</h3>
-<div class="outline-text-3" id="text-org586ec99">
+<div id="outline-container-org6244c6c" class="outline-3">
+<h3 id="org6244c6c"><a id="org8572b33"></a> <i>Editing</i> a source block</h3>
+<div class="outline-text-3" id="text-org6244c6c">
 <p>
 The source block is just a number of text lines in text file.  So, it
 is very normal to do minor edits in line, in the .org file.  A certain
@@ -1442,7 +1476,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS:</span>
-<span class="org-org-code">: 2021-04-07 06:26:30</span>
+<span class="org-org-code">: 2021-04-08 10:03:13</span>
 </pre>
 </div>
 
@@ -1454,7 +1488,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS: time</span>
-<span class="org-org-code">: 2021-04-07 06:26:30</span>
+<span class="org-org-code">: 2021-04-08 10:03:13</span>
 </pre>
 </div>
 
@@ -1673,7 +1707,7 @@ Then, a source that produces a different value each second:
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS: unstable</span>
-<span class="org-org-code">: 2021-04-07 06:26:32</span>
+<span class="org-org-code">: 2021-04-08 10:03:15</span>
 </pre>
 </div>
 
@@ -1708,8 +1742,8 @@ you evaluate it, it will take the full two seconds.
   input
 <span class="org-org-block-end-line">#+end_src</span>
 
-<span class="org-org-meta-line">#+RESULTS[55509cc85d91aba839a9a7170013c121e2f9197e]:</span>
-<span class="org-org-code">: 2021-04-07 06:26:35</span>
+<span class="org-org-meta-line">#+RESULTS[3c62023db8bfd5c2a31b2428ad978ef783b97699]:</span>
+<span class="org-org-code">: 2021-04-08 10:03:18</span>
 </pre>
 </div>
 </div>
@@ -1717,9 +1751,9 @@ you evaluate it, it will take the full two seconds.
 </div>
 
 
-<div id="outline-container-org1e648e4" class="outline-3">
-<h3 id="org1e648e4">Other sources of information</h3>
-<div class="outline-text-3" id="text-org1e648e4">
+<div id="outline-container-org62b453a" class="outline-3">
+<h3 id="org62b453a"><a id="org5c4683e"></a> Other sources of information</h3>
+<div class="outline-text-3" id="text-org62b453a">
 <p>
 The official <a href="https://orgmode.org/quickstart.html">Quick Start</a> guide provides a very good introduction to
 Org Mode.  The main <a href="https://orgmode.org/">Org Mode</a> web page is another good source for
@@ -1749,7 +1783,7 @@ about ESS.  The <a href="https://ess.r-project.org/index.php?Section=home">ESS p
 </p>
 
 <p>
-The beamer slides for this tutorial are <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html">here</a> (<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf">pdf</a>).  A .html version
+The beamer slides for this tutorial are <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf">here</a> (<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html">html</a>).  A .html version
 of this file is <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html">here</a> (<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf">pdf</a>), and plain text version, suitable for
 experimentation in Emacs, is <a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">here</a> (no PDF file for this one!).  The
 github repository for this presentation is <a href="https://github.com/ess-intro/presentation-org-mode">here</a>.
@@ -1797,7 +1831,7 @@ file in Emacs, you may have noticed instances in this document.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-07 Wed 06:26</p>
+<p class="date">Created: 2021-04-08 Thu 10:03</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
