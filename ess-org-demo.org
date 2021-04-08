@@ -50,31 +50,31 @@ these are standalone.  no macro (currently)
 
 ** Introduction to Org Mode
 
-#+begin_quote
-First, some notation :: A string inside square brackets, =[abecde]=,
-means you, the user, should type the string, leaving out the square
-brackets.  Also, the Emacs convention for control and modifier (alt)
-keys is used.  So, =[C-x b]= means type =control x=, then the letter
-=b=.  And, =[M-x b]= would mean type =modifier x= (maybe better known
-as =alt x=), then the letter =b= (almost certainly an error!).
-#+end_quote
-
-(To skip the introductory material and go straight to the
-demonstration work, click [[pastintro][here]].)
-
 #+BEGIN_EXPORT html
-
-You are looking at this on the web, and I hope you find this useful.
-
-You might profit from downloading the .org file this was generated
-(with suitable incantations) from, and then explore it using Emacs and
-Org Mode.
-
-You should be able to find that file
-<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">here</a>
-(<em>This</em> file will not work as a .org file.)
-
+<em>Tips for using this document</em>
+<blockquote>
+You are looking at this on the web, and I hope you find it useful.
+<p>
+But, a useful method of using this file to learn is to download
+<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">
+the plain text .org file</a>, open it in Emacs, and explore it,
+editing and/or evaluating the various blocks provided, seeing what
+they do, changing things, trying again, how did it change -- all those
+pedagogical techniques.  (If you somehow mess up, you can always
+download the file again!)
+</blockquote>
 #+END_EXPORT
+
+/Some notation/
+#+begin_quote
+A string inside square brackets, =[abecde]=, means you, the user,
+should type the string, leaving out the square brackets.
+
+Also, the Emacs convention for control and modifier (alt) keys is
+used.  So, =[C-x b]= means type =control x=, then the letter =b=.
+And, =[M-x b]= would mean type =modifier x= (maybe better known as
+'alt x'), then the letter =b= (almost certainly an error!).
+#+end_quote
 
 [[https://www.gnu.org/software/emacs/][Emacs]] ([[https://en.wikipedia.org/wiki/Emacs][wikipedia]]) [[https://orgmode.org/][Org Mode]] [fn::a.k.a., "org-mode", Org Mode, orgmode
 -- the proliferation of notation makes googling somewhat of a
@@ -254,15 +254,14 @@ execute the code.
 message can provide you the name of the block for which it is asking
 permission to evaluate.)
 
-If you customize the variable =org-babel-load-languages=, then those
-languages will be set to evaluate source blocks when you start Emacs.
-However, if you wish to add a language during execution, you will
-again need to call =(org-babel--do-load-languages)=.  Note that doing
-so will *not disable* any previously loaded language in this Emacs
-process.
+You can also enable evaluation in an R source code block by
+customizing the variable =org-babel-load-languages=, via =[M-x
+customize-variable]=, or =[M-S-:(customize-variable
+'org-babel-load-languages)]= and enable R (something like "Ins",
+"Value Menu", "R", "State"),
 
-An R source block, for example, can be evaluated using the same
-command, {{{C-cC-c}}}:
+Once enabled, an R source block, for example, can be evaluated using
+the same command, {{{C-cC-c}}} (with point inside the source block):
 
 #+name: first-r-block
 #+begin_src R :results output
