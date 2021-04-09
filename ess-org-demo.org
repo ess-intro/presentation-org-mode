@@ -1,5 +1,14 @@
+# (if all you see is the next line, ending in =...=, then the buffer is
+# "folded"; to see the rest of the put your cursor at the beginning of
+# the next line and type [TAB] twice.
+
 * A file showing off some Org Mode and ESS features
 ** meta : setup                                                    :noexport:
+
+This section helps set up this file, and is not part of the tutorial.
+You can easily skip this section by typing [C-c C-n] ("control-c
+control-n").
+
 #+author: Greg Minshall
 # can't do this because of ggm-twbs: #+title: using ESS with Emacs Org Mode
 #+subtitle: [[https://ess-intro.github.io/][part of the ESS intro series]]
@@ -50,20 +59,17 @@ these are standalone.  no macro (currently)
 
 ** Preamble
 
-#+BEGIN_EXPORT html
-<em>Tips for using this document</em>
-<blockquote>
-You are looking at this on the web, and I hope you find it useful.
-<p>
-But, a useful method of using this file to learn is to download
-<a href="https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org">
-the plain text .org file</a>, open it in Emacs, and explore it,
-editing and/or evaluating the various blocks provided, seeing what
-they do, changing things, trying again, how did it change -- all those
-pedagogical techniques.  (If you somehow mess up, you can always
-download the file again!)
-</blockquote>
-#+END_EXPORT
+*** Tips for using this document
+
+#+begin_quote
+If you are looking at this on the web, and I hope you find it useful.
+But, a useful method of using this file to learn is to download [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][ the
+plain text .org file]], open it in Emacs, and explore it, editing and/or
+evaluating the various blocks provided, seeing what they do, changing
+things, trying again, how did it change -- all those pedagogical
+techniques.  (If you somehow mess up, you can always download the file
+again!)
+#+end_quote
 
 The structure of this document was originally designed to (and may
 still) parallel that of the short [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][beamer presentation]] from the same
@@ -72,7 +78,8 @@ under [[moreinfo][below]].  In particular, you may find the Org Mode [[https://o
 guide, as well as a tutorial by Erik Iverson, [[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][org-mode-R-tutorial.org]],
 and a more recent one from Vikas Rawal, [[https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org][orgpapers.org]], useful.
 
-/Some notation/
+*** Some notation
+
 #+begin_quote
 A string inside square brackets, =[abecde]=, means you, the user,
 should type the string, leaving out the square brackets.
@@ -82,6 +89,8 @@ used.  So, =[C-x b]= means type =control x=, then the letter =b=.
 And, =[M-x b]= would mean type =modifier x= (maybe better known as
 'alt x'), then the letter =b= (almost certainly an error!).
 #+end_quote
+
+*** Contents
 
 Here's a brief map.  After a brief introduction to [[orgmode][Org Mode]], we
 discuss
@@ -144,7 +153,7 @@ The rest of this document is dedicated to explaining these things.
 *** Blocks of various sizes, shapes, colors
 
 Various sorts of "blocks" are supported in Org Mode files.  These
-start with =#begin_...=, and end with a corresponding =#end_...=,
+start with =#+begin_...=, and end with a corresponding =#+end_...=,
 where the =...= are something like =src=, =example=, =quote=.  A
 skeleton for some of these can conveniently be created with the
 command {{{C-cC-comma}}}, and entering the type of block you are
@@ -175,6 +184,8 @@ by a colon as the first non-blank column of a line
 One can have longer runs of verbatim ("example") data (which is not
 word wrapped, etc.:
 
+# put point in the next src block and type [C-c '] for best viewing;
+# type [C-c '] again to exit.
 #+begin_src org
   ,#+name: ex
   ,#+begin_example
@@ -184,6 +195,9 @@ word wrapped, etc.:
   ,#+end_example
 #+end_src
 As well as longer bits of text that *will* be wrapped ("quote"):
+
+# put point in the next src block and type [C-c '] for best viewing;
+# type [C-c '] again to exit.
 #+begin_src org
   ,#+begin_quote
   this is a bit of
@@ -388,7 +402,7 @@ On the other hand, by positioning the cursor on the source block and
 executing {{{C-capostrophe}}}, one can "pop out" the
 source block and edit it in a buffer with the major mode set
 appropriately for the language of the source block.  In the case of an
-R source block, the major mode will (the R-flavor of) ESS.
+R source block, the major mode will (the R-flavor of) ESS, =ESS[R]=.
 
 Feel free to experiment with the following code.  On the R-help list,
 a new value for the vector =x= was proposed.
@@ -437,6 +451,8 @@ Here is an example from a .org file that shows those ways of defining
 various header arguments.  The =#+header-args+= construct adds these
 arguments to the list of header args.
 
+# put point in the next src block and type [C-c '] for best viewing;
+# type [C-c '] again to exit.
 #+BEGIN_SRC org
   ,#+property: header-args :tangle ./nosuchdirectory/bigfile
 

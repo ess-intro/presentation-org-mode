@@ -67,8 +67,8 @@ following attributes:
   or some other packaging step, or be a stand alone script (=Rscript=,
   say).
 - *edit* it, either in place in the Org buffer, or "stand alone" in an
-  /OrgSrc/ buffer (=[C-c ']=[fn:point]), with the possibility of
-  real-time syntax checking/linting, etc.
+  /OrgSrc/ buffer (=[C-c ']=[fn:point]), with the major mode set to
+  that of the language (so, for R, =ESS[R]=).
 
 
 * R source blocks
@@ -84,8 +84,8 @@ In particular, one can have a source block with R code
   ,#+end_src
 #+end_src
 
-To evaluate an entire source block in an Org buffer, type =[C-c C-c]=
-or =[C-c C-v e]=.
+To evaluate an entire source block in an Org buffer, where the major
+mode will be that of the language, type =[C-c C-c]= or =[C-c C-v e]=.
 
 To edit this source block in an Org Src buffer, type =[C-c ']=.  To
 close the OrgSrc buffer and return to the Org buffer, type =[C-c ']=
@@ -138,7 +138,8 @@ In Emacs, I find that I spend time bouncing between three buffers:
 
 - the [[https://orgmode.org/][Org Mode]] web page
   
-- the Org Mode [[https://orgmode.org/worg/][worg]] site
+- the Org Mode [[https://orgmode.org/worg/][worg]] site ("=... a collectively-built knowledge
+  database with lots of Org-Mode Resources.=")
   
 - the other presentations in this [[https://ess-intro.github.io/][ESS intro series]]
 
