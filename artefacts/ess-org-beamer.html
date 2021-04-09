@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-08 Thu 10:03 -->
+<!-- 2021-04-09 Fri 07:54 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introduction to Org Mode for ESS users</title>
@@ -284,8 +284,8 @@ into a separate file, that might be used as input to a compilation
 or some other packaging step, or be a stand alone script (<code>Rscript</code>,
 say).</li>
 <li><b>edit</b> it, either in place in the Org buffer, or "stand alone" in an
-<i>OrgSrc</i> buffer (<code>[C-c ']</code><sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup>), with the possibility of
-real-time syntax checking/linting, etc.</li>
+<i>OrgSrc</i> buffer (<code>[C-c ']</code><sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup>), with the major mode set to
+that of the language (so, for R, <code>ESS[R]</code>).</li>
 </ul>
 </div>
 </div>
@@ -309,8 +309,8 @@ In particular, one can have a source block with R code
 </div>
 
 <p>
-To evaluate an entire source block in an Org buffer, type <code>[C-c C-c]</code>
-or <code>[C-c C-v e]</code>.
+To evaluate an entire source block in an Org buffer, where the major
+mode will be that of the language, type <code>[C-c C-c]</code> or <code>[C-c C-v e]</code>.
 </p>
 
 <p>
@@ -389,7 +389,8 @@ needed</li>
 
 <li>the <a href="https://orgmode.org/">Org Mode</a> web page</li>
 
-<li>the Org Mode <a href="https://orgmode.org/worg/">worg</a> site</li>
+<li>the Org Mode <a href="https://orgmode.org/worg/">worg</a> site ("<code>... a collectively-built knowledge
+  database with lots of Org-Mode Resources.</code>")</li>
 
 <li>the other presentations in this <a href="https://ess-intro.github.io/">ESS intro series</a></li>
 
@@ -448,7 +449,7 @@ block</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-08 Thu 10:03</p>
+<p class="date">Created: 2021-04-09 Fri 07:54</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
