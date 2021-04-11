@@ -21,29 +21,6 @@
 # "showframe" option is nice for debugging.
 #+LATEX_HEADER: \usepackage[a4paper, width=.7\paperwidth, height=.8\paperheight]{geometry}
 
-** Other tutorials, etc. :noexport:
-
-[[https://github.com/erikriverson/org-mode-R-tutorial/blob/master/org-mode-R-tutorial.org][tutorial on R and Org Mode]]
-#+begin_example
-From: Erik Iverson <erikriverson@gmail.com>
-Date: Tue, 23 Feb 2021 12:30:03 -0800
-Subject: Re: org-in-org
-To: Greg Minshall <minshall@umich.edu>
-Cc: emacs-orgmode <emacs-orgmode@gnu.org>
-#+end_example
-
-https://raw.githubusercontent.com/vikasrawal/orgpaper/master/orgpapers.org
-or
-https://github.com/vikasrawal/orgpaper/blob/master/orgpapers.org
-or, more recently:
-#+begin_example
-From: Jeremie Juste <jeremiejuste@gmail.com>
-To: Greg Minshall <minshall@umich.edu>
-Subject: Re: org-in-org
-Date: Tue, 23 Feb 2021 22:38:06 +0100
-Cc: emacs-orgmode@gnu.org
-#+end_example
-
 ** experiments                                                      :noexport:
 
 *** audio problems
@@ -64,39 +41,6 @@ also
 (click on "Input Devices", see that the other microphones -- Front,
 Headset -- are unplugged, only Internal is plugged in.
 
-*** more
-#+NAME: readdata-code
-#+BEGIN_SRC org
-
-  ,#+NAME: readdata-code
-  ,#+BEGIN_SRC R :results value silent
-
-  read.data("datafile1.csv",sep=",",header=T)->mydata1
-
-
-  ,#+END_SRC
-#+END_SRC
-
-#+BEGIN_SRC org
-  ,#+begin_src R
-      print("abc")
-  ,#+end_src
-
-  ,#+RESULTS:
-  : abc
-
-#+END_SRC
-
-
-#+BEGIN_SRC org
-  ,#+begin_src R
-      print("def")
-  ,#+end_src
-
-  ,#+RESULTS:
-  : def
-#+END_SRC
-
 ** meta : tools, etc                                                :noexport:
 
 https://obsproject.com/wiki/OBS-Studio-Quickstart obs, on arch linux
@@ -110,30 +54,6 @@ happens.
 to get little modifier key thing:
 : pip install git+https://github.com/scottkirkwood/key-mon
 but, it doesn't like my control key.
-
-to evaluate each code block in a buffer:
-:from:
-#+begin_example
-From: "Berry, Charles" <ccberry@health.ucsd.edu>
-To: Greg Minshall <minshall@umich.edu>
-CC: "emacs-orgmode@gnu.org" <emacs-orgmode@gnu.org>
-Subject: Re: org-in-org
-Date: Tue, 23 Feb 2021 19:46:32 +0000
-#+end_example
-:end:
-#+header: :results both
-#+BEGIN_SRC emacs-lisp
-(defun org-exe-org ()
-  (let ((org-confirm-babel-evaluate nil))
-    (org-edit-src-code)
-    (org-babel-execute-buffer)
-    (org-edit-src-exit)))
-#+END_SRC
-
-then, do this:
-: (org-babel-map-executables nil (org-exe-org))
-
-but, i'd rather query, e.g., =:exports= to see if it exports results.
 
 ** elisp code                                                       :noexport:
        :PROPERTIES:
@@ -401,21 +321,6 @@ this routine expands all macros in the current buffer
 
 #+begin_src elisp
 (provide 'el-org)
-#+end_src
-
-** testing :noexport:
-            :PROPERTIES:
-            :header-args:     :tanglex foobar
-            :END:
-
-#+begin_src R
-23
-#+end_src
-
-*** else
-
-#+begin_src R :tanglex hoobar
-a+22
 #+end_src
 
 ** ggm-twbs :noexport:
