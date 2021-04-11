@@ -138,8 +138,8 @@ In Emacs, I find that I spend time bouncing between three buffers:
 
 - the [[https://orgmode.org/][Org Mode]] web page
   
-- the Org Mode [[https://orgmode.org/worg/][worg]] site ("=... a collectively-built knowledge
-  database with lots of Org-Mode Resources.=")
+- the Org Mode [[https://orgmode.org/worg/][worg]] site (you may find it useful to take a linear
+  stroll through [[https://orgmode.org/worg/sitemap.html][the worg site map]])
   
 - the other presentations in this [[https://ess-intro.github.io/][ESS intro series]]
 

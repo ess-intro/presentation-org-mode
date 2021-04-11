@@ -1,6 +1,6 @@
-# (if all you see is the next line, ending in =...=, then the buffer is
-# "folded"; to see the rest of the put your cursor at the beginning of
-# the next line and type [TAB] twice.
+# (if all you see is the next line, ending in =...=, then the buffer
+# is "folded"; to see the rest of the buffer put your cursor at the
+# beginning of the next line and type [TAB] twice.
 
 * A file showing off some Org Mode and ESS features
 ** meta : setup                                                    :noexport:
@@ -957,7 +957,8 @@ There are some videos you might find useful.  Rainer König's
 useful for coming up to speed with Org Mode, but are more focused on
 the non-programming aspects of Org Mode.  SystemCrafters' [[https://www.youtube.com/c/SystemCrafters/videos][videos]]
 include a number that touch on various aspects of both Emacs and Org
-Mode.  DT ("Distro Tube"?) has yet another [[https://www.youtube.com/watch?v=Ea_-TaEGa7Y][introductory video]].
+Mode.  DT ("Distro Tube"?) has yet another [[https://www.youtube.com/watch?v=Ea_-TaEGa7Y][introductory video]].  And,
+tdhock has a playlist [[https://www.youtube.com/playlist?list=PLwc48KSH3D1Onsed66FPLywMSIQmAhUYJ][Emacs and R]].
 
 
 There are some nice tutorials.  A somewhat older one is from Erik
