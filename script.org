@@ -1,55 +1,66 @@
-cycle visibility -- hit [TAB] on the following line (a "headlline")
+# cycle visibility -- hit [TAB] on the following line (a "headlline")
+* an org mode file
+** some setup
 
-* this is an org mode file
+<<babeldoloadlanguages>> to allow evaluating R code, evaluate this source block by putting
+point inside and typing [C-c C-c] (control C followed by control C)
+and giving permission for it to be evaluated.
+#+name: set-allowed-languages
+#+begin_src elisp :results none
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t) (R . t)))
+#+end_src
+
+to allow *editing* R code, evaluate this source block, etc.
+#+name: requireessrmode
+#+begin_src elisp :results none
+  (require 'ess-r-mode)
+#+end_src
+
+
+** Org Mode and its contents
 
 Emacs Org Mode is an outline-structured file format and backing
 software that allows you to (among many other things)
 
-** take notes
+*** take notes
 
 markup text
 
 via *asteriskizing*, =equalizing=, +plusizing+,
 /slashizing/, ~tildeizing~, _underscorizing_, etc.
 
-** export a file, or a subtree of it, as, e.g., an .html or .pdf file
+*** export a file, or a subtree of it, as, e.g., an .html or .pdf file
 
-for example, some people's initial use of org is as a front-end to
-LaTeX.
+some people's initial use of org is as a front-end to LaTeX.
 
+good support for typesetting math.
 
-** create agendas (items with date elements)
-
-I don't use this, so can't discuss it.  see, e.g., Rainer König's
-videos.
-
-** organize your LIFE!
+*** organize your LIFE!
 
 many people use it as a personal organizer ("GTD", etc.)
 
-** do calculations
+you can, e.g., create agendas (items with date elements)
 
-good support for typesetting math, LaTeX, etc.
+I don't use this, so can't discuss it.  see, e.g., Rainer König's
+videos (pointer in "Tutorials, Videos" at end of slides).
 
-**  other features, e.g., tables
+*** do calculations
+
+***  other features, e.g., tables
 
 support for storing information (including support for formulae)
 
-#+begin_src R :colnames yes :rownames yes
-mtcars[1:5,3:8]
-#+end_src
+     | Sede      | Max cites | H-index |
+     |-----------+-----------+---------|
+     | Chile     |    257.72 |   21.39 |
+     | Leeds     |    165.77 |   19.68 |
+     | Sao Paolo |     71.00 |   11.50 |
+     | Stockholm |    134.19 |   14.33 |
+     | Morelia   |    257.56 |   17.67 |
 
-#+RESULTS:
-|                   | disp |  hp | drat |    wt |  qsec | vs |
-|-------------------+------+-----+------+-------+-------+----|
-| Mazda RX4         |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |
-| Mazda RX4 Wag     |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |
-| Datsun 710        |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |
-| Hornet 4 Drive    |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |
-| Hornet Sportabout |  360 | 175 | 3.15 |  3.44 | 17.02 |  0 |
-
-
-* source code
+** Source code
 
 - embedded inline in source blocks
 
@@ -59,8 +70,8 @@ mtcars[1:5,3:8]
 - edit in "pop out" Org Src buffers (via [C-c ']), which, for R code,
   are =ESS[R]= buffers, with syntax highlighting, etc.
 
-- can be evaluated. *NB:* you need to customize
-  =org-build-load-languages= to allow, e.g, R code to be evaluated
+- can be evaluated. *NB:* you need [[babeldoloadlanguages][to customize]]
+  =org-babel-load-languages= to allow, e.g, R code to be evaluated
 
 #+name: somenorms
 #+begin_src R :exports code
@@ -75,13 +86,34 @@ mtcars[1:5,3:8]
   summary(avector)
 #+end_src
 
-- and can be exported, either just the code, just the results, or both
+- can be exported, either just the code, just the results, or both
   (or, neither: =:exports none=
 
-* results of evaluation
+enter [C-e C-s h o] to open a web browser on an export of just *this*
+/subtree/.
 
-there is a "header argument", =:results=, that defines how Org Mode
-captures and embeds the results of evaluating a source block.
+** =:session= -- Long-lived state (duration of emacs process)
+
+normally, code blocks are evaluated "clean slate"
+
+but, in some cases you may want to 
+- build up state/code piece by piece, over time
+- poke around, see what is happening, modify data
+- debug problems
+
+for this, you can use the =:session <NAME>= construct.  this creates a
+buffer with name =<NAME>=, and executes the code in that buffer.  for
+R, this is an ESS[R] buffer.
+
+(note, some languages don't allow this; some other languges that do
+allow this have different semantics with or without =:session=.)
+
+I almost always use =:session= when doing any non-trivial work
+
+** =:results= -- Results of evaluation
+
+the "header argument" =:results= defines how Org Mode captures and
+embeds the results of evaluating a source block.
 
 - the captured result can be either the value "returned" in the source
   block (for languages that have such a concept).  or, the output (to
@@ -115,35 +147,3 @@ captures and embeds the results of evaluating a source block.
 
 #+RESULTS:
 [[file:speed.png]]
-
-* =:session=
-
-normally, code blocks are evaluated "clean slate"
-
-but, in some cases you may want to 
-- build up state/code piece by piece, over time
-- poke around, see what is happening, modify data
-- debug problems
-
-for this, you can use the =:session <NAME>= construct.  this creates a
-buffer with name =<NAME>=, and executes the code in that buffer.  for
-R, this is an ESS[R] buffer.
-
-(note, some languages don't allow this; some other languges that do
-allow this have different semantics with or without =:session=.)
-
-I almost always use =:session= when doing any non-trivial work
-
-* use
-
-I find that during development, I flit between
-
-- the .org buffer
-  - including for minor, in-line, edits in source blocks
-- Org Src blocks
-  - these come and go as i need to edit
-- the R =:session= buffer, for
-  - examining state
-  - running functions, that i've written, or from base R or other R
-    packages
-  - debugging
