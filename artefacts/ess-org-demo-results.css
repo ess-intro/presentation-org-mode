@@ -855,6 +855,10 @@
         /* glyphless-char */
         font-size: 60%;
       }
+      .org-gnuplot-prompt {
+        /* gnuplot-prompt-face */
+        color: #b22222;
+      }
       .org-gnus-button {
         /* gnus-button */
         font-weight: bold;
@@ -1355,6 +1359,11 @@
         /* helm-moccur-buffer */
         color: #00ced1;
         text-decoration: underline;
+      }
+      .org-helm-no-file-buffer-modified {
+        /* helm-no-file-buffer-modified */
+        color: #ffa500;
+        background-color: #000000;
       }
       .org-helm-non-file-buffer {
         /* helm-non-file-buffer */
