@@ -404,6 +404,13 @@ source block and edit it in a buffer with the major mode set
 appropriately for the language of the source block.  In the case of an
 R source block, the major mode will (the R-flavor of) ESS, =ESS[R]=.
 
+To enabling editing R code (if you get an error message /No such
+language mode: R-mode/), you may need to evaluate the following code:
+#+name: requireessrmode
+#+begin_src elisp :results none
+  (require 'ess-r-mode)
+#+end_src
+
 Feel free to experiment with the following code.  On the R-help list,
 a new value for the vector =x= was proposed.
 : x <- c(1,1,1,2,2,3,4,4,4,5,6,6,6)
