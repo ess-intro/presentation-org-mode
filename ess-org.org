@@ -55,6 +55,11 @@ to get little modifier key thing:
 : pip install git+https://github.com/scottkirkwood/key-mon
 but, it doesn't like my control key.
 
+[[https://gitlab.com/screenkey/screenkey][screenkey]] is an arch package:
+: rm -f ~/.config/screenkey.json && screenkey -s large --geometry 400x200-1-1 --mods-mode emacs --ignore Caps_Lock --key-mode composed --persist --bg-color blue --timeout 1
+
+[[https://github.com/jingtaozf/literate-elisp][literate-elisp]] -- load elisp into emacs directly from org source blocks
+
 ** elisp code                                                       :noexport:
        :PROPERTIES:
        :header-args+: :tangle ./tangled/el-org.el
