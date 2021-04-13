@@ -86,7 +86,7 @@ EMACSSETUP = "(progn ${EMACSLL} (require 'el-org) ${EMACSTRUSTEVAL})"
 # now, evaluate all org source blocks in the file
 EMACSORGBLOCKS = (resultify-org-blocks)
 # now, evaluate all *non* org source blocks in the file
-EMACSNONORGBLOCKS = (let ((ess-ask-for-ess-directory nil)) (resultify-non-org-blocks) (save-buffer))
+EMACSNONORGBLOCKS = "(progn (require 'ess) (setq ess-ask-for-ess-directory nil) (resultify-non-org-blocks) (save-buffer))"
 # 
 EMACSORGIFY = (progn (orgify-all-non-org-blocks) (save-buffer))
 # macrify -- expand all macros and fill the paragraphs in which they
@@ -158,7 +158,7 @@ ${DEMORESULTSORG}: ${DEMOEXPANDEDORG} tangle
 		--eval '${EMACSLOADPATH}' \
 		--eval ${EMACSSETUP} \
 		--eval ${EMACSGETESSAUTOLOADS} \
-		--eval "${EMACSNONORGBLOCKS}" \
+		--eval ${EMACSNONORGBLOCKS} \
 		--eval "${EMACSORGIFY}" \
 		--batch
 
