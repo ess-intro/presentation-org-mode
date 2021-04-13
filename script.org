@@ -1,0 +1,149 @@
+cycle visibility -- hit [TAB] on the following line (a "headlline")
+
+* this is an org mode file
+
+Emacs Org Mode is an outline-structured file format and backing
+software that allows you to (among many other things)
+
+** take notes
+
+markup text
+
+via *asteriskizing*, =equalizing=, +plusizing+,
+/slashizing/, ~tildeizing~, _underscorizing_, etc.
+
+** export a file, or a subtree of it, as, e.g., an .html or .pdf file
+
+for example, some people's initial use of org is as a front-end to
+LaTeX.
+
+
+** create agendas (items with date elements)
+
+I don't use this, so can't discuss it.  see, e.g., Rainer König's
+videos.
+
+** organize your LIFE!
+
+many people use it as a personal organizer ("GTD", etc.)
+
+** do calculations
+
+good support for typesetting math, LaTeX, etc.
+
+**  other features, e.g., tables
+
+support for storing information (including support for formulae)
+
+#+begin_src R :colnames yes :rownames yes
+mtcars[1:5,3:8]
+#+end_src
+
+#+RESULTS:
+|                   | disp |  hp | drat |    wt |  qsec | vs |
+|-------------------+------+-----+------+-------+-------+----|
+| Mazda RX4         |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |
+| Mazda RX4 Wag     |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |
+| Datsun 710        |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |
+| Hornet 4 Drive    |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |
+| Hornet Sportabout |  360 | 175 | 3.15 |  3.44 | 17.02 |  0 |
+
+
+* source code
+
+- embedded inline in source blocks
+
+- edit inline, with limited support for fontification, syntax
+  checking, etc.
+
+- edit in "pop out" Org Src buffers (via [C-c ']), which, for R code,
+  are =ESS[R]= buffers, with syntax highlighting, etc.
+
+- can be evaluated. *NB:* you need to customize
+  =org-build-load-languages= to allow, e.g, R code to be evaluated
+
+#+name: somenorms
+#+begin_src R :exports code
+  ## only the code here is exported
+  rnorm(5)
+#+end_src
+
+- the output of one source block can be used as input to another
+
+#+begin_src R :var avector=somenorms :exports both
+  ## here, both the code and the results are exported
+  summary(avector)
+#+end_src
+
+- and can be exported, either just the code, just the results, or both
+  (or, neither: =:exports none=
+
+* results of evaluation
+
+there is a "header argument", =:results=, that defines how Org Mode
+captures and embeds the results of evaluating a source block.
+
+- the captured result can be either the value "returned" in the source
+  block (for languages that have such a concept).  or, the output (to
+  stdout) written by the code.  (the default is =value=.)
+
+#+begin_src R :results value
+  cat("42\n")
+  invisible(23)
+#+end_src
+
+#+begin_src R :results output
+  cat("42\n")
+  invisible(23)
+#+end_src
+
+- the =:results= header argument (and the =:wrap= argument) also
+  specifies how the results are interpreted by Org Mode, and how Org
+  Mode embeds the results in the .org file.
+
+#+begin_src R :file speed.png :results file graphics
+  ## from "?graphics::plot"
+  Speed <- cars$speed
+  Distance <- cars$dist
+  plot(Speed, Distance, panel.first = grid(8, 8),
+       pch = 0, cex = 1.2, col = "blue")
+  plot(Speed, Distance,
+       panel.first = lines(stats::lowess(Speed, Distance), lty = "dashed"),
+       pch = 0, cex = 1.2, col = "blue")
+
+#+end_src
+
+#+RESULTS:
+[[file:speed.png]]
+
+* =:session=
+
+normally, code blocks are evaluated "clean slate"
+
+but, in some cases you may want to 
+- build up state/code piece by piece, over time
+- poke around, see what is happening, modify data
+- debug problems
+
+for this, you can use the =:session <NAME>= construct.  this creates a
+buffer with name =<NAME>=, and executes the code in that buffer.  for
+R, this is an ESS[R] buffer.
+
+(note, some languages don't allow this; some other languges that do
+allow this have different semantics with or without =:session=.)
+
+I almost always use =:session= when doing any non-trivial work
+
+* use
+
+I find that during development, I flit between
+
+- the .org buffer
+  - including for minor, in-line, edits in source blocks
+- Org Src blocks
+  - these come and go as i need to edit
+- the R =:session= buffer, for
+  - examining state
+  - running functions, that i've written, or from base R or other R
+    packages
+  - debugging
