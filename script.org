@@ -2,7 +2,7 @@
 * an org mode file
 ** some setup
 
-<<babeldoloadlanguages>> to allow evaluating R code, evaluate this source block by putting
+to allow evaluating R code, evaluate this source block by putting
 point inside and typing [C-c C-c] (control C followed by control C)
 and giving permission for it to be evaluated.
 #+name: set-allowed-languages
@@ -24,33 +24,10 @@ to allow *editing* R code, evaluate this source block, etc.
 Emacs Org Mode is an outline-structured file format and backing
 software that allows you to (among many other things)
 
-*** take notes
+***  tables
 
-markup text
-
-via *asteriskizing*, =equalizing=, +plusizing+,
-/slashizing/, ~tildeizing~, _underscorizing_, etc.
-
-*** export a file, or a subtree of it, as, e.g., an .html or .pdf file
-
-some people's initial use of org is as a front-end to LaTeX.
-
-good support for typesetting math.
-
-*** organize your LIFE!
-
-many people use it as a personal organizer ("GTD", etc.)
-
-you can, e.g., create agendas (items with date elements)
-
-I don't use this, so can't discuss it.  see, e.g., Rainer König's
-videos (pointer in "Tutorials, Videos" at end of slides).
-
-*** do calculations
-
-***  other features, e.g., tables
-
-support for storing information (including support for formulae)
+Org Mode tables are very nice.  (They also include support for
+formulae.)
 
      | Sede      | Max cites | H-index |
      |-----------+-----------+---------|
@@ -69,15 +46,17 @@ a source block.  can edit, evaluate, export
   rnorm(5)
 #+end_src
 
-- enter [C-e C-s h o] to open a web browser on an export of just
-  *this* /subtree/.
-
 - the output of one source block can be used as input to another
 
 #+begin_src R :var avector=somenorms :exports both
   ## here, both the code and the results are exported
   summary(avector)
 #+end_src
+
+- enter
+: [C-e C-s h o]
+  and give permission to evaluate the code blocks, to open a web
+  browser on an export of just *this* /subtree/.
 
 ** =:session= -- Long-lived state (duration of emacs process)
 
@@ -88,12 +67,9 @@ a source block.  can edit, evaluate, export
   }
 #+end_src
 
-#+RESULTS:
-
 ** =:results= -- Results of evaluation
 
-the "header argument" =:results= defines how Org Mode captures and
-embeds the results of evaluating a source block.
+/value/ versus /output/
 
 #+begin_src R :results value
   cat("42\n")
@@ -105,9 +81,8 @@ embeds the results of evaluating a source block.
   invisible(23)
 #+end_src
 
-- the =:results= header argument (and the =:wrap= argument) also
-  specifies how the results are interpreted by Org Mode, and how Org
-  Mode embeds the results in the .org file.
+what *kind* of result?  here, a graphic file (named by the =:file=
+header argument).
 
 #+begin_src R :file speed.png :results file graphics
   ## from "?graphics::plot"
@@ -120,8 +95,5 @@ embeds the results of evaluating a source block.
        pch = 0, cex = 1.2, col = "blue")
 
 #+end_src
-
-#+RESULTS:
-[[file:speed.png]]
 
 ([C-c C-o] to open)
