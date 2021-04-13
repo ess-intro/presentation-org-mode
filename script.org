@@ -54,7 +54,7 @@ a source block.  can edit, evaluate, export
 #+end_src
 
 - enter
-: [C-e C-s h o]
+: [C-c C-e C-s h o]
   and give permission to evaluate the code blocks, to open a web
   browser on an export of just *this* /subtree/.
 
