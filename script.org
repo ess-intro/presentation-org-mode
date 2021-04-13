@@ -62,22 +62,15 @@ support for storing information (including support for formulae)
 
 ** Source code
 
-- embedded inline in source blocks
-
-- edit inline, with limited support for fontification, syntax
-  checking, etc.
-
-- edit in "pop out" Org Src buffers (via [C-c ']), which, for R code,
-  are =ESS[R]= buffers, with syntax highlighting, etc.
-
-- can be evaluated. *NB:* you need [[babeldoloadlanguages][to customize]]
-  =org-babel-load-languages= to allow, e.g, R code to be evaluated
-
+a source block.  can edit, evaluate, export
 #+name: somenorms
 #+begin_src R :exports code
   ## only the code here is exported
   rnorm(5)
 #+end_src
+
+- enter [C-e C-s h o] to open a web browser on an export of just
+  *this* /subtree/.
 
 - the output of one source block can be used as input to another
 
@@ -86,38 +79,21 @@ support for storing information (including support for formulae)
   summary(avector)
 #+end_src
 
-- can be exported, either just the code, just the results, or both
-  (or, neither: =:exports none=
-
-enter [C-e C-s h o] to open a web browser on an export of just *this*
-/subtree/.
-
 ** =:session= -- Long-lived state (duration of emacs process)
 
-normally, code blocks are evaluated "clean slate"
+#+begin_src R :session R :results none
+  ## this will run in a session
+  demo <- function(a) {
+    2*a
+  }
+#+end_src
 
-but, in some cases you may want to 
-- build up state/code piece by piece, over time
-- poke around, see what is happening, modify data
-- debug problems
-
-for this, you can use the =:session <NAME>= construct.  this creates a
-buffer with name =<NAME>=, and executes the code in that buffer.  for
-R, this is an ESS[R] buffer.
-
-(note, some languages don't allow this; some other languges that do
-allow this have different semantics with or without =:session=.)
-
-I almost always use =:session= when doing any non-trivial work
+#+RESULTS:
 
 ** =:results= -- Results of evaluation
 
 the "header argument" =:results= defines how Org Mode captures and
 embeds the results of evaluating a source block.
-
-- the captured result can be either the value "returned" in the source
-  block (for languages that have such a concept).  or, the output (to
-  stdout) written by the code.  (the default is =value=.)
 
 #+begin_src R :results value
   cat("42\n")
@@ -147,3 +123,5 @@ embeds the results of evaluating a source block.
 
 #+RESULTS:
 [[file:speed.png]]
+
+([C-c C-o] to open)
