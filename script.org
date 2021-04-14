@@ -19,29 +19,11 @@ to allow *editing* R code, evaluate this source block, etc.
 #+end_src
 
 
-** Org Mode and its contents
-
-Emacs Org Mode is an outline-structured file format and backing
-software that allows you to (among many other things)
-
-***  tables
-
-Org Mode tables are very nice.  (They also include support for
-formulae.)
-
-     | Sede      | Max cites | H-index |
-     |-----------+-----------+---------|
-     | Chile     |    257.72 |   21.39 |
-     | Leeds     |    165.77 |   19.68 |
-     | Sao Paolo |     71.00 |   11.50 |
-     | Stockholm |    134.19 |   14.33 |
-     | Morelia   |    257.56 |   17.67 |
-
 ** Source code
 
-a source block.  can edit, evaluate, export
+A source block can be evaluated, exported, "tangled", edited
 #+name: somenorms
-#+begin_src R :exports code
+#+begin_src R :exports code :tangle somenorms.R
   ## only the code here is exported
   rnorm(5)
 #+end_src
@@ -57,15 +39,6 @@ a source block.  can edit, evaluate, export
 : [C-c C-e C-s h o]
   and give permission to evaluate the code blocks, to open a web
   browser on an export of just *this* /subtree/.
-
-** =:session= -- Long-lived state (duration of emacs process)
-
-#+begin_src R :session R :results none
-  ## this will run in a session
-  demo <- function(a) {
-    2*a
-  }
-#+end_src
 
 ** =:results= -- Results of evaluation
 
@@ -97,3 +70,13 @@ header argument).
 #+end_src
 
 ([C-c C-o] to open)
+
+** =:session= -- Long-lived state (duration of emacs process)
+
+#+begin_src R :session R :results none
+  ## this will run in a session
+  demo <- function(a) {
+    2*a
+  }
+#+end_src
+
