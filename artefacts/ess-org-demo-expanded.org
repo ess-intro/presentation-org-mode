@@ -265,10 +265,6 @@ src_R{"42"} {{{results(=42=)}}}
 x
 #+end_src
 
-#+RESULTS:
-| 42 |
-|    |
-
 ** <<evaluating>> /Evaluating/ source blocks
 
 In order to enable evaluation of source blocks of R code, you will
@@ -509,11 +505,6 @@ placed in the Org Mode buffer.
 mtcars[1:3,]
 #+END_SRC
 
-#+RESULTS:
-|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |
-|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |
-| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |
-
 #+begin_src R :colnames yes :rownames yes
 mtcars[1:3,]
 #+end_src
@@ -625,16 +616,6 @@ In the following code block, the [[colnames][:colnames]] header argument is set 
   summary(tbl)
 #+end_src
 
-#+RESULTS:
-| student          | first.exam   | second.exam  | final       |
-|------------------+--------------+--------------+-------------|
-| Length:4         | Min.   :1.00 | Min.   :1.00 | Min.   :2.0 |
-| Class :character | 1st Qu.:1.75 | 1st Qu.:1.75 | 1st Qu.:2.0 |
-| Mode  :character | Median :2.50 | Median :2.50 | Median :2.0 |
-|                  | Mean   :2.50 | Mean   :2.50 | Mean   :2.5 |
-|                  | 3rd Qu.:3.25 | 3rd Qu.:3.25 | 3rd Qu.:2.5 |
-|                  | Max.   :4.00 | Max.   :4.00 | Max.   :4.0 |
-
 For R code, a second effect of setting =:colnames= to =yes= is that if
 the *result* is an R data frame, its column names (=colnames()=) will
 be preserved in the resulting Org Mode table
@@ -643,23 +624,9 @@ be preserved in the resulting Org Mode table
   mtcars[1:4,]
 #+end_src
 
-#+RESULTS:
-|  mpg | cyl | disp |  hp | drat |    wt |  qsec | vs | am | gear | carb |
-|------+-----+------+-----+------+-------+-------+----+----+------+------|
-|   21 |   6 |  160 | 110 |  3.9 |  2.62 | 16.46 |  0 |  1 |    4 |    4 |
-|   21 |   6 |  160 | 110 |  3.9 | 2.875 | 17.02 |  0 |  1 |    4 |    4 |
-| 22.8 |   4 |  108 |  93 | 3.85 |  2.32 | 18.61 |  1 |  1 |    4 |    1 |
-| 21.4 |   6 |  258 | 110 | 3.08 | 3.215 | 19.44 |  1 |  0 |    3 |    1 |
-
 #+begin_src R :colnames no
   mtcars[1:4,]
 #+end_src
-
-#+RESULTS:
-|   21 | 6 | 160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |
-|   21 | 6 | 160 | 110 |  3.9 | 2.875 | 17.02 | 0 | 1 | 4 | 4 |
-| 22.8 | 4 | 108 |  93 | 3.85 |  2.32 | 18.61 | 1 | 1 | 4 | 1 |
-| 21.4 | 6 | 258 | 110 | 3.08 | 3.215 | 19.44 | 1 | 0 | 3 | 1 |
 
 *** =:results=
 	:PROPERTIES:
@@ -686,15 +653,9 @@ blocks.  The values here are =value= and =output=.
   <<usenowebhere>>
 #+end_src
 
-#+RESULTS:
-: 3.141593
-
 #+begin_src R :results value
   <<usenowebhere>>
 #+end_src
-
-#+RESULTS:
-: 6.28318530717959
 
 **** Type of result
 
@@ -745,11 +706,6 @@ can specify =code=:
   "<<results-noweb>>"
 #+end_src
 
-#+RESULTS:
-:results:
-mtcars[c(1,12,13, 19),]
-:end:
-
 This also shows that =noweb= syntax isn't defeated by, e.g., being
 embedded inside quotation marks.  One can also specify that the
 results be embedded in an Org Mode "drawer" (which can be "closed", so
@@ -766,6 +722,20 @@ results are summarily wrapped in a =#+begin_X...#+end_X= block.
   3
 #+end_src
 
+Here the code creates a graphic file (named by the =:file= header
+argument).
+
+#+begin_src R :file speed.png :results output file graphics :exports code
+  ## from "?graphics::plot"
+  Speed <- cars$speed
+  Distance <- cars$dist
+  plot(Speed, Distance, panel.first = grid(8, 8),
+       pch = 0, cex = 1.2, col = "blue")
+  plot(Speed, Distance,
+       panel.first = lines(stats::lowess(Speed, Distance), lty = "dashed"),
+       pch = 0, cex = 1.2, col = "blue")
+
+#+end_src
 
 **** Handling of results
 
@@ -778,16 +748,10 @@ where =<NAME>= is the name of the source block, if any, or blank.
   Sys.time()
 #+end_src
 
-#+RESULTS:
-: 2021-03-31 09:01:47
-
 #+name: time
 #+begin_src R
   Sys.time()
 #+end_src
-
-#+RESULTS: time
-: 2021-03-31 09:01:57
 
 However, this behavior can be modified with the =:results= header
 argument.  The relevant options are
