@@ -6,6 +6,7 @@ artefacts/ess-org-demo-results.pdf?*
 artefacts/ess-org-demo-results.tex*
 artefacts/ess-org-startup.org
 artefacts/ggm-twbs.html-fragment
+artefacts/speed.png
 artefacts/*.html~
 ess-org-beamer.html*
 ess-org-beamer.pdf*
@@ -16,5 +17,9 @@ ess-org-demo.tex*
 ess-org-demo-results.tex~
 ess-org.pdf*
 ess-org.tex*
+script.html*
+script.pdf*
+script.tex*
+speed.png
 tangled/
 touched/
