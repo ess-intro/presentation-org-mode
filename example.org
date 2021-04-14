@@ -1,14 +1,77 @@
-#+name: lookup
+* set up Org Mode (one time)
+
+** emacs, org mode setup :noexport:
+
+to allow evaluating R code, evaluate this source block by putting
+point inside and typing [C-c C-c] (control C followed by control C)
+and giving permission for it to be evaluated.
+#+name: set-allowed-languages
+#+begin_src elisp :results none
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t) (R . t)))
+#+end_src
+(normally, you would do this by customizing
+=org-babel-load-languages=.)
+
+then, to allow *editing* R code, evaluate this source block, etc.
+#+name: requireessrmode
+#+begin_src elisp :results none
+  (require 'ess-r-mode)
+#+end_src
+
+** first R source block -- lookup something
+
+let's evaluate this
+
 #+begin_src R
   state.abb[match("Wyoming", state.name)]
   lookup <- function(state, where) {
-    where[match(state, where)]
+    where[match(state, where)] # XXX
   }
 
   lookup("Wyoming", state.abb)
 #+end_src
 
-#+RESULTS: lookup
+#+RESULTS:
+
+** second source block -- find some state statistics
+
+
+#+begin_src R
+    state.x77[,"HS Grad"][match("Wyoming", state.name)]
+#+end_src
+
+#+RESULTS:
+: 62.9
+
+** re-do second source block
+
+maybe we could re-use the lookup function?  using noweb?
+
+#+name: lookup
+#+begin_src R
+  lookup <- function(state, where) {
+    where[match(state, state.name)]
+  }
+#+end_src
+
+okay, now we can include it with noweb
+
+#+begin_src R :noweb yes
+  <<lookup>>
+
+  lookup("Wyoming", state.x77[,"HS Grad"])
+
+#+end_src
+
+#+RESULTS:
+: 62.9
+
+** now, do a graph, state density versus life expectancy
+
+we realize, we'd like *also* to have the lookup of state statistics as
+a common routine.  so, re-do the above code a bit...
 
 #+name: state_stat
 #+begin_src R :results none
@@ -26,14 +89,15 @@
 #+end_src
 
 #+RESULTS:
+: 62.9
 
-
+and, now, write the graph routine.  i hope it works!
 
 #+begin_src R :file expect.png :results output file graphics :exports both :noweb yes
   <<state_stat>> # note: syntax checker doesn't understand =noweb= references
   <<lookup>>
 
-  density <- state_stat("Population") %/% state_stat("Area")
+  density <- state_stat("Population") / state_stat("Area") # XXX
   expectancy <- state_stat("Life Exp")
 
   plot(density, expectancy,
