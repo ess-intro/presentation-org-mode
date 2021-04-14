@@ -84,7 +84,7 @@ a source block.  can edit, evaluate, export
 what *kind* of result?  here, a graphic file (named by the =:file=
 header argument).
 
-#+begin_src R :file speed.png :results file graphics
+#+begin_src R :file speed.png :results output file graphics
   ## from "?graphics::plot"
   Speed <- cars$speed
   Distance <- cars$dist
