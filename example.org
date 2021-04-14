@@ -33,19 +33,15 @@ let's evaluate this
   lookup("Wyoming", state.abb)
 #+end_src
 
-#+RESULTS:
+we seem a bit low on results.  what's wrong?
 
 ** second source block -- find some state statistics
-
 
 #+begin_src R
     state.x77[,"HS Grad"][match("Wyoming", state.name)]
 #+end_src
 
-#+RESULTS:
-: 62.9
-
-** re-do second source block
+** third re-do second source block
 
 maybe we could re-use the lookup function?  using noweb?
 
@@ -58,20 +54,22 @@ maybe we could re-use the lookup function?  using noweb?
 
 okay, now we can include it with noweb
 
-#+begin_src R :noweb yes
+#+begin_src R
   <<lookup>>
 
   lookup("Wyoming", state.x77[,"HS Grad"])
 
 #+end_src
 
-#+RESULTS:
-: 62.9
+** fourth: now, do a graph, state density versus life expectancy
 
-** now, do a graph, state density versus life expectancy
+for this, we're going to be accessing various state statistics, so we
+realize we'd like *also* to have the lookup of state statistics as a
+common routine.
 
-we realize, we'd like *also* to have the lookup of state statistics as
-a common routine.  so, re-do the above code a bit...
+*** fifth:
+
+so, re-do the above code a bit...
 
 #+name: state_stat
 #+begin_src R :results none
@@ -79,6 +77,8 @@ a common routine.  so, re-do the above code a bit...
     state.x77[,which]
   }
 #+end_src
+
+and, make use of that, see if it works.
 
 #+begin_src R :noweb yes
   <<state_stat>>
@@ -88,24 +88,45 @@ a common routine.  so, re-do the above code a bit...
 
 #+end_src
 
-#+RESULTS:
-: 62.9
+*** sixth: some routines to compute the specific stats we want
 
-and, now, write the graph routine.  i hope it works!
+now, what is the density?  =population=/=area=, i guess.  let's
+compute.  in a separate code block, and use its *output*, via a =:var=
+header argument, to pass the results to our graphing code below.  note
+that =:results= is set to =table=.  (adding =drawer= means we can hide
+it away easier, to keep the visual buffer less cluttered.)
 
+also, we'll write (below) a routine to access the life expectancies.
+
+#+name: density
+#+begin_src R :results table drawer :noweb yes
+  <<state_stat>>
+  state_stat("Population") %/% state_stat("Area") # XXX
+#+end_src
+
+
+#+name: expectancy
+#+begin_src R :results table drawer :noweb yes
+  <<state_stat>>
+  state_stat("Life Exp")
+#+end_src
+
+*** seventh, the graphing code itself.
+
+and, now, write the graph routine.  i hope it works!  notice that we
+aren't accessing =density= and =expectancy= via =:noweb=, but, rather,
+via =:var=.
+
+#+header: :var density=density expectancy=expectancy :session R
 #+begin_src R :file expect.png :results output file graphics :exports both :noweb yes
   <<state_stat>> # note: syntax checker doesn't understand =noweb= references
   <<lookup>>
 
-  density <- state_stat("Population") / state_stat("Area") # XXX
-  expectancy <- state_stat("Life Exp")
-
+  density <- density[,1]
+  expectancy <- expectancy[,1]
   plot(density, expectancy,
        panel.first = lines(stats::lowess(density, expectancy), lty = "dashed"),
        pch = ".", cex = 1.2, col = "blue")
   text(density, expectancy,  lookup(rownames(state.x77), state.abb),
-       pos=1, cex=1, col="red", type="n")
+       pos=1, cex=1, col="red")
 #+end_src
-
-#+RESULTS:
-[[file:expect.png]]
