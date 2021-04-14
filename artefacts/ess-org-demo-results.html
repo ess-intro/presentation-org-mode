@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-04-13 Tue 18:57 -->
+<!-- 2021-04-14 Wed 17:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -1445,12 +1445,6 @@ can specify <code>code</code>:
 <span class="org-org-block-begin-line">#+begin_src R</span>
 mtcars[c(1,12,13, 19),]
 <span class="org-org-block-end-line">#+end_src</span>
-
-<span class="org-org-meta-line">#+RESULTS:</span>
-<span class="org-org-table">|   21 | 6 |   160 | 110 |  3.9 |  2.62 | 16.46 | 0 | 1 | 4 | 4 |</span>
-<span class="org-org-table">| 16.4 | 8 | 275.8 | 180 | 3.07 |  4.07 |  17.4 | 0 | 0 | 3 | 3 |</span>
-<span class="org-org-table">| 17.3 | 8 | 275.8 | 180 | 3.07 |  3.73 |  17.6 | 0 | 0 | 3 | 3 |</span>
-<span class="org-org-table">| 30.4 | 4 |  75.7 |  52 | 4.93 | 1.615 | 18.52 | 1 | 1 | 4 | 2 |</span>
 </pre>
 </div>
 
@@ -1482,9 +1476,29 @@ results are summarily wrapped in a <code>#+begin_X...#+end_X</code> block.
 <span class="org-org-block-end-line">#+end_foo</span>
 </pre>
 </div>
+
+
+<p>
+Here the code creates a graphic file (named by the <code>:file</code> header
+argument).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span class="org-org-block-begin-line">#+begin_src R :file speed.png :results output file graphics :exports code</span>
+  ## from "?graphics::plot"
+  Speed &lt;- cars$speed
+  Distance &lt;- cars$dist
+  plot(Speed, Distance, panel.first = grid(8, 8),
+       pch = 0, cex = 1.2, col = "blue")
+  plot(Speed, Distance,
+       panel.first = lines(stats::lowess(Speed, Distance), lty = "dashed"),
+       pch = 0, cex = 1.2, col = "blue")
+
+<span class="org-org-block-end-line">#+end_src</span>
+</pre>
+</div>
 </div>
 </li>
-
 
 
 <li><a id="org86f0390"></a>Handling of results<br />
@@ -1507,7 +1521,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS:</span>
-<span class="org-org-code">: 2021-04-13 18:57:35</span>
+<span class="org-org-code">: 2021-04-14 17:54:51</span>
 </pre>
 </div>
 
@@ -1519,7 +1533,7 @@ where <code>&lt;NAME&gt;</code> is the name of the source block, if any, or blan
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS: time</span>
-<span class="org-org-code">: 2021-04-13 18:57:35</span>
+<span class="org-org-code">: 2021-04-14 17:54:51</span>
 </pre>
 </div>
 
@@ -1738,7 +1752,7 @@ Then, a source that produces a different value each second:
 <span class="org-org-block-end-line">#+end_src</span>
 
 <span class="org-org-meta-line">#+RESULTS: unstable</span>
-<span class="org-org-code">: 2021-04-13 18:57:37</span>
+<span class="org-org-code">: 2021-04-14 17:54:53</span>
 </pre>
 </div>
 
@@ -1773,8 +1787,8 @@ you evaluate it, it will take the full two seconds.
   input
 <span class="org-org-block-end-line">#+end_src</span>
 
-<span class="org-org-meta-line">#+RESULTS[3c259be98141c80519a86096197561dff80db0d8]:</span>
-<span class="org-org-code">: 2021-04-13 18:57:39</span>
+<span class="org-org-meta-line">#+RESULTS[d429ef3cd18cf71af6e4e4a7c85c7a2cff3fc8c6]:</span>
+<span class="org-org-code">: 2021-04-14 17:54:56</span>
 </pre>
 </div>
 </div>
@@ -1863,7 +1877,7 @@ file in Emacs, you may have noticed instances in this document.</p></div></div>
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Greg Minshall</p>
-<p class="date">Created: 2021-04-13 Tue 18:57</p>
+<p class="date">Created: 2021-04-14 Wed 17:55</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
