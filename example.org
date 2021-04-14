@@ -1,0 +1,47 @@
+#+name: lookup
+#+begin_src R
+  state.abb[match("Wyoming", state.name)]
+  lookup <- function(state, where) {
+    where[match(state, where)]
+  }
+
+  lookup("Wyoming", state.abb)
+#+end_src
+
+#+RESULTS: lookup
+
+#+name: state_stat
+#+begin_src R :results none
+  state_stat <- function(which) {
+    state.x77[,which]
+  }
+#+end_src
+
+#+begin_src R :noweb yes
+  <<state_stat>>
+  <<lookup>>
+
+  lookup("Wyoming", state_stat("HS Grad"))
+
+#+end_src
+
+#+RESULTS:
+
+
+
+#+begin_src R :file expect.png :results output file graphics :exports both :noweb yes
+  <<state_stat>> # note: syntax checker doesn't understand =noweb= references
+  <<lookup>>
+
+  density <- state_stat("Population") %/% state_stat("Area")
+  expectancy <- state_stat("Life Exp")
+
+  plot(density, expectancy,
+       panel.first = lines(stats::lowess(density, expectancy), lty = "dashed"),
+       pch = ".", cex = 1.2, col = "blue")
+  text(density, expectancy,  lookup(rownames(state.x77), state.abb),
+       pos=1, cex=1, col="red", type="n")
+#+end_src
+
+#+RESULTS:
+[[file:expect.png]]
