@@ -122,7 +122,7 @@ now, what is the density?  =population=/=area=, i guess.
 #+name: density
 #+begin_src R :results table drawer :noweb yes
   <<state_stat>>
-  state_stat("Population") / state_stat("Area") # XXX
+  state_stat("Population") %/% state_stat("Area") # XXX
 #+end_src
 
 
@@ -143,8 +143,6 @@ i hope it works!
 #+begin_src R 
   <<lookup>>  # note: syntax checker doesn't understand =:noweb= references
 
-  density <- density[,1]
-  expectancy <- expectancy[,1]
   plot(density, expectancy,
        panel.first = lines(stats::lowess(density, expectancy), lty = "dashed"),
        pch = ".", cex = 1.2, col = "blue")
