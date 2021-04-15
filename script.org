@@ -25,8 +25,20 @@ A source block can be evaluated, exported, "tangled", edited
 #+name: somenorms
 #+begin_src R :exports code :tangle somenorms.R
   ## only the code here is exported
-  rnorm(5)
+  if (TRUE) {
+    cat("we did this!\n")
+  }
+  rnorm(7)
 #+end_src
+
+#+RESULTS: somenorms
+|  -1.17785501433102 |
+|  -1.09310577616741 |
+| -0.467161538524595 |
+|  -1.63219999705389 |
+| -0.166802921625093 |
+| -0.171290970964292 |
+|  -0.28006416862047 |
 
 - the output of one source block can be used as input to another
 
@@ -34,6 +46,14 @@ A source block can be evaluated, exported, "tangled", edited
   ## here, both the code and the results are exported
   summary(avector)
 #+end_src
+
+#+RESULTS:
+| Min.   :-1.0295 |
+| 1st Qu.:-0.6115 |
+| Median :-0.4063 |
+| Mean   :-0.4120 |
+| 3rd Qu.:-0.1716 |
+| Max.   : 0.1181 |
 
 - enter
 : [C-c C-e C-s h o]
@@ -49,15 +69,21 @@ A source block can be evaluated, exported, "tangled", edited
   invisible(23)
 #+end_src
 
+#+RESULTS:
+: 23
+
 #+begin_src R :results output
   cat("42\n")
   invisible(23)
 #+end_src
 
+#+RESULTS:
+: 42
+
 what *kind* of result?  here, a graphic file (named by the =:file=
 header argument).
 
-#+begin_src R :file speed.png :results output file graphics
+#+begin_src R :file speed.png :results output file graphics :exports both
   ## from "?graphics::plot"
   Speed <- cars$speed
   Distance <- cars$dist
@@ -68,6 +94,9 @@ header argument).
        pch = 0, cex = 1.2, col = "blue")
 
 #+end_src
+
+#+RESULTS:
+[[file:speed.png]]
 
 ([C-c C-o] to open)
 
