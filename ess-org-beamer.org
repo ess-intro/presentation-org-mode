@@ -147,7 +147,7 @@ In Emacs, I find that I flit between three buffers:
   
 - the other presentations in this [[https://ess-intro.github.io/][ESS intro series]]
 
-- the beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][pdf]])
+- the beamer slides for this tutorial are [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.pdf][here]] ([[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-beamer.html][html]])
 
 - a [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-expanded.org][.org file]] for experimenting (an HTML version [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.html][here]] and a PDF
   one [[https://ess-intro.github.io/presentation-org-mode/artefacts/ess-org-demo-results.pdf][here]])
